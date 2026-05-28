@@ -653,7 +653,7 @@ ol {
 }
 
 .step-card:hover {
-  transform: translateY(-4px) rotate(-0.4deg);
+  transform: translateY(-4px);
   box-shadow: var(--shadow-card-hover);
 }
 
@@ -731,12 +731,11 @@ ol {
 }
 
 .persona-card:hover {
-  transform: translateY(-4px) rotate(0.4deg);
+  transform: translateY(-4px);
   box-shadow: var(--shadow-card-hover);
 }
 
 .persona-card:hover::before {
-  transform: rotate(28deg);
   opacity: 0.9;
 }
 
@@ -783,20 +782,13 @@ ol {
 
 .insight-card:hover {
   box-shadow: var(--shadow-card-hover);
-  transform: translateY(-4px) rotate(-0.3deg);
+  transform: translateY(-4px);
 }
 
 .insight-card:nth-child(2) {
   margin-top: 24px;
 }
 
-.insight-card:nth-child(2):hover {
-  transform: translateY(-4px) rotate(0.4deg);
-}
-
-.insight-card:nth-child(3):hover {
-  transform: translateY(-4px) rotate(-0.2deg);
-}
 
 .insight-card:hover h3 {
   color: var(--color-primary);
