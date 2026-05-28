@@ -1352,6 +1352,7 @@ After all 11 tasks land:
 - **Real Privacy + Terms policies:** the placeholder routes from Task 10 need real legal copy before serious sales motion.
 - **Scroll-triggered fade-in for stats + headings** per the plan's motion philosophy — fits naturally with `emil-design-eng` (motion as invisible polish) or `frontend-design` once structure is settled.
 - **Hero credibility line / social proof beneath hero** — deferred until real attribution, pilot outcome, or logo strip exists. Plan drift item from `darpan-marketing-redesign-plan.md:104-110` stays open.
+- **MobileMenu focus management + focus trap** — code-quality reviewer on Task 1 flagged two Important a11y issues: (a) focus does not move into the dialog on open / does not return to the trigger on close (WCAG 2.4.3); (b) no JS focus trap intercepting Tab/Shift+Tab, which contradicts the `aria-modal="true"` contract. Menu functions but keyboard users may stray into background content. Fix sketch is in the code-quality review artifact for Task 1 (uses `triggerRef`, `dialogRef`, a single keydown effect with a `FOCUSABLE_SELECTOR` constant). Address as a small follow-up in a dedicated commit.
 
 ---
 
