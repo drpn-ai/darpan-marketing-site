@@ -488,51 +488,6 @@ ol {
   white-space: nowrap;
 }
 
-.hero-squiggle {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: -0.18em;
-  width: 100%;
-  height: 0.28em;
-  color: var(--color-accent);
-  pointer-events: none;
-}
-
-.deco-spark {
-  position: absolute;
-  color: var(--color-accent);
-  opacity: 0.55;
-  pointer-events: none;
-}
-
-.deco-spark--hero-tr {
-  top: 22%;
-  right: 10%;
-  transform: rotate(12deg);
-}
-
-.deco-spark--hero-bl {
-  bottom: 18%;
-  left: 8%;
-  transform: rotate(-18deg);
-  opacity: 0.4;
-}
-
-.deco-spark--pain {
-  top: 80px;
-  right: 8%;
-  transform: rotate(8deg);
-  opacity: 0.5;
-}
-
-.deco-spark--cta {
-  top: 24%;
-  left: 12%;
-  transform: rotate(-12deg);
-  opacity: 0.6;
-  color: var(--color-accent);
-}
 
 .hero-subhead {
   max-width: 640px;
@@ -716,27 +671,9 @@ ol {
   transition: transform 220ms var(--ease-out), box-shadow 220ms var(--ease-out);
 }
 
-.persona-card::before {
-  content: "✱";
-  position: absolute;
-  top: 14px;
-  right: 18px;
-  color: var(--color-accent);
-  font-size: 16px;
-  line-height: 1;
-  opacity: 0.5;
-  transform: rotate(-12deg);
-  transition: transform 220ms var(--ease-out), opacity 220ms var(--ease-out);
-  pointer-events: none;
-}
-
 .persona-card:hover {
   transform: translateY(-4px);
   box-shadow: var(--shadow-card-hover);
-}
-
-.persona-card:hover::before {
-  opacity: 0.9;
 }
 
 .persona-role {
@@ -861,10 +798,6 @@ ol {
   overflow: hidden;
 }
 
-.final-cta .deco-spark {
-  color: var(--color-background);
-  opacity: 0.35;
-}
 
 .final-cta-inner {
   display: flex;

@@ -5,7 +5,6 @@ import {
   GitBranch,
   LinkedinLogo,
   MagnifyingGlass,
-  Sparkle,
 } from '@phosphor-icons/react'
 import { MobileMenu } from '@/components/MobileMenu'
 
@@ -132,26 +131,10 @@ function SiteHeader() {
 function HeroSection() {
   return (
     <section className="hero section-light">
-      <Sparkle
-        size={28}
-        weight="fill"
-        className="deco-spark deco-spark--hero-tr"
-        aria-hidden
-      />
-      <Sparkle
-        size={20}
-        weight="fill"
-        className="deco-spark deco-spark--hero-bl"
-        aria-hidden
-      />
       <div className="container hero-inner">
-        <h1>
+        <h1 className="hero-headline">
           Retail reconciliation that closes in{' '}
-          <span className="hero-emphasis">
-            hours, not weeks
-            <HeroSquiggle />
-          </span>
-          .
+          <span className="hero-emphasis">hours, not weeks</span>.
         </h1>
         <p className="hero-subhead">
           We connect your retail systems, compare every record by primary ID, and surface what doesn’t add up — so your finance team can spend the month doing finance, not chasing variances.
@@ -169,24 +152,6 @@ function HeroSection() {
   )
 }
 
-function HeroSquiggle() {
-  return (
-    <svg
-      className="hero-squiggle"
-      viewBox="0 0 240 14"
-      preserveAspectRatio="none"
-      aria-hidden="true"
-    >
-      <path
-        d="M3 9 Q 22 3, 44 7 T 88 7 Q 110 11, 132 6 T 176 6 Q 198 11, 220 5 T 237 8"
-        stroke="currentColor"
-        strokeWidth="2.5"
-        strokeLinecap="round"
-        fill="none"
-      />
-    </svg>
-  )
-}
 
 type WaveTone = 'ivory' | 'oat' | 'navy' | 'footer'
 
@@ -210,12 +175,6 @@ function SectionWave({ to, variant = 'a' }: { to: WaveTone; variant?: 'a' | 'b' 
 function PainSection() {
   return (
     <section className="section section-cream" aria-labelledby="pain-heading">
-      <Sparkle
-        size={22}
-        weight="fill"
-        className="deco-spark deco-spark--pain"
-        aria-hidden
-      />
       <div className="container pain-grid">
         <div className="pain-copy">
           <span className="section-label">Why it matters</span>
@@ -246,9 +205,7 @@ function HowItWorksSection() {
       <div className="container">
         <div className="section-header-block">
           <span className="section-label">How it works</span>
-          <h2 id="how-heading">
-            Three steps from data <span className="text-script">chaos</span> to closed books
-          </h2>
+          <h2 id="how-heading">Three steps from data chaos to closed books</h2>
         </div>
         <div className="steps-grid">
           {steps.map((step, index) => (
@@ -276,9 +233,7 @@ function PersonasSection() {
       <div className="container">
         <div className="section-header-block">
           <span className="section-label">Who it’s for</span>
-          <h2 id="who-heading">
-            Built for <span className="text-script">every</span> stakeholder in the close cycle
-          </h2>
+          <h2 id="who-heading">Built for every stakeholder in the close cycle</h2>
         </div>
         <div className="persona-grid">
           {personas.map((persona) => (
@@ -301,9 +256,7 @@ function InsightsSection() {
       <div className="container">
         <div className="section-header-block">
           <span className="section-label">Insights</span>
-          <h2 id="insights-heading">
-            Thinking <span className="text-script">out loud</span> on retail finance and reconciliation
-          </h2>
+          <h2 id="insights-heading">Thinking out loud on retail finance and reconciliation</h2>
         </div>
         <div className="insights-grid">
           {insights.map((post) => {
@@ -335,12 +288,6 @@ function InsightsSection() {
 function FinalCtaSection() {
   return (
     <section id="talk" className="final-cta">
-      <Sparkle
-        size={24}
-        weight="fill"
-        className="deco-spark deco-spark--cta"
-        aria-hidden
-      />
       <div className="container final-cta-inner">
         <h2>Ready to close faster?</h2>
         <p className="final-cta-body">
