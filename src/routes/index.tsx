@@ -147,30 +147,10 @@ function HeroSection() {
           <span className="cta-note">30 minutes. No slides.</span>
         </div>
       </div>
-      <SectionWave to="oat" />
     </section>
   )
 }
 
-
-type WaveTone = 'ivory' | 'oat' | 'navy' | 'footer'
-
-function SectionWave({ to, variant = 'a' }: { to: WaveTone; variant?: 'a' | 'b' }) {
-  const path =
-    variant === 'a'
-      ? 'M 0,32 C 220,68 460,10 720,34 C 970,60 1230,14 1440,30 L 1440,80 L 0,80 Z'
-      : 'M 0,40 C 240,12 500,68 740,34 C 980,8 1220,60 1440,36 L 1440,80 L 0,80 Z'
-  return (
-    <svg
-      className={`section-wave section-wave--${to}`}
-      viewBox="0 0 1440 80"
-      preserveAspectRatio="none"
-      aria-hidden="true"
-    >
-      <path d={path} fill="currentColor" />
-    </svg>
-  )
-}
 
 function PainSection() {
   return (
@@ -194,7 +174,6 @@ function PainSection() {
           ))}
         </ul>
       </div>
-      <SectionWave to="ivory" variant="b" />
     </section>
   )
 }
@@ -222,7 +201,6 @@ function HowItWorksSection() {
           ))}
         </ol>
       </div>
-      <SectionWave to="oat" />
     </section>
   )
 }
@@ -245,7 +223,6 @@ function PersonasSection() {
           ))}
         </div>
       </div>
-      <SectionWave to="ivory" variant="b" />
     </section>
   )
 }
@@ -280,7 +257,6 @@ function InsightsSection() {
           })}
         </div>
       </div>
-      <SectionWave to="navy" />
     </section>
   )
 }
@@ -302,7 +278,6 @@ function FinalCtaSection() {
           P.S. We’ve been on your side of this one. We get it.
         </p>
       </div>
-      <SectionWave to="footer" variant="b" />
     </section>
   )
 }

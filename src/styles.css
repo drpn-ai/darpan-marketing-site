@@ -158,28 +158,6 @@ ol {
   overflow: hidden;
 }
 
-.section-wave {
-  position: absolute;
-  bottom: -1px;
-  left: 0;
-  width: 100%;
-  height: 80px;
-  display: block;
-  pointer-events: none;
-  z-index: 1;
-}
-
-.section-wave--ivory { color: var(--color-background); }
-.section-wave--oat { color: var(--color-section-alt); }
-.section-wave--navy { color: var(--color-primary); }
-.section-wave--footer { color: var(--color-footer); }
-
-@media (max-width: 980px) {
-  .section-wave {
-    height: 56px;
-  }
-}
-
 .section-light {
   background: var(--color-background);
   color: var(--color-text);
