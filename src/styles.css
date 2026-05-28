@@ -706,18 +706,8 @@ ol {
   border-radius: var(--radius-md);
   overflow: hidden;
   box-shadow: var(--shadow-card);
-  transition: box-shadow 240ms var(--ease-out), transform 240ms var(--ease-out);
-  cursor: pointer;
 }
 
-.insight-card:hover {
-  box-shadow: var(--shadow-card-hover);
-  transform: translateY(-4px);
-}
-
-.insight-card:hover h3 {
-  color: var(--color-primary);
-}
 
 .insight-hero {
   position: relative;
@@ -752,12 +742,6 @@ ol {
   padding: 4px 10px;
   border-radius: var(--radius-pill);
   transition: transform 220ms var(--ease-out), background-color 220ms var(--ease-out), color 220ms var(--ease-out);
-}
-
-.insight-card:hover .insight-tag {
-  transform: rotate(-3deg);
-  background: var(--color-accent);
-  color: var(--color-background);
 }
 
 .insight-card h3 {
