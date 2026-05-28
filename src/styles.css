@@ -190,6 +190,13 @@ ol {
   color: var(--color-text);
 }
 
+.section-cream p,
+.section-cream li,
+.section-cream .pain-copy p,
+.section-cream .persona-card p {
+  color: var(--color-text);
+}
+
 .section-dark {
   background: var(--color-primary);
   color: var(--color-background);
@@ -260,7 +267,7 @@ ol {
   font-style: italic;
   font-size: 16px;
   line-height: 1.4;
-  color: rgba(240, 242, 238, 0.62);
+  color: var(--color-on-dark-body);
   max-width: 36ch;
 }
 
@@ -898,7 +905,7 @@ ol {
 .final-cta-note {
   font-family: var(--font-body);
   font-size: 13px;
-  color: rgba(250, 250, 245, 0.6);
+  color: var(--color-on-dark-body);
 }
 
 /* Footer */
@@ -974,11 +981,11 @@ ol {
   border-top: 1px solid var(--color-primary);
   font-family: var(--font-body);
   font-size: 13px;
-  color: var(--color-text-muted);
+  color: var(--color-footer-link);
 }
 
 .footer-bottom a {
-  color: var(--color-text-muted);
+  color: var(--color-footer-link);
   display: inline-flex;
   align-items: center;
   transition: color 150ms var(--ease-out);
