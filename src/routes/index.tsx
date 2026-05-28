@@ -207,20 +207,20 @@ function HowItWorksSection() {
           <span className="section-label">How it works</span>
           <h2 id="how-heading">Three steps from data chaos to closed books</h2>
         </div>
-        <div className="steps-grid">
+        <ol className="steps-flow" aria-label="Three-step process">
           {steps.map((step, index) => (
-            <article className="step-card" key={step.title}>
+            <li className="step-node" key={step.title}>
               <span className="step-index" aria-hidden>
                 {String(index + 1).padStart(2, '0')}
               </span>
               <span className="step-icon">
-                <step.icon size={40} weight="light" aria-hidden />
+                <step.icon size={36} weight="light" aria-hidden />
               </span>
               <h3>{step.title}</h3>
               <p>{step.body}</p>
-            </article>
+            </li>
           ))}
-        </div>
+        </ol>
       </div>
       <SectionWave to="oat" />
     </section>
@@ -232,12 +232,12 @@ function PersonasSection() {
     <section id="who-its-for" className="section section-cream" aria-labelledby="who-heading">
       <div className="container">
         <div className="section-header-block">
-          <span className="section-label">Who it’s for</span>
+          <span className="section-label">Who it&#x2019;s for</span>
           <h2 id="who-heading">Built for every stakeholder in the close cycle</h2>
         </div>
-        <div className="persona-grid">
+        <div className="persona-columns">
           {personas.map((persona) => (
-            <article className="persona-card" key={persona.role}>
+            <article className="persona-column" key={persona.role}>
               <span className="persona-role">{persona.role}</span>
               <h3>{persona.title}</h3>
               <p>{persona.body}</p>
