@@ -7,14 +7,15 @@ import {
   MagnifyingGlass,
   Sparkle,
 } from '@phosphor-icons/react'
+import { MobileMenu } from '@/components/MobileMenu'
 
 export const Route = createFileRoute('/')({
   component: Home,
 })
 
-const navItems = [
+export const navItems = [
   ['How it works', '#how-it-works'],
-  ['Who it’s for', '#who-its-for'],
+  ["Who it's for", '#who-its-for'],
   ['Insights', '#insights'],
 ] as const
 
@@ -41,8 +42,8 @@ const steps = [
   },
   {
     icon: MagnifyingGlass,
-    title: 'Find what doesn’t match',
-    body: 'Darpan compares every record by primary ID, classifies what’s missing, different, or out of sync, and groups the variance by SKU and location — with the evidence behind each call. Automatically.',
+    title: "Find what doesn't match",
+    body: "Darpan compares every record by primary ID, classifies what's missing, different, or out of sync, and groups the variance by SKU and location — with the evidence behind each call. Automatically.",
   },
   {
     icon: CheckCircle,
@@ -119,9 +120,10 @@ function SiteHeader() {
             </a>
           ))}
         </nav>
-        <a className="btn btn-primary" href="#talk">
+        <a className="btn btn-primary site-header-cta" href="#talk">
           Request a walkthrough
         </a>
+        <MobileMenu />
       </div>
     </header>
   )
@@ -152,7 +154,7 @@ function HeroSection() {
           .
         </h1>
         <p className="hero-subhead">
-          We connect your retail systems, compare every record by primary ID, and surface what doesn't add up — so your finance team can spend the month doing finance, not chasing variances.
+          We connect your retail systems, compare every record by primary ID, and surface what doesn’t add up — so your finance team can spend the month doing finance, not chasing variances.
         </p>
         <div className="hero-cta">
           <a className="btn btn-primary btn-primary-large" href="#talk">
