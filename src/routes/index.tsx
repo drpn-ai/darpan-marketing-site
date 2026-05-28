@@ -41,7 +41,7 @@ const steps = [
   },
   {
     icon: MagnifyingGlass,
-    title: "Find what doesn't match",
+    title: "Surface what doesn't reconcile",
     body: "Darpan compares every record by primary ID, classifies what's missing, different, or out of sync, and groups the variance by SKU and location — with the evidence behind each call. Automatically.",
   },
   {
@@ -119,7 +119,7 @@ function SiteHeader() {
             </a>
           ))}
         </nav>
-        <a className="btn btn-primary site-header-cta" href="#talk">
+        <a className="btn btn-primary site-header-cta" href="mailto:hello@drpn.ai?subject=Darpan%20walkthrough">
           Request a walkthrough
         </a>
         <MobileMenu />
@@ -140,11 +140,11 @@ function HeroSection() {
           We connect your retail systems, compare every record by primary ID, and surface what doesn’t add up — so your finance team can spend the month doing finance, not chasing variances.
         </p>
         <div className="hero-cta">
-          <a className="btn btn-primary btn-primary-large" href="#talk">
+          <a className="btn btn-primary btn-primary-large" href="mailto:hello@drpn.ai?subject=Darpan%20walkthrough">
             Request a walkthrough
             <ArrowRight size={18} weight="bold" aria-hidden />
           </a>
-          <span className="cta-note">30 minutes. No slides.</span>
+          <span className="cta-note">30 minutes. No pitch deck.</span>
         </div>
       </div>
     </section>
@@ -274,9 +274,6 @@ function FinalCtaSection() {
           <ArrowRight size={18} weight="bold" aria-hidden />
         </a>
         <span className="final-cta-note">30 minutes. No pitch deck.</span>
-        <p className="ps-note">
-          P.S. We’ve been on your side of this one. We get it.
-        </p>
       </div>
     </section>
   )
