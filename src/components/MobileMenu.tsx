@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
+import { createPortal } from 'react-dom'
 import { List, X } from '@phosphor-icons/react'
 import { navItems } from '@/routes/index'
 
@@ -75,36 +76,43 @@ export function MobileMenu() {
         {open ? <X size={22} weight="regular" aria-hidden /> : <List size={22} weight="regular" aria-hidden />}
       </button>
 
-      {open ? (
-        <div
-          ref={dialogRef}
-          id="mobile-menu"
-          className="mobile-menu"
-          role="dialog"
-          aria-modal="true"
-          aria-label="Site navigation"
-        >
-          <nav className="mobile-menu-nav" aria-label="Sections">
-            {navItems.map(([label, href]) => (
-              <a
-                key={label}
-                href={href}
-                className="mobile-menu-link"
-                onClick={() => setOpen(false)}
-              >
-                {label}
-              </a>
-            ))}
-            <a
-              href="#talk"
-              className="mobile-menu-cta"
-              onClick={() => setOpen(false)}
+      {open
+        ? createPortal(
+            // Portal the dialog to document.body so the header's `backdrop-filter`
+            // doesn't trap our `position: fixed` inset inside the 72px-tall header
+            // (per CSS spec, backdrop-filter establishes a containing block for
+            // fixed-positioned descendants — that collapses this dialog to 0 height).
+            <div
+              ref={dialogRef}
+              id="mobile-menu"
+              className="mobile-menu"
+              role="dialog"
+              aria-modal="true"
+              aria-label="Site navigation"
             >
-              Request a walkthrough
-            </a>
-          </nav>
-        </div>
-      ) : null}
+              <nav className="mobile-menu-nav" aria-label="Sections">
+                {navItems.map(([label, href]) => (
+                  <a
+                    key={label}
+                    href={href}
+                    className="mobile-menu-link"
+                    onClick={() => setOpen(false)}
+                  >
+                    {label}
+                  </a>
+                ))}
+                <a
+                  href="#talk"
+                  className="mobile-menu-cta"
+                  onClick={() => setOpen(false)}
+                >
+                  Request a walkthrough
+                </a>
+              </nav>
+            </div>,
+            document.body
+          )
+        : null}
     </>
   )
 }
