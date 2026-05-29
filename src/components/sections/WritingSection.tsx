@@ -1,4 +1,5 @@
 import { writingEntries } from '@/data/writing-entries'
+import { NotebookDoodle } from '@/components/NotebookDoodle'
 
 export function WritingSection() {
   return (
@@ -8,9 +9,14 @@ export function WritingSection() {
       aria-labelledby="writing-heading"
     >
       <div className="container">
-        <div className="section-header">
+        <div className="section-header" style={{ position: 'relative' }}>
           <span className="section-numeral" aria-hidden>05</span>
           <h2 id="writing-heading">Notes from the team</h2>
+          <NotebookDoodle
+            kind="margin-arrow"
+            delay={400}
+            style={{ right: '-72px', top: '4px' }}
+          />
         </div>
         <ul className="writing-list">
           {writingEntries.map((entry) => (

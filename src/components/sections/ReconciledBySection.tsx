@@ -27,6 +27,11 @@ export function ReconciledBySection() {
         <p className="logo-caption">Real wordmarks at launch.</p>
       </div>
       <NotebookDoodle
+        kind="star"
+        delay={600}
+        style={{ left: '40px', top: '88px' }}
+      />
+      <NotebookDoodle
         kind="match-arrow"
         delay={800}
         style={{ right: '24px', bottom: '24px' }}

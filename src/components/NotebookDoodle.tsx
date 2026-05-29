@@ -9,6 +9,10 @@ export type DoodleKind =
   | 'tally'            // Four hash marks with a diagonal slash — a tally count
   | 'circle-emphasis'  // Loose circle drawn around something
   | 'underline-squiggle' // Wavy underline doodle
+  | 'star'             // 5-pointed star, hand-drawn — margin "important" marker
+  | 'margin-arrow'     // Arrow pointing right — margin "look at this" annotation
+  | 'exclamation'      // Hand-drawn "!" for marginalia
+  | 'note-bracket'     // Hand-drawn curly "{" bracket — for grouping notes
 
 type Props = {
   kind: DoodleKind
@@ -190,6 +194,74 @@ export function NotebookDoodle({ kind, className, style, delay = 0, color = 'var
             d="M 4,10 Q 22,4 44,8 T 88,8 Q 110,12 132,7 T 176,7 Q 198,12 220,6 T 236,9"
             className="doodle-path"
           />
+        </svg>
+      )
+
+    case 'star':
+      return (
+        <svg
+          className={`doodle doodle-star ${className ?? ''}`}
+          style={animationStyle}
+          viewBox="0 0 48 48"
+          fill="none"
+          stroke={color}
+          strokeWidth={sw}
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          aria-hidden
+        >
+          <path d="M 24,5 L 29,18 L 43,19 L 33,29 L 36,43 L 24,36 L 12,43 L 15,29 L 5,19 L 19,18 Z" className="doodle-path" />
+        </svg>
+      )
+
+    case 'margin-arrow':
+      return (
+        <svg
+          className={`doodle doodle-margin-arrow ${className ?? ''}`}
+          style={animationStyle}
+          viewBox="0 0 80 32"
+          fill="none"
+          stroke={color}
+          strokeWidth={sw}
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          aria-hidden
+        >
+          <path d="M 6,16 C 22,12 48,18 70,16" className="doodle-path" />
+          <path d="M 62,10 L 72,16 L 62,22" className="doodle-path" />
+        </svg>
+      )
+
+    case 'exclamation':
+      return (
+        <svg
+          className={`doodle doodle-exclamation ${className ?? ''}`}
+          style={animationStyle}
+          viewBox="0 0 16 40"
+          fill="none"
+          stroke={color}
+          strokeWidth={sw + 0.6}
+          strokeLinecap="round"
+          aria-hidden
+        >
+          <path d="M 8,4 L 8,28" className="doodle-path" />
+          <circle cx="8" cy="34" r="1.5" fill={color} stroke="none" />
+        </svg>
+      )
+
+    case 'note-bracket':
+      return (
+        <svg
+          className={`doodle doodle-note-bracket ${className ?? ''}`}
+          style={animationStyle}
+          viewBox="0 0 24 100"
+          fill="none"
+          stroke={color}
+          strokeWidth={sw}
+          strokeLinecap="round"
+          aria-hidden
+        >
+          <path d="M 18,4 C 8,12 8,32 14,50 C 8,68 8,88 18,96" className="doodle-path" />
         </svg>
       )
   }

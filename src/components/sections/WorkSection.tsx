@@ -15,15 +15,20 @@ export function WorkSection() {
           <p className="manifesto-body">
             Every retail business runs on systems that don’t agree. Inventory
             in the WMS, revenue in the POS, returns in commerce, ledger in the
-            ERP. Reconciliation is the work that makes them agree — usually by
-            hand, mostly in spreadsheets, always late.
+            ERP. Reconciliation is the work that makes them agree — <span className="hl-rust">usually by
+            hand, mostly in spreadsheets, always late</span>.
           </p>
           <p className="manifesto-close" style={{ position: 'relative' }}>
-            Darpan is the infrastructure that makes it the system’s job.
+            <span className="under-2">Darpan is the infrastructure that makes it the system’s job.</span>
             <NotebookDoodle
               kind="circle-emphasis"
               delay={1000}
               style={{ left: '-12px', top: '-12px' }}
+            />
+            <NotebookDoodle
+              kind="exclamation"
+              delay={1400}
+              style={{ right: '-32px', top: '0' }}
             />
           </p>
         </div>

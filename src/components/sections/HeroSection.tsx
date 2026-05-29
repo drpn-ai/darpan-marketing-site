@@ -7,7 +7,7 @@ export function HeroSection() {
         <div className="hero-inner">
           <span className="section-numeral" aria-hidden>01</span>
           <h1 id="hero-heading" className="hero-headline">
-            Darpan operates the reconciliation infrastructure for retail.{' '}
+            Darpan operates the <span className="hl">reconciliation infrastructure for retail</span>.{' '}
             <em>Row by row, across every system.</em>
           </h1>
           <div className="hero-cta">

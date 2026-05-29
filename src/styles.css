@@ -150,6 +150,60 @@ em {
   font-weight: 700;
 }
 
+/* ============================================================
+   Notes-style marks — highlighter, double-underlines, accent underlines
+   Used inline on phrases. Be sparing: 4-5 marks total across the page.
+   ============================================================ */
+
+/* Yellow highlighter — a strip of warm yellow drawn over text */
+.hl {
+  background-image: linear-gradient(
+    180deg,
+    transparent 22%,
+    rgba(247, 209, 76, 0.55) 22%,
+    rgba(247, 209, 76, 0.55) 88%,
+    transparent 88%
+  );
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  padding: 0 0.15em;
+  margin: 0 -0.04em;
+  /* slight tilt like a hand-drawn highlighter pass — subtle */
+  background-position: 0.5px 0;
+}
+
+/* Rust highlighter — second-tier emphasis */
+.hl-rust {
+  background-image: linear-gradient(
+    180deg,
+    transparent 28%,
+    rgba(201, 162, 39, 0.40) 28%,
+    rgba(201, 162, 39, 0.40) 85%,
+    transparent 85%
+  );
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  padding: 0 0.12em;
+  margin: 0 -0.04em;
+}
+
+/* Double underline — like a student emphasizing a key term twice */
+.under-2 {
+  text-decoration: underline;
+  text-decoration-style: double;
+  text-decoration-color: var(--color-text);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
+}
+
+/* Emphasized single underline in accent color, thicker — like a marker line */
+.under-emph {
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-decoration-color: var(--color-accent);
+  text-underline-offset: 4px;
+}
+
 ul,
 ol {
   list-style: none;
@@ -1216,6 +1270,11 @@ ol {
   left: 0;
   position: absolute;
 }
+
+.doodle-star { width: 32px; height: 32px; }
+.doodle-margin-arrow { width: 80px; height: 32px; }
+.doodle-exclamation { width: 14px; height: 36px; }
+.doodle-note-bracket { width: 24px; height: 100px; }
 
 @media (prefers-reduced-motion: reduce) {
   .doodle .doodle-path {
