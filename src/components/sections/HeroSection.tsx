@@ -1,5 +1,4 @@
 import { ArrowRight, ArrowUpRight } from '@phosphor-icons/react'
-import { NotebookDoodle } from '@/components/NotebookDoodle'
 
 export function HeroSection() {
   return (
@@ -8,10 +7,7 @@ export function HeroSection() {
         <span className="section-numeral" aria-hidden>01</span>
         <h1 id="hero-heading" className="hero-headline">
           Darpan operates the reconciliation infrastructure for retail.{' '}
-          <em style={{ position: 'relative', display: 'inline-block' }}>
-            Row by row, across every system.
-            <NotebookDoodle kind="underline-squiggle" delay={1200} />
-          </em>
+          <em>Row by row, across every system.</em>
         </h1>
         <div className="hero-cta">
           <a

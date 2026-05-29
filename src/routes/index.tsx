@@ -15,7 +15,7 @@ export const Route = createFileRoute('/')({
 export const navItems = [
   ['Product', '#product'],
   ['Customers', '/customers'],
-  ['Writing', '/writing'],
+  ['Notes', '/writing'],
 ] as const
 
 function Home() {

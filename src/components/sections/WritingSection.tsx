@@ -10,7 +10,7 @@ export function WritingSection() {
       <div className="container">
         <div className="section-header">
           <span className="section-numeral" aria-hidden>05</span>
-          <h2 id="writing-heading">Writing — notes from the team</h2>
+          <h2 id="writing-heading">Notes from the team</h2>
         </div>
         <ul className="writing-list">
           {writingEntries.map((entry) => (
@@ -28,7 +28,7 @@ export function WritingSection() {
           ))}
         </ul>
         <a className="writing-all" href="/writing">
-          All writing →
+          All notes →
         </a>
       </div>
     </section>

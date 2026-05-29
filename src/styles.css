@@ -882,6 +882,7 @@ ol {
 }
 
 .product-primitive {
+  position: relative;
   display: grid;
   grid-template-columns: 140px 1fr;
   gap: 24px;
@@ -890,8 +891,20 @@ ol {
   border-top: 1px solid rgba(42, 31, 26, 0.18);
 }
 
-.product-primitive:first-child {
-  border-top: 1px solid rgba(42, 31, 26, 0.18);
+.product-primitive:last-child {
+  border-bottom: 1px solid rgba(42, 31, 26, 0.18);
+}
+
+.product-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.product-checkmark {
+  position: absolute;
+  top: 36px;
+  right: -8px;
 }
 
 .product-label {

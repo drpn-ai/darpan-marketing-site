@@ -17,6 +17,11 @@ const primitives: readonly Primitive[] = [
     headline: 'Records pair line by line. Mismatches surface with the rows behind them.',
     body: 'No spreadsheet pile-up. Variance, missing-object, and resolved-pair classifications come out of one run, with the source line attached to every call.',
   },
+  {
+    label: 'III. Evidence',
+    headline: 'Every match carries its receipts.',
+    body: 'The saved run, the rules applied, the row-level trail. Sign on what’s there.',
+  },
 ] as const
 
 export function ProductSection() {
@@ -38,25 +43,21 @@ export function ProductSection() {
         />
         <ol className="product-list">
           {primitives.map((p, index) => (
-            <li className="product-primitive" key={p.label} style={{ position: 'relative' }}>
+            <li className="product-primitive" key={p.label}>
               <span className="product-label label-smallcaps">{p.label}</span>
-              <div>
+              <div className="product-content">
                 <h3 className="product-headline">{p.headline}</h3>
                 <p className="product-body">{p.body}</p>
-                <NotebookDoodle
-                  kind="checkmark"
-                  delay={600 + index * 200}
-                  style={{ right: '-40px', top: '8px' }}
-                />
               </div>
+              <NotebookDoodle
+                kind="checkmark"
+                delay={600 + index * 200}
+                className="product-checkmark"
+                style={{ animationDelay: `${600 + index * 200}ms` }}
+              />
             </li>
           ))}
         </ol>
-        <p className="product-coda">
-          <span className="product-coda-label label-smallcaps">III. Evidence</span>
-          <span aria-hidden> · </span>
-          the saved run, the rules applied, the row-level trail. Sign on what’s there.
-        </p>
       </div>
     </section>
   )
