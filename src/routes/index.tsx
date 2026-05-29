@@ -236,25 +236,15 @@ function InsightsSection() {
           <h2 id="insights-heading">Thinking out loud on retail finance and reconciliation</h2>
         </div>
         <div className="insights-grid">
-          {insights.map((post) => {
-            const Art = insightArtMap[post.art]
-            return (
-              <article className="insight-card" key={post.title}>
-                <div
-                  className="insight-hero"
-                  role="img"
-                  aria-label={`${post.tag} editorial cover`}
-                >
-                  <Art />
-                </div>
-                <div className="insight-body">
-                  <span className="insight-tag">{post.tag}</span>
-                  <h3>{post.title}</h3>
-                  <span className="insight-meta">{post.meta}</span>
-                </div>
-              </article>
-            )
-          })}
+          {insights.map((post) => (
+            <article className="insight-card" key={post.title}>
+              <div className="insight-body">
+                <span className="insight-tag">{post.tag}</span>
+                <h3>{post.title}</h3>
+                <span className="insight-meta">{post.meta}</span>
+              </div>
+            </article>
+          ))}
         </div>
       </div>
     </section>
@@ -277,153 +267,6 @@ function FinalCtaSection() {
       </div>
     </section>
   )
-}
-
-function InsightArtRows() {
-  return (
-    <svg
-      className="insight-art"
-      viewBox="0 0 320 180"
-      preserveAspectRatio="xMidYMid slice"
-      aria-hidden="true"
-    >
-      <defs>
-        <linearGradient id="insight-rows-bg" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stopColor="#5A1E2A" />
-          <stop offset="100%" stopColor="#7A2E3E" />
-        </linearGradient>
-        <filter id="insight-rows-grain" x="0%" y="0%" width="100%" height="100%">
-          <feTurbulence
-            type="fractalNoise"
-            baseFrequency="0.9"
-            numOctaves="2"
-            seed="3"
-            stitchTiles="stitch"
-          />
-          <feColorMatrix values="0 0 0 0 1  0 0 0 0 0.96  0 0 0 0 0.94  0 0 0 0.07 0" />
-        </filter>
-      </defs>
-      <rect width="320" height="180" fill="url(#insight-rows-bg)" />
-      <rect x="48" y="36" width="180" height="5" rx="2.5" fill="#F0F2EE" opacity="0.62" />
-      <rect x="48" y="52" width="220" height="5" rx="2.5" fill="#F0F2EE" opacity="0.46" />
-      <rect x="48" y="68" width="150" height="5" rx="2.5" fill="#F0F2EE" opacity="0.62" />
-      <rect x="60" y="88" width="200" height="8" rx="4" fill="#9E4738" />
-      <circle cx="40" cy="92" r="5" fill="#9E4738" />
-      <rect x="48" y="108" width="180" height="5" rx="2.5" fill="#F0F2EE" opacity="0.5" />
-      <rect x="48" y="124" width="140" height="5" rx="2.5" fill="#F0F2EE" opacity="0.62" />
-      <rect x="48" y="140" width="170" height="5" rx="2.5" fill="#F0F2EE" opacity="0.42" />
-      <g fill="#F0F2EE" opacity="0.32">
-        <circle cx="278" cy="36" r="1.6" />
-        <circle cx="290" cy="36" r="1.6" />
-        <circle cx="302" cy="36" r="1.6" />
-        <circle cx="278" cy="48" r="1.6" />
-        <circle cx="290" cy="48" r="1.6" />
-        <circle cx="302" cy="48" r="1.6" />
-      </g>
-      <rect width="320" height="180" filter="url(#insight-rows-grain)" />
-    </svg>
-  )
-}
-
-function InsightArtColumns() {
-  return (
-    <svg
-      className="insight-art"
-      viewBox="0 0 320 180"
-      preserveAspectRatio="xMidYMid slice"
-      aria-hidden="true"
-    >
-      <defs>
-        <linearGradient id="insight-cols-bg" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stopColor="#DDE0D7" />
-          <stop offset="100%" stopColor="#C7CAC2" />
-        </linearGradient>
-        <filter id="insight-cols-grain" x="0%" y="0%" width="100%" height="100%">
-          <feTurbulence
-            type="fractalNoise"
-            baseFrequency="0.9"
-            numOctaves="2"
-            seed="7"
-            stitchTiles="stitch"
-          />
-          <feColorMatrix values="0 0 0 0 0.1  0 0 0 0 0.17  0 0 0 0 0.23  0 0 0 0.09 0" />
-        </filter>
-      </defs>
-      <rect width="320" height="180" fill="url(#insight-cols-bg)" />
-      <line x1="44" y1="148" x2="288" y2="148" stroke="#5A1E2A" strokeWidth="1.2" opacity="0.32" />
-      <rect x="56" y="108" width="22" height="40" rx="2" fill="#5A1E2A" opacity="0.82" />
-      <rect x="88" y="86" width="22" height="62" rx="2" fill="#5A1E2A" opacity="0.66" />
-      <rect x="120" y="64" width="22" height="84" rx="2" fill="#5A1E2A" opacity="0.82" />
-      <rect x="152" y="44" width="22" height="104" rx="2" fill="#9E4738" />
-      <rect x="184" y="72" width="22" height="76" rx="2" fill="#5A1E2A" opacity="0.68" />
-      <rect x="216" y="58" width="22" height="90" rx="2" fill="#5A1E2A" opacity="0.82" />
-      <circle cx="163" cy="32" r="5" fill="#9E4738" />
-      <path
-        d="M44 32 Q56 24 70 30"
-        stroke="#9E4738"
-        strokeWidth="2"
-        fill="none"
-        strokeLinecap="round"
-      />
-      <rect width="320" height="180" filter="url(#insight-cols-grain)" />
-    </svg>
-  )
-}
-
-function InsightArtNodes() {
-  return (
-    <svg
-      className="insight-art"
-      viewBox="0 0 320 180"
-      preserveAspectRatio="xMidYMid slice"
-      aria-hidden="true"
-    >
-      <defs>
-        <linearGradient id="insight-nodes-bg" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stopColor="#3A1A22" />
-          <stop offset="100%" stopColor="#1A0D11" />
-        </linearGradient>
-        <filter id="insight-nodes-grain" x="0%" y="0%" width="100%" height="100%">
-          <feTurbulence
-            type="fractalNoise"
-            baseFrequency="0.92"
-            numOctaves="2"
-            seed="11"
-            stitchTiles="stitch"
-          />
-          <feColorMatrix values="0 0 0 0 0.97  0 0 0 0 0.96  0 0 0 0 0.94  0 0 0 0.06 0" />
-        </filter>
-      </defs>
-      <rect width="320" height="180" fill="url(#insight-nodes-bg)" />
-      <g stroke="#F0F2EE" strokeWidth="1" opacity="0.3">
-        <line x1="160" y1="92" x2="64" y2="40" />
-        <line x1="160" y1="92" x2="256" y2="44" />
-        <line x1="160" y1="92" x2="44" y2="128" />
-        <line x1="160" y1="92" x2="272" y2="132" />
-        <line x1="160" y1="92" x2="166" y2="156" />
-      </g>
-      <circle cx="64" cy="40" r="7" fill="#F0F2EE" opacity="0.86" />
-      <circle cx="256" cy="44" r="7" fill="#F0F2EE" opacity="0.86" />
-      <circle cx="44" cy="128" r="7" fill="#F0F2EE" opacity="0.86" />
-      <circle cx="272" cy="132" r="7" fill="#F0F2EE" opacity="0.86" />
-      <circle cx="166" cy="156" r="7" fill="#F0F2EE" opacity="0.86" />
-      <circle cx="160" cy="92" r="36" fill="none" stroke="#9E4738" strokeWidth="0.7" opacity="0.22" />
-      <circle cx="160" cy="92" r="24" fill="none" stroke="#9E4738" strokeWidth="1" opacity="0.4" />
-      <circle cx="160" cy="92" r="13" fill="#9E4738" />
-      <g fill="#9E4738" opacity="0.6">
-        <circle cx="220" cy="78" r="2" />
-        <circle cx="100" cy="60" r="2" />
-        <circle cx="120" cy="140" r="2" />
-      </g>
-      <rect width="320" height="180" filter="url(#insight-nodes-grain)" />
-    </svg>
-  )
-}
-
-const insightArtMap: Record<(typeof insights)[number]['art'], () => React.ReactElement> = {
-  rows: InsightArtRows,
-  columns: InsightArtColumns,
-  nodes: InsightArtNodes,
 }
 
 function SiteFooter() {
