@@ -1210,3 +1210,42 @@ ol {
     font-size: 18px;
   }
 }
+
+/* ============================================================
+   Section 04 — The work (manifesto)
+   ============================================================ */
+
+.manifesto {
+  max-width: 760px;
+}
+
+.manifesto-body {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(18px, 1.9vw, 22px);
+  line-height: 1.45;
+  color: var(--color-text);
+  letter-spacing: -0.005em;
+  margin: 0;
+}
+
+.manifesto-close {
+  margin-top: 28px;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(18px, 1.9vw, 22px);
+  line-height: 1.4;
+  color: var(--color-primary);
+  letter-spacing: -0.005em;
+}
+
+.work-coda {
+  margin-top: 56px;
+  padding-top: 24px;
+  border-top: 1px solid rgba(42, 31, 26, 0.18);
+  font-family: var(--font-body);
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  color: var(--color-secondary);
+}
