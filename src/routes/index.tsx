@@ -37,12 +37,12 @@ const steps = [
   {
     icon: GitBranch,
     title: 'Connect your systems',
-    body: 'Point Darpan at the systems your team already runs — POS, ERP, WMS, commerce, files, REST. Connectors handle the schemas; primary IDs anchor the match. No custom ETL, no IT project.',
+    body: 'Point Darpan at the systems your team already runs: POS, ERP, WMS, commerce, files, REST. Connectors handle the schemas; primary IDs anchor the match. No custom ETL, no IT project.',
   },
   {
     icon: MagnifyingGlass,
     title: "Surface what doesn't reconcile",
-    body: "Darpan compares every record by primary ID, classifies what's missing, different, or out of sync, and groups the variance by SKU and location — with the evidence behind each call. Automatically.",
+    body: "Darpan compares every record by primary ID, classifies what's missing, different, or out of sync, and groups the variance by SKU and location, with the evidence behind each call. Automatically.",
   },
   {
     icon: CheckCircle,
@@ -65,14 +65,14 @@ const personas = [
   {
     role: 'Controller',
     title: 'Audit-ready from day one',
-    body: 'Every reconciled item carries the saved run, the schema, the primary IDs, and the resolution trail. Close prep becomes a check, not a project — and audit follow-ups become a search, not a forensic dig.',
+    body: 'Every reconciled item carries the saved run, the schema, the primary IDs, and the resolution trail. Close prep becomes a check, not a project. Audit follow-ups become a search, not a forensic dig.',
   },
 ] as const
 
 const insights = [
   {
     tag: 'Reconciliation',
-    title: 'Why retail reconciliation breaks at scale — and what to fix first',
+    title: 'Why retail reconciliation breaks at scale, and what to fix first',
     meta: '6 min read · April 2026',
     art: 'rows',
   },
@@ -137,7 +137,7 @@ function HeroSection() {
           <span className="hero-emphasis">hours, not weeks</span>.
         </h1>
         <p className="hero-subhead">
-          We connect your retail systems, compare every record by primary ID, and surface what doesn’t add up — so your finance team can spend the month doing finance, not chasing variances.
+          We connect your retail systems, compare every record by primary ID, and surface what doesn’t add up so your finance team can spend the month doing finance, not chasing variances.
         </p>
         <div className="hero-cta">
           <a className="btn btn-primary btn-primary-large" href="mailto:hello@drpn.ai?subject=Darpan%20walkthrough">
@@ -257,7 +257,7 @@ function FinalCtaSection() {
       <div className="container final-cta-inner">
         <h2>Ready to close faster?</h2>
         <p className="final-cta-body">
-          Tell us what your close cycle looks like today. We’ll show you where Darpan fits — and, honestly, where it doesn’t.
+          Tell us what your close cycle looks like today. We’ll show you where Darpan fits, and honestly, where it doesn’t.
         </p>
         <a className="btn btn-accent" href="mailto:hello@drpn.ai?subject=Darpan%20walkthrough">
           Request a walkthrough
