@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@500&family=DM+Serif+Display:ital@0;1&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;700&family=Kalam:wght@300;400;700&family=Patrick+Hand&display=swap');
 @import "tailwindcss" source("../");
 
 :root {
@@ -19,8 +19,9 @@
   --color-footer-link: #8C8E84;
   --color-on-dark-body: rgba(240, 242, 238, 0.82);
 
-  --font-display: 'DM Serif Display', Georgia, serif;
-  --font-body: 'Plus Jakarta Sans', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+  --font-display: 'Caveat', 'Patrick Hand', 'Comic Sans MS', cursive;
+  --font-body: 'Patrick Hand', 'Kalam', 'Comic Sans MS', system-ui, sans-serif;
+  --font-mono-hand: 'Kalam', 'Patrick Hand', 'Comic Sans MS', cursive;
 
   --max-page: 1200px;
   --gutter-desktop: 120px;
@@ -33,7 +34,7 @@
   --shadow-card: 0 4px 16px -6px rgba(42, 31, 26, 0.08), 0 1px 3px rgba(42, 31, 26, 0.04);
   --shadow-card-hover: 0 16px 36px -16px rgba(42, 31, 26, 0.18), 0 4px 10px -2px rgba(42, 31, 26, 0.06);
 
-  --section-padding: 100px;
+  --section-padding: 96px;
   --section-padding-mobile: 64px;
 
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
@@ -159,7 +160,7 @@ ol {
     );
   background-size: 100% 100%, 100% 32px;
   background-repeat: no-repeat, repeat-y;
-  background-position: 0 0, 0 24px;
+  background-position: 0 0, 0 27px;
   background-attachment: scroll, scroll;
 }
 
@@ -198,7 +199,7 @@ ol {
   display: flex;
   align-items: baseline;
   gap: 24px;
-  margin-bottom: 48px;
+  margin-bottom: 32px;
 }
 
 .section-numeral {
@@ -378,7 +379,7 @@ ol {
   align-items: center;
   justify-content: space-between;
   gap: 32px;
-  height: 72px;
+  height: 64px;
 }
 
 .brand-link {
@@ -641,7 +642,7 @@ ol {
 
 .hero {
   position: relative;
-  padding: 140px 0 80px;
+  padding: 128px 0 96px;
   overflow: hidden;
 }
 
