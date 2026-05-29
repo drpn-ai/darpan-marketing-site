@@ -35,8 +35,17 @@ function Home() {
       { threshold: 0.12, rootMargin: '0px 0px -10% 0px' },
     )
 
+    const viewportHeight = window.innerHeight
     document.querySelectorAll('.section-band').forEach((node) => {
-      node.setAttribute('data-revealed', 'false')
+      const rect = node.getBoundingClientRect()
+      // Section is fully or partially in initial viewport — show immediately.
+      // Section is entirely below the fold — start hidden and let observer reveal on scroll.
+      const isAboveOrInViewport = rect.top < viewportHeight
+      if (isAboveOrInViewport) {
+        node.setAttribute('data-revealed', 'true')
+      } else {
+        node.setAttribute('data-revealed', 'false')
+      }
       observer.observe(node)
     })
 
