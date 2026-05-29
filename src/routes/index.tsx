@@ -46,9 +46,6 @@ function SiteHeader() {
             </a>
           ))}
         </nav>
-        <a className="btn btn-primary site-header-cta" href="mailto:hello@drpn.ai?subject=Darpan%20walkthrough">
-          Request a walkthrough
-        </a>
         <MobileMenu />
       </div>
     </header>

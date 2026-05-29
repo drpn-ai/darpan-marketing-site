@@ -963,7 +963,6 @@ ol {
   }
 
   .mobile-menu-trigger { display: inline-flex; }
-  .site-header-cta { display: none; }
 
   .footer-grid {
     grid-template-columns: 1fr 1fr;
