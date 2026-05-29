@@ -141,9 +141,26 @@ ol {
 /* Layout primitives */
 
 .site-shell {
-  background: var(--color-background);
+  background-color: var(--color-background);
   color: var(--color-text);
   min-height: 100dvh;
+  background-image:
+    linear-gradient(
+      to right,
+      transparent calc(var(--gutter) - 1px),
+      rgba(158, 71, 56, 0.22) calc(var(--gutter) - 1px),
+      rgba(158, 71, 56, 0.22) var(--gutter),
+      transparent var(--gutter)
+    ),
+    linear-gradient(
+      to bottom,
+      rgba(42, 31, 26, 0.06) 1px,
+      transparent 1px
+    );
+  background-size: 100% 100%, 100% 32px;
+  background-repeat: no-repeat, repeat-y;
+  background-position: 0 0, 0 24px;
+  background-attachment: scroll, scroll;
 }
 
 .container {
@@ -160,21 +177,10 @@ ol {
 }
 
 .section-light {
-  background: var(--color-background);
+  background: transparent;
   color: var(--color-text);
 }
 
-.section-cream {
-  background: var(--color-section-alt);
-  color: var(--color-text);
-}
-
-.section-cream p,
-.section-cream li,
-.section-cream .pain-copy p,
-.section-cream .persona-column p {
-  color: var(--color-text);
-}
 
 .section-dark {
   background: var(--color-primary);
