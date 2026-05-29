@@ -19,8 +19,8 @@
   --color-footer-link: #8C8E84;
   --color-on-dark-body: rgba(240, 242, 238, 0.82);
 
-  --font-display: 'Caveat', 'Patrick Hand', 'Comic Sans MS', cursive;
-  --font-body: 'Patrick Hand', 'Kalam', 'Comic Sans MS', system-ui, sans-serif;
+  --font-display: 'Caveat', 'Kalam', 'Comic Sans MS', cursive;
+  --font-body: 'Kalam', 'Patrick Hand', 'Comic Sans MS', system-ui, sans-serif;
   --font-mono-hand: 'Kalam', 'Patrick Hand', 'Comic Sans MS', cursive;
 
   --max-page: 1200px;
