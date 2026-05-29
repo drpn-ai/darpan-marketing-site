@@ -276,24 +276,22 @@ function SiteFooter() {
         <div className="footer-grid">
           <div className="footer-brand">
             <span className="footer-wordmark">Darpan</span>
-            <span className="footer-tagline">AI reconciliation for retail, minus the busywork.</span>
+            <span className="footer-tagline">AI reconciliation for retail finance.</span>
           </div>
           <div className="footer-column">
             <span className="footer-heading">Product</span>
             <a className="footer-link" href="#how-it-works">How it works</a>
-            <a className="footer-link" href="#who-its-for">Who it’s for</a>
-            <a className="footer-link" href="#talk">Security</a>
+            <a className="footer-link" href="#who-its-for">Who it&#x2019;s for</a>
           </div>
           <div className="footer-column">
             <span className="footer-heading">Company</span>
             <a className="footer-link" href="#insights">Insights</a>
             <a className="footer-link" href="mailto:hello@drpn.ai">Contact</a>
-            <a className="footer-link" href="https://docs.drpn.ai">Docs</a>
           </div>
           <div className="footer-column">
             <span className="footer-heading">Legal</span>
-            <a className="footer-link" href="mailto:hello@drpn.ai?subject=Privacy">Privacy</a>
-            <a className="footer-link" href="mailto:hello@drpn.ai?subject=Terms">Terms</a>
+            <a className="footer-link" href="/privacy">Privacy</a>
+            <a className="footer-link" href="/terms">Terms</a>
           </div>
         </div>
         <div className="footer-bottom">

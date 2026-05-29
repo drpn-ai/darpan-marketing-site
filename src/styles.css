@@ -863,7 +863,7 @@ ol {
   justify-content: space-between;
   align-items: center;
   padding: 20px 0 24px;
-  border-top: 1px solid var(--color-primary);
+  border-top: 1px solid rgba(140, 142, 132, 0.18);
   font-family: var(--font-body);
   font-size: 13px;
   color: var(--color-footer-link);
@@ -956,4 +956,27 @@ ol {
     animation-duration: 0.001ms !important;
     transition-duration: 0.001ms !important;
   }
+}
+
+/* Legal pages */
+
+.legal-page {
+  min-height: 60vh;
+}
+
+.legal-container {
+  max-width: 720px;
+  padding-top: 64px;
+  padding-bottom: 64px;
+}
+
+.legal-container h1 {
+  font-family: var(--font-display);
+  font-size: clamp(32px, 4vw, 44px);
+  margin-bottom: 24px;
+}
+
+.legal-container p {
+  font-size: 17px;
+  line-height: 1.7;
 }
