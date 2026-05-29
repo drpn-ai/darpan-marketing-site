@@ -55,7 +55,7 @@ export function ProductSection() {
         <p className="product-coda">
           <span className="product-coda-label label-smallcaps">III. Evidence</span>
           <span aria-hidden> · </span>
-          the saved run, the rules applied, the row-level trail. Sign on what's there.
+          the saved run, the rules applied, the row-level trail. Sign on what’s there.
         </p>
       </div>
     </section>
