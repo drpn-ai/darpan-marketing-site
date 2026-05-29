@@ -19,6 +19,30 @@ export const navItems = [
 ] as const
 
 function Home() {
+  useEffect(() => {
+    if (typeof window === 'undefined') return
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            entry.target.setAttribute('data-revealed', 'true')
+            observer.unobserve(entry.target)
+          }
+        }
+      },
+      { threshold: 0.12, rootMargin: '0px 0px -10% 0px' },
+    )
+
+    document.querySelectorAll('.section-band').forEach((node) => {
+      node.setAttribute('data-revealed', 'false')
+      observer.observe(node)
+    })
+
+    return () => observer.disconnect()
+  }, [])
+
   return (
     <main className="site-shell">
       <SiteHeader />

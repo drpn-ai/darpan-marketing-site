@@ -942,3 +942,61 @@ ol {
 .writing-entry:last-of-type {
   border-bottom: 1px solid rgba(42, 31, 26, 0.18);
 }
+
+/* ============================================================
+   Motion — entrance choreography
+   ============================================================ */
+
+@keyframes section-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.section-band .section-header,
+.hero .section-numeral,
+.hero .hero-headline,
+.hero .hero-cta,
+.hero .hero-meta {
+  animation: section-fade-in 560ms var(--ease-out) both;
+}
+
+.hero .hero-headline { animation-delay: 80ms; }
+.hero .hero-cta { animation-delay: 160ms; }
+.hero .hero-meta { animation-delay: 240ms; }
+
+.section-band[data-revealed='false'] .section-header,
+.section-band[data-revealed='false'] > .container > :not(.section-header) {
+  opacity: 0;
+  transform: translateY(6px);
+}
+
+.section-band[data-revealed='true'] .section-header,
+.section-band[data-revealed='true'] > .container > :not(.section-header) {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 480ms var(--ease-out), transform 480ms var(--ease-out);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .section-band .section-header,
+  .hero .section-numeral,
+  .hero .hero-headline,
+  .hero .hero-cta,
+  .hero .hero-meta {
+    animation: none;
+  }
+  .section-band[data-revealed='false'] .section-header,
+  .section-band[data-revealed='false'] > .container > :not(.section-header),
+  .section-band[data-revealed='true'] .section-header,
+  .section-band[data-revealed='true'] > .container > :not(.section-header) {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
