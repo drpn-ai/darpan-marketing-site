@@ -1094,3 +1094,44 @@ ol {
     gap: 24px;
   }
 }
+
+/* ============================================================
+   Section 02 — Reconciled by
+   ============================================================ */
+
+.logo-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 56px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.logo-wordmark {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-style: italic;
+  font-size: 22px;
+  letter-spacing: -0.01em;
+  color: var(--color-text);
+  opacity: 0.55;
+}
+
+.logo-caption {
+  margin-top: 32px;
+  font-family: var(--font-body);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  color: var(--color-secondary);
+  text-transform: uppercase;
+}
+
+@media (max-width: 768px) {
+  .logo-row {
+    gap: 28px;
+  }
+  .logo-wordmark {
+    font-size: 18px;
+  }
+}
