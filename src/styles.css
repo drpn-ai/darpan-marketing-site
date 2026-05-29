@@ -25,6 +25,7 @@
   --max-page: 1200px;
   --gutter-desktop: 120px;
   --gutter-mobile: 24px;
+  --gutter: var(--gutter-desktop);
   --radius-sm: 8px;
   --radius-md: 18px;
   --radius-lg: 28px;
@@ -885,6 +886,7 @@ ol {
 
 @media (max-width: 980px) {
   :root {
+    --gutter: 80px;
     --section-padding: var(--section-padding-mobile);
   }
 
@@ -928,6 +930,10 @@ ol {
 }
 
 @media (max-width: 560px) {
+  :root {
+    --gutter: var(--gutter-mobile);
+  }
+
   .site-nav {
     display: none;
   }
