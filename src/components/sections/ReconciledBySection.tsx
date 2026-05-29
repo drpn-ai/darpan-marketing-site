@@ -1,3 +1,5 @@
+import { NotebookDoodle } from '@/components/NotebookDoodle'
+
 const reconciledBy = [
   '[Retailer A]',
   '[Retailer B]',
@@ -24,6 +26,11 @@ export function ReconciledBySection() {
         </ul>
         <p className="logo-caption">Real wordmarks at launch.</p>
       </div>
+      <NotebookDoodle
+        kind="match-arrow"
+        delay={800}
+        style={{ right: '24px', bottom: '24px' }}
+      />
     </section>
   )
 }

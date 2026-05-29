@@ -1,3 +1,5 @@
+import { NotebookDoodle } from '@/components/NotebookDoodle'
+
 export function WorkSection() {
   return (
     <section
@@ -11,13 +13,18 @@ export function WorkSection() {
         </div>
         <div className="manifesto">
           <p className="manifesto-body">
-            Every retail business runs on systems that don’t agree. Inventory
+            Every retail business runs on systems that don't agree. Inventory
             in the WMS, revenue in the POS, returns in commerce, ledger in the
             ERP. Reconciliation is the work that makes them agree — usually by
             hand, mostly in spreadsheets, always late.
           </p>
-          <p className="manifesto-close">
-            Darpan is the infrastructure that makes it the system’s job.
+          <p className="manifesto-close" style={{ position: 'relative' }}>
+            Darpan is the infrastructure that makes it the system's job.
+            <NotebookDoodle
+              kind="circle-emphasis"
+              delay={1000}
+              style={{ left: '-12px', top: '-12px' }}
+            />
           </p>
         </div>
         <p className="work-coda">
