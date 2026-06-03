@@ -8,7 +8,7 @@ export function WorkSection() {
     >
       <div className="container">
         <div className="section-header">
-          <span className="section-numeral" aria-hidden>04</span>
+          <span className="section-numeral" aria-hidden>03</span>
           <h2 id="work-heading">The work, written down</h2>
         </div>
         <div className="manifesto">

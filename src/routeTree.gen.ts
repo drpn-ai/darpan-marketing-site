@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as WritingRouteImport } from './routes/writing'
+import { Route as WhyRouteImport } from './routes/why'
 import { Route as TermsRouteImport } from './routes/terms'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as CustomersRouteImport } from './routes/customers'
@@ -19,6 +20,11 @@ import { Route as WritingSlugRouteImport } from './routes/writing/$slug'
 const WritingRoute = WritingRouteImport.update({
   id: '/writing',
   path: '/writing',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const WhyRoute = WhyRouteImport.update({
+  id: '/why',
+  path: '/why',
   getParentRoute: () => rootRouteImport,
 } as any)
 const TermsRoute = TermsRouteImport.update({
@@ -52,6 +58,7 @@ export interface FileRoutesByFullPath {
   '/customers': typeof CustomersRoute
   '/privacy': typeof PrivacyRoute
   '/terms': typeof TermsRoute
+  '/why': typeof WhyRoute
   '/writing': typeof WritingRouteWithChildren
   '/writing/$slug': typeof WritingSlugRoute
 }
@@ -60,6 +67,7 @@ export interface FileRoutesByTo {
   '/customers': typeof CustomersRoute
   '/privacy': typeof PrivacyRoute
   '/terms': typeof TermsRoute
+  '/why': typeof WhyRoute
   '/writing': typeof WritingRouteWithChildren
   '/writing/$slug': typeof WritingSlugRoute
 }
@@ -69,6 +77,7 @@ export interface FileRoutesById {
   '/customers': typeof CustomersRoute
   '/privacy': typeof PrivacyRoute
   '/terms': typeof TermsRoute
+  '/why': typeof WhyRoute
   '/writing': typeof WritingRouteWithChildren
   '/writing/$slug': typeof WritingSlugRoute
 }
@@ -79,16 +88,25 @@ export interface FileRouteTypes {
     | '/customers'
     | '/privacy'
     | '/terms'
+    | '/why'
     | '/writing'
     | '/writing/$slug'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/customers' | '/privacy' | '/terms' | '/writing' | '/writing/$slug'
+  to:
+    | '/'
+    | '/customers'
+    | '/privacy'
+    | '/terms'
+    | '/why'
+    | '/writing'
+    | '/writing/$slug'
   id:
     | '__root__'
     | '/'
     | '/customers'
     | '/privacy'
     | '/terms'
+    | '/why'
     | '/writing'
     | '/writing/$slug'
   fileRoutesById: FileRoutesById
@@ -98,6 +116,7 @@ export interface RootRouteChildren {
   CustomersRoute: typeof CustomersRoute
   PrivacyRoute: typeof PrivacyRoute
   TermsRoute: typeof TermsRoute
+  WhyRoute: typeof WhyRoute
   WritingRoute: typeof WritingRouteWithChildren
 }
 
@@ -108,6 +127,13 @@ declare module '@tanstack/react-router' {
       path: '/writing'
       fullPath: '/writing'
       preLoaderRoute: typeof WritingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/why': {
+      id: '/why'
+      path: '/why'
+      fullPath: '/why'
+      preLoaderRoute: typeof WhyRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/terms': {
@@ -164,6 +190,7 @@ const rootRouteChildren: RootRouteChildren = {
   CustomersRoute: CustomersRoute,
   PrivacyRoute: PrivacyRoute,
   TermsRoute: TermsRoute,
+  WhyRoute: WhyRoute,
   WritingRoute: WritingRouteWithChildren,
 }
 export const routeTree = rootRouteImport

@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;700&family=Kalam:wght@300;400;700&family=Patrick+Hand&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Patrick+Hand&display=swap');
 @import "tailwindcss" source("../");
 
 :root {
@@ -19,9 +19,11 @@
   --color-footer-link: #8C8E84;
   --color-on-dark-body: rgba(240, 242, 238, 0.82);
 
-  --font-display: 'Caveat', 'Kalam', 'Comic Sans MS', cursive;
-  --font-body: 'Kalam', 'Patrick Hand', 'Comic Sans MS', system-ui, sans-serif;
-  --font-mono-hand: 'Kalam', 'Patrick Hand', 'Comic Sans MS', cursive;
+  /* Handwriting — headings only */
+  --font-display: 'Patrick Hand', 'Comic Sans MS', cursive;
+  /* Clean, highly legible sans — everything else */
+  --font-body: 'Atkinson Hyperlegible', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-mono-hand: 'Atkinson Hyperlegible', system-ui, sans-serif;
 
   --max-page: 1200px;
   --gutter-desktop: 120px;
@@ -129,25 +131,22 @@ h4,
 h5,
 h6 {
   font-family: var(--font-body);
-  font-weight: 600;
+  font-weight: 400;
   color: var(--color-text);
   line-height: 1.3;
 }
 
-/* Kill all italics — handwriting fonts are already cursive enough.
-   Use color + weight for emphasis instead. */
-em,
-i,
-cite,
-address,
-dfn,
-var {
-  font-style: normal;
+/* Kill all italics everywhere — handwriting fonts are already distinctive
+   enough, and slanted text hurts legibility. Use color + weight for emphasis. */
+*,
+*::before,
+*::after {
+  font-style: normal !important;
 }
 
 em {
   color: var(--color-primary);
-  font-weight: 700;
+  font-weight: 400;
 }
 
 /* ============================================================
@@ -384,7 +383,7 @@ ol {
 .section-numeral {
   font-family: var(--font-display);
   font-style: normal;
-  font-weight: 700;
+  font-weight: 400;
   font-size: clamp(36px, 4vw, 44px);
   line-height: 32px;
   color: var(--color-accent);
@@ -476,7 +475,7 @@ ol {
   gap: 8px;
   font-family: var(--font-body);
   font-size: 15px;
-  font-weight: 600;
+  font-weight: 400;
   padding: 10px 20px;
   border-radius: var(--radius-sm);
   border: 1px solid transparent;
@@ -566,7 +565,7 @@ ol {
   align-items: center;
   font-family: var(--font-body);
   font-size: 18px;
-  font-weight: 600;
+  font-weight: 400;
   color: var(--color-primary);
   letter-spacing: -0.01em;
 }
@@ -664,7 +663,7 @@ ol {
 .footer-wordmark {
   font-family: var(--font-body);
   font-size: 18px;
-  font-weight: 600;
+  font-weight: 400;
   color: var(--color-background);
   letter-spacing: -0.01em;
 }
@@ -902,6 +901,10 @@ ol {
    Section 02 — Reconciled by
    ============================================================ */
 
+.logo-block {
+  position: relative;
+}
+
 .logo-row {
   display: flex;
   flex-wrap: wrap;
@@ -912,8 +915,8 @@ ol {
 }
 
 .logo-wordmark {
-  font-family: var(--font-display);
-  font-weight: 400;
+  font-family: var(--font-body);
+  font-weight: 700;
   font-style: normal;
   font-size: 22px;
   letter-spacing: -0.01em;
@@ -922,7 +925,7 @@ ol {
 }
 
 .logo-caption {
-  margin-top: 32px;
+  margin-top: 56px;
   font-family: var(--font-body);
   font-size: 14px;
   letter-spacing: 0.16em;
@@ -1036,7 +1039,7 @@ ol {
 }
 
 .manifesto-body {
-  font-family: var(--font-display);
+  font-family: var(--font-body);
   font-weight: 400;
   font-size: clamp(18px, 1.9vw, 22px);
   line-height: 32px;
@@ -1047,7 +1050,7 @@ ol {
 
 .manifesto-close {
   margin-top: 32px;
-  font-family: var(--font-display);
+  font-family: var(--font-body);
   font-style: normal;
   font-weight: 400;
   font-size: clamp(18px, 1.9vw, 22px);
@@ -1119,7 +1122,8 @@ ol {
 .writing-all {
   display: inline-block;
   margin-top: 36px;
-  font-family: var(--font-display);
+  font-family: var(--font-body);
+  font-weight: 700;
   font-style: normal;
   font-size: 17px;
   color: var(--color-primary);
@@ -1134,6 +1138,184 @@ ol {
 
 .writing-entry:last-of-type {
   border-bottom: 1px solid rgba(42, 31, 26, 0.18);
+}
+
+/* ============================================================
+   Section 05b — Writing post (long-form article body)
+   ============================================================ */
+
+.writing-post .writing-lead {
+  font-family: var(--font-body);
+  font-size: clamp(19px, 2vw, 23px);
+  line-height: 1.5;
+  color: var(--color-text);
+  margin: 0 0 8px;
+}
+
+.writing-post .writing-h2 {
+  font-family: var(--font-display);
+  font-size: clamp(24px, 2.6vw, 30px);
+  line-height: 1.2;
+  color: var(--color-text);
+  margin: 48px 0 16px;
+}
+
+.writing-post .writing-h3 {
+  font-family: var(--font-display);
+  font-size: 21px;
+  font-weight: 400;
+  color: var(--color-primary);
+  margin: 28px 0 10px;
+}
+
+.writing-post p {
+  font-size: 17px;
+  line-height: 1.7;
+  margin: 0 0 18px;
+}
+
+.writing-ul,
+.writing-ol {
+  margin: 0 0 22px;
+  padding-left: 26px;
+}
+
+.writing-ul {
+  list-style: disc;
+}
+
+.writing-ol {
+  list-style: decimal;
+}
+
+.writing-ul li,
+.writing-ol li {
+  font-size: 17px;
+  line-height: 1.6;
+  margin-bottom: 10px;
+  padding-left: 4px;
+}
+
+.writing-table-wrap {
+  margin: 8px 0 26px;
+  overflow-x: auto;
+}
+
+.writing-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 15.5px;
+  line-height: 1.5;
+}
+
+.writing-table th,
+.writing-table td {
+  text-align: left;
+  vertical-align: top;
+  padding: 10px 14px;
+  border: 1px solid var(--color-border);
+}
+
+.writing-table th {
+  font-family: var(--font-body);
+  font-weight: 400;
+  color: var(--color-text);
+  background: var(--color-section-alt);
+}
+
+.writing-table tbody tr:nth-child(even) td {
+  background: rgba(221, 224, 215, 0.35);
+}
+
+.writing-callout {
+  margin: 8px 0 26px;
+  padding: 16px 20px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-left: 3px solid var(--color-secondary);
+  border-radius: 0;
+}
+
+.writing-callout p {
+  margin: 0;
+  font-size: 16px;
+}
+
+.writing-callout-label {
+  display: block;
+  margin-bottom: 6px;
+  color: var(--color-secondary);
+}
+
+.writing-callout-tip {
+  border-left-color: var(--color-primary);
+}
+
+.writing-callout-tip .writing-callout-label {
+  color: var(--color-primary);
+}
+
+.writing-callout-warning {
+  border-left-color: var(--color-accent);
+}
+
+.writing-callout-warning .writing-callout-label {
+  color: var(--color-accent);
+}
+
+.writing-code-block {
+  margin: 0 0 24px;
+  padding: 14px 16px;
+  overflow-x: auto;
+  background: var(--color-footer);
+  border-radius: 4px;
+}
+
+.writing-code-block code {
+  font-family: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 13.5px;
+  line-height: 1.55;
+  color: var(--color-on-dark-body);
+  white-space: pre;
+}
+
+.writing-code-inline {
+  font-family: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.86em;
+  padding: 1px 5px;
+  background: var(--color-section-alt);
+  border-radius: 3px;
+  color: var(--color-primary);
+}
+
+.writing-quote {
+  margin: 8px 0 26px;
+  padding-left: 18px;
+  border-left: 3px solid var(--color-primary);
+  font-family: var(--font-body);
+  font-size: clamp(19px, 2vw, 22px);
+  color: var(--color-primary);
+}
+
+.writing-faq {
+  margin-top: 8px;
+}
+
+.writing-faq-item {
+  padding: 18px 0;
+  border-top: 1px solid rgba(42, 31, 26, 0.18);
+}
+
+.writing-faq-item:last-child {
+  border-bottom: 1px solid rgba(42, 31, 26, 0.18);
+}
+
+.writing-faq-item .writing-h3 {
+  margin-top: 0;
+}
+
+.writing-post-footer {
+  margin-top: 48px;
 }
 
 /* ============================================================
@@ -1280,6 +1462,19 @@ ol {
   .doodle .doodle-path {
     animation: none;
     stroke-dashoffset: 0;
+  }
+}
+
+/* Margin marginalia needs a gutter to live in. Below the desktop layout the
+   gutter collapses, so hide the doodles that sit in the page margins to keep
+   them from clipping the viewport edge or colliding with text. The doodles
+   anchored on top of content (circle, checkmark, exclamation) stay. */
+@media (max-width: 900px) {
+  .doodle-star,
+  .doodle-key-dot,
+  .doodle-margin-arrow,
+  .doodle-match-arrow {
+    display: none;
   }
 }
 

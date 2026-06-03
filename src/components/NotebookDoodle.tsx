@@ -53,7 +53,7 @@ export function NotebookDoodle({ kind, className, style, delay = 0, color = 'var
           <circle cx="110" cy="60" r="3" fill={color} />
           <path d="M 14,22 C 40,18 60,55 106,58" className="doodle-path" />
           <path d="M 102,52 L 108,58 L 100,62" className="doodle-path" />
-          <text x="55" y="38" fontFamily="Caveat, cursive" fontSize="14" fill={color} stroke="none">
+          <text x="55" y="38" fontFamily="Patrick Hand, cursive" fontSize="14" fill={color} stroke="none">
             match
           </text>
         </svg>
@@ -131,7 +131,7 @@ export function NotebookDoodle({ kind, className, style, delay = 0, color = 'var
           strokeLinejoin="round"
           aria-hidden
         >
-          <text x="6" y="22" fontFamily="Caveat, cursive" fontSize="18" fill={color} stroke="none">
+          <text x="6" y="22" fontFamily="Patrick Hand, cursive" fontSize="18" fill={color} stroke="none">
             evidence
           </text>
           <path d="M 78,12 C 82,24 82,38 78,52" className="doodle-path" />

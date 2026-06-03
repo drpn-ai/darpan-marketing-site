@@ -39,7 +39,7 @@ function CustomersPage() {
             href="mailto:hello@drpn.ai?subject=Darpan%20walkthrough"
           >
             Request a walkthrough
-            <ArrowRight size={16} weight="bold" aria-hidden />
+            <ArrowRight size={16} weight="regular" aria-hidden />
           </a>
         </p>
       </div>

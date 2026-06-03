@@ -2,9 +2,9 @@ import { useEffect } from 'react'
 import { createFileRoute } from '@tanstack/react-router'
 import { MobileMenu } from '@/components/MobileMenu'
 import { HeroSection } from '@/components/sections/HeroSection'
-import { ReconciledBySection } from '@/components/sections/ReconciledBySection'
 import { ProductSection } from '@/components/sections/ProductSection'
 import { WorkSection } from '@/components/sections/WorkSection'
+import { DifferenceSection } from '@/components/sections/DifferenceSection'
 import { WritingSection } from '@/components/sections/WritingSection'
 import { LinkedinLogo } from '@phosphor-icons/react'
 
@@ -14,6 +14,7 @@ export const Route = createFileRoute('/')({
 
 export const navItems = [
   ['Product', '#product'],
+  ['Why Darpan', '/why'],
   ['Customers', '/customers'],
   ['Notes', '/writing'],
 ] as const
@@ -56,9 +57,9 @@ function Home() {
     <main className="site-shell">
       <SiteHeader />
       <HeroSection />
-      <ReconciledBySection />
       <ProductSection />
       <WorkSection />
+      <DifferenceSection />
       <WritingSection />
       <SiteFooter />
     </main>

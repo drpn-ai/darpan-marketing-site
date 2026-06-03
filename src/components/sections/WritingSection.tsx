@@ -15,11 +15,11 @@ export function WritingSection() {
           <NotebookDoodle
             kind="margin-arrow"
             delay={400}
-            style={{ right: '-72px', top: '4px' }}
+            style={{ left: '-66px', top: '6px' }}
           />
         </div>
         <ul className="writing-list">
-          {writingEntries.map((entry) => (
+          {writingEntries.slice(0, 4).map((entry) => (
             <li key={entry.slug} className="writing-entry">
               <span className="writing-meta label-smallcaps">
                 {entry.date}

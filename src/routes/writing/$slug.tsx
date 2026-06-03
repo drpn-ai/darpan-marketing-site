@@ -1,66 +1,45 @@
 import { createFileRoute, useParams } from '@tanstack/react-router'
 import { writingEntries } from '@/data/writing-entries'
+import { getArticle } from '@/data/writing-content'
+import { WritingArticle } from '@/components/WritingArticle'
+
+const SITE_URL = 'https://drpn.ai'
 
 export const Route = createFileRoute('/writing/$slug')({
   component: WritingPostPage,
-  head: ({ params }) => ({
-    meta: [
-      {
-        title:
-          writingEntries.find((e) => e.slug === params.slug)?.title ??
-          'Writing — Darpan',
-      },
-    ],
-  }),
+  head: ({ params }) => {
+    const article = getArticle(params.slug)
+    const entry = writingEntries.find((e) => e.slug === params.slug)
+    const title = `${article?.title ?? entry?.title ?? 'Writing'} — Darpan`
+    const description =
+      article?.description ??
+      'Working notes on reconciliation, retail data, and how the books close when they do.'
+    const url = `${SITE_URL}/writing/${params.slug}`
+    const meta: Array<Record<string, string>> = [
+      { title },
+      { name: 'description', content: description },
+      { property: 'og:type', content: 'article' },
+      { property: 'og:title', content: title },
+      { property: 'og:description', content: description },
+      { property: 'og:url', content: url },
+      { name: 'twitter:card', content: 'summary_large_image' },
+      { name: 'twitter:title', content: title },
+      { name: 'twitter:description', content: description },
+    ]
+    if (article) {
+      meta.push({ name: 'keywords', content: article.keywords.join(', ') })
+    }
+    return { meta, links: [{ rel: 'canonical', href: url }] }
+  },
 })
 
 function WritingPostPage() {
   const { slug } = useParams({ from: '/writing/$slug' })
   const entry = writingEntries.find((e) => e.slug === slug)
+  const article = getArticle(slug)
 
-  if (slug === 'why-reconciliation-belongs-at-the-data-layer') {
-    return (
-      <main className="legal-page section-band">
-        <article className="container legal-container">
-          <span className="label-smallcaps">
-            {entry?.date}
-            <span aria-hidden> · </span>
-            {entry?.category}
-          </span>
-          <h1>{entry?.title ?? 'Writing'}</h1>
-          <p>
-            Most retail finance teams treat reconciliation as a spreadsheet
-            problem. They export from each system, paste into Excel, write
-            VLOOKUPs, and call the result reconciled. The output is a
-            workbook nobody else can read. The trail is in cell comments.
-          </p>
-          <p>
-            Reconciliation is a data-layer problem. Two systems disagree about
-            the same record because they're tracking it independently. The
-            answer is to compare the records by their shared key, classify the
-            difference, and keep the row-level evidence. The spreadsheet pile
-            is what happens when no system is responsible for that work.
-          </p>
-          <p>
-            Darpan is responsible for that work. The schema describes the
-            shape of each source. The compare step pairs records by primary
-            ID. The evidence is the saved run, the rules applied, the
-            row-level trail. Nothing about that needs to happen in a
-            workbook.
-          </p>
-          <p>
-            <em>
-              Sign on what’s there.
-            </em>
-          </p>
-          <p style={{ marginTop: 56 }}>
-            <a className="writing-all" href="/writing">
-              ← All writing
-            </a>
-          </p>
-        </article>
-      </main>
-    )
+  if (article) {
+    return <WritingArticle article={article} entry={entry} />
   }
 
   return (

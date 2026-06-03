@@ -33,17 +33,19 @@ export function ProductSection() {
     >
       <div className="container">
         <div className="section-header">
-          <span className="section-numeral" aria-hidden>03</span>
+          <span className="section-numeral" aria-hidden>02</span>
           <h2 id="product-heading">The product, written down to its primitives</h2>
         </div>
-        <NotebookDoodle
-          kind="primary-key-dot"
-          delay={400}
-          style={{ left: '-72px', top: '8px' }}
-        />
         <ol className="product-list">
           {primitives.map((p, index) => (
             <li className="product-primitive" key={p.label}>
+              {index === 0 && (
+                <NotebookDoodle
+                  kind="primary-key-dot"
+                  delay={400}
+                  style={{ left: '-62px', top: '24px', transform: 'rotate(-6deg)' }}
+                />
+              )}
               <span className="product-label label-smallcaps">{p.label}</span>
               <div className="product-content">
                 <h3 className="product-headline">{p.headline}</h3>
