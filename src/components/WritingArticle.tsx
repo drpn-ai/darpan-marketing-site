@@ -1,22 +1,69 @@
+import type { ReactNode } from 'react'
 import type { Article, Block, FaqItem } from '@/data/writing-content'
 import type { WritingEntry } from '@/data/writing-entries'
+import { VlPage } from '@/components/VlChrome'
 
 const SITE_URL = 'https://drpn.ai'
 
-// Lightweight inline formatter: `code` spans render as <code>, everything
-// else as plain text. Keeps article data readable while still producing
-// real semantic markup for field names, formulas, and identifiers.
-function renderInline(text: string, keyPrefix: string) {
+// `code` spans render as <code>; everything else as plain text.
+function renderCode(text: string, keyPrefix: string) {
   const parts = text.split('`')
   return parts.map((part, i) =>
     i % 2 === 1 ? (
-      <code key={`${keyPrefix}-${i}`} className="writing-code-inline">
+      <code key={`${keyPrefix}-c${i}`} className="writing-code-inline">
         {part}
       </code>
     ) : (
-      <span key={`${keyPrefix}-${i}`}>{part}</span>
+      <span key={`${keyPrefix}-c${i}`}>{part}</span>
     ),
   )
+}
+
+// Lightweight inline formatter for article copy. Supports two markups:
+//   `code`            → inline <code> (field names, formulas, identifiers)
+//   [label](href)     → links. Internal hrefs ("/writing/...", "#anchor")
+//                       render as same-tab anchors; external "http(s)://"
+//                       links open in a new tab with rel="noopener noreferrer".
+// Everything else is plain text. Keeps article data readable while producing
+// real, crawlable links for internal cross-references and outbound citations.
+const LINK_RE = /\[([^\]]+)\]\(([^)]+)\)/g
+
+function renderInline(text: string, keyPrefix: string) {
+  const nodes: ReactNode[] = []
+  let last = 0
+  let seg = 0
+  let match: RegExpExecArray | null
+  LINK_RE.lastIndex = 0
+  while ((match = LINK_RE.exec(text)) !== null) {
+    if (match.index > last) {
+      nodes.push(...renderCode(text.slice(last, match.index), `${keyPrefix}-${seg}`))
+    }
+    const label = match[1]
+    const href = match[2]
+    const external = /^https?:\/\//i.test(href)
+    nodes.push(
+      external ? (
+        <a
+          key={`${keyPrefix}-l${seg}`}
+          href={href}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          {label}
+        </a>
+      ) : (
+        <a key={`${keyPrefix}-l${seg}`} href={href}>
+          {label}
+        </a>
+      ),
+    )
+    last = match.index + match[0].length
+    seg += 1
+  }
+  if (last < text.length) {
+    nodes.push(...renderCode(text.slice(last), `${keyPrefix}-${seg}`))
+  }
+  return nodes
 }
 
 function BlockView({ block, index }: { block: Block; index: number }) {
@@ -155,31 +202,33 @@ export function WritingArticle({
   // `<` so a stray "</script>" in copy can never break out of the tag.
   const jsonLdSafe = JSON.stringify(jsonLd).replace(/</g, '\\u003c')
   return (
-    <main className="legal-page section-band">
-      <article className="container legal-container writing-post">
-        <span className="label-smallcaps">
-          {entry?.date}
-          {entry?.date ? <span aria-hidden> · </span> : null}
-          {entry?.category}
-        </span>
-        <h1>{article.title}</h1>
-        <p className="writing-lead">{renderInline(article.lead, 'lead')}</p>
-        {article.blocks.map((block, i) => (
-          <BlockView key={`block-${i}`} block={block} index={i} />
-        ))}
-        {article.faq && article.faq.length > 0 ? (
-          <FaqView faq={article.faq} />
-        ) : null}
-        <p className="writing-post-footer">
-          <a className="writing-all" href="/writing">
-            ← All writing
-          </a>
-        </p>
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: jsonLdSafe }}
-        />
-      </article>
-    </main>
+    <VlPage>
+      <section className="vl-band is-plain">
+        <article className="vl-wrap vl-prose">
+          <span className="vl-kicker">
+            {entry?.date}
+            {entry?.date ? <span aria-hidden> · </span> : null}
+            {entry?.category}
+          </span>
+          <h1>{article.title}</h1>
+          <p className="writing-lead">{renderInline(article.lead, 'lead')}</p>
+          {article.blocks.map((block, i) => (
+            <BlockView key={`block-${i}`} block={block} index={i} />
+          ))}
+          {article.faq && article.faq.length > 0 ? (
+            <FaqView faq={article.faq} />
+          ) : null}
+          <p className="writing-post-footer">
+            <a className="writing-all" href="/writing">
+              ← All writing
+            </a>
+          </p>
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: jsonLdSafe }}
+          />
+        </article>
+      </section>
+    </VlPage>
   )
 }

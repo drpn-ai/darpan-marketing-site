@@ -1,5 +1,5 @@
 import { createFileRoute } from '@tanstack/react-router'
-import { ArrowRight } from '@phosphor-icons/react'
+import { VlPage } from '@/components/VlChrome'
 
 export const Route = createFileRoute('/customers')({
   component: CustomersPage,
@@ -18,31 +18,30 @@ const reconciledBy = [
 
 function CustomersPage() {
   return (
-    <main className="legal-page section-band">
-      <div className="container legal-container">
-        <span className="label-smallcaps">02 · Customers</span>
-        <h1>Reconciled by retail teams.</h1>
-        <p>
-          Darpan is in deployment with a small set of corporate retail finance
-          and operations teams. Real customer wordmarks land here at general
-          availability. Until then, here is the shape.
-        </p>
-        <ul className="logo-row" aria-label="Customer wordmarks">
-          {reconciledBy.map((name) => (
-            <li key={name} className="logo-wordmark">{name}</li>
-          ))}
-        </ul>
-        <p className="logo-caption">Real wordmarks at launch.</p>
-        <p style={{ marginTop: 48 }}>
+    <VlPage>
+      <section className="vl-band is-plain" aria-labelledby="customers-heading">
+        <div className="vl-wrap vl-prose">
+          <span className="vl-kicker">Customers</span>
+          <h1 id="customers-heading">Reconciled by retail teams.</h1>
+          <p>
+            Darpan is in deployment with a small set of corporate retail finance
+            and operations teams. Real customer wordmarks land here at general
+            availability. Until then, here is the shape.
+          </p>
+          <ul className="vl-logos" aria-label="Customer wordmarks">
+            {reconciledBy.map((name) => (
+              <li key={name}>{name}</li>
+            ))}
+          </ul>
+          <p className="vl-logos-caption">Real wordmarks at launch.</p>
           <a
-            className="btn btn-primary"
+            className="vl-cta"
             href="mailto:hello@drpn.ai?subject=Darpan%20walkthrough"
           >
-            Request a walkthrough
-            <ArrowRight size={16} weight="regular" aria-hidden />
+            Request a walkthrough <span className="arr">&rarr;</span>
           </a>
-        </p>
-      </div>
-    </main>
+        </div>
+      </section>
+    </VlPage>
   )
 }

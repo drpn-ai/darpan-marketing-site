@@ -31,150 +31,6 @@ export type Article = {
 
 const articles: Article[] = [
   {
-    slug: 'the-complete-guide-to-data-reconciliation',
-    title: 'The complete guide to data reconciliation',
-    description:
-      'Data reconciliation is proving that two independent records of the same thing agree — and explaining every place they do not. The concepts, the method, and where each approach tops out.',
-    keywords: [
-      'data reconciliation',
-      'what is reconciliation',
-      'reconciliation guide',
-      'account reconciliation',
-      'how to reconcile data',
-      'reconciliation process',
-    ],
-    lead: 'Data reconciliation is the practice of proving that two independent records of the same thing agree — and, where they do not, explaining why. This guide is the map for the rest of the library: what reconciliation actually is, the handful of concepts every reconciliation rests on, the method that stays the same whether you work by hand or at scale, and an honest read on where each approach — manual, spreadsheet, AI — runs out. Read it top to bottom, or jump to the piece you need.',
-    blocks: [
-      { t: 'h2', text: 'What is data reconciliation?' },
-      {
-        t: 'p',
-        text: 'Reconciliation is the act of comparing two records of the same events — two systems, two files, a ledger and a bank statement — and resolving them to a single agreed picture. The output is not a yes-or-no. It is a classified list: rows that agree, rows that exist on one side only, and rows that exist on both but disagree on a value. Every difference gets a reason and a next action. A comparison that only tells you the totals do not match is not yet a reconciliation; it is the first ten seconds of one.',
-      },
-      {
-        t: 'p',
-        text: 'The shape is the same everywhere it shows up. Matching orders to payments, inventory to a warehouse feed, a subledger to the general ledger, a storefront to an ERP — all of it is the same underlying job wearing different clothes. Learn the job once and every specific scenario becomes a variation.',
-      },
-      { t: 'h2', text: 'Why does reconciliation feel like it is never "done"?' },
-      {
-        t: 'p',
-        text: 'Because most people reconcile by chasing symptoms instead of sorting causes. They re-run an auto-match that "works maybe 60% of the time," re-key the leftovers, and find the same exceptions waiting next month. The thing that makes a reconciliation closeable is classification: knowing which differences are real errors, which are expected timing lag, and which are just the data being messy. Without that, the work never converges — you are re-deciding the same rows every period.',
-      },
-      {
-        t: 'quote',
-        text: 'I am finding that even for straightforward small business clients, I am spending 2 to 4 hours per month just on reconciliation. QB auto-match works maybe 60% of the time; descriptions do not line up.',
-      },
-      {
-        t: 'p',
-        text: 'That frustration is the most common one operators voice publicly, and it is almost always a process problem, not an effort problem. The fix is not working harder through the exceptions; it is having a method that names each difference so it stops coming back.',
-      },
-      { t: 'h2', text: 'The vocabulary: the ideas every reconciliation rests on' },
-      {
-        t: 'p',
-        text: 'A few concepts carry the entire practice. Each has its own deep-dive in the Foundations track; here is the map of how they fit together.',
-      },
-      {
-        t: 'table',
-        head: ['Concept', 'What it answers', 'Where it bites if you skip it'],
-        rows: [
-          ['Primary ID', 'What counts as the same row in both systems', 'A wrong key makes every later number suspect'],
-          ['Schema', 'What each field is and means before you compare', 'Dates and amounts compare as text and never match'],
-          ['Difference taxonomy', 'What kind of difference this is, and the action it needs', 'A pile of flags with no decisions attached'],
-          ['Two-way vs three-way', 'How many sources must agree (orders, processor, bank)', 'Chasing a "gap" that is really a processor fee'],
-          ['The cost of variance', 'Why a small unseen difference matters', 'Margin and inventory decisions made on wrong numbers'],
-        ],
-      },
-      {
-        t: 'p',
-        text: 'If you read only two before starting, read the primary-ID piece and the difference-taxonomy piece. The first decides whether your comparison is even valid; the second is what turns its output into a short, real list instead of a thousand undifferentiated flags.',
-      },
-      { t: 'h2', text: 'The universal method: the same five steps every time' },
-      {
-        t: 'p',
-        text: 'Whether you do this in your head, in a workbook, or with a tool, the method does not change. The manual-method guide walks each step in detail; this is the spine.',
-      },
-      {
-        t: 'ol',
-        items: [
-          'Choose the primary ID — the field, or combination of fields, that identifies the same record on both sides. Validate that it is unique and present on both before trusting it.',
-          'Normalize both sides — trim whitespace, fix casing, strip prefixes, standardize dates to one format, convert amounts to one unit. Clean the key first, then the values.',
-          'Match on the key — every row now lands in one of three buckets: matched on both sides, present only in A, present only in B. The one-sided rows are your first findings.',
-          'Compare the matched pairs — for rows that matched, check the fields that matter (amount, quantity, status) and record both values so a difference is visible, not just flagged.',
-          'Classify and decide — sort every difference by cause and assign an action. This step is what makes the result closeable.',
-        ],
-      },
-      {
-        t: 'callout',
-        kind: 'warning',
-        text: 'A green "MATCHED" is not the same as agreement. A run can report everything matched while duplicates and missing rows hide underneath a bad key. A run that finishes with zero differences and a run with zero matches look identical at a glance and mean opposite things — always check the key before you celebrate.',
-      },
-      { t: 'h2', text: 'How do you know which method to use?' },
-      {
-        t: 'p',
-        text: 'There is no single right tool — there is a ladder, and each rung tops out somewhere. The honest question is not "what is best" but "where does my current rung stop holding the weight." Every scenario guide in this library climbs the same ladder and says where each rung ends.',
-      },
-      {
-        t: 'table',
-        head: ['Method', 'Best for', 'Where it tops out'],
-        rows: [
-          ['By hand', 'Learning the method; one-off checks', 'Repetition, volume, more than one reviewer'],
-          ['Spreadsheet', 'Two files, a known key, a person who trusts the workbook', 'Three-plus sources, composite keys, audit by others'],
-          ['AI-assisted', 'Mapping fields, suggesting keys, classifying and explaining', 'Doing the arithmetic — that must stay deterministic'],
-          ['Fully automated', 'The same comparison every week, audit trail required', 'Setup cost; needs the method defined first'],
-        ],
-      },
-      {
-        t: 'p',
-        text: 'Notice the AI row. A model is genuinely useful for the judgment-and-language work at the edges — proposing a mapping, spotting a composite key, sorting differences, drafting the explanation a human reviews. It is not the thing that should decide whether two numbers are equal. Keep the matching and math in code that returns the same answer every time, and AI makes you faster without ever being the source of the number.',
-      },
-      { t: 'h2', text: 'Why do two systems not just agree in the first place?' },
-      {
-        t: 'p',
-        text: 'Because they were never designed to. A growing operation runs on five to ten systems that each hold a slice of the transaction and none of which talk natively to the others. A single order can split across the storefront, the payment processor, the bank settlement, and the fee line — with no shared transaction ID tying them together. A "sync" moves data between two of them; it does not prove they still agree afterward. That gap between moved and verified is exactly what reconciliation exists to close, and why it never fully disappears as long as the systems are independent.',
-      },
-      { t: 'h2', text: 'A reading path through this library' },
-      {
-        t: 'p',
-        text: 'If you want a curriculum rather than a single page, work the tracks in this order:',
-      },
-      {
-        t: 'ol',
-        items: [
-          'Foundations — start with what a primary ID is and why variance you cannot see still costs you, then schemas, the difference taxonomy, and two-way vs three-way reconciliation.',
-          'By hand — the repeatable manual method, so you understand what any tool is doing on your behalf.',
-          'In a spreadsheet — matching two files with XLOOKUP and finding set differences with COUNTIF and MATCH.',
-          'With AI — prompting patterns that keep a model on mapping and explanation, and an honest look at what an AI agent can and cannot reconcile.',
-          'By system — the scenario guides: Shopify against your ERP, NetSuite inventory and the GL, your OMS against the source of truth.',
-        ],
-      },
-      {
-        t: 'p',
-        text: 'Wherever you start, the test for every page is the same: you should leave able to do something today that you could not do an hour ago. If a method here ever stops scaling for you, that is not a failure of the method — it is the signal to move one rung up the ladder.',
-      },
-    ],
-    faq: [
-      {
-        q: 'What is data reconciliation, in plain terms?',
-        a: 'It is comparing two independent records of the same events and resolving them to one agreed picture — confirming the rows that match, finding the rows present on only one side, and explaining the rows that match but disagree on a value. The useful output is a classified list of differences with an action for each, not just a pass or fail.',
-      },
-      {
-        q: 'Why does bank reconciliation feel like it is never truly done?',
-        a: 'Usually because the process flags differences without sorting them by cause, so the same exceptions return every period. Reconciling once a month against a defined method, setting up matching rules, and classifying each difference as real, timing, or data-quality is what lets the work actually converge instead of repeating.',
-      },
-      {
-        q: 'How long should reconciliation take?',
-        a: 'It varies with volume and number of systems, but spending several hours every month on a simple account usually points to a process gap — typically a weak matching key or no classification step — rather than to the work being inherently that large. Tightening the key and normalizing inputs first removes most of the manual time.',
-      },
-      {
-        q: 'Do I need software to reconcile, or can I do it in a spreadsheet?',
-        a: 'For two files with a clean shared key, a spreadsheet is genuinely enough. You outgrow it when there are three or more sources, the key is composite, the same comparison runs every week, or other people need to audit how a number was reached — at which point a repeatable, auditable process beats a workbook someone rebuilds each month.',
-      },
-      {
-        q: 'What is the difference between a sync and a reconciliation?',
-        a: 'A sync moves data from one system to another. A reconciliation proves the two systems still agree after the fact. A sync can run successfully and still leave quantities or totals disagreeing, which is why "everything synced" is not the same as "everything matches."',
-      },
-    ],
-  },
-  {
     slug: 'what-we-mean-when-we-say-primary-id',
     title: 'What a primary ID is, and why every reconciliation depends on it',
     description:
@@ -187,16 +43,16 @@ const articles: Article[] = [
       'record matching',
       'data reconciliation',
     ],
-    lead: 'Before you can compare two systems, you have to agree on what counts as the same row. That agreement is the primary ID: the field, or combination of fields, that uniquely identifies a record in both systems. Get it right and reconciliation is arithmetic. Get it wrong and every number downstream is suspect.',
+    lead: 'Before you can compare two systems, you have to agree on what counts as the same row. That agreement is the primary ID — the field, or combination of fields, that identifies one record in both systems. Get it right and reconciliation is just arithmetic. Get it wrong and every number downstream is quietly suspect. This is the step people skip, and it\'s the one that bites hardest.',
     blocks: [
       { t: 'h2', text: 'What is a primary ID in reconciliation?' },
       {
         t: 'p',
-        text: 'A primary ID is the value you use to match a record in one system against the corresponding record in another. In a sales reconciliation it might be the order number; in inventory it might be SKU plus location; in a bank reconciliation it might be a transaction reference. The only requirement is that it means the same thing on both sides and points to exactly one record on each.',
+        text: 'A primary ID is the value you use to match a record in one system against the corresponding record in another. In a sales reconciliation it might be the order number; in inventory it might be SKU plus location; in a [bank reconciliation](https://en.wikipedia.org/wiki/Bank_reconciliation) it might be a transaction reference. The only requirement is that it means the same thing on both sides and points to exactly one record on each.',
       },
       {
         t: 'p',
-        text: 'This is different from a database primary key. A database primary key is unique within one system. A reconciliation primary ID has to be unique and shared across two systems that were never designed to agree.',
+        text: 'This is different from a [database primary key](https://en.wikipedia.org/wiki/Primary_key). A database primary key is unique within one system. A reconciliation primary ID has to be unique and shared across two systems that were never designed to agree.',
       },
       { t: 'h2', text: 'What makes a good primary ID?' },
       {
@@ -211,7 +67,7 @@ const articles: Article[] = [
       { t: 'h2', text: 'When one field is not enough: composite keys' },
       {
         t: 'p',
-        text: 'Many retail records are only unique in combination. A single SKU is not unique across warehouses; a SKU is unique per location. A line item is unique per order plus line number. When no single field identifies a row, you build a composite key by concatenating fields in a fixed order, for example `sku | location_id`.',
+        text: 'Many retail records are only unique in combination. A single SKU is not unique across warehouses; a SKU is unique per location. A line item is unique per order plus line number. When no single field identifies a row, you build a [composite key](https://en.wikipedia.org/wiki/Composite_key) by concatenating fields in a fixed order, for example `sku | location_id`.',
       },
       {
         t: 'callout',
@@ -241,7 +97,7 @@ const articles: Article[] = [
       },
       {
         t: 'p',
-        text: 'The discipline is simple: prove the key is unique and shared before you compare a single value. Reconciliation done on a bad key produces confident, wrong answers.',
+        text: 'The discipline is simple: prove the key is unique and shared before you compare a single value. Reconciliation done on a bad key produces confident, wrong answers. Choosing it well is step one of the [manual reconciliation method](/writing/how-to-reconcile-two-systems-by-hand).',
       },
     ],
     faq: [
@@ -260,182 +116,6 @@ const articles: Article[] = [
     ],
   },
   {
-    slug: 'schemas-explained-describe-your-data',
-    title: 'Schemas, explained: describing your data before you compare it',
-    description:
-      'A schema is the agreed shape of a data source — its fields, types, and meaning. Defining one before reconciliation turns a messy export into something you can compare reliably.',
-    keywords: [
-      'data schema',
-      'schema definition',
-      'data mapping',
-      'field mapping',
-      'csv schema',
-      'json schema',
-    ],
-    lead: 'Two CSVs that look alike to a person can be wildly different to a computer: one stores dates as 2026-05-30, the other as 30/05/2026; one calls it qty, the other Quantity. A schema is where you write down what each source actually contains, so the comparison step has stable ground to stand on.',
-    blocks: [
-      { t: 'h2', text: 'What is a data schema?' },
-      {
-        t: 'p',
-        text: 'A schema is a description of a data source structure: the fields it contains, the type of each field (text, number, date, boolean), and what each field means. It is the contract between a messy source file and the logic that reads it. With a schema, your tooling knows `total` is a number to be compared numerically, not text to be matched character by character.',
-      },
-      { t: 'h2', text: 'Why define a schema before reconciling?' },
-      {
-        t: 'ul',
-        items: [
-          'Field names get stable. `Qty`, `qty`, and `Quantity` all map to one logical field, so downstream logic stops caring which export it came from.',
-          'Types get enforced. The text 1,000 and the number 1000 compare as equal instead of unequal strings.',
-          'Dates and currencies normalize. One place decides that all dates become ISO YYYY-MM-DD and all amounts become a number of cents.',
-          'Missing or extra columns surface early, before they corrupt a run.',
-        ],
-      },
-      { t: 'h2', text: 'The parts of a schema' },
-      {
-        t: 'table',
-        head: ['Element', 'What it captures', 'Example'],
-        rows: [
-          ['Field name', 'The logical name used everywhere downstream', '`order_id`'],
-          ['Source label', 'What the field is actually called in the file', 'Order #'],
-          ['Type', 'How to parse and compare the value', 'number, text, date'],
-          ['Format', 'How to read the raw value', 'date DD/MM/YYYY'],
-          ['Required', 'Whether a row is valid without it', 'true / false'],
-        ],
-      },
-      { t: 'h2', text: 'Schema-on-write versus schema-on-read' },
-      {
-        t: 'p',
-        text: 'Some systems enforce a schema when data is written (a database table). Reconciliation usually works the other way: the file already exists, and you apply a schema on read. That means your schema main job is translation — mapping whatever the source actually produced onto the clean field names and types your comparison expects.',
-      },
-      {
-        t: 'callout',
-        kind: 'warning',
-        text: 'Source exports change without warning. A vendor renames `Qty` to `Quantity`, adds a column, or switches date formats. A schema localizes that breakage to one mapping instead of every formula and rule that touches the data.',
-      },
-      { t: 'h2', text: 'How to build a schema from a sample file' },
-      {
-        t: 'ol',
-        items: [
-          'List every column in the source export exactly as it appears.',
-          'For each, decide the logical field name you want to use downstream.',
-          'Assign a type and, where needed, a format (date pattern, decimal separator).',
-          'Mark which fields are required for a row to be usable.',
-          'Identify which field or combination is the primary ID.',
-        ],
-      },
-      {
-        t: 'p',
-        text: 'A schema and a primary ID work together: the schema gives every field a stable name and type, and the primary ID names which of those fields identifies the row. Define the schema first; choosing the key is much easier once the fields are clean.',
-      },
-    ],
-    faq: [
-      {
-        q: 'What is the difference between a schema and a mapping?',
-        a: 'A schema describes one source shape — its fields and types. A mapping connects fields across two sources so they can be compared. You usually define a schema per source, then map equivalent fields between them.',
-      },
-      {
-        q: 'Do I need a schema for CSV files?',
-        a: 'CSV carries no type information — every value is text. A schema is what tells your tooling that a column is a date or a number, which is exactly what you need for a reliable comparison. JSON carries some types but still benefits from an explicit schema for naming and required-field rules.',
-      },
-      {
-        q: 'What happens if the source file changes its columns?',
-        a: 'With a schema, you update one mapping and everything downstream keeps working. Without one, every formula, lookup, and rule that referenced the old column breaks individually.',
-      },
-    ],
-  },
-  {
-    slug: 'a-taxonomy-of-reconciliation-differences',
-    title: 'A taxonomy of reconciliation differences (and what to do with each)',
-    description:
-      'Not all reconciliation differences mean the same thing. A practical taxonomy — missing, value, timing, mapping, and data-quality differences — with the right action for each.',
-    keywords: [
-      'reconciliation differences',
-      'variance types',
-      'discrepancy classification',
-      'timing difference',
-      'data quality',
-      'reconciliation taxonomy',
-    ],
-    lead: 'A reconciliation that just flags 1,240 differences is barely more useful than no reconciliation at all. The value is in the classification: knowing which differences are errors, which are expected, and which are just the data being messy. Here is the taxonomy that turns a flag into an action.',
-    blocks: [
-      { t: 'h2', text: 'Why classification is the real output' },
-      {
-        t: 'p',
-        text: 'Finding that two systems disagree is the easy part; any comparison does that. The work that makes reconciliation useful is sorting the disagreements by cause, because the cause determines the action. A timing difference and a value error look identical in a raw diff and demand opposite responses — wait versus fix. A good reconciliation hands you categories, not just counts.',
-      },
-      { t: 'h2', text: 'The five kinds of difference' },
-      { t: 'h3', text: '1. Missing records (one-sided)' },
-      {
-        t: 'p',
-        text: 'A record exists on one side and not the other. Something was created in one system and never propagated, or was deleted on one side only. Action: find out which, then create, void, or resync. These are usually the highest-signal differences — a missing order or a missing payment is rarely benign.',
-      },
-      { t: 'h3', text: '2. Value mismatches' },
-      {
-        t: 'p',
-        text: 'The record matched on the key but a field disagrees — different amount, quantity, or status. Action: determine which side is correct and correct the other. Value mismatches are where you most need the row-level evidence, both values side by side, to decide.',
-      },
-      { t: 'h3', text: '3. Timing differences' },
-      {
-        t: 'p',
-        text: 'The same real event recorded in different periods because of lag — a sale that settles the next day, a transfer in flight. Action: recognize it and expect it to clear; do not fix it. The skill is telling a timing difference apart from a real one, usually by checking whether it resolves in the next period.',
-      },
-      { t: 'h3', text: '4. Mapping differences' },
-      {
-        t: 'p',
-        text: 'Not a data problem at all — the two systems describe the same thing differently. One uses cents, the other dollars; one splits a name the other keeps whole; statuses use different vocabularies. Action: fix the schema or mapping, not the data. These masquerade as value mismatches until you notice every row is off by the same factor.',
-      },
-      { t: 'h3', text: '5. Data-quality differences' },
-      {
-        t: 'p',
-        text: 'Whitespace, casing, encoding, duplicate keys, truncated values. Action: normalize. Like mapping differences, these are upstream of the real comparison and will manufacture false positives across the whole dataset until cleaned.',
-      },
-      {
-        t: 'table',
-        head: ['Type', 'Root cause', 'Action', 'Recoverable later?'],
-        rows: [
-          ['Missing record', 'Sync gap', 'Investigate, create or void', 'Often no'],
-          ['Value mismatch', 'Real disagreement', 'Correct wrong side', 'Sometimes'],
-          ['Timing', 'Settlement lag', 'Wait, expect to clear', 'N/A — expected'],
-          ['Mapping', 'Schema mismatch', 'Fix mapping', 'Yes'],
-          ['Data quality', 'Dirty input', 'Normalize', 'Yes'],
-        ],
-      },
-      {
-        t: 'callout',
-        kind: 'tip',
-        text: 'Resolve mapping and data-quality differences first. They are not findings, they are noise, and clearing them often makes a thousand differences collapse to the few dozen that actually matter.',
-      },
-      { t: 'h2', text: 'The order to work them in' },
-      {
-        t: 'ol',
-        items: [
-          'Normalize data-quality issues so the comparison is honest.',
-          'Fix mapping differences so equal things compare as equal.',
-          'Triage the remaining real differences: missing, value, timing.',
-          'Quarantine timing differences and confirm they clear next period.',
-          'Resolve the missing and value differences — those are the actual work.',
-        ],
-      },
-      {
-        t: 'p',
-        text: 'Worked in this order, the count drops at every step, and what is left is a short, real list. A reconciliation that cannot tell you which category a difference belongs to is making you do this sorting in your head, every time.',
-      },
-    ],
-    faq: [
-      {
-        q: 'What are the main types of reconciliation differences?',
-        a: 'Five: missing records (present on one side only), value mismatches (matched but a field differs), timing differences (same event, different period), mapping differences (systems describe data differently), and data-quality differences (dirty input). Each has a distinct correct action.',
-      },
-      {
-        q: 'How do you tell a timing difference from an error?',
-        a: 'A timing difference clears on its own in the next period as the lagging system catches up; a real error does not. Near period boundaries, quarantine suspected timing differences and confirm they resolve before treating them as discrepancies.',
-      },
-      {
-        q: 'Why do all my rows differ by the same amount?',
-        a: 'That is a mapping difference, not a data error — typically one system stores cents and the other dollars, or applies a consistent format difference. Fix the schema or mapping rather than correcting individual rows.',
-      },
-    ],
-  },
-  {
     slug: 'how-to-reconcile-two-systems-by-hand',
     title: 'How to reconcile two systems by hand: a repeatable method',
     description:
@@ -448,18 +128,18 @@ const articles: Article[] = [
       'reconciliation steps',
       'account reconciliation',
     ],
-    lead: 'Reconciliation has a reputation as tedious detective work, but the method underneath it is the same every time, whether you are matching orders to payments or inventory to a warehouse feed. This is that method, written so you can run it by hand and know exactly where you are.',
+    lead: 'Reconciliation has a reputation as tedious detective work. The detective part is real; the tedious part is mostly because no one ever showed you the method. There is one — the same method every time, whether you\'re matching orders to payments or inventory to a warehouse feed. Here it is, written so you can run it by hand and always know exactly where you are.',
     blocks: [
       { t: 'h2', text: 'What does it mean to reconcile two systems?' },
       {
         t: 'p',
-        text: 'To reconcile is to prove that two independent records of the same thing agree — and, where they do not, to explain why. The output is not just match or no match. It is a classified list: rows that agree, rows that exist on one side only, and rows that exist on both but disagree on a value. Each difference has a reason and a next action.',
+        text: 'To [reconcile](https://en.wikipedia.org/wiki/Reconciliation_%28accounting%29) is to prove that two independent records of the same thing agree — and, where they do not, to explain why. The output is not just match or no match. It is a classified list: rows that agree, rows that exist on one side only, and rows that exist on both but disagree on a value. Each difference has a reason and a next action.',
       },
       { t: 'h2', text: 'The five steps' },
       { t: 'h3', text: '1. Choose the primary ID' },
       {
         t: 'p',
-        text: 'Decide the field, or combination of fields, that identifies the same record on both sides. This is the single most important decision; a wrong key makes every later step meaningless.',
+        text: 'Decide the field, or combination of fields, that identifies the same record on both sides — its [primary ID](/writing/what-we-mean-when-we-say-primary-id). This is the single most important decision; a wrong key makes every later step meaningless.',
       },
       { t: 'h3', text: '2. Normalize both sides' },
       {
@@ -505,7 +185,7 @@ const articles: Article[] = [
       { t: 'h2', text: 'When to stop doing this by hand' },
       {
         t: 'p',
-        text: 'The manual method is the right way to learn reconciliation and the right tool for a one-off. It stops scaling when the same comparison runs every week, when datasets grow past what a spreadsheet handles comfortably, or when more than one person needs to trust the result. At that point you want the steps preserved as a repeatable, auditable process rather than a workbook someone rebuilds each month.',
+        text: 'The manual method is the right way to learn reconciliation and the right tool for a one-off. It stops scaling when the same comparison runs every week, when datasets grow past what a [spreadsheet](/writing/reconcile-two-files-in-excel-with-xlookup) handles comfortably, or when more than one person needs to trust the result. At that point you want the steps preserved as a repeatable, auditable process rather than a workbook someone rebuilds each month.',
       },
     ],
     faq: [
@@ -524,90 +204,6 @@ const articles: Article[] = [
     ],
   },
   {
-    slug: 'two-way-vs-three-way-reconciliation',
-    title: 'Two-way vs three-way reconciliation: orders, payments, and the bank',
-    description:
-      'What two-way and three-way reconciliation mean, when each applies, and how retail order-to-cash reconciliation chains orders, payment processors, and bank deposits together.',
-    keywords: [
-      'three-way reconciliation',
-      'two-way reconciliation',
-      'order to cash',
-      'payment reconciliation',
-      'bank reconciliation',
-      'retail finance reconciliation',
-    ],
-    lead: 'Reconcile the payments sounds like one task. In retail it is usually a chain: the order says one thing, the processor says another, the bank deposit says a third, and the truth lives in whether all three agree. Knowing whether you are doing a two-way or three-way reconciliation tells you how many places a dollar can hide.',
-    blocks: [
-      { t: 'h2', text: 'What is two-way reconciliation?' },
-      {
-        t: 'p',
-        text: 'Two-way reconciliation compares two sources that should agree about the same set of records — your order system against your payment processor, for example. Each order should have a matching charge; each charge should trace to an order. Differences fall into the familiar buckets: orders with no charge, charges with no order, and amounts that disagree.',
-      },
-      { t: 'h2', text: 'What is three-way reconciliation?' },
-      {
-        t: 'p',
-        text: 'Three-way reconciliation adds a third source that must agree with the other two. The classic finance example is purchasing: purchase order, goods receipt, and supplier invoice all have to line up before payment. The retail order-to-cash version is the order, the processor settlement, and the bank deposit. A charge can succeed at the processor and still not land in the bank on the day or in the amount you expect, because of fees, batching, holds, and timing.',
-      },
-      {
-        t: 'table',
-        head: ['Reconciliation', 'Sources', 'The question it answers'],
-        rows: [
-          ['Two-way', 'Orders and processor', 'Did every sale get charged, at the right amount?'],
-          ['Two-way', 'Processor and bank', 'Did every settlement reach the account?'],
-          ['Three-way', 'Orders, processor, bank', 'Did the sale, the charge, and the cash all agree?'],
-        ],
-      },
-      { t: 'h2', text: 'Why three-way is harder than two two-ways' },
-      {
-        t: 'p',
-        text: 'You might think a three-way reconciliation is just two two-way ones stacked. It usually is not, because the three sources rarely share one key. The order system keys on order number; the processor keys on its own charge ID; the bank keys on a deposit reference that bundles many charges into one line. Reconciling them means bridging keys — mapping order numbers to charge IDs, then aggregating charges into the deposit batch the bank actually shows.',
-      },
-      { t: 'h3', text: 'The aggregation problem' },
-      {
-        t: 'p',
-        text: 'A bank deposit of 4,812.66 is not one sale; it is a day of charges minus fees, settled together. To reconcile it you have to group the processor individual transactions into the same batch the bank settled, subtract the processor fees, and only then compare to the deposit. Row-to-row matching does not work when one side is a sum of the other.',
-      },
-      {
-        t: 'callout',
-        kind: 'note',
-        text: 'Fees are where three-way reconciliations most often fail when nothing is actually wrong. Account for the processor cut explicitly, or every deposit will look short by exactly the fee.',
-      },
-      { t: 'h2', text: 'Timing differences are expected, not errors' },
-      {
-        t: 'p',
-        text: 'A sale on Friday may settle Saturday and deposit Monday. Across a period boundary that looks like a missing deposit, then a surprise one. These are timing differences, not discrepancies — the correct treatment is to recognize them, expect them to clear in the next period, and not fix them. Distinguishing a timing difference from a real loss is most of the skill in payment reconciliation.',
-      },
-      { t: 'h2', text: 'A practical order of operations' },
-      {
-        t: 'ol',
-        items: [
-          'Reconcile orders to the processor first, on the order and charge key. Resolve missing and mismatched charges.',
-          'Group processor transactions into settlement batches; subtract fees.',
-          'Reconcile each batch to the matching bank deposit.',
-          'Quarantine timing differences near period boundaries and confirm they clear.',
-        ],
-      },
-      {
-        t: 'p',
-        text: 'Done in that order, a three-way reconciliation stays tractable: each step has one key and one question, and the hard part — aggregation and fees — is isolated to the middle.',
-      },
-    ],
-    faq: [
-      {
-        q: 'What is the difference between two-way and three-way reconciliation?',
-        a: 'Two-way reconciliation compares two sources that should agree, such as orders and payments. Three-way adds a third that must also agree — classically purchase order, receipt, and invoice; in retail, order, processor settlement, and bank deposit.',
-      },
-      {
-        q: 'Why does my bank deposit not match my sales total?',
-        a: 'Because the deposit is a batch of charges settled together, minus processor fees, and often on a different day than the sale. Group transactions into the settlement batch, subtract fees, and account for timing before comparing to the deposit.',
-      },
-      {
-        q: 'What is a timing difference in reconciliation?',
-        a: 'A real, matching transaction that appears in the two sources in different periods because of settlement or deposit delay. It is expected and should clear in the next period, unlike a true discrepancy that needs correction.',
-      },
-    ],
-  },
-  {
     slug: 'reconcile-two-files-in-excel-with-xlookup',
     title: 'Reconcile two files in Excel with XLOOKUP (the right way)',
     description:
@@ -620,7 +216,7 @@ const articles: Article[] = [
       'match data excel',
       'excel formulas reconciliation',
     ],
-    lead: 'Excel is where most reconciliations are born, and XLOOKUP is the function that does the real work. The trick is not the formula itself — it is matching cleanly, surfacing what is missing as well as what differs, and not getting fooled by formatting.',
+    lead: 'Most reconciliations start in Excel, and XLOOKUP does the heavy lifting. But the formula is the easy part. What actually trips people up is matching cleanly, catching what\'s missing (not just what differs), and not getting fooled by formatting that makes identical numbers look different. That last one has quietly eaten more evenings than any hard formula ever has.',
     blocks: [
       { t: 'h2', text: 'The setup: two sheets, one shared key' },
       {
@@ -630,12 +226,12 @@ const articles: Article[] = [
       { t: 'h2', text: 'Step 1: Does each key exist on the other side?' },
       {
         t: 'p',
-        text: 'Before comparing values, find the rows that have no counterpart. XLOOKUP returns its if-not-found argument when there is no match, which is exactly what you want.',
+        text: 'Before comparing values, find the rows that have no counterpart. [XLOOKUP](https://support.microsoft.com/en-us/office/xlookup-function-b7fd680e-6d10-43e6-84f9-88eae8bf5929) returns its if-not-found argument when there is no match, which is exactly what you want.',
       },
       { t: 'code', text: '=XLOOKUP(A2, SystemB!$A:$A, SystemB!$A:$A, "MISSING")' },
       {
         t: 'p',
-        text: 'Drag this down SystemA. Any row showing MISSING exists in A but not in B. Repeat the formula on SystemB pointing at SystemA to catch the rows missing the other way. Those two columns are your one-sided differences.',
+        text: 'Drag this down SystemA. Any row showing MISSING exists in A but not in B. Repeat the formula on SystemB pointing at SystemA to catch the rows missing the other way. Those two columns are your one-sided differences — the same set difference you can get with [COUNTIF and MATCH](/writing/find-missing-rows-in-excel-countif-match).',
       },
       { t: 'h2', text: 'Step 2: Where the key matches, do the values agree?' },
       {
@@ -669,12 +265,12 @@ const articles: Article[] = [
       { t: 'h2', text: 'XLOOKUP vs VLOOKUP for reconciliation' },
       {
         t: 'p',
-        text: 'VLOOKUP still works, but XLOOKUP is better suited to this job: it has a built-in not-found argument (no IFERROR wrapper), it looks left or right without counting columns, and it does not break when someone inserts a column. If you are on an older Excel without XLOOKUP, INDEX with MATCH is the equivalent: `=INDEX(SystemB!$B:$B, MATCH(A2, SystemB!$A:$A, 0))`.',
+        text: '[VLOOKUP](https://support.microsoft.com/en-us/office/vlookup-function-0bbc8083-26fe-4963-8ab8-93a18ad188a1) still works, but XLOOKUP is better suited to this job: it has a built-in not-found argument (no IFERROR wrapper), it looks left or right without counting columns, and it does not break when someone inserts a column. If you are on an older Excel without XLOOKUP, [INDEX](https://support.microsoft.com/en-us/office/index-function-a5dcf0dd-996d-40a4-a822-b56b061328bd) with [MATCH](https://support.microsoft.com/en-us/office/match-function-e8dffd45-c762-47d6-bf89-533f4a37673a) is the equivalent: `=INDEX(SystemB!$B:$B, MATCH(A2, SystemB!$A:$A, 0))`.',
       },
       { t: 'h2', text: 'Where the spreadsheet method runs out' },
       {
         t: 'p',
-        text: 'Formulas reconcile two files well. They strain when there are three or more sources, when the same comparison runs every week, when keys are composite, or when someone needs to audit how a number was reached. A workbook records the answer but not the reasoning; when the reasoning has to be trusted by others, it belongs in a repeatable process rather than cell formulas.',
+        text: 'Formulas reconcile two files just fine. They start to buckle the moment you\'ve got three or more sources, the same comparison every week, a [composite key](/writing/what-we-mean-when-we-say-primary-id), or someone who needs to audit how a number was reached. A workbook saves the answer but not the reasoning — and once other people have to trust that number, the reasoning has to live somewhere more repeatable than a cell formula.',
       },
     ],
     faq: [
@@ -705,12 +301,12 @@ const articles: Article[] = [
       'conditional formatting reconciliation',
       'excel match',
     ],
-    lead: 'What is in list A but not list B is the most common reconciliation question and the one spreadsheets answer well — if you know which formula does what and where each one lies to you.',
+    lead: '"What\'s in list A but not list B?" is the most common reconciliation question there is — and one spreadsheets actually answer well. The catch: you have to know which formula does what, and where each one quietly lies to you. Here\'s which to reach for, and the trap hiding in each.',
     blocks: [
       { t: 'h2', text: 'The question behind most reconciliations' },
       {
         t: 'p',
-        text: 'Reconciliation is, at its core, set arithmetic. You want three sets: rows in both, rows only in A, and rows only in B. Excel can produce all three from a shared key column. The functions to reach for are COUNTIF and MATCH; conditional formatting makes the result visible.',
+        text: 'Reconciliation is, at its core, set arithmetic. You want three sets: rows in both, rows only in A, and rows only in B. Excel can produce all three from a shared key column. The functions to reach for are [COUNTIF](https://support.microsoft.com/en-us/office/countif-function-e0de10c6-f885-4e71-abb4-1f464816df34) and [MATCH](https://support.microsoft.com/en-us/office/match-function-e8dffd45-c762-47d6-bf89-533f4a37673a); conditional formatting makes the result visible.',
       },
       { t: 'h2', text: 'COUNTIF: is this key present over there?' },
       {
@@ -730,7 +326,7 @@ const articles: Article[] = [
       { t: 'code', text: '=IF(ISNA(MATCH(A2, SystemB!$A:$A, 0)), "missing", "found")' },
       {
         t: 'p',
-        text: 'Use MATCH when you will reuse the position (for example to pull a value with INDEX). Use COUNTIF when you only care whether it exists — and when you suspect duplicates, because COUNTIF returns a count greater than one where MATCH silently reports only the first hit.',
+        text: 'Use MATCH when you will reuse the position (for example to pull a value with [INDEX](https://support.microsoft.com/en-us/office/index-function-a5dcf0dd-996d-40a4-a822-b56b061328bd)). Use COUNTIF when you only care whether it exists — and when you suspect duplicates, because COUNTIF returns a count greater than one where MATCH silently reports only the first hit.',
       },
       { t: 'h2', text: 'See it: conditional formatting for differences' },
       {
@@ -750,12 +346,12 @@ const articles: Article[] = [
       { t: 'h2', text: 'The duplicate trap' },
       {
         t: 'p',
-        text: 'Every formula above assumes the key is unique. If a key repeats, COUNTIF returns 2 or 3, MATCH finds only the first, and any value you pull is the value of whichever row happened to come first. Before comparing, check for duplicates: `=COUNTIF($A:$A, A2)>1` flags them. A repeating key is not a comparison problem, it is a sign the key is wrong or incomplete — often it needs a second field to become unique.',
+        text: 'Every formula above assumes the key is unique. If a key repeats, COUNTIF returns 2 or 3, MATCH finds only the first, and any value you pull is the value of whichever row happened to come first. Before comparing, check for duplicates: `=COUNTIF($A:$A, A2)>1` flags them. A repeating key is not a comparison problem, it is a sign the [key is wrong or incomplete](/writing/what-we-mean-when-we-say-primary-id) — often it needs a second field to become unique.',
       },
       { t: 'h2', text: 'Mismatch, not just missing' },
       {
         t: 'p',
-        text: 'Presence is half the job; the other half is agreement. For keys found on both sides, compare the value with INDEX and MATCH and a rounded difference, as covered in the XLOOKUP guide. The combined output — missing-in-A, missing-in-B, value-mismatch, and matched — is a complete reconciliation, and it is exactly the shape any dedicated tool produces automatically.',
+        text: 'Presence is half the job; the other half is agreement. For keys found on both sides, compare the value with INDEX and MATCH and a rounded difference, as covered in the [XLOOKUP guide](/writing/reconcile-two-files-in-excel-with-xlookup). The combined output — missing-in-A, missing-in-B, value-mismatch, and matched — is a complete reconciliation, and it is exactly the shape any dedicated tool produces automatically.',
       },
     ],
     faq: [
@@ -786,7 +382,7 @@ const articles: Article[] = [
       'ai data matching',
       'machine learning reconciliation',
     ],
-    lead: 'AI is good at some parts of reconciliation and dangerous at others. The difference comes down to one question: is the step about judgment, or about arithmetic? Knowing which is which is how you get the speed without trusting a number you cannot defend.',
+    lead: '"Can\'t AI just do my reconciliation?" Yes and no — and the people who get burned are the ones who don\'t know which. AI is genuinely great at the judgment parts and genuinely dangerous at the arithmetic. Here\'s exactly where that line sits, so you get the speed without ever trusting a number you can\'t defend.',
     blocks: [
       { t: 'h2', text: 'What AI reconciliation actually means' },
       {
@@ -798,7 +394,7 @@ const articles: Article[] = [
         t: 'ul',
         items: [
           'Field mapping. Given two messy exports, a model is good at proposing which column maps to which — that Order # and `order_id` are the same field. You confirm; it saves the tedium.',
-          'Key suggestion. A model can spot that SKU alone is not unique and suggest SKU plus location as the composite key, then you validate it.',
+          'Key suggestion. A model can spot that SKU alone is not unique and suggest SKU plus location as the [composite key](/writing/what-we-mean-when-we-say-primary-id), then you validate it.',
           'Classifying differences. Sorting a list of discrepancies into timing, fee, and real by their patterns is pattern recognition, which models do well.',
           'Explaining in plain language. Turning row 4471 differs by 12.50 into this order was refunded after settlement — drafting the narrative a human reviews.',
           'Drafting rules. Translating ignore differences under a dollar into a concrete rule you then run deterministically.',
@@ -837,7 +433,7 @@ const articles: Article[] = [
       },
       {
         t: 'p',
-        text: 'If the answer to the first two is the model and no, you do not have a reconciliation you can defend — you have a confident guess. Keep AI on the setup and the explanation, keep arithmetic in code, and you get the best of both.',
+        text: 'If the answer to the first two is "the model" and "no," you don\'t have a reconciliation you can defend. You have a confident guess. Keep the AI on setup and explanation, keep the arithmetic in code, and you get both. The [prompt patterns that keep a model in its lane](/writing/prompting-ai-to-help-reconcile-two-files) are the practical version of this.',
       },
     ],
     faq: [
@@ -868,7 +464,7 @@ const articles: Article[] = [
       'ai field mapping prompt',
       'ai reconciliation prompt',
     ],
-    lead: 'If you are going to use an AI assistant in reconciliation, the prompt is where you decide whether it helps or hurts. These patterns keep the model on the work it is good at — mapping, classifying, explaining — and off the arithmetic it is not.',
+    lead: 'If you\'re going to use an AI assistant for reconciliation, the prompt is where you decide whether it helps or quietly hurts. These are the patterns that keep the model on the work it\'s actually good at — mapping, classifying, explaining — and off the arithmetic it isn\'t. Steal them as-is; they work with any capable model.',
     blocks: [
       { t: 'h2', text: 'The golden rule of reconciliation prompts' },
       {
@@ -895,7 +491,7 @@ const articles: Article[] = [
       },
       {
         t: 'p',
-        text: 'The model reasons that sku repeats across locations and proposes sku plus location_id. You still validate by counting distinct keys, but it pointed you at the composite immediately.',
+        text: 'The model reasons that sku repeats across locations and proposes sku plus location_id. You still validate by counting distinct keys, but it pointed you at the [composite key](/writing/what-we-mean-when-we-say-primary-id) immediately.',
       },
       { t: 'h2', text: 'Pattern 3: Classifying a list of differences' },
       {
@@ -933,7 +529,7 @@ const articles: Article[] = [
       { t: 'h2', text: 'Putting it together' },
       {
         t: 'p',
-        text: 'Used this way, the model is a fast assistant for the setup and the story, and your code or tool is the source of every number. The prompts above are deliberately tool-agnostic — they work with any capable assistant — because the discipline is in what you ask, not which model answers.',
+        text: 'Used this way, the model is a fast assistant for the setup and the story, and your code or tool is the source of every number. The prompts above are deliberately tool-agnostic — they work with any capable assistant — because the discipline is in what you ask, not which model answers. For where this fits the bigger picture, see [what an AI agent can and cannot reconcile](/writing/can-an-ai-agent-reconcile-your-data).',
       },
     ],
     faq: [
@@ -964,7 +560,7 @@ const articles: Article[] = [
       'order to cash shopify',
       'shopify payouts',
     ],
-    lead: 'Shopify and your ERP both think they know what an order is worth, and they are both right in their own terms — which is why the totals rarely match on the first pass. Reconciling them is mostly about knowing which identifier to trust and which fields are allowed to differ.',
+    lead: 'Shopify and your ERP both think they know what an order is worth, and they\'re both right — in their own terms. Which is exactly why the totals almost never match on the first pass. Reconciling them isn\'t hard once you know which identifier to trust and which fields are allowed to disagree. Here\'s both.',
     blocks: [
       { t: 'h2', text: 'Which identifier do you join on?' },
       {
@@ -983,12 +579,12 @@ const articles: Article[] = [
       },
       {
         t: 'p',
-        text: 'Join on whatever the two systems actually share. If your ERP stored Shopify numeric order ID at import, use it — it never changes and has no formatting. If it only kept the order name, normalize the # and any location prefix on both sides first.',
+        text: 'Join on whatever the two systems actually share. If your ERP stored Shopify numeric order ID at import, use it — it never changes and has no formatting. If it only kept the order name, [normalize](/writing/what-we-mean-when-we-say-primary-id) the # and any location prefix on both sides first.',
       },
       { t: 'h2', text: 'Where the totals legitimately diverge' },
       {
         t: 'p',
-        text: 'An order total is not one number. Shopify and your ERP may each book a different slice, and the differences below are expected, not errors — but only if you account for them explicitly.',
+        text: 'An order total is not one number. Shopify and your [ERP](/writing/netsuite-reconciliation-inventory-and-gl) may each book a different slice, and the differences below are expected, not errors — but only if you account for them explicitly.',
       },
       {
         t: 'ul',
@@ -1013,7 +609,7 @@ const articles: Article[] = [
       { t: 'h2', text: 'Payouts are a separate reconciliation' },
       {
         t: 'p',
-        text: 'Shopify Payments, or any processor, settles orders into deposits, batched and net of fees — the three-way problem in a retail wrapper. Matching orders to your ERP is one reconciliation; matching Shopify payouts to your bank is another, with its own key (the payout ID) and its own aggregation. Keep them separate; conflating order totals with deposit amounts is how teams chase a discrepancy that is just the processor fee.',
+        text: 'Shopify Payments, or any processor, settles orders into deposits, batched and net of fees — the three-way problem in a retail wrapper. Matching orders to your ERP is one reconciliation; matching [Shopify payouts](https://help.shopify.com/en/manual/payments/shopify-payments/payouts) to your bank is another, with its own key (the payout ID) and its own aggregation. Keep them separate; conflating order totals with deposit amounts is how teams chase a discrepancy that is just the processor fee.',
       },
       { t: 'h2', text: 'A working sequence' },
       {
@@ -1059,12 +655,12 @@ const articles: Article[] = [
       'inventory valuation',
       'erp reconciliation',
     ],
-    lead: 'NetSuite reconciliations come in two flavors: NetSuite against an outside system, and NetSuite against itself when the inventory subledger and the general ledger stop agreeing. The second is the one that costs accountants their evenings, and it has a small number of usual suspects.',
+    lead: 'NetSuite reconciliations come in two flavors: NetSuite against an outside system, and NetSuite against itself — when the inventory subledger and the general ledger quietly stop agreeing. The second one is what costs accountants their evenings. The good news: it has a short list of usual suspects, and once you know them, it stops being a mystery.',
     blocks: [
       { t: 'h2', text: 'The two reconciliations people call NetSuite reconciliation' },
       {
         t: 'p',
-        text: 'The first is external: matching NetSuite records against a storefront, a 3PL feed, a bank, or another ERP. That is ordinary two-system reconciliation — pick a shared key, normalize, compare. The second is internal: confirming that NetSuite inventory subledger (what the item records say you hold and what it is worth) ties to the general ledger (what the inventory asset account says). When those drift, the books are wrong even though every individual transaction looks fine.',
+        text: 'The first is external: matching NetSuite records against a [storefront](/writing/reconcile-shopify-orders-against-your-erp), a 3PL feed, a bank, or another ERP. That is ordinary [two-system reconciliation](/writing/how-to-reconcile-two-systems-by-hand) — pick a [shared key](/writing/what-we-mean-when-we-say-primary-id), normalize, compare. The second is internal: confirming that NetSuite inventory subledger (what the item records say you hold and what it is worth) ties to the [general ledger](https://en.wikipedia.org/wiki/General_ledger) (what the inventory asset account says). When those drift, the books are wrong even though every individual transaction looks fine.',
       },
       { t: 'h2', text: 'Matching item records across systems' },
       {
@@ -1078,7 +674,7 @@ const articles: Article[] = [
           ['Internal ID', 'NetSuite own record ID — stable, but rarely stored by other systems'],
           ['Item name/number', 'Human key; watch for hierarchy (Parent : Child) in assembly items'],
           ['UPC / SKU', 'Often the real shared key with storefronts and 3PLs'],
-          ['Location', 'Inventory is per location — almost always part of a composite key'],
+          ['Location', 'Inventory is per location — almost always part of a [composite key](/writing/what-we-mean-when-we-say-primary-id)'],
         ],
       },
       {
@@ -1149,12 +745,12 @@ const articles: Article[] = [
       'order routing reconciliation',
       'available to promise',
     ],
-    lead: 'An order management system sits in the middle — between the storefront that takes the order, the warehouses that fill it, and the ERP that books it. That middle position makes the OMS the natural place reconciliation breaks, because it is the one system that has to agree with three others at once.',
+    lead: 'Your order management system sits in the middle of everything — between the [storefront](/writing/reconcile-shopify-orders-against-your-erp) that takes the order, the warehouses that fill it, and the ERP that books it. That middle seat is exactly why the OMS is where reconciliation breaks: it\'s the one system that has to agree with three others at once. It\'s also the best place to catch a problem before it ships.',
     blocks: [
       { t: 'h2', text: 'What an OMS has to stay reconciled with' },
       {
         t: 'p',
-        text: 'An order management system ingests orders from sales channels, decides where to fulfill them, tracks inventory across locations, and hands financial outcomes to the ERP. Each of those touch points is a reconciliation surface: orders in versus the channel, inventory versus the warehouses, fulfillments versus what shipped, and financial records versus the ERP. The OMS is correct only when all four agree.',
+        text: 'An [order management system](https://en.wikipedia.org/wiki/Order_Management_System) ingests orders from sales channels, decides where to fulfill them, tracks inventory across locations, and hands financial outcomes to the ERP. Each of those touch points is a reconciliation surface: orders in versus the channel, inventory versus the warehouses, fulfillments versus what shipped, and financial records versus the ERP. The OMS is correct only when all four agree.',
       },
       {
         t: 'table',
@@ -1189,12 +785,12 @@ const articles: Article[] = [
       { t: 'h2', text: 'Financial handoff: orders to the ERP' },
       {
         t: 'p',
-        text: 'Finally, what the OMS recorded as sold, shipped, and returned must match what the ERP booked. This is the order-to-cash boundary again, keyed on order or invoice ID, and it is where returns are most likely to fall through — a return processed in the OMS but never credited in the ERP, or the reverse. Reconcile current state including returns, not just original orders.',
+        text: 'Finally, what the OMS recorded as sold, shipped, and returned must match what the [ERP booked](/writing/netsuite-reconciliation-inventory-and-gl). This is the order-to-cash boundary again, keyed on order or invoice ID, and it is where returns are most likely to fall through — a return processed in the OMS but never credited in the ERP, or the reverse. Reconcile current state including returns, not just original orders.',
       },
       { t: 'h2', text: 'Why the OMS is the reconciliation hub' },
       {
         t: 'p',
-        text: 'Because the OMS touches the channel, the warehouse, and the ERP, it is both where discrepancies surface and where they are cheapest to catch — before a mis-routed order ships, before an oversell becomes a cancellation, before a return goes uncredited. Reconciling the OMS against its three neighbors, each on its proper composite key, is what keeps an omnichannel operation honest in the one system positioned to see all of it.',
+        text: 'Because the OMS touches the channel, the warehouse, and the ERP, it is both where discrepancies surface and where they are cheapest to catch — before a mis-routed order ships, before an oversell becomes a cancellation, before a return goes uncredited. Reconciling the OMS against its three neighbors, each on its proper [composite key](/writing/what-we-mean-when-we-say-primary-id), is what keeps an omnichannel operation honest in the one system positioned to see all of it.',
       },
     ],
     faq: [
@@ -1209,142 +805,6 @@ const articles: Article[] = [
       {
         q: 'Where do OMS reconciliations most often fail?',
         a: 'At fulfillment (the OMS believes a line shipped when it did not, or missed a split shipment) and at the ERP handoff for returns (processed on one side, never credited on the other). Both require comparing current state, including returns, not the order as first placed.',
-      },
-    ],
-  },
-  {
-    slug: 'why-reconciliation-belongs-at-the-data-layer',
-    title: 'Why reconciliation belongs at the data layer, not the spreadsheet layer',
-    description:
-      'Reconciliation treated as a spreadsheet task produces workbooks nobody can audit. Treated as a data-layer problem — shared key, classified difference, preserved evidence — it becomes repeatable and trustworthy.',
-    keywords: [
-      'data layer reconciliation',
-      'spreadsheet reconciliation',
-      'reconciliation evidence',
-      'auditable reconciliation',
-      'data reconciliation process',
-    ],
-    lead: 'Most retail finance teams treat reconciliation as a spreadsheet problem. They export from each system, paste into Excel, write lookups, and call the result reconciled. The output is a workbook nobody else can read and a trail that lives in cell comments. Reconciliation is a data-layer problem, and moving it there changes what you get out of it.',
-    blocks: [
-      { t: 'h2', text: 'The spreadsheet pile' },
-      {
-        t: 'p',
-        text: 'Export from each system, paste into a workbook, write a column of lookups, eyeball the mismatches, fix a few, save as recon_final_v3. It works once. It is also unauditable, unrepeatable, and only legible to the person who built it. The reasoning — why this row was accepted, which rule classified that one — is in someone head or a cell comment, which means it effectively does not exist.',
-      },
-      { t: 'h2', text: 'Reconciliation is two systems disagreeing about one record' },
-      {
-        t: 'p',
-        text: 'Strip away the workbook and the actual problem is simple: two systems track the same thing independently, so they disagree, and you need to compare them by their shared key, classify each difference, and keep the row-level evidence. That is a data operation — a join, a comparison, a classification — not a spreadsheet layout. The spreadsheet pile is what happens when no system is responsible for that operation.',
-      },
-      { t: 'h2', text: 'What moving to the data layer gives you' },
-      {
-        t: 'ul',
-        items: [
-          'Repeatability. The same comparison runs again next period without rebuilding it.',
-          'Auditability. The trail — keys matched, rules applied, values compared — is the output, not an afterthought.',
-          'Legibility. Someone other than the author can read the result and trust it.',
-          'Scale. Three sources, composite keys, and large datasets stop being a problem the workbook strains against.',
-        ],
-      },
-      { t: 'h2', text: 'The shape of a data-layer reconciliation' },
-      {
-        t: 'p',
-        text: 'A schema describes each source fields and types. A shared key pairs records across sources. A comparison step computes matches and differences. Rules classify the differences into expected and real. The evidence — the saved run, the rules applied, the row-level trail — is preserved so the result can be defended later. None of that needs to happen in a workbook, and all of it is hard to do well in one.',
-      },
-      { t: 'quote', text: 'Sign on what is there.' },
-      { t: 'h2', text: 'When a spreadsheet is still fine' },
-      {
-        t: 'p',
-        text: 'For a genuine one-off — a comparison you will run once and never again — a spreadsheet is the right tool, and the manual method is worth knowing. The data-layer argument is about the reconciliations that repeat, that others rely on, and that someone will eventually have to explain. Those have outgrown the workbook the first time you ran them; they just have not been moved yet.',
-      },
-    ],
-    faq: [
-      {
-        q: 'Why is reconciling in spreadsheets a problem?',
-        a: 'A workbook records the answer but not the reasoning, is rebuilt from scratch each period, and is only legible to its author. For any reconciliation that repeats or that others must trust, that makes it unrepeatable and unauditable.',
-      },
-      {
-        q: 'What does it mean to reconcile at the data layer?',
-        a: 'To treat reconciliation as a data operation — describe each source with a schema, pair records on a shared key, compute and classify differences, and preserve the row-level evidence — rather than as a spreadsheet layout. The result is repeatable, auditable, and legible to others.',
-      },
-      {
-        q: 'Is a spreadsheet ever the right tool for reconciliation?',
-        a: 'Yes, for a true one-off you will never repeat. The data-layer approach matters for reconciliations that recur, that others depend on, or that someone will later have to explain.',
-      },
-    ],
-  },
-  {
-    slug: 'the-cost-of-variance-you-cant-see',
-    title: 'The cost of variance you cannot see: inventory, revenue, returns',
-    description:
-      'Small, invisible discrepancies between retail systems compound into real money. Where unreconciled variance hides across inventory, revenue, and returns — and what it actually costs.',
-    keywords: [
-      'inventory variance',
-      'revenue leakage',
-      'returns reconciliation',
-      'retail shrinkage',
-      'data variance cost',
-      'unreconciled data',
-    ],
-    lead: 'The expensive discrepancies are rarely the big obvious ones. They are the small, steady gaps between what two systems believe — a few units here, a few dollars there — that no one is reconciling, because no one can see them. This is where that money goes.',
-    blocks: [
-      { t: 'h2', text: 'Variance you can see versus variance you cannot' },
-      {
-        t: 'p',
-        text: 'Every retailer reconciles the things that scream: a deposit that is thousands short, an order that errored loudly. The costly variance is quiet. It is the difference between what the storefront thinks is in stock and what the warehouse actually holds; between revenue booked and cash settled; between returns issued and returns received. Each instance is small. None of them screams. Together they are a line item.',
-      },
-      { t: 'h2', text: 'Inventory: the variance that sells what you do not have' },
-      {
-        t: 'p',
-        text: 'When the storefront and the warehouse disagree about on-hand quantity, both errors cost. Phantom stock — the store thinks it has units it does not — leads to oversells, cancellations, and the customer you lose for good. Hidden stock — units the system has written off but the shelf still holds — leads to markdowns and lost margin on goods you could have sold at full price. The variance is the same data gap viewed two ways, and both directions cost money.',
-      },
-      {
-        t: 'table',
-        head: ['Variance', 'What it causes', 'Where it shows up'],
-        rows: [
-          ['Phantom stock', 'Oversells, cancellations, lost customers', 'Storefront > warehouse on-hand'],
-          ['Hidden stock', 'Unnecessary markdowns, lost margin', 'Warehouse > storefront on-hand'],
-          ['Stale sync', 'Both, intermittently', 'Timestamps drift between systems'],
-        ],
-      },
-      { t: 'h2', text: 'Revenue: booked is not banked' },
-      {
-        t: 'p',
-        text: 'Revenue recognized in the order system and cash settled in the bank are two different numbers, and the gap between them is normal — fees, timing, refunds. The danger is when no one reconciles the gap, because then a real loss looks identical to an expected timing difference. Unreconciled, a processor error or a missed settlement batch can sit for months disguised as that is just the fee.',
-      },
-      { t: 'h2', text: 'Returns: the variance that runs backwards' },
-      {
-        t: 'p',
-        text: 'Returns are reconciliation in reverse, and they are where variance compounds. A refund issued but goods never received; goods received but never restocked; a return credited at the wrong amount. Each breaks the chain between revenue, inventory, and cash at the same time. Returns variance is small per transaction and structural in aggregate, which is exactly the profile of a cost no one notices.',
-      },
-      {
-        t: 'callout',
-        kind: 'note',
-        text: 'The common thread is invisibility. None of these losses are dramatic. They are expensive precisely because each instance is too small to investigate, so nobody does — until the totals are added up at the period close and the gap has a number.',
-      },
-      { t: 'h2', text: 'Why we will catch it at close is the expensive plan' },
-      {
-        t: 'p',
-        text: 'Catching variance at the close means catching it after the customer is gone, the markdown is taken, and the settlement window has passed. By then the discrepancy is historical — you can record it, not recover it. The variance that is cheap to fix is the variance you see the day it appears, on the key that ties the two systems together, before it has done anything.',
-      },
-      { t: 'h2', text: 'What seeing it requires' },
-      {
-        t: 'p',
-        text: 'Making invisible variance visible is not complicated, it is just unglamorous: compare the two systems on a shared key, on a regular cadence, and classify the differences so the real ones separate from the expected ones. The cost of doing that is small and fixed. The cost of not doing it is variable, invisible, and paid every period.',
-      },
-    ],
-    faq: [
-      {
-        q: 'What is inventory variance and why does it cost money?',
-        a: 'Inventory variance is a disagreement between systems about how much stock is on hand. Phantom stock causes oversells and lost customers; hidden stock causes unnecessary markdowns and lost margin. Both are the same data gap and both cost money.',
-      },
-      {
-        q: 'Why is small, unreconciled variance dangerous?',
-        a: 'Because each instance is too small to investigate, real losses look identical to expected timing differences, and the total only becomes visible at the period close — after it is too late to recover. Seeing it early, on a shared key, is what keeps it cheap.',
-      },
-      {
-        q: 'How do returns create reconciliation problems?',
-        a: 'A return touches revenue, inventory, and cash at once — refund issued, goods received, stock restocked, amount credited. When any link breaks, variance compounds across all three systems, and per-transaction it is small enough to go unnoticed.',
       },
     ],
   },

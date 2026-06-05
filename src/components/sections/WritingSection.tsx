@@ -1,5 +1,6 @@
 import { writingEntries } from '@/data/writing-entries'
 import { NotebookDoodle } from '@/components/NotebookDoodle'
+import { NoteCard } from '@/components/NoteCard'
 
 export function WritingSection() {
   return (
@@ -18,19 +19,14 @@ export function WritingSection() {
             style={{ left: '-66px', top: '6px' }}
           />
         </div>
-        <ul className="writing-list">
-          {writingEntries.slice(0, 4).map((entry) => (
-            <li key={entry.slug} className="writing-entry">
-              <span className="writing-meta label-smallcaps">
-                {entry.date}
-                <span aria-hidden> · </span>
-                {entry.category}
-              </span>
-              <h3 className="writing-title">
-                <a href={`/writing/${entry.slug}`}>{entry.title}</a>
-              </h3>
-              <span className="writing-detail">{entry.meta}</span>
-            </li>
+        <ul className="note-board">
+          {writingEntries.slice(0, 4).map((entry, i) => (
+            <NoteCard
+              key={entry.slug}
+              entry={entry}
+              index={i}
+              delay={400 + i * 120}
+            />
           ))}
         </ul>
         <a className="writing-all" href="/writing">

@@ -2,6 +2,7 @@ import { createFileRoute, useParams } from '@tanstack/react-router'
 import { writingEntries } from '@/data/writing-entries'
 import { getArticle } from '@/data/writing-content'
 import { WritingArticle } from '@/components/WritingArticle'
+import { VlPage } from '@/components/VlChrome'
 
 const SITE_URL = 'https://drpn.ai'
 
@@ -43,19 +44,21 @@ function WritingPostPage() {
   }
 
   return (
-    <main className="legal-page section-band">
-      <article className="container legal-container">
-        <span className="label-smallcaps">
-          {entry?.date ?? ''}
-          {entry?.date ? <span aria-hidden> · </span> : null}
-          {entry?.category ?? 'Writing'}
-        </span>
-        <h1>{entry?.title ?? 'Post coming soon'}</h1>
-        <p>
-          This entry is being prepared. Check back, or see{' '}
-          <a href="/writing">all writing</a>.
-        </p>
-      </article>
-    </main>
+    <VlPage>
+      <section className="vl-band is-plain">
+        <article className="vl-wrap vl-prose">
+          <span className="vl-kicker">
+            {entry?.date ?? ''}
+            {entry?.date ? <span aria-hidden> · </span> : null}
+            {entry?.category ?? 'Writing'}
+          </span>
+          <h1>{entry?.title ?? 'Post coming soon'}</h1>
+          <p>
+            This entry is being prepared. Check back, or see{' '}
+            <a href="/writing">all writing</a>.
+          </p>
+        </article>
+      </section>
+    </VlPage>
   )
 }

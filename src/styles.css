@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Patrick+Hand&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=IBM+Plex+Sans:wght@400&family=IBM+Plex+Mono:wght@400&family=Patrick+Hand&display=swap');
 @import "tailwindcss" source("../");
 
 :root {
@@ -214,6 +214,10 @@ ol {
   background-color: var(--color-background);
   color: var(--color-text);
   min-height: 100dvh;
+  /* Establish a stacking context so the ambient backdrop (z-index: -1) paints
+     above the cream/margin-rule but below all content. */
+  position: relative;
+  z-index: 0;
   /* Just the vertical rust margin rule — horizontal rules now belong to
      text elements (see .notebook-rule below) so they couple to actual
      baselines instead of fighting a global grid offset. */
@@ -811,7 +815,9 @@ ol {
 
 .legal-container p {
   font-size: 17px;
-  line-height: 1.7;
+  /* keep text on the 32px notebook ruling grid (the ruled background applied
+     to .legal-container p uses a 32px period) so lines sit on the baseline */
+  line-height: 32px;
 }
 
 /* ============================================================
@@ -1141,15 +1147,238 @@ ol {
 }
 
 /* ============================================================
+   Section 05 — Note post-its (writing entries as sticky notes)
+   ============================================================ */
+
+.note-board {
+  list-style: none;
+  margin: 0;
+  padding: 20px 6px 40px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+  /* tight column gap, generous rows — the vertical scatter offsets fill the
+     rhythm so the wall reads as tossed notes rather than a spreadsheet. */
+  gap: 30px 26px;
+  align-items: start;
+}
+
+.note-postit {
+  position: relative;
+  /* Square floor, but grow to fit longer titles so nothing clips — real
+     sticky notes aren't all the same height anyway. */
+  min-height: 212px;
+  /* tinted + tilted per data attribute below */
+  background: var(--note-tint, #f6e7a0);
+  /* lifted-corner shadow: soft ambient + a tighter contact shadow */
+  box-shadow:
+    0 1px 1px rgba(42, 31, 26, 0.16),
+    0 10px 22px -10px rgba(42, 31, 26, 0.32),
+    0 2px 6px -2px rgba(42, 31, 26, 0.12);
+  transform: translateY(var(--note-shift, 0px)) rotate(var(--note-tilt, -2deg));
+  transition:
+    transform 220ms var(--ease-out),
+    box-shadow 220ms var(--ease-out);
+  will-change: transform;
+}
+
+/* A faint torn/peeled top edge — the bit of "tape"/adhesive shading. */
+.note-postit::before {
+  content: '';
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 26px;
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.28),
+    rgba(255, 255, 255, 0)
+  );
+  pointer-events: none;
+}
+
+/* The curled lower-right corner. */
+.note-postit::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 28px;
+  height: 28px;
+  background: linear-gradient(
+    135deg,
+    rgba(42, 31, 26, 0) 50%,
+    rgba(42, 31, 26, 0.1) 52%,
+    rgba(42, 31, 26, 0.18) 100%
+  );
+  pointer-events: none;
+}
+
+.note-postit-link {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100%;
+  padding: 26px 22px 18px;
+  color: var(--color-text);
+  text-align: center;
+}
+
+/* The brand-color pillar tab — a thin strip across the top that color-codes
+   the note by its content pillar in the actual Darpan brand hue. */
+.note-pillar-tab {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 7px;
+  background: var(--note-brand, var(--color-secondary));
+  opacity: 0.85;
+}
+
+.note-doodle-slot {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 72px;
+  margin-top: 6px;
+  margin-bottom: 14px;
+}
+
+.note-doodle {
+  display: block;
+  width: auto;
+  height: 64px;
+  opacity: 0.82;
+}
+
+.note-doodle .doodle-path {
+  stroke-dasharray: 600;
+  stroke-dashoffset: 600;
+}
+
+/* Pencil doodle inks in as the note lands, a beat after the paper settles. */
+.section-band[data-revealed='true'] .note-doodle .doodle-path {
+  animation: doodle-draw 1100ms cubic-bezier(0.6, 0.05, 0.3, 1) 520ms forwards;
+}
+
+.note-title {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(17px, 1.5vw, 19px);
+  line-height: 24px;
+  letter-spacing: -0.005em;
+  color: var(--color-text);
+  margin: 0;
+  /* generous clamp purely as a safety net for absurdly long titles —
+     the note grows to fit, so titles render in full */
+  display: -webkit-box;
+  -webkit-line-clamp: 7;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.note-meta {
+  margin-top: auto;
+  padding-top: 14px;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  color: rgba(42, 31, 26, 0.6);
+}
+
+.note-postit:hover,
+.note-postit:focus-within {
+  transform: rotate(0deg) translateY(-4px) scale(1.02);
+  box-shadow:
+    0 2px 2px rgba(42, 31, 26, 0.18),
+    0 20px 34px -14px rgba(42, 31, 26, 0.38),
+    0 6px 12px -4px rgba(42, 31, 26, 0.14);
+  z-index: 2;
+}
+
+.note-postit-link:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 4px;
+}
+
+/* Tint comes from the pillar (set inline as --note-tint). These attrs only
+   drive the scatter so the wall reads as tossed notes, not a grid. */
+
+/* Tilt — six lean angles, cycled, so adjacent notes rotate differently. */
+.note-postit[data-tilt='1'] {
+  --note-tilt: -3deg;
+}
+.note-postit[data-tilt='2'] {
+  --note-tilt: 2.2deg;
+}
+.note-postit[data-tilt='3'] {
+  --note-tilt: -1.4deg;
+}
+.note-postit[data-tilt='4'] {
+  --note-tilt: 3.2deg;
+}
+.note-postit[data-tilt='5'] {
+  --note-tilt: -2.2deg;
+}
+.note-postit[data-tilt='6'] {
+  --note-tilt: 1.2deg;
+}
+
+/* Vertical scatter — staggered drop so columns don't line up in rows. */
+.note-postit[data-scatter='1'] {
+  --note-shift: 0px;
+}
+.note-postit[data-scatter='2'] {
+  --note-shift: 26px;
+}
+.note-postit[data-scatter='3'] {
+  --note-shift: 12px;
+}
+.note-postit[data-scatter='4'] {
+  --note-shift: 34px;
+}
+
+@media (max-width: 600px) {
+  .note-board {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 28px 20px;
+  }
+  .note-doodle-slot {
+    height: 56px;
+  }
+  .note-doodle {
+    height: 50px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .note-postit {
+    transition: none;
+  }
+  .note-doodle .doodle-path {
+    animation: none;
+    stroke-dashoffset: 0;
+  }
+}
+
+/* ============================================================
    Section 05b — Writing post (long-form article body)
    ============================================================ */
 
+/* Articles get their own wider measure than the legal pages (720px),
+   giving tables, code blocks, and callouts room to breathe. Two-class
+   selector overrides .legal-container's max-width. */
+.legal-container.writing-post {
+  max-width: 1200px;
+}
+
 .writing-post .writing-lead {
   font-family: var(--font-body);
-  font-size: clamp(19px, 2vw, 23px);
-  line-height: 1.5;
+  font-size: clamp(19px, 2vw, 22px);
+  /* lock to the 32px ruling grid so the notebook lines sit on the baseline */
+  line-height: 32px;
   color: var(--color-text);
-  margin: 0 0 8px;
+  margin: 0 0 16px;
 }
 
 .writing-post .writing-h2 {
@@ -1170,8 +1399,9 @@ ol {
 
 .writing-post p {
   font-size: 17px;
-  line-height: 1.7;
-  margin: 0 0 18px;
+  /* match the 32px notebook ruling so lines align to the text baseline */
+  line-height: 32px;
+  margin: 0 0 16px;
 }
 
 .writing-ul,
@@ -1325,7 +1555,7 @@ ol {
 @keyframes section-fade-in {
   from {
     opacity: 0;
-    transform: translateY(6px);
+    transform: translateY(18px);
   }
   to {
     opacity: 1;
@@ -1338,25 +1568,90 @@ ol {
 .hero .hero-headline,
 .hero .hero-cta,
 .hero .hero-meta {
-  animation: section-fade-in 560ms var(--ease-out) both;
+  animation: section-fade-in 620ms var(--ease-out) both;
 }
 
-.hero .hero-headline { animation-delay: 80ms; }
-.hero .hero-cta { animation-delay: 160ms; }
-.hero .hero-meta { animation-delay: 240ms; }
+.hero .section-numeral { animation-delay: 40ms; }
+.hero .hero-headline { animation-delay: 120ms; }
+.hero .hero-cta { animation-delay: 260ms; }
+.hero .hero-meta { animation-delay: 380ms; }
 
+/* Section reveal — the whole band rises with a faint paper-tilt that settles
+   square. Bigger travel than the header alone so the motion actually reads. */
 .section-band[data-revealed='false'] .section-header,
 .section-band[data-revealed='false'] > .container > :not(.section-header) {
   opacity: 0;
-  transform: translateY(6px);
+  transform: translateY(22px) rotate(-0.5deg);
 }
 
 .section-band[data-revealed='true'] .section-header,
 .section-band[data-revealed='true'] > .container > :not(.section-header) {
   opacity: 1;
-  transform: translateY(0);
-  transition: opacity 480ms var(--ease-out), transform 480ms var(--ease-out);
+  transform: translateY(0) rotate(0);
+  transition: opacity 560ms var(--ease-out), transform 680ms var(--ease-out);
 }
+
+/* The section-header leads; its content trails a beat behind. */
+.section-band[data-revealed='true'] > .container > :not(.section-header) {
+  transition-delay: 90ms;
+}
+
+/* Staggered lists opt out of the block reveal so their items can cascade in
+   one-by-one instead of moving as a single slab. */
+.section-band[data-revealed='false'] > .container > .product-list,
+.section-band[data-revealed='true'] > .container > .product-list,
+.section-band[data-revealed='false'] > .container > .note-board,
+.section-band[data-revealed='true'] > .container > .note-board {
+  opacity: 1;
+  transform: none;
+  transition: none;
+}
+
+/* Product primitives — deal in like cards onto a desk, each tilted a hair. */
+.section-band[data-revealed='false'] .product-primitive {
+  opacity: 0;
+  transform: translateY(24px) rotate(-0.7deg);
+}
+.section-band[data-revealed='true'] .product-primitive {
+  opacity: 1;
+  transform: translateY(0) rotate(0);
+  transition: opacity 560ms var(--ease-out), transform 660ms var(--ease-out);
+}
+.section-band[data-revealed='true'] .product-primitive:nth-child(1) { transition-delay: 120ms; }
+.section-band[data-revealed='true'] .product-primitive:nth-child(2) { transition-delay: 220ms; }
+.section-band[data-revealed='true'] .product-primitive:nth-child(3) { transition-delay: 320ms; }
+.section-band[data-revealed='true'] .product-primitive:nth-child(4) { transition-delay: 420ms; }
+
+/* Post-it notes "land" — each drops in and settles into its resting tilt, like
+   notes tossed onto a desk. Animates INTO the per-note transform (kept in the
+   keyframe via the --note-shift/--note-tilt vars) so the scatter survives, and
+   uses `backwards` fill (not `forwards`) so the hover-lift transform still wins
+   once the note has landed. Hidden until the section reveals. */
+@keyframes note-land {
+  from {
+    opacity: 0;
+    transform: translateY(calc(var(--note-shift, 0px) + 30px))
+      rotate(calc(var(--note-tilt, -2deg) - 6deg));
+  }
+  to {
+    opacity: 1;
+    transform: translateY(var(--note-shift, 0px)) rotate(var(--note-tilt, -2deg));
+  }
+}
+
+.section-band[data-revealed='false'] .note-postit {
+  opacity: 0;
+}
+.section-band[data-revealed='true'] .note-postit {
+  animation: note-land 620ms var(--ease-out) backwards;
+}
+.section-band[data-revealed='true'] .note-postit:nth-child(1) { animation-delay: 120ms; }
+.section-band[data-revealed='true'] .note-postit:nth-child(2) { animation-delay: 210ms; }
+.section-band[data-revealed='true'] .note-postit:nth-child(3) { animation-delay: 300ms; }
+.section-band[data-revealed='true'] .note-postit:nth-child(4) { animation-delay: 390ms; }
+.section-band[data-revealed='true'] .note-postit:nth-child(5) { animation-delay: 480ms; }
+.section-band[data-revealed='true'] .note-postit:nth-child(6) { animation-delay: 570ms; }
+.section-band[data-revealed='true'] .note-postit:nth-child(n + 7) { animation-delay: 640ms; }
 
 @media (prefers-reduced-motion: reduce) {
   .section-band .section-header,
@@ -1369,10 +1664,17 @@ ol {
   .section-band[data-revealed='false'] .section-header,
   .section-band[data-revealed='false'] > .container > :not(.section-header),
   .section-band[data-revealed='true'] .section-header,
-  .section-band[data-revealed='true'] > .container > :not(.section-header) {
+  .section-band[data-revealed='true'] > .container > :not(.section-header),
+  .section-band[data-revealed='false'] .product-primitive,
+  .section-band[data-revealed='true'] .product-primitive {
     opacity: 1;
     transform: none;
     transition: none;
+  }
+  .section-band[data-revealed='false'] .note-postit,
+  .section-band[data-revealed='true'] .note-postit {
+    opacity: 1;
+    animation: none;
   }
 }
 
@@ -1387,11 +1689,21 @@ ol {
   z-index: 1;
 }
 
+/* Doodles hold undrawn by default, then ink in when their moment arrives.
+   In the hero (always on screen) that's on load; inside a section-band it's
+   when the band scrolls into view — so the pen-stroke is actually witnessed
+   instead of drawing off-screen before you get there. */
 .doodle .doodle-path {
   stroke-dasharray: 600;
   stroke-dashoffset: 600;
-  animation: doodle-draw 1400ms cubic-bezier(0.6, 0.05, 0.3, 1) forwards;
-  animation-delay: inherit;
+}
+
+.hero .doodle .doodle-path {
+  animation: doodle-draw 1400ms cubic-bezier(0.6, 0.05, 0.3, 1) 300ms forwards;
+}
+
+.section-band[data-revealed='true'] .doodle .doodle-path {
+  animation: doodle-draw 1200ms cubic-bezier(0.6, 0.05, 0.3, 1) 320ms forwards;
 }
 
 @keyframes doodle-draw {
@@ -1458,10 +1770,120 @@ ol {
 .doodle-exclamation { width: 14px; height: 36px; }
 .doodle-note-bracket { width: 24px; height: 100px; }
 
+/* ============================================================
+   Ambient life — a little perpetual hand-motion so the page is
+   never frozen at rest. Tiny amplitude, slow, and timed to begin
+   only after each doodle has finished inking. The star twinkles
+   via opacity alone so its inline tilt survives.
+   ============================================================ */
+@keyframes ambient-twinkle {
+  0%, 100% { opacity: 0.72; }
+  50%      { opacity: 1; }
+}
+@keyframes ambient-pulse {
+  0%, 100% { transform: scale(1) rotate(0deg); }
+  50%      { transform: scale(1.015) rotate(0.4deg); }
+}
+@keyframes ambient-breathe {
+  0%, 100% { opacity: 0.8; }
+  50%      { opacity: 1; }
+}
+
+.doodle-star {
+  animation: ambient-twinkle 4.5s ease-in-out 1900ms infinite;
+}
+.doodle-circle {
+  transform-origin: center;
+  animation: ambient-pulse 8s ease-in-out 2400ms infinite;
+}
+
+/* Hero underline — wrap-proof: the target phrase is an atomic inline-block so
+   the squiggle (width:100% of the target) always sits under "Row by row" on a
+   single line. Inks in on load, then breathes so the hero is never frozen. */
+.hero-underline-target {
+  position: relative;
+  display: inline-block;
+  white-space: nowrap;
+}
+.hero .doodle-underline {
+  animation: ambient-breathe 5s ease-in-out 1900ms infinite;
+}
+
+/* ============================================================
+   Ambient backdrop — faint pencil scribbles drifting on the paper
+   behind every section, so the background itself is never frozen.
+   Fixed to the viewport, below content, pointer-inert. The doodles
+   render pre-drawn (no ink-in) and loop slow, desynchronized drifts.
+   ============================================================ */
+.ambient-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.ambient-backdrop .bg-doodle {
+  position: absolute;
+  opacity: 0.07;
+  will-change: transform;
+}
+
+/* Background doodles are ambient texture, not annotations — show them already
+   inked and let only the drift animate. */
+.ambient-backdrop .doodle-path {
+  stroke-dashoffset: 0 !important;
+  animation: none !important;
+}
+
+.bg-doodle-1 { top: 11%; left: 5%;  width: 340px; height: 140px; animation: bg-drift-a 36s ease-in-out infinite; }
+.bg-doodle-2 { top: 70%; left: 3%;  width: 220px; height: 150px; animation: bg-drift-b 30s ease-in-out infinite; }
+.bg-doodle-3 { top: 38%; left: 8%;  width: 130px; height: 100px; animation: bg-drift-c 27s ease-in-out infinite; }
+.bg-doodle-4 { top: 20%; right: 7%; left: auto; width: 84px;  height: 84px;  animation: bg-drift-c 24s ease-in-out infinite reverse; }
+.bg-doodle-5 { top: 82%; right: 9%; left: auto; width: 320px; height: 20px;  animation: bg-drift-a 40s ease-in-out infinite reverse; }
+.bg-doodle-6 { top: 46%; right: 5%; left: auto; width: 60px;  height: 240px; animation: bg-drift-b 33s ease-in-out infinite; }
+
+@keyframes bg-drift-a {
+  0%, 100% { transform: translate(0, 0) rotate(-5deg); }
+  50%      { transform: translate(16px, -20px) rotate(-1deg); }
+}
+@keyframes bg-drift-b {
+  0%, 100% { transform: translate(0, 0) rotate(4deg); }
+  50%      { transform: translate(-18px, 14px) rotate(8deg); }
+}
+@keyframes bg-drift-c {
+  0%, 100% { transform: translate(0, 0) rotate(0deg) scale(1); }
+  50%      { transform: translate(12px, 16px) rotate(9deg) scale(1.07); }
+}
+
+/* On narrow screens the gutters collapse; thin the backdrop so scribbles don't
+   crowd the text column. Keep two soft anchors top and bottom. */
+@media (max-width: 760px) {
+  .bg-doodle-2,
+  .bg-doodle-3,
+  .bg-doodle-6 {
+    display: none;
+  }
+  .ambient-backdrop .bg-doodle {
+    opacity: 0.05;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .doodle .doodle-path {
     animation: none;
     stroke-dashoffset: 0;
+  }
+  .doodle-star,
+  .doodle-circle,
+  .hero .doodle-underline {
+    animation: none;
+    opacity: 0.82;
+    transform: none;
+  }
+  .ambient-backdrop .bg-doodle {
+    animation: none;
+    transform: none;
   }
 }
 

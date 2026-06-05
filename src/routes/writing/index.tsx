@@ -1,5 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router'
-import { writingEntries } from '@/data/writing-entries'
+import { writingEntries, pillarColor } from '@/data/writing-entries'
+import { VlPage } from '@/components/VlChrome'
 
 export const Route = createFileRoute('/writing/')({
   component: WritingIndexPage,
@@ -10,31 +11,40 @@ export const Route = createFileRoute('/writing/')({
 
 function WritingIndexPage() {
   return (
-    <main className="legal-page section-band">
-      <div className="container legal-container">
-        <span className="label-smallcaps">05 · Writing</span>
-        <h1>Notes from the team.</h1>
-        <p>
-          Working notes on reconciliation, retail data, and how the books close
-          when they do. New entries land as we have something worth writing
-          down.
-        </p>
-        <ul className="writing-list" style={{ marginTop: 48 }}>
-          {writingEntries.map((entry) => (
-            <li key={entry.slug} className="writing-entry">
-              <span className="writing-meta label-smallcaps">
-                {entry.date}
-                <span aria-hidden> · </span>
-                {entry.category}
-              </span>
-              <h3 className="writing-title">
-                <a href={`/writing/${entry.slug}`}>{entry.title}</a>
-              </h3>
-              <span className="writing-detail">{entry.meta}</span>
-            </li>
-          ))}
-        </ul>
-      </div>
-    </main>
+    <VlPage>
+      <section className="vl-band is-plain" aria-labelledby="writing-heading">
+        <div className="vl-wrap">
+          <div className="vl-sec-head">
+            <span className="vl-kicker">Notes</span>
+            <h2 className="vl-h2" id="writing-heading">
+              Notes from the team.
+            </h2>
+            <p className="vl-lede">
+              Working notes on reconciliation, retail data, and how the books
+              close when they do. New entries land as we have something worth
+              writing down.
+            </p>
+          </div>
+          <div className="vl-cards-wall">
+            {writingEntries.map((entry) => (
+              <a
+                className="vl-card"
+                key={entry.slug}
+                href={`/writing/${entry.slug}`}
+                style={
+                  {
+                    '--pillar': pillarColor[entry.category] ?? '#8a867a',
+                  } as React.CSSProperties
+                }
+              >
+                <span className="tag">{entry.category}</span>
+                <h3>{entry.title}</h3>
+                <span className="date">{entry.date}</span>
+              </a>
+            ))}
+          </div>
+        </div>
+      </section>
+    </VlPage>
   )
 }

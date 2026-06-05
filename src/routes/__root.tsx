@@ -1,39 +1,45 @@
 import { HeadContent, Scripts, createRootRoute } from '@tanstack/react-router'
 import '../styles.css'
+import '../styles.operational.css'
 
 export const Route = createRootRoute({
   head: () => ({
     meta: [
       { charSet: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { name: 'theme-color', content: '#F0F2EE' },
-      { title: 'Darpan — AI reconciliation for retail' },
+      { name: 'theme-color', content: '#F4F2EC' },
+      {
+        title:
+          'Darpan — the verification layer for the composable retail stack',
+      },
       {
         name: 'description',
         content:
-          'Darpan is AI reconciliation for retail finance teams. Connect your systems, surface variance by primary ID, and close the books with evidence behind every line.',
+          'You’ve connected your systems. Nobody’s checking they still line up. Darpan keeps verifying that Shopify, your OMS, the WMS, and the processor still reconcile after data lands — row by row, in time for operations to act.',
       },
       { property: 'og:type', content: 'website' },
       { property: 'og:site_name', content: 'Darpan' },
       { property: 'og:url', content: 'https://drpn.ai/' },
       {
         property: 'og:title',
-        content: 'Darpan — AI reconciliation for retail',
+        content:
+          'Darpan — the verification layer for the composable retail stack',
       },
       {
         property: 'og:description',
         content:
-          'Retail reconciliation that closes in hours, not weeks. Connect your systems, surface variance by primary ID, and close with evidence behind every line.',
+          'Keep your best-of-breed tools. Add the layer that proves they line up — continuous verification that your retail systems still reconcile, built for operations.',
       },
       { name: 'twitter:card', content: 'summary_large_image' },
       {
         name: 'twitter:title',
-        content: 'Darpan — AI reconciliation for retail',
+        content:
+          'Darpan — the verification layer for the composable retail stack',
       },
       {
         name: 'twitter:description',
         content:
-          'Retail reconciliation that closes in hours, not weeks. Variance surfaced by primary ID, with the evidence behind every line.',
+          'You’ve connected your systems. Nobody’s checking they still line up. Continuous verification that your retail systems still reconcile — built for operations.',
       },
     ],
     links: [

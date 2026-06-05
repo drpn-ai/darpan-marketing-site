@@ -1,5 +1,5 @@
 import { createFileRoute } from '@tanstack/react-router'
-import { ArrowRight } from '@phosphor-icons/react'
+import { VlPage } from '@/components/VlChrome'
 
 export const Route = createFileRoute('/why')({
   component: WhyPage,
@@ -25,19 +25,11 @@ export const Route = createFileRoute('/why')({
 
 function WhyPage() {
   return (
-    <main className="legal-page section-band">
-      <div className="container">
-        <div className="writing-post" style={{ maxWidth: 820, margin: '0 auto' }}>
-          <span className="label-smallcaps">Why Darpan</span>
-          <h1
-            style={{
-              fontFamily: 'var(--font-display)',
-              fontSize: 'clamp(32px, 4.4vw, 48px)',
-              lineHeight: 1.1,
-              margin: '16px 0 24px',
-              maxWidth: '20ch',
-            }}
-          >
+    <VlPage>
+      <section className="vl-band is-plain">
+        <article className="vl-wrap vl-prose">
+          <span className="vl-kicker">Why Darpan</span>
+          <h1>
             Your tools are connected. Nobody&rsquo;s checking they still agree.
           </h1>
 
@@ -175,17 +167,16 @@ function WhyPage() {
             your systems trustworthy enough to run the business on.
           </p>
 
-          <p style={{ marginTop: 48 }}>
+          <p style={{ marginTop: 40 }}>
             <a
-              className="btn btn-primary"
+              className="vl-cta"
               href="mailto:hello@drpn.ai?subject=Darpan%20walkthrough"
             >
-              Request a walkthrough
-              <ArrowRight size={16} weight="regular" aria-hidden />
+              Request a walkthrough <span className="arr">&rarr;</span>
             </a>
           </p>
-        </div>
-      </div>
-    </main>
+        </article>
+      </section>
+    </VlPage>
   )
 }

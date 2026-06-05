@@ -1,4 +1,5 @@
 import { ArrowRight, ArrowUpRight } from '@phosphor-icons/react'
+import { NotebookDoodle } from '@/components/NotebookDoodle'
 
 export function HeroSection() {
   return (
@@ -9,7 +10,16 @@ export function HeroSection() {
           <h1 id="hero-heading" className="hero-headline">
             Your systems are connected. Darpan is the layer that{' '}
             <span className="hl">proves they still agree</span>.{' '}
-            <em>Row by row, across every system.</em>
+            {/* Underline only the short, atomic phrase. The target is
+                inline-block + nowrap so the squiggle always tracks "Row by row"
+                on one line regardless of how the headline wraps. */}
+            <em>
+              <span className="hero-underline-target">
+                Row by row,
+                <NotebookDoodle kind="underline-squiggle" />
+              </span>{' '}
+              across every system.
+            </em>
           </h1>
           <div className="hero-cta">
             <a
