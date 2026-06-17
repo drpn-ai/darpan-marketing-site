@@ -249,16 +249,6 @@
   position: relative;
   white-space: nowrap;
 }
-.vl-hero h1 .mk::after {
-  content: '';
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0.04em;
-  height: 2px;
-  background: var(--agree);
-  opacity: 0.45;
-}
 .vl-hero-lede {
   margin: 26px 0 34px;
   font-size: clamp(17px, 1.5vw, 19px);
@@ -818,8 +808,8 @@
 }
 .vl-mv-cell .agree-u {
   color: var(--agree);
-  border-bottom: 2px solid var(--agree);
-  padding-bottom: 1px;
+  position: relative;
+  white-space: nowrap;
 }
 .vl-gap-foot {
   margin-top: 26px;
@@ -1423,9 +1413,65 @@
   transform: none;
   transition: opacity 0.5s var(--ease), transform 0.5s var(--ease);
 }
-.vl-animate .vl-check.is-in .vl-row:nth-child(2) .vl-verdict { transition-delay: 0.12s; }
-.vl-animate .vl-check.is-in .vl-row:nth-child(3) .vl-verdict { transition-delay: 0.24s; }
-.vl-animate .vl-check.is-in .vl-row:nth-child(4) .vl-verdict { transition-delay: 0.36s; }
+/* Each verdict stamps just AFTER its row has streamed in (see row delays
+   below), so the "drift" verdicts land last and the "caught before it cost
+   anything" beat pays off on the trailing rows. */
+.vl-animate .vl-check.is-in .vl-row:nth-child(2) .vl-verdict { transition-delay: 0.60s; }
+.vl-animate .vl-check.is-in .vl-row:nth-child(3) .vl-verdict { transition-delay: 1.00s; }
+.vl-animate .vl-check.is-in .vl-row:nth-child(4) .vl-verdict { transition-delay: 1.40s; }
+
+/* Continuous-check rows stream in one by one as the panel enters view, drift
+   rows last — so the faux-live table reads as genuinely "continuous" rather
+   than printed once. Scoped to `.vl-animate`, so without JS / under reduced
+   motion the rows render statically (the hiding rule never applies). */
+.vl-animate .vl-check .vl-row:not(.is-head) {
+  opacity: 0;
+  transform: translateY(9px);
+}
+.vl-animate .vl-check.is-in .vl-row:not(.is-head) {
+  opacity: 1;
+  transform: none;
+  transition: opacity 0.55s var(--ease), transform 0.55s var(--ease);
+}
+.vl-animate .vl-check.is-in .vl-row:nth-child(2) { transition-delay: 0.30s; }
+.vl-animate .vl-check.is-in .vl-row:nth-child(3) { transition-delay: 0.70s; }
+.vl-animate .vl-check.is-in .vl-row:nth-child(4) { transition-delay: 1.10s; }
+
+/* Hand-drawn underline that draws itself on the brand phrase "line up".
+   Reuses the stroke-dashoffset doodle technique. `pathLength` normalises the
+   dash maths to 100 regardless of the squiggle's real geometry. Default
+   (no JS / reduced motion) is fully drawn and static; the draw-in only runs
+   under `.vl-animate`. */
+.vl-underline {
+  position: absolute;
+  left: -0.05em;
+  right: -0.05em;
+  bottom: -0.26em;
+  height: 0.5em;
+  overflow: visible;
+  pointer-events: none;
+}
+.vl-underline-path {
+  stroke-dasharray: 100;
+  stroke-dashoffset: 0;
+  opacity: 0.72;
+}
+@keyframes vl-draw {
+  from { stroke-dashoffset: 100; }
+  to { stroke-dashoffset: 0; }
+}
+/* hero headline: draw in just after the heading rises */
+.vl-animate .vl-hero h1 .mk .vl-underline-path {
+  stroke-dashoffset: 100;
+  animation: vl-draw 900ms var(--ease) 760ms forwards;
+}
+/* the-gap "still line up": draw in when the Move/Verify block reveals */
+.vl-animate [data-reveal] .agree-u .vl-underline-path {
+  stroke-dashoffset: 100;
+}
+.vl-animate [data-reveal].is-in .agree-u .vl-underline-path {
+  animation: vl-draw 900ms var(--ease) 260ms forwards;
+}
 
 /* ============================================================
    Responsive
@@ -1529,10 +1575,15 @@
     transform: none;
   }
   .vl-animate [data-reveal],
-  .vl-animate .vl-check .vl-verdict {
+  .vl-animate .vl-check .vl-verdict,
+  .vl-animate .vl-check .vl-row:not(.is-head) {
     opacity: 1;
     transform: none;
     transition: none;
+  }
+  .vl-underline-path {
+    animation: none;
+    stroke-dashoffset: 0;
   }
 }
 

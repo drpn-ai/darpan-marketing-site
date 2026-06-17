@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { createFileRoute } from '@tanstack/react-router'
 import { LinkedinLogo } from '@phosphor-icons/react'
 import { writingEntries, pillarColor } from '@/data/writing-entries'
@@ -141,7 +141,11 @@ function Hero() {
           style={{ '--i': 1 } as React.CSSProperties}
         >
           Nobody&rsquo;s checking your systems still{' '}
-          <span className="mk">line up</span>.
+          <span className="mk">
+            line up
+            <MarkUnderline />
+          </span>
+          .
         </h1>
         <p
           className="vl-hero-lede vl-rise"
@@ -326,7 +330,11 @@ function TheGap() {
             <span className="k">Verify</span>
             <h3>
               A correct check proves A and B{' '}
-              <span className="agree-u">still line up</span> afterward.
+              <span className="agree-u">
+                still line up
+                <MarkUnderline />
+              </span>{' '}
+              afterward.
             </h3>
             <p>
               Across timing lags, partial syncs, retries, schema mismatches, and
@@ -388,7 +396,9 @@ function Proof() {
               key={s.num}
               data-reveal
             >
-              <div className="num">{s.num}</div>
+              <div className="num">
+                <CountUp value={s.num} />
+              </div>
               <p className="claim">{s.claim}</p>
               <span className="src">{s.src}</span>
             </div>
@@ -687,5 +697,119 @@ function Footer() {
         </a>
       </div>
     </footer>
+  )
+}
+
+// Stat count-up: animates the numeric core of a stat (e.g. "$222.7B") from zero
+// to its value the first time it scrolls into view, holding the prefix/suffix
+// static. Hand-rolled rAF off a one-shot IntersectionObserver — no deps, same
+// model as the page's scroll-reveal. SSR renders the final value, so there's no
+// hydration mismatch; reduced-motion and trivial values (≤1, e.g. "#1") render
+// statically.
+type ParsedStat = {
+  prefix: string
+  target: number
+  decimals: number
+  suffix: string
+}
+
+function parseStat(raw: string): ParsedStat | null {
+  const m = raw.match(/^(\D*)([\d,]+(?:\.\d+)?)(\D*)$/)
+  if (!m) return null
+  const [, prefix, numStr, suffix] = m
+  const target = parseFloat(numStr.replace(/,/g, ''))
+  if (!Number.isFinite(target)) return null
+  const dot = numStr.indexOf('.')
+  const decimals = dot === -1 ? 0 : numStr.length - dot - 1
+  return { prefix, target, decimals, suffix }
+}
+
+function formatStat(
+  prefix: string,
+  n: number,
+  decimals: number,
+  suffix: string,
+) {
+  const [int, frac] = n.toFixed(decimals).split('.')
+  const grouped = int.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+  return `${prefix}${frac != null ? `${grouped}.${frac}` : grouped}${suffix}`
+}
+
+function CountUp({ value }: { value: string }) {
+  const ref = useRef<HTMLSpanElement>(null)
+  // Initial state is the final value so SSR and first client render match.
+  const [display, setDisplay] = useState(value)
+
+  useEffect(() => {
+    const el = ref.current
+    if (!el) return
+    const parsed = parseStat(value)
+    if (!parsed || parsed.target <= 1) return
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+
+    const { prefix, target, decimals, suffix } = parsed
+    // Reset to zero now (the Proof section is below the fold, so this happens
+    // off-screen — no visible snap-back).
+    setDisplay(formatStat(prefix, 0, decimals, suffix))
+
+    const DURATION = 1400
+    const easeOut = (t: number) => 1 - Math.pow(1 - t, 3)
+    let raf = 0
+    let start = 0
+    let triggered = false
+
+    const tick = (ts: number) => {
+      if (!start) start = ts
+      const t = Math.min(1, (ts - start) / DURATION)
+      setDisplay(formatStat(prefix, target * easeOut(t), decimals, suffix))
+      if (t < 1) raf = requestAnimationFrame(tick)
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting && !triggered) {
+            triggered = true
+            observer.unobserve(entry.target)
+            raf = requestAnimationFrame(tick)
+          }
+        }
+      },
+      { threshold: 0.45 },
+    )
+    observer.observe(el)
+
+    return () => {
+      observer.disconnect()
+      cancelAnimationFrame(raf)
+    }
+  }, [value])
+
+  return <span ref={ref}>{display}</span>
+}
+
+// Hand-drawn underline that draws itself under the brand phrase "line up".
+// Inline SVG using the same stroke-dashoffset technique as the notebook doodles
+// (NotebookDoodle); the draw-in is triggered in CSS (.vl-underline-path), so
+// this stays a dumb, SSR-safe marker that renders fully drawn without JS.
+function MarkUnderline() {
+  return (
+    <svg
+      className="vl-underline"
+      viewBox="0 0 240 16"
+      preserveAspectRatio="none"
+      fill="none"
+      aria-hidden
+    >
+      <path
+        className="vl-underline-path"
+        pathLength={100}
+        d="M 4,10 Q 22,4 44,8 T 88,8 Q 110,12 132,7 T 176,7 Q 198,12 220,6 T 236,9"
+        stroke="currentColor"
+        strokeWidth={2.6}
+        strokeLinecap="round"
+        vectorEffect="non-scaling-stroke"
+      />
+    </svg>
   )
 }
