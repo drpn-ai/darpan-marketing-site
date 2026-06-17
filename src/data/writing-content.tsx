@@ -153,7 +153,7 @@ const articles: Article[] = [
       { t: 'h2', text: 'Where this method tops out' },
       {
         t: 'p',
-        text: 'One clearing account per platform is the right tool for a handful of platforms and a monthly or weekly close. It strains when you are running many marketplaces at once, when you need daily cash visibility rather than period-end truth, when reserves are multi-currency, or when an auditor wants the trail across thousands of individual payouts. At that point the per-platform balance is still correct, but reading it by hand stops scaling — the same way a spreadsheet does once the [partial payments and bundled deposits pile up](/notes/bank-reconciliation-in-excel). The structure does not change when you outgrow doing it by hand; only who does the posting does. Get the clearing accounts right first, and every later tool — or model — has something correct to check itself against.',
+        text: 'One clearing account per platform is the right tool for a handful of platforms and a monthly or weekly close. It strains when you are running many marketplaces at once, when you need daily cash visibility rather than period-end truth, when reserves are multi-currency, or when an auditor wants the trail across thousands of individual payouts. At that point the per-platform balance is still correct, but reading it by hand stops scaling — the same way a spreadsheet does once the partial payments and bundled deposits pile up. The structure does not change when you outgrow doing it by hand; only who does the posting does. Get the clearing accounts right first, and every later tool — or model — has something correct to check itself against.',
       },
     ],
     faq: [
@@ -299,7 +299,7 @@ const articles: Article[] = [
       { t: 'h2', text: 'Where this method tops out' },
       {
         t: 'p',
-        text: 'One clearing account and a settlement-by-settlement roll-forward is the right tool for a seller on one or two marketplaces closing monthly or per settlement. It strains when you run many marketplaces and currencies at once, when you need daily cash visibility instead of period-end truth, or when an auditor wants the trail across thousands of order-level lines under each disbursement. The structure stays correct; reading it by hand stops scaling — the same way a [spreadsheet does once partial payments and bundled deposits pile up](/notes/bank-reconciliation-in-excel). A workbook saves the answer but not the reasoning, and the [reconciliation spreadsheet template](/notes/reconciliation-spreadsheet-template) only stretches so far across formats. Get the clearing account and the reserve roll-forward right first, and every later tool — or model — has something correct to check itself against.',
+        text: 'One clearing account and a settlement-by-settlement roll-forward is the right tool for a seller on one or two marketplaces closing monthly or per settlement. It strains when you run many marketplaces and currencies at once, when you need daily cash visibility instead of period-end truth, or when an auditor wants the trail across thousands of order-level lines under each disbursement. The structure stays correct; reading it by hand stops scaling — the same way a spreadsheet does once partial payments and bundled deposits pile up. A workbook saves the answer but not the reasoning, and the [reconciliation spreadsheet template](/notes/reconciliation-spreadsheet-template) only stretches so far across formats. Get the clearing account and the reserve roll-forward right first, and every later tool — or model — has something correct to check itself against.',
       },
     ],
     faq: [
@@ -451,7 +451,7 @@ const articles: Article[] = [
       { t: 'h2', text: 'When the spreadsheet starts to creak' },
       {
         t: 'p',
-        text: 'Be honest about the ceiling. The master sheet holds up while you have one or two processors, a clean payout ID on every line, and one person who owns the weekly run. It starts to strain when partial payments and bundled deposits stop lining up to a single key — the point where [XLOOKUP quietly gives up](/notes/bank-reconciliation-in-excel) — when a third and fourth channel arrive each with their own export format, or when someone other than the owner has to trust the number without re-deriving it by hand. A workbook saves the answer; it does not save the reasoning, and once other people depend on that reasoning it has to live somewhere more repeatable.',
+        text: 'Be honest about the ceiling. The master sheet holds up while you have one or two processors, a clean payout ID on every line, and one person who owns the weekly run. It starts to strain when partial payments and bundled deposits stop lining up to a single key — the point where XLOOKUP quietly gives up — when a third and fourth channel arrive each with their own export format, or when someone other than the owner has to trust the number without re-deriving it by hand. A workbook saves the answer; it does not save the reasoning, and once other people depend on that reasoning it has to live somewhere more repeatable.',
       },
       {
         t: 'p',
