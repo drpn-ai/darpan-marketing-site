@@ -9,21 +9,16 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as WritingRouteImport } from './routes/writing'
 import { Route as WhyRouteImport } from './routes/why'
 import { Route as TermsRouteImport } from './routes/terms'
 import { Route as PrivacyRouteImport } from './routes/privacy'
+import { Route as NotesRouteImport } from './routes/notes'
 import { Route as NotebookRouteImport } from './routes/notebook'
 import { Route as CustomersRouteImport } from './routes/customers'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as WritingIndexRouteImport } from './routes/writing/index'
-import { Route as WritingSlugRouteImport } from './routes/writing/$slug'
+import { Route as NotesIndexRouteImport } from './routes/notes/index'
+import { Route as NotesSlugRouteImport } from './routes/notes/$slug'
 
-const WritingRoute = WritingRouteImport.update({
-  id: '/writing',
-  path: '/writing',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const WhyRoute = WhyRouteImport.update({
   id: '/why',
   path: '/why',
@@ -37,6 +32,11 @@ const TermsRoute = TermsRouteImport.update({
 const PrivacyRoute = PrivacyRouteImport.update({
   id: '/privacy',
   path: '/privacy',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NotesRoute = NotesRouteImport.update({
+  id: '/notes',
+  path: '/notes',
   getParentRoute: () => rootRouteImport,
 } as any)
 const NotebookRoute = NotebookRouteImport.update({
@@ -54,27 +54,27 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const WritingIndexRoute = WritingIndexRouteImport.update({
+const NotesIndexRoute = NotesIndexRouteImport.update({
   id: '/',
   path: '/',
-  getParentRoute: () => WritingRoute,
+  getParentRoute: () => NotesRoute,
 } as any)
-const WritingSlugRoute = WritingSlugRouteImport.update({
+const NotesSlugRoute = NotesSlugRouteImport.update({
   id: '/$slug',
   path: '/$slug',
-  getParentRoute: () => WritingRoute,
+  getParentRoute: () => NotesRoute,
 } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/customers': typeof CustomersRoute
   '/notebook': typeof NotebookRoute
+  '/notes': typeof NotesRouteWithChildren
   '/privacy': typeof PrivacyRoute
   '/terms': typeof TermsRoute
   '/why': typeof WhyRoute
-  '/writing': typeof WritingRouteWithChildren
-  '/writing/$slug': typeof WritingSlugRoute
-  '/writing/': typeof WritingIndexRoute
+  '/notes/$slug': typeof NotesSlugRoute
+  '/notes/': typeof NotesIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -83,20 +83,20 @@ export interface FileRoutesByTo {
   '/privacy': typeof PrivacyRoute
   '/terms': typeof TermsRoute
   '/why': typeof WhyRoute
-  '/writing/$slug': typeof WritingSlugRoute
-  '/writing': typeof WritingIndexRoute
+  '/notes/$slug': typeof NotesSlugRoute
+  '/notes': typeof NotesIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/customers': typeof CustomersRoute
   '/notebook': typeof NotebookRoute
+  '/notes': typeof NotesRouteWithChildren
   '/privacy': typeof PrivacyRoute
   '/terms': typeof TermsRoute
   '/why': typeof WhyRoute
-  '/writing': typeof WritingRouteWithChildren
-  '/writing/$slug': typeof WritingSlugRoute
-  '/writing/': typeof WritingIndexRoute
+  '/notes/$slug': typeof NotesSlugRoute
+  '/notes/': typeof NotesIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -104,12 +104,12 @@ export interface FileRouteTypes {
     | '/'
     | '/customers'
     | '/notebook'
+    | '/notes'
     | '/privacy'
     | '/terms'
     | '/why'
-    | '/writing'
-    | '/writing/$slug'
-    | '/writing/'
+    | '/notes/$slug'
+    | '/notes/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -118,40 +118,33 @@ export interface FileRouteTypes {
     | '/privacy'
     | '/terms'
     | '/why'
-    | '/writing/$slug'
-    | '/writing'
+    | '/notes/$slug'
+    | '/notes'
   id:
     | '__root__'
     | '/'
     | '/customers'
     | '/notebook'
+    | '/notes'
     | '/privacy'
     | '/terms'
     | '/why'
-    | '/writing'
-    | '/writing/$slug'
-    | '/writing/'
+    | '/notes/$slug'
+    | '/notes/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   CustomersRoute: typeof CustomersRoute
   NotebookRoute: typeof NotebookRoute
+  NotesRoute: typeof NotesRouteWithChildren
   PrivacyRoute: typeof PrivacyRoute
   TermsRoute: typeof TermsRoute
   WhyRoute: typeof WhyRoute
-  WritingRoute: typeof WritingRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/writing': {
-      id: '/writing'
-      path: '/writing'
-      fullPath: '/writing'
-      preLoaderRoute: typeof WritingRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/why': {
       id: '/why'
       path: '/why'
@@ -171,6 +164,13 @@ declare module '@tanstack/react-router' {
       path: '/privacy'
       fullPath: '/privacy'
       preLoaderRoute: typeof PrivacyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/notes': {
+      id: '/notes'
+      path: '/notes'
+      fullPath: '/notes'
+      preLoaderRoute: typeof NotesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/notebook': {
@@ -194,44 +194,43 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/writing/': {
-      id: '/writing/'
+    '/notes/': {
+      id: '/notes/'
       path: '/'
-      fullPath: '/writing/'
-      preLoaderRoute: typeof WritingIndexRouteImport
-      parentRoute: typeof WritingRoute
+      fullPath: '/notes/'
+      preLoaderRoute: typeof NotesIndexRouteImport
+      parentRoute: typeof NotesRoute
     }
-    '/writing/$slug': {
-      id: '/writing/$slug'
+    '/notes/$slug': {
+      id: '/notes/$slug'
       path: '/$slug'
-      fullPath: '/writing/$slug'
-      preLoaderRoute: typeof WritingSlugRouteImport
-      parentRoute: typeof WritingRoute
+      fullPath: '/notes/$slug'
+      preLoaderRoute: typeof NotesSlugRouteImport
+      parentRoute: typeof NotesRoute
     }
   }
 }
 
-interface WritingRouteChildren {
-  WritingSlugRoute: typeof WritingSlugRoute
-  WritingIndexRoute: typeof WritingIndexRoute
+interface NotesRouteChildren {
+  NotesSlugRoute: typeof NotesSlugRoute
+  NotesIndexRoute: typeof NotesIndexRoute
 }
 
-const WritingRouteChildren: WritingRouteChildren = {
-  WritingSlugRoute: WritingSlugRoute,
-  WritingIndexRoute: WritingIndexRoute,
+const NotesRouteChildren: NotesRouteChildren = {
+  NotesSlugRoute: NotesSlugRoute,
+  NotesIndexRoute: NotesIndexRoute,
 }
 
-const WritingRouteWithChildren =
-  WritingRoute._addFileChildren(WritingRouteChildren)
+const NotesRouteWithChildren = NotesRoute._addFileChildren(NotesRouteChildren)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   CustomersRoute: CustomersRoute,
   NotebookRoute: NotebookRoute,
+  NotesRoute: NotesRouteWithChildren,
   PrivacyRoute: PrivacyRoute,
   TermsRoute: TermsRoute,
   WhyRoute: WhyRoute,
-  WritingRoute: WritingRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

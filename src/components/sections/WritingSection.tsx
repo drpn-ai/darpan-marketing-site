@@ -29,7 +29,7 @@ export function WritingSection() {
             />
           ))}
         </ul>
-        <a className="writing-all" href="/writing">
+        <a className="writing-all" href="/notes">
           All notes →
         </a>
       </div>

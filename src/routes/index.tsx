@@ -15,7 +15,7 @@ export const navItems = [
   ['The gap', '#gap'],
   ['Rules', '#rules'],
   ['Proof', '#proof'],
-  ['Notes', '/writing'],
+  ['Notes', '/notes'],
 ] as const
 
 const WALKTHROUGH = 'mailto:hello@drpn.ai?subject=Darpan%20walkthrough'
@@ -115,7 +115,7 @@ function Header() {
           <a href="#gap">The gap</a>
           <a href="#rules">Rules</a>
           <a href="#proof">Proof</a>
-          <a href="/writing">Notes</a>
+          <a href="/notes">Notes</a>
         </nav>
         <a className="vl-cta is-nav" href={WALKTHROUGH}>
           Request a walkthrough
@@ -659,7 +659,7 @@ function Notes() {
             <a
               className="vl-card"
               key={entry.slug}
-              href={`/writing/${entry.slug}`}
+              href={`/notes/${entry.slug}`}
               style={
                 {
                   '--pillar': pillarColor[entry.category] ?? '#8a867a',
@@ -672,7 +672,7 @@ function Notes() {
             </a>
           ))}
         </div>
-        <a className="vl-notes-more" href="/writing">
+        <a className="vl-notes-more" href="/notes">
           All notes <span aria-hidden>&rarr;</span>
         </a>
       </div>

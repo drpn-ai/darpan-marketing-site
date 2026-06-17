@@ -21,7 +21,7 @@ function renderCode(text: string, keyPrefix: string) {
 
 // Lightweight inline formatter for article copy. Supports two markups:
 //   `code`            → inline <code> (field names, formulas, identifiers)
-//   [label](href)     → links. Internal hrefs ("/writing/...", "#anchor")
+//   [label](href)     → links. Internal hrefs ("/notes/...", "#anchor")
 //                       render as same-tab anchors; external "http(s)://"
 //                       links open in a new tab with rel="noopener noreferrer".
 // Everything else is plain text. Keeps article data readable while producing
@@ -163,7 +163,7 @@ function FaqView({ faq }: { faq: FaqItem[] }) {
 }
 
 function buildJsonLd(article: Article, entry: WritingEntry | undefined) {
-  const url = `${SITE_URL}/writing/${article.slug}`
+  const url = `${SITE_URL}/notes/${article.slug}`
   const graph: Record<string, unknown>[] = [
     {
       '@type': 'Article',
@@ -219,7 +219,7 @@ export function WritingArticle({
             <FaqView faq={article.faq} />
           ) : null}
           <p className="writing-post-footer">
-            <a className="writing-all" href="/writing">
+            <a className="writing-all" href="/notes">
               ← All writing
             </a>
           </p>

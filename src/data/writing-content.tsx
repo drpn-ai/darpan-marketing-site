@@ -58,7 +58,7 @@ const articles: Article[] = [
       },
       {
         t: 'p',
-        text: 'Three structural facts make the gap permanent, and all three are normal. A payout is a batch, not a sale — the platform takes a window of transactions and wires you one number. The platform nets out its cut before paying: [processing fees, refunds, chargebacks, and dispute fees all come out of the payout](https://help.shopify.com/en/manual/payments/chargebacks), and [refunds you issue are deducted from the next available payout](https://help.shopify.com/en/manual/payments/shopify-payments/payouts/lower-or-missing-payouts), not the one the original sale was in. And the cash lands days late — [a Stripe payout settles a day or two after the charges it bundles](https://docs.stripe.com/reports/balance), Amazon settles roughly every two weeks. A bookkeeper pricing a WooCommerce client summed up the moving parts better than any vendor page: ["the painful part is the settlement mess: shopify / woocommerce reports, paypal, cards, zelle/cashapp, fees, refunds, holds, bank deposits, and clearing balances."](https://reddit.com/r/Bookkeeping/comments/1t0k52r/how_much_would_you_charge_for_monthly_bookkeeping/) Note the last two words. The people who have done this already think in clearing balances. We are just going to make it deliberate. (For the Shopify-specific version of this gap, see [why Shopify deposits never match your sales](/writing/why-shopify-deposits-never-match-sales).)',
+        text: 'Three structural facts make the gap permanent, and all three are normal. A payout is a batch, not a sale — the platform takes a window of transactions and wires you one number. The platform nets out its cut before paying: [processing fees, refunds, chargebacks, and dispute fees all come out of the payout](https://help.shopify.com/en/manual/payments/chargebacks), and [refunds you issue are deducted from the next available payout](https://help.shopify.com/en/manual/payments/shopify-payments/payouts/lower-or-missing-payouts), not the one the original sale was in. And the cash lands days late — [a Stripe payout settles a day or two after the charges it bundles](https://docs.stripe.com/reports/balance), Amazon settles roughly every two weeks. A bookkeeper pricing a WooCommerce client summed up the moving parts better than any vendor page: ["the painful part is the settlement mess: shopify / woocommerce reports, paypal, cards, zelle/cashapp, fees, refunds, holds, bank deposits, and clearing balances."](https://reddit.com/r/Bookkeeping/comments/1t0k52r/how_much_would_you_charge_for_monthly_bookkeeping/) Note the last two words. The people who have done this already think in clearing balances. We are just going to make it deliberate. (For the Shopify-specific version of this gap, see [why Shopify deposits never match your sales](/notes/why-shopify-deposits-never-match-sales).)',
       },
       { t: 'h2', text: 'The fix: one clearing account per marketplace' },
       {
@@ -97,10 +97,10 @@ const articles: Article[] = [
         t: 'ol',
         items: [
           'Pull two files: the settlement / payout report for the period (Stripe\'s [payout reconciliation report](https://docs.stripe.com/reports/payout-reconciliation), Amazon\'s flat-file settlement, your Shopify Payments payout export) and your bank transactions.',
-          'Clean the exports first. A payout ID that Excel autoconverted to a number, a comma-as-decimal, or a stray encoding mark will silently break every match downstream — these are the [CSV gotchas that quietly wreck a reconciliation](/writing/csv-gotchas-encoding-delimiters). The payout ID is the [primary ID](/writing/what-we-mean-when-we-say-primary-id) the whole reconciliation joins on; protect it.',
+          'Clean the exports first. A payout ID that Excel autoconverted to a number, a comma-as-decimal, or a stray encoding mark will silently break every match downstream — these are the [CSV gotchas that quietly wreck a reconciliation](/notes/csv-gotchas-encoding-delimiters). The payout ID is the [primary ID](/notes/what-we-mean-when-we-say-primary-id) the whole reconciliation joins on; protect it.',
           'Foot each payout on the report itself: confirm gross − fees − refunds − adjustments equals the net the platform says it paid. If the platform\'s own report does not foot, stop — that is a data problem to escalate, not a books problem to force.',
           'Post the three entries to that platform\'s clearing account (gross to revenue, deductions from the report, net deposit from the bank) — or let your tool post them and spot-check one period by hand.',
-          'Match each net payout on the report to a bank line, on amount and date, or on payout ID if the bank line carries one. This is the cash-side tie-out covered in [bank reconciliation, step by step](/writing/bank-reconciliation-step-by-step).',
+          'Match each net payout on the report to a bank line, on amount and date, or on payout ID if the bank line carries one. This is the cash-side tie-out covered in [bank reconciliation, step by step](/notes/bank-reconciliation-step-by-step).',
           'Read the clearing balance. Subtract known in-transit payouts and reserves. The remainder is your exception list for the period — work only those rows. A clean close is a balance you can fully explain, not a balance of zero.',
         ],
       },
@@ -128,7 +128,7 @@ const articles: Article[] = [
       {
         t: 'callout',
         kind: 'tip',
-        text: 'Reconcile at the payout level, not the order level. You do not match 4,000 orders to the bank — you match a handful of payouts, and let the orders roll up to their payout total inside the report. That is the difference between a 20-minute close and a lost Saturday. A downloadable per-payout sheet with the gross-to-net columns already laid out is in the [reconciliation spreadsheet template](/writing/reconciliation-spreadsheet-template).',
+        text: 'Reconcile at the payout level, not the order level. You do not match 4,000 orders to the bank — you match a handful of payouts, and let the orders roll up to their payout total inside the report. That is the difference between a 20-minute close and a lost Saturday. A downloadable per-payout sheet with the gross-to-net columns already laid out is in the [reconciliation spreadsheet template](/notes/reconciliation-spreadsheet-template).',
       },
       { t: 'h2', text: 'When the clearing account will not tie' },
       {
@@ -141,19 +141,19 @@ const articles: Article[] = [
           'The payout window straddles month-end — sales in one month, cash in the next. That is in-transit timing, not an error; it is the residual that should be there.',
           'A fee or refund was booked to the wrong account, so clearing never received the credit. The clearing balance is off by exactly that fee.',
           'A refund settled for a sale from a prior period that you booked net the first time, so the gross was never in clearing to net against.',
-          'A sync double-posted the payout, or dropped one — common when an integration "runs" but silently skips records. See [reconciling Shopify orders against your ERP](/writing/reconcile-shopify-orders-against-your-erp) for the dropped-record pattern.',
-          'FX: the sale, the fee, and the settlement converted at different rates, leaving a real-looking gap that is just revaluation. That is its own discipline — see [multi-currency reconciliation](/writing/multi-currency-reconciliation).',
+          'A sync double-posted the payout, or dropped one — common when an integration "runs" but silently skips records. See [reconciling Shopify orders against your ERP](/notes/reconcile-shopify-orders-against-your-erp) for the dropped-record pattern.',
+          'FX: the sale, the fee, and the settlement converted at different rates, leaving a real-looking gap that is just revaluation. That is its own discipline — see [multi-currency reconciliation](/notes/multi-currency-reconciliation).',
         ],
       },
       { t: 'h2', text: 'What about A2X, Synder, Celigo?' },
       {
         t: 'p',
-        text: 'They automate exactly this. A2X is the community default for posting Shopify and Amazon settlements to QuickBooks or Xero; Synder gets named when a native integration breaks; Celigo shows up for NetSuite at volume, which is what that r/Netsuite reply was praising. They all do the same job under the hood — parse the settlement report and post the clearing-account journal entries so you do not key them by hand. That is a fair trade and often worth it. The reason to understand the method anyway is simple: a tool that posts entries you cannot read is a tool you cannot audit. Know what the clearing balance should be, and you can check the tool instead of trusting it — which is also the first thing [an auditor will ask you to show](/writing/what-auditors-look-for).',
+        text: 'They automate exactly this. A2X is the community default for posting Shopify and Amazon settlements to QuickBooks or Xero; Synder gets named when a native integration breaks; Celigo shows up for NetSuite at volume, which is what that r/Netsuite reply was praising. They all do the same job under the hood — parse the settlement report and post the clearing-account journal entries so you do not key them by hand. That is a fair trade and often worth it. The reason to understand the method anyway is simple: a tool that posts entries you cannot read is a tool you cannot audit. Know what the clearing balance should be, and you can check the tool instead of trusting it — which is also the first thing [an auditor will ask you to show](/notes/what-auditors-look-for).',
       },
       { t: 'h2', text: 'Where this method tops out' },
       {
         t: 'p',
-        text: 'One clearing account per platform is the right tool for a handful of platforms and a monthly or weekly close. It strains when you are running many marketplaces at once, when you need daily cash visibility rather than period-end truth, when reserves are multi-currency, or when an auditor wants the trail across thousands of individual payouts. At that point the per-platform balance is still correct, but reading it by hand stops scaling — the same way a spreadsheet does once the [partial payments and bundled deposits pile up](/writing/bank-reconciliation-in-excel). The structure does not change when you outgrow doing it by hand; only who does the posting does. Get the clearing accounts right first, and every later tool — or model — has something correct to check itself against.',
+        text: 'One clearing account per platform is the right tool for a handful of platforms and a monthly or weekly close. It strains when you are running many marketplaces at once, when you need daily cash visibility rather than period-end truth, when reserves are multi-currency, or when an auditor wants the trail across thousands of individual payouts. At that point the per-platform balance is still correct, but reading it by hand stops scaling — the same way a spreadsheet does once the [partial payments and bundled deposits pile up](/notes/bank-reconciliation-in-excel). The structure does not change when you outgrow doing it by hand; only who does the posting does. Get the clearing accounts right first, and every later tool — or model — has something correct to check itself against.',
       },
     ],
     faq: [
@@ -218,7 +218,7 @@ const articles: Article[] = [
       { t: 'h2', text: 'The fix: one Amazon clearing account, settlement by settlement' },
       {
         t: 'p',
-        text: 'The method is the same [clearing-account model that makes every marketplace tie out](/writing/marketplace-payout-reconciliation), applied to Amazon\'s specific line items. A [clearing account](https://en.wikipedia.org/wiki/Clearing_account) is a holding account for money that is earned but not yet settled to cash. Open one — Amazon Clearing — and route everything through it. Book gross sales as revenue through the account. Post every deduction the settlement report lists — referral fees, FBA fees, refunds, ad spend, chargebacks — to that account. When the disbursement lands, it clears most of the balance. What is left is the reserve, and it is supposed to be there. (For the Shopify-specific version of the same gross-versus-net gap, see [why Shopify deposits never match your sales](/writing/why-shopify-deposits-never-match-sales).)',
+        text: 'The method is the same [clearing-account model that makes every marketplace tie out](/notes/marketplace-payout-reconciliation), applied to Amazon\'s specific line items. A [clearing account](https://en.wikipedia.org/wiki/Clearing_account) is a holding account for money that is earned but not yet settled to cash. Open one — Amazon Clearing — and route everything through it. Book gross sales as revenue through the account. Post every deduction the settlement report lists — referral fees, FBA fees, refunds, ad spend, chargebacks — to that account. When the disbursement lands, it clears most of the balance. What is left is the reserve, and it is supposed to be there. (For the Shopify-specific version of the same gross-versus-net gap, see [why Shopify deposits never match your sales](/notes/why-shopify-deposits-never-match-sales).)',
       },
       {
         t: 'code',
@@ -246,10 +246,10 @@ const articles: Article[] = [
         t: 'ol',
         items: [
           'Pull two files: the settlement report for the period (the summary and, if you want the detail on hand, the transaction view) from Seller Central, and your bank transactions.',
-          'Clean the exports first. A settlement ID or order ID that Excel autoconverted to a number, or a stray encoding mark in a product title, will silently break every match downstream — these are the [CSV gotchas that quietly wreck a reconciliation](/writing/csv-gotchas-encoding-delimiters). The settlement ID and order ID are the [primary IDs](/writing/what-we-mean-when-we-say-primary-id) the whole reconciliation joins on; protect them.',
+          'Clean the exports first. A settlement ID or order ID that Excel autoconverted to a number, or a stray encoding mark in a product title, will silently break every match downstream — these are the [CSV gotchas that quietly wreck a reconciliation](/notes/csv-gotchas-encoding-delimiters). The settlement ID and order ID are the [primary IDs](/notes/what-we-mean-when-we-say-primary-id) the whole reconciliation joins on; protect them.',
           'Foot the settlement report against itself: confirm beginning balance + sales − referral fees − FBA fees − refunds − ad spend ± reserve movement equals the disbursement Amazon says it paid. If Amazon\'s own report does not foot, stop — that is a data-pull problem to fix, not a books problem to force.',
           'Post the summary to Amazon Clearing: gross to revenue, each deduction to its own expense or contra account, the disbursement from the bank — or let your tool post them and spot-check one period by hand.',
-          'Match the disbursement to a bank line on amount and date, or on settlement ID if the bank memo carries one. This is the cash-side tie covered in [bank reconciliation, step by step](/writing/bank-reconciliation-step-by-step).',
+          'Match the disbursement to a bank line on amount and date, or on settlement ID if the bank memo carries one. This is the cash-side tie covered in [bank reconciliation, step by step](/notes/bank-reconciliation-step-by-step).',
           'Roll the reserve forward and confirm the ending reserve equals the next report\'s opening reserve. Then read the clearing balance: it should equal the reserve plus any settled disbursement still in transit. The remainder is your exception list — work only those rows.',
         ],
       },
@@ -286,20 +286,20 @@ const articles: Article[] = [
           'Deferred versus settled timing: an order is delivered but still inside its DD+7 window, so it is in the period\'s sales but not yet in the disbursement. That is in-transit, not an error — it belongs in the reserve and rolls forward.',
           'The report straddles month-end — earned in one month, paid in the next. Real timing residual; it lives in the in-transit bucket, not in an exception you chase.',
           'A fee or ad charge posted to the wrong account, so clearing never received the credit. The balance is off by exactly that amount.',
-          'Multiple marketplaces (US, CA, MX, or the EU) settling in different currencies and converting at different rates — a real-looking gap that is just revaluation. That is its own discipline; see [multi-currency reconciliation](/writing/multi-currency-reconciliation).',
-          'A sync double-posted a settlement or dropped one — common when an integration "runs" but silently skips records. The dropped-record pattern is the same one in [reconciling Shopify orders against your ERP](/writing/reconcile-shopify-orders-against-your-erp).',
-          'Two settlements with the same total, one unexplained — verify the IDs are distinct, because a [near-duplicate the ID hides](/writing/fuzzy-matching-records) reads as a phantom exception.',
+          'Multiple marketplaces (US, CA, MX, or the EU) settling in different currencies and converting at different rates — a real-looking gap that is just revaluation. That is its own discipline; see [multi-currency reconciliation](/notes/multi-currency-reconciliation).',
+          'A sync double-posted a settlement or dropped one — common when an integration "runs" but silently skips records. The dropped-record pattern is the same one in [reconciling Shopify orders against your ERP](/notes/reconcile-shopify-orders-against-your-erp).',
+          'Two settlements with the same total, one unexplained — verify the IDs are distinct, because a [near-duplicate the ID hides](/notes/fuzzy-matching-records) reads as a phantom exception.',
         ],
       },
       { t: 'h2', text: 'What about A2X, Link My Books, Synder?' },
       {
         t: 'p',
-        text: 'They automate exactly this — parse the settlement report and post the clearing-account entries so you do not key them by hand. A2X is the community default for posting Amazon settlements to QuickBooks or Xero; the others show up for specific stacks. It is a fair trade and often worth it. The reason to understand the method anyway is the one that seller named: your books are based on the settlement report, and those reports "are final and do not change," so a tool that posts entries you cannot read is a tool you cannot audit. Know what the reserve roll-forward should produce and you can check the tool instead of trusting it — which is also the first thing [an auditor will ask you to show](/writing/what-auditors-look-for). The same logic carries to the ERP side, where the settlement totals have to agree with [inventory and the GL in NetSuite](/writing/netsuite-reconciliation-inventory-and-gl) and with [the AR subledger](/writing/ar-ap-reconciliation).',
+        text: 'They automate exactly this — parse the settlement report and post the clearing-account entries so you do not key them by hand. A2X is the community default for posting Amazon settlements to QuickBooks or Xero; the others show up for specific stacks. It is a fair trade and often worth it. The reason to understand the method anyway is the one that seller named: your books are based on the settlement report, and those reports "are final and do not change," so a tool that posts entries you cannot read is a tool you cannot audit. Know what the reserve roll-forward should produce and you can check the tool instead of trusting it — which is also the first thing [an auditor will ask you to show](/notes/what-auditors-look-for). The same logic carries to the ERP side, where the settlement totals have to agree with [inventory and the GL in NetSuite](/notes/netsuite-reconciliation-inventory-and-gl) and with [the AR subledger](/notes/ar-ap-reconciliation).',
       },
       { t: 'h2', text: 'Where this method tops out' },
       {
         t: 'p',
-        text: 'One clearing account and a settlement-by-settlement roll-forward is the right tool for a seller on one or two marketplaces closing monthly or per settlement. It strains when you run many marketplaces and currencies at once, when you need daily cash visibility instead of period-end truth, or when an auditor wants the trail across thousands of order-level lines under each disbursement. The structure stays correct; reading it by hand stops scaling — the same way a [spreadsheet does once partial payments and bundled deposits pile up](/writing/bank-reconciliation-in-excel). A workbook saves the answer but not the reasoning, and the [reconciliation spreadsheet template](/writing/reconciliation-spreadsheet-template) only stretches so far across formats. Get the clearing account and the reserve roll-forward right first, and every later tool — or model — has something correct to check itself against.',
+        text: 'One clearing account and a settlement-by-settlement roll-forward is the right tool for a seller on one or two marketplaces closing monthly or per settlement. It strains when you run many marketplaces and currencies at once, when you need daily cash visibility instead of period-end truth, or when an auditor wants the trail across thousands of order-level lines under each disbursement. The structure stays correct; reading it by hand stops scaling — the same way a [spreadsheet does once partial payments and bundled deposits pile up](/notes/bank-reconciliation-in-excel). A workbook saves the answer but not the reasoning, and the [reconciliation spreadsheet template](/notes/reconciliation-spreadsheet-template) only stretches so far across formats. Get the clearing account and the reserve roll-forward right first, and every later tool — or model — has something correct to check itself against.',
       },
     ],
     faq: [
@@ -363,7 +363,7 @@ const articles: Article[] = [
       },
       {
         t: 'p',
-        text: 'That is the whole problem in two sentences. A single payout is not one sale — it is a batch. The processor takes a window of transactions, subtracts its [processing fees, refunds you issued, and any chargebacks or dispute fees](https://help.shopify.com/en/manual/payments/shopify-payments/payouts/lower-or-missing-payouts), and wires you the net. [Refunds you process come out of the next available payout](https://help.shopify.com/en/manual/payments/shopify-payments/payouts/refunds), not the one the sale was in, so the timing never lines up cleanly either. Stripe works the same way: [a single deposit bundles many charges with fees already deducted](https://docs.stripe.com/payments/balances), settling a day or two after the sale. So the deposit is smaller than the sales it represents, it covers a different set of orders than any single day, and it arrives late. Three reasons it cannot match — and all three are normal. We cover the mechanics of the gap in more depth in [why Shopify deposits never match your sales](/writing/why-shopify-deposits-never-match-sales); here we just build the sheet that absorbs it.',
+        text: 'That is the whole problem in two sentences. A single payout is not one sale — it is a batch. The processor takes a window of transactions, subtracts its [processing fees, refunds you issued, and any chargebacks or dispute fees](https://help.shopify.com/en/manual/payments/shopify-payments/payouts/lower-or-missing-payouts), and wires you the net. [Refunds you process come out of the next available payout](https://help.shopify.com/en/manual/payments/shopify-payments/payouts/refunds), not the one the sale was in, so the timing never lines up cleanly either. Stripe works the same way: [a single deposit bundles many charges with fees already deducted](https://docs.stripe.com/payments/balances), settling a day or two after the sale. So the deposit is smaller than the sales it represents, it covers a different set of orders than any single day, and it arrives late. Three reasons it cannot match — and all three are normal. We cover the mechanics of the gap in more depth in [why Shopify deposits never match your sales](/notes/why-shopify-deposits-never-match-sales); here we just build the sheet that absorbs it.',
       },
       { t: 'h2', text: 'The structure that makes the master sheet work' },
       {
@@ -382,7 +382,7 @@ const articles: Article[] = [
         t: 'table',
         head: ['Column', 'Where it comes from', 'What it is for'],
         rows: [
-          ['Payout ID', 'Payout / settlement report', 'The [primary ID](/writing/what-we-mean-when-we-say-primary-id) for the whole row — the key both hops join on'],
+          ['Payout ID', 'Payout / settlement report', 'The [primary ID](/notes/what-we-mean-when-we-say-primary-id) for the whole row — the key both hops join on'],
           ['Payout date (bank)', 'Bank statement', 'When the deposit actually landed, not when the sale closed'],
           ['Gross sales', 'Orders in that payout', 'The top of the funnel — what the orders totalled before anything was taken out'],
           ['Refunds', 'Payout report', 'Refunds settled in this payout (often from earlier sales)'],
@@ -408,7 +408,7 @@ const articles: Article[] = [
         t: 'ol',
         items: [
           'Export two files: the payout (settlement) report for the period, and your bank transactions. Most payout reports already break out gross, fees, refunds, and adjustments per payout — if so, hop 1 is done for you.',
-          'Clean the exports before anything else. A leading apostrophe, a region\'s comma-as-decimal, or a payout ID that Excel autoconverted to a number will silently break every match downstream — these are the [CSV gotchas that quietly wreck a reconciliation](/writing/csv-gotchas-encoding-delimiters). Import via Power Query and set column types explicitly rather than double-clicking the CSV.',
+          'Clean the exports before anything else. A leading apostrophe, a region\'s comma-as-decimal, or a payout ID that Excel autoconverted to a number will silently break every match downstream — these are the [CSV gotchas that quietly wreck a reconciliation](/notes/csv-gotchas-encoding-delimiters). Import via Power Query and set column types explicitly rather than double-clicking the CSV.',
           'Make one row per payout in the master sheet. Paste the payout report\'s gross, refunds, fees, and adjustments into their columns, keyed on Payout ID.',
           'If your report does not pre-total gross sales, roll the orders up yourself with SUMIFS — sum each order\'s amount where its payout ID matches the row. One formula, filled down.',
           'Add the two computed columns: Expected net = Gross − Refunds − Fees − Adjustments, and Difference = Bank deposit − Expected net. Pull the Bank deposit in from the bank file on Payout ID, or match it by amount and date if the bank line has no ID.',
@@ -425,7 +425,7 @@ const articles: Article[] = [
       },
       {
         t: 'p',
-        text: '[SUMIFS](https://support.microsoft.com/en-us/office/sumifs-function-c9e748f5-7ea7-455d-9406-611cebce642b) does the gross roll-up; [Power Query](https://support.microsoft.com/en-us/office/about-power-query-in-excel-7104fbee-9e62-4cb9-a02e-5bfb1a6c536a) does the cleaning and, once you are comfortable, the whole import so next month is a refresh instead of a rebuild. The [XLOOKUP that pulls the bank deposit](/writing/reconcile-two-files-in-excel-with-xlookup) is the same join used in any two-file reconciliation, and if a payout has no matching bank line at all, that is a [set-difference](/writing/find-missing-rows-in-excel-countif-match) you want surfaced, not hidden — which is why the formula returns "NO BANK LINE" instead of an error.',
+        text: '[SUMIFS](https://support.microsoft.com/en-us/office/sumifs-function-c9e748f5-7ea7-455d-9406-611cebce642b) does the gross roll-up; [Power Query](https://support.microsoft.com/en-us/office/about-power-query-in-excel-7104fbee-9e62-4cb9-a02e-5bfb1a6c536a) does the cleaning and, once you are comfortable, the whole import so next month is a refresh instead of a rebuild. The [XLOOKUP that pulls the bank deposit](/notes/reconcile-two-files-in-excel-with-xlookup) is the same join used in any two-file reconciliation, and if a payout has no matching bank line at all, that is a [set-difference](/notes/find-missing-rows-in-excel-countif-match) you want surfaced, not hidden — which is why the formula returns "NO BANK LINE" instead of an error.',
       },
       { t: 'h2', text: 'Reading the difference column: what each exception means' },
       {
@@ -438,24 +438,24 @@ const articles: Article[] = [
         rows: [
           ['Deposit short by a round-ish amount', 'A chargeback or dispute fee deducted but not yet booked in your Adjustments column', 'Open the payout statement and find the deduction; add it to Adjustments'],
           ['Deposit short by a small percentage', 'Processing fees under-counted, or a fee tier you missed', 'Re-pull fees from the payout report; do not estimate them'],
-          ['Expected net higher than the deposit, refund-sized', 'A refund settled in this payout from an earlier sale', 'Normal timing — record the [refund in the payout it settled in](/writing/why-shopify-deposits-never-match-sales), not the original'],
+          ['Expected net higher than the deposit, refund-sized', 'A refund settled in this payout from an earlier sale', 'Normal timing — record the [refund in the payout it settled in](/notes/why-shopify-deposits-never-match-sales), not the original'],
           ['Payout has no bank line at all', 'Timing — the deposit lands in the next period; or it is in transit', 'Carry it open and match it next run; do not force it'],
-          ['Difference is tiny and never the same twice', 'Rounding or an FX conversion on a cross-currency payout', 'Expected on [multi-currency payouts](/writing/multi-currency-reconciliation); set a small tolerance, do not chase pennies'],
-          ['Two payouts, same amount, one unexplained', 'A duplicate or a miskeyed payout ID', 'A [near-duplicate the ID hides](/writing/fuzzy-matching-records) — verify the IDs are distinct'],
+          ['Difference is tiny and never the same twice', 'Rounding or an FX conversion on a cross-currency payout', 'Expected on [multi-currency payouts](/notes/multi-currency-reconciliation); set a small tolerance, do not chase pennies'],
+          ['Two payouts, same amount, one unexplained', 'A duplicate or a miskeyed payout ID', 'A [near-duplicate the ID hides](/notes/fuzzy-matching-records) — verify the IDs are distinct'],
         ],
       },
       {
         t: 'p',
-        text: 'The discipline is the one the original thread named — "discipline and a clear process owner" — made concrete: every period, you work the difference column to zero and keep the sheet. Worked the same way each month, it doubles as your [month-end tie-out](/writing/tick-and-tie-checklist) and the [evidence an auditor asks for](/writing/what-auditors-look-for): a payout-by-payout trail from cash back to the orders, with every exception named and resolved rather than plugged.',
+        text: 'The discipline is the one the original thread named — "discipline and a clear process owner" — made concrete: every period, you work the difference column to zero and keep the sheet. Worked the same way each month, it doubles as your [month-end tie-out](/notes/tick-and-tie-checklist) and the [evidence an auditor asks for](/notes/what-auditors-look-for): a payout-by-payout trail from cash back to the orders, with every exception named and resolved rather than plugged.',
       },
       { t: 'h2', text: 'When the spreadsheet starts to creak' },
       {
         t: 'p',
-        text: 'Be honest about the ceiling. The master sheet holds up while you have one or two processors, a clean payout ID on every line, and one person who owns the weekly run. It starts to strain when partial payments and bundled deposits stop lining up to a single key — the point where [XLOOKUP quietly gives up](/writing/bank-reconciliation-in-excel) — when a third and fourth channel arrive each with their own export format, or when someone other than the owner has to trust the number without re-deriving it by hand. A workbook saves the answer; it does not save the reasoning, and once other people depend on that reasoning it has to live somewhere more repeatable.',
+        text: 'Be honest about the ceiling. The master sheet holds up while you have one or two processors, a clean payout ID on every line, and one person who owns the weekly run. It starts to strain when partial payments and bundled deposits stop lining up to a single key — the point where [XLOOKUP quietly gives up](/notes/bank-reconciliation-in-excel) — when a third and fourth channel arrive each with their own export format, or when someone other than the owner has to trust the number without re-deriving it by hand. A workbook saves the answer; it does not save the reasoning, and once other people depend on that reasoning it has to live somewhere more repeatable.',
       },
       {
         t: 'p',
-        text: 'None of that is a reason to skip the sheet. It is the right first tool, it teaches you exactly where your money goes, and the [manual method underneath it](/writing/how-to-reconcile-two-systems-by-hand) is the same method any tool automates. Build the sheet, run it for a few months, and you will know precisely what a dedicated reconciliation system would have to do to earn its place — because you will have done it by hand first.',
+        text: 'None of that is a reason to skip the sheet. It is the right first tool, it teaches you exactly where your money goes, and the [manual method underneath it](/notes/how-to-reconcile-two-systems-by-hand) is the same method any tool automates. Build the sheet, run it for a few months, and you will know precisely what a dedicated reconciliation system would have to do to earn its place — because you will have done it by hand first.',
       },
     ],
     faq: [
@@ -522,10 +522,10 @@ const articles: Article[] = [
         rows: [
           ['Manual journal entry posted straight to the AR/AP control account', 'GL control balance moves; no matching invoice or bill in the aging', 'Reverse it and post through the subledger, or move it to the correct account — the control account should not take direct entries'],
           ['Invoice or bill booked into the wrong period', 'Aging as of the cutoff and the GL balance disagree by that document', 'Re-date it to the document date so the period it lands in is correct'],
-          ['Payment applied to the wrong customer/vendor or left unapplied', 'Control balance is right; the aging shows the wrong open items', 'Re-apply the payment to the correct invoice; an [unapplied receipt](/writing/why-shopify-deposits-never-match-sales) sits in a holding account until it is'],
+          ['Payment applied to the wrong customer/vendor or left unapplied', 'Control balance is right; the aging shows the wrong open items', 'Re-apply the payment to the correct invoice; an [unapplied receipt](/notes/why-shopify-deposits-never-match-sales) sits in a holding account until it is'],
           ['Write-off or credit memo booked on one side only', 'One ledger reflects the adjustment, the other does not', 'Post the matching entry so both move together'],
-          ['Foreign-currency revaluation', 'The base-currency control balance revalues; the original-currency aging does not', 'Expected — reconcile in the [transaction currency first](/writing/multi-currency-reconciliation), let the FX fall out separately'],
-          ['Duplicate bill entered under a slightly different number', 'AP aging and the GL both overstate by the doubled bill', 'Catch it with a [duplicate test](/writing/fuzzy-matching-records); void the duplicate'],
+          ['Foreign-currency revaluation', 'The base-currency control balance revalues; the original-currency aging does not', 'Expected — reconcile in the [transaction currency first](/notes/multi-currency-reconciliation), let the FX fall out separately'],
+          ['Duplicate bill entered under a slightly different number', 'AP aging and the GL both overstate by the doubled bill', 'Catch it with a [duplicate test](/notes/fuzzy-matching-records); void the duplicate'],
         ],
       },
       {
@@ -535,7 +535,7 @@ const articles: Article[] = [
       { t: 'h2', text: 'How to reconcile AR or AP to the GL, step by step' },
       {
         t: 'p',
-        text: 'The method is the same for both ledgers — receivables or payables — and it is a [set-difference](/writing/find-missing-rows-in-excel-countif-match) between the detail and the summary, run as of one date. Do it top to bottom.',
+        text: 'The method is the same for both ledgers — receivables or payables — and it is a [set-difference](/notes/find-missing-rows-in-excel-countif-match) between the detail and the summary, run as of one date. Do it top to bottom.',
       },
       {
         t: 'ol',
@@ -554,7 +554,7 @@ const articles: Article[] = [
       },
       {
         t: 'p',
-        text: 'Tying the subledgers to the GL is step four of a [month-end close](/writing/tick-and-tie-checklist) for a reason — it sits on top of cash and clearing, which you prove first. And it is a standard audit ask, not an optional nicety: the trail from the aging back to the control account is exactly the evidence an [auditor wants](/writing/what-auditors-look-for) when they test whether AR and AP are real.',
+        text: 'Tying the subledgers to the GL is step four of a [month-end close](/notes/tick-and-tie-checklist) for a reason — it sits on top of cash and clearing, which you prove first. And it is a standard audit ask, not an optional nicety: the trail from the aging back to the control account is exactly the evidence an [auditor wants](/notes/what-auditors-look-for) when they test whether AR and AP are real.',
       },
       { t: 'h2', text: 'The other half of AP reconciliation: match the invoice before you pay it' },
       {
@@ -567,7 +567,7 @@ const articles: Article[] = [
       },
       {
         t: 'p',
-        text: 'The control they are reaching for is the [three-way match](https://www.netsuite.com/portal/resource/articles/accounting/three-way-matching.shtml): before a bill is paid, line it up against the purchase order (what you agreed to buy) and the receiving record (what actually arrived). Quantity, price, and terms have to agree across all three. It is the same [primary-ID](/writing/what-we-mean-when-we-say-primary-id) discipline as any reconciliation — the PO number is the key that joins the three documents — and a mismatch is a billing error you catch before the money leaves, not after.',
+        text: 'The control they are reaching for is the [three-way match](https://www.netsuite.com/portal/resource/articles/accounting/three-way-matching.shtml): before a bill is paid, line it up against the purchase order (what you agreed to buy) and the receiving record (what actually arrived). Quantity, price, and terms have to agree across all three. It is the same [primary-ID](/notes/what-we-mean-when-we-say-primary-id) discipline as any reconciliation — the PO number is the key that joins the three documents — and a mismatch is a billing error you catch before the money leaves, not after.',
       },
       {
         t: 'p',
@@ -579,7 +579,7 @@ const articles: Article[] = [
       },
       {
         t: 'p',
-        text: 'Right — and the gap they trail off on is the point. A standard match confirms the invoice ties to a PO and a receipt; it does not recompute whether the carrier billed the agreed rate. Carrier invoices need a fourth check against the rate card and accessorials, because the discrepancy is usually a correct-looking line at the wrong price, not a missing one. A doubled bill, meanwhile, is the [duplicate the invoice number hides](/writing/fuzzy-matching-records) — it slips a one-to-one match when the second copy carries a slightly different number, and it inflates both the AP aging and the GL until someone tests for it.',
+        text: 'Right — and the gap they trail off on is the point. A standard match confirms the invoice ties to a PO and a receipt; it does not recompute whether the carrier billed the agreed rate. Carrier invoices need a fourth check against the rate card and accessorials, because the discrepancy is usually a correct-looking line at the wrong price, not a missing one. A doubled bill, meanwhile, is the [duplicate the invoice number hides](/notes/fuzzy-matching-records) — it slips a one-to-one match when the second copy carries a slightly different number, and it inflates both the AP aging and the GL until someone tests for it.',
       },
       {
         t: 'callout',
@@ -589,7 +589,7 @@ const articles: Article[] = [
       { t: 'h2', text: 'Doing the tie-out in a spreadsheet' },
       {
         t: 'p',
-        text: 'For a few accounts at monthly cadence, this is a spreadsheet job. Export the aged AR (or AP) detail to one sheet and the GL control-account activity to another, key both on the invoice or bill number, and [match the two lists](/writing/reconcile-two-files-in-excel-with-xlookup). The rows that appear in the GL but not the aging are your direct-to-control-account entries; the rows in the aging but not the GL are the wrong-period or unposted ones. That is the same [missing-row check](/writing/find-missing-rows-in-excel-countif-match) you would run on any two files, and it is the [manual reconciliation method](/writing/how-to-reconcile-two-systems-by-hand) pointed at a subledger.',
+        text: 'For a few accounts at monthly cadence, this is a spreadsheet job. Export the aged AR (or AP) detail to one sheet and the GL control-account activity to another, key both on the invoice or bill number, and [match the two lists](/notes/reconcile-two-files-in-excel-with-xlookup). The rows that appear in the GL but not the aging are your direct-to-control-account entries; the rows in the aging but not the GL are the wrong-period or unposted ones. That is the same [missing-row check](/notes/find-missing-rows-in-excel-countif-match) you would run on any two files, and it is the [manual reconciliation method](/notes/how-to-reconcile-two-systems-by-hand) pointed at a subledger.',
       },
       {
         t: 'callout',
@@ -599,7 +599,7 @@ const articles: Article[] = [
       { t: 'h2', text: 'When the monthly tie-out outgrows the spreadsheet' },
       {
         t: 'p',
-        text: 'A spreadsheet tie-out is right for a few accounts you close by hand. It strains when the subledgers carry thousands of open items, when the same reconciliation runs weekly, when multiple currencies revalue, or when someone else has to trust the result without rebuilding it — the same ceiling an [inventory subledger hits against the GL](/writing/netsuite-reconciliation-inventory-and-gl) at scale. The method does not change; you just want the matching rules and the classification preserved as a repeatable, auditable process rather than rebuilt from exports each month. If you reach for help there, keep the [AI on the setup and the explanation and the arithmetic in code you can audit](/writing/can-an-ai-agent-reconcile-your-data), so the tie between the aging and the GL stays one you can defend to an auditor.',
+        text: 'A spreadsheet tie-out is right for a few accounts you close by hand. It strains when the subledgers carry thousands of open items, when the same reconciliation runs weekly, when multiple currencies revalue, or when someone else has to trust the result without rebuilding it — the same ceiling an [inventory subledger hits against the GL](/notes/netsuite-reconciliation-inventory-and-gl) at scale. The method does not change; you just want the matching rules and the classification preserved as a repeatable, auditable process rather than rebuilt from exports each month. If you reach for help there, keep the [AI on the setup and the explanation and the arithmetic in code you can audit](/notes/can-an-ai-agent-reconcile-your-data), so the tie between the aging and the GL stays one you can defend to an auditor.',
       },
     ],
     faq: [
@@ -640,12 +640,12 @@ const articles: Article[] = [
       'settlement date fx mismatch',
       'currency conversion reconciliation',
     ],
-    lead: 'You owed a supplier `EUR 10,000`. Your bank shows `USD 10,847` left the account, the supplier says they were short-paid, and your accounting system — set to [reconcile](/writing/how-to-reconcile-two-systems-by-hand) in dollars — flags the invoice as unmatched. Now you are staring at a difference you cannot explain. Nothing is actually broken. A multi-currency difference is almost never one number; it is three legitimate things stacked on top of each other — the exchange rate moved between the invoice and the payment, intermediary banks took a cut in transit, and the settlement date landed in a different period than the charge. Reconcile in your base currency and you can never tell which is which. The fix is almost boringly simple: match in the original transaction currency first, where the amounts should tie to the cent, then treat the converted difference as a [foreign-exchange gain or loss](https://corporatefinanceinstitute.com/resources/accounting/foreign-exchange-gain-loss/), not a missing transaction. Here is the whole method.',
+    lead: 'You owed a supplier `EUR 10,000`. Your bank shows `USD 10,847` left the account, the supplier says they were short-paid, and your accounting system — set to [reconcile](/notes/how-to-reconcile-two-systems-by-hand) in dollars — flags the invoice as unmatched. Now you are staring at a difference you cannot explain. Nothing is actually broken. A multi-currency difference is almost never one number; it is three legitimate things stacked on top of each other — the exchange rate moved between the invoice and the payment, intermediary banks took a cut in transit, and the settlement date landed in a different period than the charge. Reconcile in your base currency and you can never tell which is which. The fix is almost boringly simple: match in the original transaction currency first, where the amounts should tie to the cent, then treat the converted difference as a [foreign-exchange gain or loss](https://corporatefinanceinstitute.com/resources/accounting/foreign-exchange-gain-loss/), not a missing transaction. Here is the whole method.',
     blocks: [
       { t: 'h2', text: 'Why a base-currency report makes everything look broken' },
       {
         t: 'p',
-        text: 'The reconciliations that error out are the easy ones. The expensive ones balance to a number you cannot account for. In a single currency, a difference is a difference — a [missing row](/writing/find-missing-rows-in-excel-countif-match), a short payment, a duplicate. Across currencies, the same gap can be three unrelated, perfectly legitimate things at once, and your base-currency view collapses all three into one unexplained figure. An operator on [r/Accounting](https://reddit.com/r/Accounting/comments/1simaqd/every_international_wire_we_send_creates_hours_of/) described exactly how an international wire does this:',
+        text: 'The reconciliations that error out are the easy ones. The expensive ones balance to a number you cannot account for. In a single currency, a difference is a difference — a [missing row](/notes/find-missing-rows-in-excel-countif-match), a short payment, a duplicate. Across currencies, the same gap can be three unrelated, perfectly legitimate things at once, and your base-currency view collapses all three into one unexplained figure. An operator on [r/Accounting](https://reddit.com/r/Accounting/comments/1simaqd/every_international_wire_we_send_creates_hours_of/) described exactly how an international wire does this:',
       },
       {
         t: 'quote',
@@ -665,14 +665,14 @@ const articles: Article[] = [
         head: ['What changed', 'What you see', 'Why it is legitimate, not an error', 'Where it belongs'],
         rows: [
           ['Exchange rate moved', 'the invoice was `EUR 10,000`; the value booked at invoice date and the value at payment date differ in your base currency', 'The rate on the invoice date is not the rate on the payment date — that movement is a real realized [FX gain or loss](https://corporatefinanceinstitute.com/resources/accounting/foreign-exchange-gain-loss/), not money gone missing', 'A realized FX gain/loss account — an output of the reconciliation, not a row to hunt'],
-          ['Fees deducted in transit', 'the amount sent is larger than the amount received', 'Correspondent banks in the chain each take a cut, and the bank\'s [exchange-rate spread](https://en.wikipedia.org/wiki/Bid%E2%80%93ask_spread) is baked into the rate you got — both are real costs, charged by design', 'Bank fees / FX expense, grossed up as its own line — the same trap as [why your payout never matches sales](/writing/why-shopify-deposits-never-match-sales)'],
+          ['Fees deducted in transit', 'the amount sent is larger than the amount received', 'Correspondent banks in the chain each take a cut, and the bank\'s [exchange-rate spread](https://en.wikipedia.org/wiki/Bid%E2%80%93ask_spread) is baked into the rate you got — both are real costs, charged by design', 'Bank fees / FX expense, grossed up as its own line — the same trap as [why your payout never matches sales](/notes/why-shopify-deposits-never-match-sales)'],
           ['Settlement date lag', 'the charge sits in one period; the cash lands in the next', 'The transaction and its settlement revalue at different rates and can fall on opposite sides of month-end', 'A per-currency clearing account that holds the in-transit amount until it settles'],
         ],
       },
       { t: 'h2', text: 'Reconcile in the original currency first' },
       {
         t: 'p',
-        text: 'Here is the rule that makes the other three legible: never reconcile in your base currency until you have reconciled in the currency the transaction actually happened in. In the source currency, the invoice, the payment, and the receipt should agree to the cent — there is no rate in the way to blur them. So a difference there is a real one, and a difference that only appears after conversion is FX, not a [missing transaction](/writing/what-we-mean-when-we-say-primary-id). That single ordering decision is what lets you tell the two apart.',
+        text: 'Here is the rule that makes the other three legible: never reconcile in your base currency until you have reconciled in the currency the transaction actually happened in. In the source currency, the invoice, the payment, and the receipt should agree to the cent — there is no rate in the way to blur them. So a difference there is a real one, and a difference that only appears after conversion is FX, not a [missing transaction](/notes/what-we-mean-when-we-say-primary-id). That single ordering decision is what lets you tell the two apart.',
       },
       {
         t: 'ol',
@@ -695,7 +695,7 @@ const articles: Article[] = [
       {
         t: 'callout',
         kind: 'warning',
-        text: 'An FX difference is not a missing transaction. If you make the base-currency numbers tie by plugging the gap — forcing a match or dumping it in a suspense account — you erase a real gain or loss and leave a clearing account that never empties. The gap is supposed to be there. Name it FX and move on. This is the multi-currency version of the [balanced-is-not-the-same-as-correct](/writing/what-auditors-look-for) trap.',
+        text: 'An FX difference is not a missing transaction. If you make the base-currency numbers tie by plugging the gap — forcing a match or dumping it in a suspense account — you erase a real gain or loss and leave a clearing account that never empties. The gap is supposed to be there. Name it FX and move on. This is the multi-currency version of the [balanced-is-not-the-same-as-correct](/notes/what-auditors-look-for) trap.',
       },
       { t: 'h2', text: 'Fix the inputs that silently differ' },
       {
@@ -714,9 +714,9 @@ const articles: Article[] = [
         t: 'ul',
         items: [
           'One canonical rate source and cadence. Pick a single FX rate provider and a single timing rule — daily close, month-end, or period average — and apply it across every system. Mismatched rate sources are the single biggest reason two right answers disagree.',
-          'A currency code on every amount. Tag every figure with its [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code — `USD`, `EUR`, `JPY` — never a bare number or a `$` that could be USD, CAD, AUD, or SGD. A loose currency symbol in a [CSV export](/writing/csv-gotchas-encoding-delimiters) also quietly breaks numeric parsing, so the amount stops being a number at all.',
+          'A currency code on every amount. Tag every figure with its [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code — `USD`, `EUR`, `JPY` — never a bare number or a `$` that could be USD, CAD, AUD, or SGD. A loose currency symbol in a [CSV export](/notes/csv-gotchas-encoding-delimiters) also quietly breaks numeric parsing, so the amount stops being a number at all.',
           'Fees grossed up, never netted. Record the gross invoice and the deductions separately. The moment a fee is netted into an amount, the amount no longer matches anything and you are back to chasing a phantom difference.',
-          'A per-currency clearing account. Hold in-transit foreign cash in a clearing account by currency until it settles, so the [settlement-date lag](/writing/bank-reconciliation-step-by-step) lives somewhere visible instead of floating as an unexplained variance.',
+          'A per-currency clearing account. Hold in-transit foreign cash in a clearing account by currency until it settles, so the [settlement-date lag](/notes/bank-reconciliation-step-by-step) lives somewhere visible instead of floating as an unexplained variance.',
         ],
       },
       { t: 'h2', text: 'Where it still bites: platforms and wires' },
@@ -730,7 +730,7 @@ const articles: Article[] = [
       },
       {
         t: 'p',
-        text: 'The [payout you receive](https://help.shopify.com/en/manual/payments/shopify-payments/store-currency/payouts-in-multiple-currencies) is net of an FX conversion and a [conversion fee](https://help.shopify.com/en/manual/payments/shopify-payments/store-currency/currency-conversion-calculation), layered on top of the processing-fee and refund netting you already untangle for every payout. Stripe documents the same split between the [presentment currency and the settlement currency](https://docs.stripe.com/payouts/multicurrency-settlement): you can only avoid the conversion by holding a balance in that currency. So reconcile the payout per currency, in its presentment currency, before you convert — the same order as everything else here, and the same discipline as [reconciling any payout against sales](/writing/why-shopify-deposits-never-match-sales).',
+        text: 'The [payout you receive](https://help.shopify.com/en/manual/payments/shopify-payments/store-currency/payouts-in-multiple-currencies) is net of an FX conversion and a [conversion fee](https://help.shopify.com/en/manual/payments/shopify-payments/store-currency/currency-conversion-calculation), layered on top of the processing-fee and refund netting you already untangle for every payout. Stripe documents the same split between the [presentment currency and the settlement currency](https://docs.stripe.com/payouts/multicurrency-settlement): you can only avoid the conversion by holding a balance in that currency. So reconcile the payout per currency, in its presentment currency, before you convert — the same order as everything else here, and the same discipline as [reconciling any payout against sales](/notes/why-shopify-deposits-never-match-sales).',
       },
       {
         t: 'p',
@@ -747,7 +747,7 @@ const articles: Article[] = [
       { t: 'h2', text: 'When a spreadsheet stops keeping up' },
       {
         t: 'p',
-        text: 'A two-file, single-currency match is fine in [Excel](/writing/reconcile-two-files-in-excel-with-xlookup), and most reconciliations should start there. Multi-currency strains it: every match now carries a rate, a date, and a fee; the same close runs every month across a dozen currencies; and eventually someone has to show an auditor how a base-currency number was reached from a foreign invoice three rates ago. That is where hand-keyed FX adjustments — the exact thing the controller above was still doing — stop being sustainable. [Forgiving matching](/writing/fuzzy-matching-records) on the keys, one documented rate source, and a process that records its own reasoning matter more than any formula. Whether you do that in a workbook, a script, or [a tool that can read the files for you](/writing/can-an-ai-agent-reconcile-your-data), the rule does not change: reconcile in the original currency, then let the FX fall out where it belongs.',
+        text: 'A two-file, single-currency match is fine in [Excel](/notes/reconcile-two-files-in-excel-with-xlookup), and most reconciliations should start there. Multi-currency strains it: every match now carries a rate, a date, and a fee; the same close runs every month across a dozen currencies; and eventually someone has to show an auditor how a base-currency number was reached from a foreign invoice three rates ago. That is where hand-keyed FX adjustments — the exact thing the controller above was still doing — stop being sustainable. [Forgiving matching](/notes/fuzzy-matching-records) on the keys, one documented rate source, and a process that records its own reasoning matter more than any formula. Whether you do that in a workbook, a script, or [a tool that can read the files for you](/notes/can-an-ai-agent-reconcile-your-data), the rule does not change: reconcile in the original currency, then let the FX fall out where it belongs.',
       },
     ],
     faq: [
@@ -787,12 +787,12 @@ const articles: Article[] = [
       'scientific notation order id csv',
       'csv gotchas reconciliation',
     ],
-    lead: 'The CSV opened fine. The rows look right. So why does your reconciliation suddenly show two hundred orders [missing](/writing/find-missing-rows-in-excel-countif-match) that you know shipped? Because somewhere between the export and the match, the file quietly changed your data and didn\'t tell you. Excel dropped the leading zeros off your SKUs, turned a 16-digit order ID into 1.23E+15, read a European export\'s semicolons as one giant column, or decided 04/05 meant April when it meant May. None of that throws an error. The match just stops matching. Here is the short list of CSV traps that do this, why each one is invisible, and a two-minute check that catches them before they eat your evening.',
+    lead: 'The CSV opened fine. The rows look right. So why does your reconciliation suddenly show two hundred orders [missing](/notes/find-missing-rows-in-excel-countif-match) that you know shipped? Because somewhere between the export and the match, the file quietly changed your data and didn\'t tell you. Excel dropped the leading zeros off your SKUs, turned a 16-digit order ID into 1.23E+15, read a European export\'s semicolons as one giant column, or decided 04/05 meant April when it meant May. None of that throws an error. The match just stops matching. Here is the short list of CSV traps that do this, why each one is invisible, and a two-minute check that catches them before they eat your evening.',
     blocks: [
       { t: 'h2', text: 'Why a clean-looking file lies to you' },
       {
         t: 'p',
-        text: 'The CSV problems that error out are the easy ones — the import fails, you see a red message, you fix it in minutes. The expensive ones are silent. The file opens, every row is present, the totals look plausible. But the [key column](/writing/what-we-mean-when-we-say-primary-id) — the field your match depends on — has quietly changed shape. A reconciliation keyed on that column then reports differences that are not real: rows flagged "only in system A" that are sitting right there in system B under a mangled key. You go hunting for missing orders that never went anywhere. An operator on [r/ecommerce](https://reddit.com/r/ecommerce/comments/1pxre20/how_are_you_handling_data_silos_between_shopify/) described the version of this that happens across channels:',
+        text: 'The CSV problems that error out are the easy ones — the import fails, you see a red message, you fix it in minutes. The expensive ones are silent. The file opens, every row is present, the totals look plausible. But the [key column](/notes/what-we-mean-when-we-say-primary-id) — the field your match depends on — has quietly changed shape. A reconciliation keyed on that column then reports differences that are not real: rows flagged "only in system A" that are sitting right there in system B under a mangled key. You go hunting for missing orders that never went anywhere. An operator on [r/ecommerce](https://reddit.com/r/ecommerce/comments/1pxre20/how_are_you_handling_data_silos_between_shopify/) described the version of this that happens across channels:',
       },
       {
         t: 'quote',
@@ -814,7 +814,7 @@ const articles: Article[] = [
           ['Wrong delimiter', 'every row lands in one column', 'There is no key column at all, so nothing matches', '[RFC 4180](https://www.rfc-editor.org/rfc/rfc4180.html) says comma, but EU exports use semicolons and many use tabs — set the [delimiter](https://en.wikipedia.org/wiki/Comma-separated_values) on import'],
           ['Unquoted comma inside a field', '`Smith, Jr.` splits into two columns', 'Every column after it shifts right, so the wrong field becomes the key', 'A correct export [quotes fields that contain commas](https://www.rfc-editor.org/rfc/rfc4180.html) — re-export, or set the delimiter explicitly'],
           ['Ambiguous dates', '`04/05/2026`', 'One file reads April, the other May, so matched rows look like mismatches', 'Import dates as text or standardize to [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) `YYYY-MM-DD` before matching'],
-          ['Trailing / invisible whitespace', '`1001 ` looks identical to `1001`', 'An exact-match comparison fails on the hidden space', '[TRIM](/writing/reconcile-two-files-in-excel-with-xlookup) the key, or clean it on import'],
+          ['Trailing / invisible whitespace', '`1001 ` looks identical to `1001`', 'An exact-match comparison fails on the hidden space', '[TRIM](/notes/reconcile-two-files-in-excel-with-xlookup) the key, or clean it on import'],
           ['Text vs number type', '`1001` as text is not `1001` as a number', 'A type-strict match treats them as two different keys', 'Decide one type for the key and enforce it on both files'],
         ],
       },
@@ -892,7 +892,7 @@ const articles: Article[] = [
       },
       {
         t: 'p',
-        text: 'That is a fair option at volume — integration platforms like Celigo or A2X do ingest these files and post the journals for you. But a tool does not repair a malformed export; it matches on whatever the file actually contains. Feed it a key mangled by scientific notation and it reconciles wrong, just faster and at scale. Whether you do it by hand or buy the platform, the file has to be clean first — and a settlement file is also a [netted, bundled batch](/writing/why-shopify-deposits-never-match-sales), so once the CSV is sound you are reconciling the payout, not the orders.',
+        text: 'That is a fair option at volume — integration platforms like Celigo or A2X do ingest these files and post the journals for you. But a tool does not repair a malformed export; it matches on whatever the file actually contains. Feed it a key mangled by scientific notation and it reconciles wrong, just faster and at scale. Whether you do it by hand or buy the platform, the file has to be clean first — and a settlement file is also a [netted, bundled batch](/notes/why-shopify-deposits-never-match-sales), so once the CSV is sound you are reconciling the payout, not the orders.',
       },
       { t: 'h2', text: 'A two-minute sanity check before you match' },
       {
@@ -911,12 +911,12 @@ const articles: Article[] = [
       },
       {
         t: 'p',
-        text: 'This is the same discipline as cleaning your key in a [spreadsheet](/writing/reconcile-two-files-in-excel-with-xlookup) — done one step earlier, at the door, before a bad column gets into the workbook at all.',
+        text: 'This is the same discipline as cleaning your key in a [spreadsheet](/notes/reconcile-two-files-in-excel-with-xlookup) — done one step earlier, at the door, before a bad column gets into the workbook at all.',
       },
       { t: 'h2', text: 'When the file is clean and the match still fails' },
       {
         t: 'p',
-        text: 'If you have ruled out the CSV and rows still will not reconcile, the problem has moved up a layer. Either the [key itself is wrong or non-unique](/writing/what-we-mean-when-we-say-primary-id) — a repeating order number, a missing second field — or the two systems genuinely disagree, and you are now doing real [reconciliation](/writing/how-to-reconcile-two-systems-by-hand) rather than fighting a parser. That is the good kind of difference: the kind worth investigating. CSV hygiene just makes sure every difference you chase is a real one. And where the same export lands on your desk every week, the cleaning belongs in a repeatable step, not re-done by hand each time it costs you an evening.',
+        text: 'If you have ruled out the CSV and rows still will not reconcile, the problem has moved up a layer. Either the [key itself is wrong or non-unique](/notes/what-we-mean-when-we-say-primary-id) — a repeating order number, a missing second field — or the two systems genuinely disagree, and you are now doing real [reconciliation](/notes/how-to-reconcile-two-systems-by-hand) rather than fighting a parser. That is the good kind of difference: the kind worth investigating. CSV hygiene just makes sure every difference you chase is a real one. And where the same export lands on your desk every week, the cleaning belongs in a repeatable step, not re-done by hand each time it costs you an evening.',
       },
     ],
     faq: [
@@ -955,7 +955,7 @@ const articles: Article[] = [
       'ecommerce settlement reconciliation',
       'clearing account shopify payouts',
     ],
-    lead: 'Your Shopify deposit hits the bank: $4,812.67. Your sales dashboard says you did $5,400 that day. Nothing is broken — you are comparing two numbers that were never going to be equal. A payout is not a list of your orders. It is a batch of charges, refunds, fees, and chargebacks, netted together and paid on the processor\'s clock, not yours. The moment you stop matching the deposit to your sales and start reconciling the payout against its own report, this stops being a [month-end](/writing/bank-reconciliation-step-by-step) nightmare and turns into arithmetic. Here is the method.',
+    lead: 'Your Shopify deposit hits the bank: $4,812.67. Your sales dashboard says you did $5,400 that day. Nothing is broken — you are comparing two numbers that were never going to be equal. A payout is not a list of your orders. It is a batch of charges, refunds, fees, and chargebacks, netted together and paid on the processor\'s clock, not yours. The moment you stop matching the deposit to your sales and start reconciling the payout against its own report, this stops being a [month-end](/notes/bank-reconciliation-step-by-step) nightmare and turns into arithmetic. Here is the method.',
     blocks: [
       { t: 'h2', text: 'Why the deposit can\'t match your sales' },
       {
@@ -991,7 +991,7 @@ const articles: Article[] = [
       { t: 'h2', text: 'Reconcile the payout, not the order' },
       {
         t: 'p',
-        text: 'Stop tying the bank deposit to your sales. Reconcile it against the payout report instead — the one Shopify exposes under Finance, Payouts, or the [payout reconciliation report](https://docs.stripe.com/payouts/reconciliation) Stripe and most processors publish — keyed on the [payout ID](/writing/what-we-mean-when-we-say-primary-id). The payout is the natural unit: it is what actually hit your bank, and it is the only record that already knows about every fee, refund, and chargeback bundled into that deposit. A commenter in that same nightmare thread, doing roughly 30,000 orders a month, described the alternative:',
+        text: 'Stop tying the bank deposit to your sales. Reconcile it against the payout report instead — the one Shopify exposes under Finance, Payouts, or the [payout reconciliation report](https://docs.stripe.com/payouts/reconciliation) Stripe and most processors publish — keyed on the [payout ID](/notes/what-we-mean-when-we-say-primary-id). The payout is the natural unit: it is what actually hit your bank, and it is the only record that already knows about every fee, refund, and chargeback bundled into that deposit. A commenter in that same nightmare thread, doing roughly 30,000 orders a month, described the alternative:',
       },
       {
         t: 'quote',
@@ -1009,7 +1009,7 @@ const articles: Article[] = [
       { t: 'h3', text: 'Layer 1 — bank deposit to payout' },
       {
         t: 'p',
-        text: 'Match each deposit in your bank feed to a payout on the report by payout ID, date, and net amount. This is a clean one-to-one match — exactly the kind of [set difference](/writing/find-missing-rows-in-excel-countif-match) a spreadsheet handles well — and it catches the bank-side problems first: a payout that never arrived, a deposit recorded twice, or one still in transit across a weekend.',
+        text: 'Match each deposit in your bank feed to a payout on the report by payout ID, date, and net amount. This is a clean one-to-one match — exactly the kind of [set difference](/notes/find-missing-rows-in-excel-countif-match) a spreadsheet handles well — and it catches the bank-side problems first: a payout that never arrived, a deposit recorded twice, or one still in transit across a weekend.',
       },
       { t: 'h3', text: 'Layer 2 — payout to its components' },
       {
@@ -1027,7 +1027,7 @@ const articles: Article[] = [
       { t: 'h3', text: 'Layer 3 — gross charges to recorded sales' },
       {
         t: 'p',
-        text: 'Only this layer touches order-level data, and you do it by period, not by deposit. Sum the gross charges across every payout in the month, add what is still in transit at the cutoff, and tie that to the gross sales your [storefront or ERP](/writing/reconcile-shopify-orders-against-your-erp) recorded for the same period. This is an accrual check: [revenue belongs to the period of the sale](https://en.wikipedia.org/wiki/Revenue_recognition), not the period the cash landed. Match the cash to the sale and you end up wrong in both months.',
+        text: 'Only this layer touches order-level data, and you do it by period, not by deposit. Sum the gross charges across every payout in the month, add what is still in transit at the cutoff, and tie that to the gross sales your [storefront or ERP](/notes/reconcile-shopify-orders-against-your-erp) recorded for the same period. This is an accrual check: [revenue belongs to the period of the sale](https://en.wikipedia.org/wiki/Revenue_recognition), not the period the cash landed. Match the cash to the sale and you end up wrong in both months.',
       },
       { t: 'h2', text: 'Use a clearing account so the two sides don\'t have to tie 1:1' },
       {
@@ -1055,7 +1055,7 @@ const articles: Article[] = [
       { t: 'h2', text: 'Where the settlement tools fit' },
       {
         t: 'p',
-        text: 'You do not have to build Layer 2 by hand. Tools like A2X and Link My Books read the settlement file and post a summarized journal — gross sales, fees, refunds — straight into [QuickBooks or an ERP](/writing/netsuite-reconciliation-inventory-and-gl), which is exactly the per-payout journal above, automated. Synder is the one people reach for when a native accounting integration mis-imports. They are legitimate and they save real hours. Just read recommendations with clear eyes — in the nightmare thread, the top reply was a question:',
+        text: 'You do not have to build Layer 2 by hand. Tools like A2X and Link My Books read the settlement file and post a summarized journal — gross sales, fees, refunds — straight into [QuickBooks or an ERP](/notes/netsuite-reconciliation-inventory-and-gl), which is exactly the per-payout journal above, automated. Synder is the one people reach for when a native accounting integration mis-imports. They are legitimate and they save real hours. Just read recommendations with clear eyes — in the nightmare thread, the top reply was a question:',
       },
       {
         t: 'quote',
@@ -1063,7 +1063,7 @@ const articles: Article[] = [
       },
       {
         t: 'p',
-        text: 'Useful, but it is a recommendation from someone whose firm runs on the tool, not a neutral verdict. And it helps to know what these tools do and do not do: they post clean numbers to your general ledger, which answers the accounting question. They do not tell you whether your store, your [OMS](/writing/reconcile-your-oms-against-the-source-of-truth), and your processor agree on what actually sold — that reconciliation is still yours, and it is the one [auditors](/writing/what-auditors-look-for) ask about.',
+        text: 'Useful, but it is a recommendation from someone whose firm runs on the tool, not a neutral verdict. And it helps to know what these tools do and do not do: they post clean numbers to your general ledger, which answers the accounting question. They do not tell you whether your store, your [OMS](/notes/reconcile-your-oms-against-the-source-of-truth), and your processor agree on what actually sold — that reconciliation is still yours, and it is the one [auditors](/notes/what-auditors-look-for) ask about.',
       },
       { t: 'h2', text: 'A working sequence' },
       {
@@ -1141,7 +1141,7 @@ const articles: Article[] = [
       },
       {
         t: 'p',
-        text: 'The duplicate-payment case is not rare, and it is catchable. Offsetting amounts are exactly what slips past one-to-one matching, which is why catching them is a [fuzzy-matching](/writing/fuzzy-matching-records) problem, not a "look harder" problem. The reconciliation that survives an audit is the one where the total ties and every line under it is real.',
+        text: 'The duplicate-payment case is not rare, and it is catchable. Offsetting amounts are exactly what slips past one-to-one matching, which is why catching them is a [fuzzy-matching](/notes/fuzzy-matching-records) problem, not a "look harder" problem. The reconciliation that survives an audit is the one where the total ties and every line under it is real.',
       },
       { t: 'h2', text: 'The five things an auditor wants to see' },
       {
@@ -1194,7 +1194,7 @@ const articles: Article[] = [
       },
       {
         t: 'p',
-        text: 'On a one- or two-person team, true separation is hard — but "hard" is not "skip it." The reviewer can be an owner, an outside accountant, or a manager who spends ten minutes scanning the reconciling items and initials the work. What matters to the auditor is evidence that a second person actually looked, not who they report to. And this is the one part [an AI agent cannot do for you](/writing/can-an-ai-agent-reconcile-your-data) — a model can prepare and explain a reconciliation, but it cannot be the independent human accountable for approving it.',
+        text: 'On a one- or two-person team, true separation is hard — but "hard" is not "skip it." The reviewer can be an owner, an outside accountant, or a manager who spends ten minutes scanning the reconciling items and initials the work. What matters to the auditor is evidence that a second person actually looked, not who they report to. And this is the one part [an AI agent cannot do for you](/notes/can-an-ai-agent-reconcile-your-data) — a model can prepare and explain a reconciliation, but it cannot be the independent human accountable for approving it.',
       },
       { t: 'h2', text: 'How to leave the trail during the month, not at year-end' },
       {
@@ -1213,12 +1213,12 @@ const articles: Article[] = [
       },
       {
         t: 'p',
-        text: 'This is the same discipline behind a sound [bank reconciliation](/writing/bank-reconciliation-step-by-step) and a sequenced [month-end tick-and-tie](/writing/tick-and-tie-checklist) — do the work in order, leave evidence at each step. If your systems never shared a clean [primary ID](/writing/what-we-mean-when-we-say-primary-id), the trail is also where you show how you bridged them, which is precisely what an auditor needs in order to trust the match.',
+        text: 'This is the same discipline behind a sound [bank reconciliation](/notes/bank-reconciliation-step-by-step) and a sequenced [month-end tick-and-tie](/notes/tick-and-tie-checklist) — do the work in order, leave evidence at each step. If your systems never shared a clean [primary ID](/notes/what-we-mean-when-we-say-primary-id), the trail is also where you show how you bridged them, which is precisely what an auditor needs in order to trust the match.',
       },
       { t: 'h2', text: 'Do subledgers like AR and AP need to be reconciled to the GL?' },
       {
         t: 'p',
-        text: 'Yes — and it is a standard audit ask that surprises people. A NetSuite user asked the exact question — [Is it necessary to "reconcile" subledger reports?](https://reddit.com/r/Netsuite/comments/1huosmu/is_it_necessary_to_reconcile_subledger_reports/) — assuming the aged AR and AP subledgers would always equal the balance sheet. They usually do, and "usually" is the point: when the aged subledger does not tie to its GL control account, something posted to the control account outside the subledger — a manual journal entry, a misposting — and that gap is exactly what an auditor wants explained. Tie the [subledger to the GL](/writing/netsuite-reconciliation-inventory-and-gl) every close and the difference, if any, is a short list instead of a year-end mystery.',
+        text: 'Yes — and it is a standard audit ask that surprises people. A NetSuite user asked the exact question — [Is it necessary to "reconcile" subledger reports?](https://reddit.com/r/Netsuite/comments/1huosmu/is_it_necessary_to_reconcile_subledger_reports/) — assuming the aged AR and AP subledgers would always equal the balance sheet. They usually do, and "usually" is the point: when the aged subledger does not tie to its GL control account, something posted to the control account outside the subledger — a manual journal entry, a misposting — and that gap is exactly what an auditor wants explained. Tie the [subledger to the GL](/notes/netsuite-reconciliation-inventory-and-gl) every close and the difference, if any, is a short list instead of a year-end mystery.',
       },
       {
         t: 'p',
@@ -1304,7 +1304,7 @@ const articles: Article[] = [
       },
       {
         t: 'p',
-        text: 'This is the same clean-key discipline that makes an [XLOOKUP reconciliation](/writing/reconcile-two-files-in-excel-with-xlookup) work at all — XLOOKUP and VLOOKUP do exact matching, so they only reward you when the keys are already identical, and normalizing into a helper column is how you earn that. [TRIM](https://support.microsoft.com/en-us/office/trim-function-410388fa-c5df-49c6-b16c-9e5630b479f9) removes only the space character, so pair it with UPPER and SUBSTITUTE for the rest. The thing you\'re rebuilding here is a stable [primary ID](/writing/what-we-mean-when-we-say-primary-id) — when the systems never shared one, this is the work that fakes one well enough to match on.',
+        text: 'This is the same clean-key discipline that makes an [XLOOKUP reconciliation](/notes/reconcile-two-files-in-excel-with-xlookup) work at all — XLOOKUP and VLOOKUP do exact matching, so they only reward you when the keys are already identical, and normalizing into a helper column is how you earn that. [TRIM](https://support.microsoft.com/en-us/office/trim-function-410388fa-c5df-49c6-b16c-9e5630b479f9) removes only the space character, so pair it with UPPER and SUBSTITUTE for the rest. The thing you\'re rebuilding here is a stable [primary ID](/notes/what-we-mean-when-we-say-primary-id) — when the systems never shared one, this is the work that fakes one well enough to match on.',
       },
       { t: 'h2', text: 'When the key is hopeless, match on what doesn\'t drift' },
       {
@@ -1327,7 +1327,7 @@ const articles: Article[] = [
       },
       {
         t: 'p',
-        text: 'Flagging same-key collisions is the same [set-difference logic](/writing/find-missing-rows-in-excel-countif-match) you\'d use to find missing rows — you\'re just hunting the opposite signal: rows that appear too many times instead of too few.',
+        text: 'Flagging same-key collisions is the same [set-difference logic](/notes/find-missing-rows-in-excel-countif-match) you\'d use to find missing rows — you\'re just hunting the opposite signal: rows that appear too many times instead of too few.',
       },
       { t: 'h2', text: 'Scoring near-duplicates when you can\'t enumerate the rules' },
       {
@@ -1375,7 +1375,7 @@ const articles: Article[] = [
       { t: 'h2', text: 'When this stops scaling' },
       {
         t: 'p',
-        text: 'A helper column and a COUNTIFS pass are the right tools for a few hundred rows you check monthly — it\'s the [manual method](/writing/how-to-reconcile-two-systems-by-hand) with a normalization step bolted on, and it pairs naturally with a [bank reconciliation](/writing/bank-reconciliation-step-by-step) or a [month-end tick-and-tie](/writing/tick-and-tie-checklist) where a doubled entry is exactly what you\'re watching for. It strains when the same dedup runs every week, when there are thousands of rows, or when "is this really the same vendor" needs judgment a formula can\'t encode. At that point you want the normalization rules and the match logic written down once and run the same way every time, not rebuilt from memory. If you reach for AI there, use it where it\'s actually strong — [describing the normalization rules and explaining candidate pairs](/writing/prompting-ai-to-help-reconcile-two-files) — and keep [the arithmetic and the matching in code you can audit](/writing/can-an-ai-agent-reconcile-your-data), so "these are duplicates" stays a claim you can defend.',
+        text: 'A helper column and a COUNTIFS pass are the right tools for a few hundred rows you check monthly — it\'s the [manual method](/notes/how-to-reconcile-two-systems-by-hand) with a normalization step bolted on, and it pairs naturally with a [bank reconciliation](/notes/bank-reconciliation-step-by-step) or a [month-end tick-and-tie](/notes/tick-and-tie-checklist) where a doubled entry is exactly what you\'re watching for. It strains when the same dedup runs every week, when there are thousands of rows, or when "is this really the same vendor" needs judgment a formula can\'t encode. At that point you want the normalization rules and the match logic written down once and run the same way every time, not rebuilt from memory. If you reach for AI there, use it where it\'s actually strong — [describing the normalization rules and explaining candidate pairs](/notes/prompting-ai-to-help-reconcile-two-files) — and keep [the arithmetic and the matching in code you can audit](/notes/can-an-ai-agent-reconcile-your-data), so "these are duplicates" stays a claim you can defend.',
       },
     ],
     faq: [
@@ -1472,7 +1472,7 @@ const articles: Article[] = [
       },
       {
         t: 'p',
-        text: 'The receivables and payables rows are where a [primary ID](/writing/what-we-mean-when-we-say-primary-id) earns its keep: an invoice number that drifts between systems is exactly how a duplicate payment slips through, and catching missing or doubled rows is the same [set-difference check](/writing/find-missing-rows-in-excel-countif-match) you\'d run on any two lists.',
+        text: 'The receivables and payables rows are where a [primary ID](/notes/what-we-mean-when-we-say-primary-id) earns its keep: an invoice number that drifts between systems is exactly how a duplicate payment slips through, and catching missing or doubled rows is the same [set-difference check](/notes/find-missing-rows-in-excel-countif-match) you\'d run on any two lists.',
       },
       { t: 'h2', text: 'A worked example: the payments-versus-invoices trap' },
       {
@@ -1481,7 +1481,7 @@ const articles: Article[] = [
       },
       {
         t: 'p',
-        text: 'The clean pattern, which is step 2 and 3 of the sequence doing their job: record the invoice, receive the payment against it into a [clearing account](https://en.wikipedia.org/wiki/Clearing_account) (undeposited funds), then record the actual deposit out of that clearing account, net of any processor fee booked as an expense. The clearing account is what lets a bundled bank deposit reconcile against several individual invoices — and it\'s why [Shopify or processor payouts are their own reconciliation](/writing/reconcile-shopify-orders-against-your-erp), keyed on the payout, not the order.',
+        text: 'The clean pattern, which is step 2 and 3 of the sequence doing their job: record the invoice, receive the payment against it into a [clearing account](https://en.wikipedia.org/wiki/Clearing_account) (undeposited funds), then record the actual deposit out of that clearing account, net of any processor fee booked as an expense. The clearing account is what lets a bundled bank deposit reconcile against several individual invoices — and it\'s why [Shopify or processor payouts are their own reconciliation](/notes/reconcile-shopify-orders-against-your-erp), keyed on the payout, not the order.',
       },
       {
         t: 'callout',
@@ -1491,7 +1491,7 @@ const articles: Article[] = [
       { t: 'h2', text: 'When the checklist stops scaling' },
       {
         t: 'p',
-        text: 'A printed checklist is the right tool for a monthly close you do by hand — it\'s the [manual reconciliation method](/writing/how-to-reconcile-two-systems-by-hand) with an order stamped on it. It starts to strain when the same tie-outs run every week, when subledgers like [inventory and the GL](/writing/netsuite-reconciliation-inventory-and-gl) drift across hundreds of SKUs, or when someone else has to trust the result without redoing it. At that point the sequence still holds — you just want it preserved as a repeatable process rather than re-walked from memory each month. If you reach for help there, keep the [AI on the setup and explanation and the arithmetic in code](/writing/can-an-ai-agent-reconcile-your-data), so the order stays enforced and the numbers stay defensible.',
+        text: 'A printed checklist is the right tool for a monthly close you do by hand — it\'s the [manual reconciliation method](/notes/how-to-reconcile-two-systems-by-hand) with an order stamped on it. It starts to strain when the same tie-outs run every week, when subledgers like [inventory and the GL](/notes/netsuite-reconciliation-inventory-and-gl) drift across hundreds of SKUs, or when someone else has to trust the result without redoing it. At that point the sequence still holds — you just want it preserved as a repeatable process rather than re-walked from memory each month. If you reach for help there, keep the [AI on the setup and explanation and the arithmetic in code](/notes/can-an-ai-agent-reconcile-your-data), so the order stays enforced and the numbers stay defensible.',
       },
       {
         t: 'callout',
@@ -1577,7 +1577,7 @@ const articles: Article[] = [
       { t: 'h2', text: 'The step-by-step method' },
       {
         t: 'p',
-        text: 'Top to bottom. Bank reconciliation is step two of a [month-end close](/writing/tick-and-tie-checklist) for a reason: cash is the account you can prove against an outside document, so you clear it first and build everything else on it.',
+        text: 'Top to bottom. Bank reconciliation is step two of a [month-end close](/notes/tick-and-tie-checklist) for a reason: cash is the account you can prove against an outside document, so you clear it first and build everything else on it.',
       },
       {
         t: 'ol',
@@ -1617,7 +1617,7 @@ const articles: Article[] = [
       },
       {
         t: 'p',
-        text: 'Both adjusted balances land on 12,350, so the account is reconciled. The 1,550 "discrepancy" was four timing items and one unbooked fee — nothing was actually wrong. The raw gap was never the problem; the unexplained part of it was, and there wasn\'t any. Matching the cleared items against your recorded ones is the same [set-difference check](/writing/find-missing-rows-in-excel-countif-match) you\'d run on any two lists, and it lives comfortably in [a spreadsheet](/writing/reconcile-two-files-in-excel-with-xlookup) until the volume outgrows one.',
+        text: 'Both adjusted balances land on 12,350, so the account is reconciled. The 1,550 "discrepancy" was four timing items and one unbooked fee — nothing was actually wrong. The raw gap was never the problem; the unexplained part of it was, and there wasn\'t any. Matching the cleared items against your recorded ones is the same [set-difference check](/notes/find-missing-rows-in-excel-countif-match) you\'d run on any two lists, and it lives comfortably in [a spreadsheet](/notes/reconcile-two-files-in-excel-with-xlookup) until the volume outgrows one.',
       },
       { t: 'h2', text: 'The habit that turns 30 minutes into 3 hours' },
       {
@@ -1626,7 +1626,7 @@ const articles: Article[] = [
       },
       {
         t: 'p',
-        text: 'Flip it. Record transactions from their source documents when they happen — invoices, bills, customer payments, [processor payouts](/writing/reconcile-shopify-orders-against-your-erp) into a clearing account — so that by the time the feed arrives, the feed only has to confirm what\'s already on your books. Now auto-match is checking your work instead of doing it, the 60% becomes 95%, and the reconciliation is the quick pass it should be. That\'s what "the bank should not be a source of original entry" actually means in practice. It\'s the same discipline as choosing a stable [primary ID](/writing/what-we-mean-when-we-say-primary-id) before you match anything: get the inputs right first, and the comparison gets easy.',
+        text: 'Flip it. Record transactions from their source documents when they happen — invoices, bills, customer payments, [processor payouts](/notes/reconcile-shopify-orders-against-your-erp) into a clearing account — so that by the time the feed arrives, the feed only has to confirm what\'s already on your books. Now auto-match is checking your work instead of doing it, the 60% becomes 95%, and the reconciliation is the quick pass it should be. That\'s what "the bank should not be a source of original entry" actually means in practice. It\'s the same discipline as choosing a stable [primary ID](/notes/what-we-mean-when-we-say-primary-id) before you match anything: get the inputs right first, and the comparison gets easy.',
       },
       {
         t: 'callout',
@@ -1636,7 +1636,7 @@ const articles: Article[] = [
       { t: 'h2', text: 'When the monthly bank rec outgrows the checklist' },
       {
         t: 'p',
-        text: 'This method is the right tool for one account, or a few, reconciled [by hand](/writing/how-to-reconcile-two-systems-by-hand) each month. It starts to strain when you\'re running many accounts, reconciling daily, or matching bundled processor deposits where a single payout splits across dozens of orders and fees — its own reconciliation, keyed on the payout rather than the order. It also strains when someone else has to trust the result without redoing it, the same way an [inventory subledger has to tie to the GL](/writing/netsuite-reconciliation-inventory-and-gl) at scale. At that point the method doesn\'t change; you just want the timing lists and the match preserved as a repeatable process rather than rebuilt from the feed every month. If you reach for help there, keep the [AI on the setup and explanation and the arithmetic in code](/writing/can-an-ai-agent-reconcile-your-data) — so the reconciling items stay named and the balance stays one you can defend.',
+        text: 'This method is the right tool for one account, or a few, reconciled [by hand](/notes/how-to-reconcile-two-systems-by-hand) each month. It starts to strain when you\'re running many accounts, reconciling daily, or matching bundled processor deposits where a single payout splits across dozens of orders and fees — its own reconciliation, keyed on the payout rather than the order. It also strains when someone else has to trust the result without redoing it, the same way an [inventory subledger has to tie to the GL](/notes/netsuite-reconciliation-inventory-and-gl) at scale. At that point the method doesn\'t change; you just want the timing lists and the match preserved as a repeatable process rather than rebuilt from the feed every month. If you reach for help there, keep the [AI on the setup and explanation and the arithmetic in code](/notes/can-an-ai-agent-reconcile-your-data) — so the reconciling items stay named and the balance stays one you can defend.',
       },
     ],
     faq: [
@@ -1729,7 +1729,7 @@ const articles: Article[] = [
       },
       {
         t: 'p',
-        text: 'The discipline is simple: prove the key is unique and shared before you compare a single value. Reconciliation done on a bad key produces confident, wrong answers. Choosing it well is step one of the [manual reconciliation method](/writing/how-to-reconcile-two-systems-by-hand).',
+        text: 'The discipline is simple: prove the key is unique and shared before you compare a single value. Reconciliation done on a bad key produces confident, wrong answers. Choosing it well is step one of the [manual reconciliation method](/notes/how-to-reconcile-two-systems-by-hand).',
       },
     ],
     faq: [
@@ -1771,7 +1771,7 @@ const articles: Article[] = [
       { t: 'h3', text: '1. Choose the primary ID' },
       {
         t: 'p',
-        text: 'Decide the field, or combination of fields, that identifies the same record on both sides — its [primary ID](/writing/what-we-mean-when-we-say-primary-id). This is the single most important decision; a wrong key makes every later step meaningless.',
+        text: 'Decide the field, or combination of fields, that identifies the same record on both sides — its [primary ID](/notes/what-we-mean-when-we-say-primary-id). This is the single most important decision; a wrong key makes every later step meaningless.',
       },
       { t: 'h3', text: '2. Normalize both sides' },
       {
@@ -1817,7 +1817,7 @@ const articles: Article[] = [
       { t: 'h2', text: 'When to stop doing this by hand' },
       {
         t: 'p',
-        text: 'The manual method is the right way to learn reconciliation and the right tool for a one-off. It stops scaling when the same comparison runs every week, when datasets grow past what a [spreadsheet](/writing/reconcile-two-files-in-excel-with-xlookup) handles comfortably, or when more than one person needs to trust the result. At that point you want the steps preserved as a repeatable, auditable process rather than a workbook someone rebuilds each month.',
+        text: 'The manual method is the right way to learn reconciliation and the right tool for a one-off. It stops scaling when the same comparison runs every week, when datasets grow past what a [spreadsheet](/notes/reconcile-two-files-in-excel-with-xlookup) handles comfortably, or when more than one person needs to trust the result. At that point you want the steps preserved as a repeatable, auditable process rather than a workbook someone rebuilds each month.',
       },
     ],
     faq: [
@@ -1863,7 +1863,7 @@ const articles: Article[] = [
       { t: 'code', text: '=XLOOKUP(A2, SystemB!$A:$A, SystemB!$A:$A, "MISSING")' },
       {
         t: 'p',
-        text: 'Drag this down SystemA. Any row showing MISSING exists in A but not in B. Repeat the formula on SystemB pointing at SystemA to catch the rows missing the other way. Those two columns are your one-sided differences — the same set difference you can get with [COUNTIF and MATCH](/writing/find-missing-rows-in-excel-countif-match).',
+        text: 'Drag this down SystemA. Any row showing MISSING exists in A but not in B. Repeat the formula on SystemB pointing at SystemA to catch the rows missing the other way. Those two columns are your one-sided differences — the same set difference you can get with [COUNTIF and MATCH](/notes/find-missing-rows-in-excel-countif-match).',
       },
       { t: 'h2', text: 'Step 2: Where the key matches, do the values agree?' },
       {
@@ -1902,7 +1902,7 @@ const articles: Article[] = [
       { t: 'h2', text: 'Where the spreadsheet method runs out' },
       {
         t: 'p',
-        text: 'Formulas reconcile two files just fine. They start to buckle the moment you\'ve got three or more sources, the same comparison every week, a [composite key](/writing/what-we-mean-when-we-say-primary-id), or someone who needs to audit how a number was reached. A workbook saves the answer but not the reasoning — and once other people have to trust that number, the reasoning has to live somewhere more repeatable than a cell formula.',
+        text: 'Formulas reconcile two files just fine. They start to buckle the moment you\'ve got three or more sources, the same comparison every week, a [composite key](/notes/what-we-mean-when-we-say-primary-id), or someone who needs to audit how a number was reached. A workbook saves the answer but not the reasoning — and once other people have to trust that number, the reasoning has to live somewhere more repeatable than a cell formula.',
       },
     ],
     faq: [
@@ -1978,12 +1978,12 @@ const articles: Article[] = [
       { t: 'h2', text: 'The duplicate trap' },
       {
         t: 'p',
-        text: 'Every formula above assumes the key is unique. If a key repeats, COUNTIF returns 2 or 3, MATCH finds only the first, and any value you pull is the value of whichever row happened to come first. Before comparing, check for duplicates: `=COUNTIF($A:$A, A2)>1` flags them. A repeating key is not a comparison problem, it is a sign the [key is wrong or incomplete](/writing/what-we-mean-when-we-say-primary-id) — often it needs a second field to become unique.',
+        text: 'Every formula above assumes the key is unique. If a key repeats, COUNTIF returns 2 or 3, MATCH finds only the first, and any value you pull is the value of whichever row happened to come first. Before comparing, check for duplicates: `=COUNTIF($A:$A, A2)>1` flags them. A repeating key is not a comparison problem, it is a sign the [key is wrong or incomplete](/notes/what-we-mean-when-we-say-primary-id) — often it needs a second field to become unique.',
       },
       { t: 'h2', text: 'Mismatch, not just missing' },
       {
         t: 'p',
-        text: 'Presence is half the job; the other half is agreement. For keys found on both sides, compare the value with INDEX and MATCH and a rounded difference, as covered in the [XLOOKUP guide](/writing/reconcile-two-files-in-excel-with-xlookup). The combined output — missing-in-A, missing-in-B, value-mismatch, and matched — is a complete reconciliation, and it is exactly the shape any dedicated tool produces automatically.',
+        text: 'Presence is half the job; the other half is agreement. For keys found on both sides, compare the value with INDEX and MATCH and a rounded difference, as covered in the [XLOOKUP guide](/notes/reconcile-two-files-in-excel-with-xlookup). The combined output — missing-in-A, missing-in-B, value-mismatch, and matched — is a complete reconciliation, and it is exactly the shape any dedicated tool produces automatically.',
       },
     ],
     faq: [
@@ -2026,7 +2026,7 @@ const articles: Article[] = [
         t: 'ul',
         items: [
           'Field mapping. Given two messy exports, a model is good at proposing which column maps to which — that Order # and `order_id` are the same field. You confirm; it saves the tedium.',
-          'Key suggestion. A model can spot that SKU alone is not unique and suggest SKU plus location as the [composite key](/writing/what-we-mean-when-we-say-primary-id), then you validate it.',
+          'Key suggestion. A model can spot that SKU alone is not unique and suggest SKU plus location as the [composite key](/notes/what-we-mean-when-we-say-primary-id), then you validate it.',
           'Classifying differences. Sorting a list of discrepancies into timing, fee, and real by their patterns is pattern recognition, which models do well.',
           'Explaining in plain language. Turning row 4471 differs by 12.50 into this order was refunded after settlement — drafting the narrative a human reviews.',
           'Drafting rules. Translating ignore differences under a dollar into a concrete rule you then run deterministically.',
@@ -2065,7 +2065,7 @@ const articles: Article[] = [
       },
       {
         t: 'p',
-        text: 'If the answer to the first two is "the model" and "no," you don\'t have a reconciliation you can defend. You have a confident guess. Keep the AI on setup and explanation, keep the arithmetic in code, and you get both. The [prompt patterns that keep a model in its lane](/writing/prompting-ai-to-help-reconcile-two-files) are the practical version of this.',
+        text: 'If the answer to the first two is "the model" and "no," you don\'t have a reconciliation you can defend. You have a confident guess. Keep the AI on setup and explanation, keep the arithmetic in code, and you get both. The [prompt patterns that keep a model in its lane](/notes/prompting-ai-to-help-reconcile-two-files) are the practical version of this.',
       },
     ],
     faq: [
@@ -2123,7 +2123,7 @@ const articles: Article[] = [
       },
       {
         t: 'p',
-        text: 'The model reasons that sku repeats across locations and proposes sku plus location_id. You still validate by counting distinct keys, but it pointed you at the [composite key](/writing/what-we-mean-when-we-say-primary-id) immediately.',
+        text: 'The model reasons that sku repeats across locations and proposes sku plus location_id. You still validate by counting distinct keys, but it pointed you at the [composite key](/notes/what-we-mean-when-we-say-primary-id) immediately.',
       },
       { t: 'h2', text: 'Pattern 3: Classifying a list of differences' },
       {
@@ -2161,7 +2161,7 @@ const articles: Article[] = [
       { t: 'h2', text: 'Putting it together' },
       {
         t: 'p',
-        text: 'Used this way, the model is a fast assistant for the setup and the story, and your code or tool is the source of every number. The prompts above are deliberately tool-agnostic — they work with any capable assistant — because the discipline is in what you ask, not which model answers. For where this fits the bigger picture, see [what an AI agent can and cannot reconcile](/writing/can-an-ai-agent-reconcile-your-data).',
+        text: 'Used this way, the model is a fast assistant for the setup and the story, and your code or tool is the source of every number. The prompts above are deliberately tool-agnostic — they work with any capable assistant — because the discipline is in what you ask, not which model answers. For where this fits the bigger picture, see [what an AI agent can and cannot reconcile](/notes/can-an-ai-agent-reconcile-your-data).',
       },
     ],
     faq: [
@@ -2211,12 +2211,12 @@ const articles: Article[] = [
       },
       {
         t: 'p',
-        text: 'Join on whatever the two systems actually share. If your ERP stored Shopify numeric order ID at import, use it — it never changes and has no formatting. If it only kept the order name, [normalize](/writing/what-we-mean-when-we-say-primary-id) the # and any location prefix on both sides first.',
+        text: 'Join on whatever the two systems actually share. If your ERP stored Shopify numeric order ID at import, use it — it never changes and has no formatting. If it only kept the order name, [normalize](/notes/what-we-mean-when-we-say-primary-id) the # and any location prefix on both sides first.',
       },
       { t: 'h2', text: 'Where the totals legitimately diverge' },
       {
         t: 'p',
-        text: 'An order total is not one number. Shopify and your [ERP](/writing/netsuite-reconciliation-inventory-and-gl) may each book a different slice, and the differences below are expected, not errors — but only if you account for them explicitly.',
+        text: 'An order total is not one number. Shopify and your [ERP](/notes/netsuite-reconciliation-inventory-and-gl) may each book a different slice, and the differences below are expected, not errors — but only if you account for them explicitly.',
       },
       {
         t: 'ul',
@@ -2292,7 +2292,7 @@ const articles: Article[] = [
       { t: 'h2', text: 'The two reconciliations people call NetSuite reconciliation' },
       {
         t: 'p',
-        text: 'The first is external: matching NetSuite records against a [storefront](/writing/reconcile-shopify-orders-against-your-erp), a 3PL feed, a bank, or another ERP. That is ordinary [two-system reconciliation](/writing/how-to-reconcile-two-systems-by-hand) — pick a [shared key](/writing/what-we-mean-when-we-say-primary-id), normalize, compare. The second is internal: confirming that NetSuite inventory subledger (what the item records say you hold and what it is worth) ties to the [general ledger](https://en.wikipedia.org/wiki/General_ledger) (what the inventory asset account says). When those drift, the books are wrong even though every individual transaction looks fine.',
+        text: 'The first is external: matching NetSuite records against a [storefront](/notes/reconcile-shopify-orders-against-your-erp), a 3PL feed, a bank, or another ERP. That is ordinary [two-system reconciliation](/notes/how-to-reconcile-two-systems-by-hand) — pick a [shared key](/notes/what-we-mean-when-we-say-primary-id), normalize, compare. The second is internal: confirming that NetSuite inventory subledger (what the item records say you hold and what it is worth) ties to the [general ledger](https://en.wikipedia.org/wiki/General_ledger) (what the inventory asset account says). When those drift, the books are wrong even though every individual transaction looks fine.',
       },
       { t: 'h2', text: 'Matching item records across systems' },
       {
@@ -2306,7 +2306,7 @@ const articles: Article[] = [
           ['Internal ID', 'NetSuite own record ID — stable, but rarely stored by other systems'],
           ['Item name/number', 'Human key; watch for hierarchy (Parent : Child) in assembly items'],
           ['UPC / SKU', 'Often the real shared key with storefronts and 3PLs'],
-          ['Location', 'Inventory is per location — almost always part of a [composite key](/writing/what-we-mean-when-we-say-primary-id)'],
+          ['Location', 'Inventory is per location — almost always part of a [composite key](/notes/what-we-mean-when-we-say-primary-id)'],
         ],
       },
       {
@@ -2377,7 +2377,7 @@ const articles: Article[] = [
       'order routing reconciliation',
       'available to promise',
     ],
-    lead: 'Your order management system sits in the middle of everything — between the [storefront](/writing/reconcile-shopify-orders-against-your-erp) that takes the order, the warehouses that fill it, and the ERP that books it. That middle seat is exactly why the OMS is where reconciliation breaks: it\'s the one system that has to agree with three others at once. It\'s also the best place to catch a problem before it ships.',
+    lead: 'Your order management system sits in the middle of everything — between the [storefront](/notes/reconcile-shopify-orders-against-your-erp) that takes the order, the warehouses that fill it, and the ERP that books it. That middle seat is exactly why the OMS is where reconciliation breaks: it\'s the one system that has to agree with three others at once. It\'s also the best place to catch a problem before it ships.',
     blocks: [
       { t: 'h2', text: 'What an OMS has to stay reconciled with' },
       {
@@ -2417,12 +2417,12 @@ const articles: Article[] = [
       { t: 'h2', text: 'Financial handoff: orders to the ERP' },
       {
         t: 'p',
-        text: 'Finally, what the OMS recorded as sold, shipped, and returned must match what the [ERP booked](/writing/netsuite-reconciliation-inventory-and-gl). This is the order-to-cash boundary again, keyed on order or invoice ID, and it is where returns are most likely to fall through — a return processed in the OMS but never credited in the ERP, or the reverse. Reconcile current state including returns, not just original orders.',
+        text: 'Finally, what the OMS recorded as sold, shipped, and returned must match what the [ERP booked](/notes/netsuite-reconciliation-inventory-and-gl). This is the order-to-cash boundary again, keyed on order or invoice ID, and it is where returns are most likely to fall through — a return processed in the OMS but never credited in the ERP, or the reverse. Reconcile current state including returns, not just original orders.',
       },
       { t: 'h2', text: 'Why the OMS is the reconciliation hub' },
       {
         t: 'p',
-        text: 'Because the OMS touches the channel, the warehouse, and the ERP, it is both where discrepancies surface and where they are cheapest to catch — before a mis-routed order ships, before an oversell becomes a cancellation, before a return goes uncredited. Reconciling the OMS against its three neighbors, each on its proper [composite key](/writing/what-we-mean-when-we-say-primary-id), is what keeps an omnichannel operation honest in the one system positioned to see all of it.',
+        text: 'Because the OMS touches the channel, the warehouse, and the ERP, it is both where discrepancies surface and where they are cheapest to catch — before a mis-routed order ships, before an oversell becomes a cancellation, before a return goes uncredited. Reconciling the OMS against its three neighbors, each on its proper [composite key](/notes/what-we-mean-when-we-say-primary-id), is what keeps an omnichannel operation honest in the one system positioned to see all of it.',
       },
     ],
     faq: [

@@ -40,7 +40,7 @@ export function NoteCard({ entry, index, delay = 0 }: Props) {
       data-pillar={entry.category}
       style={style}
     >
-      <a className="note-postit-link" href={`/writing/${entry.slug}`}>
+      <a className="note-postit-link" href={`/notes/${entry.slug}`}>
         <span className="note-pillar-tab" aria-hidden />
         <span className="note-doodle-slot" aria-hidden>
           <NoteDoodle kind={doodleForCategory(entry.category)} delay={delay} />

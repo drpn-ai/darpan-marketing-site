@@ -20,7 +20,7 @@ const notebookNav = [
   ['Product', '#product'],
   ['Why Darpan', '/why'],
   ['Customers', '/customers'],
-  ['Notes', '/writing'],
+  ['Notes', '/notes'],
 ] as const
 
 function NotebookHome() {

@@ -7,10 +7,10 @@ import { VlPage } from '@/components/VlChrome'
 // ahead of its content stays hidden until it's written.
 const publishedEntries = writingEntries.filter((entry) => getArticle(entry.slug))
 
-export const Route = createFileRoute('/writing/')({
+export const Route = createFileRoute('/notes/')({
   component: WritingIndexPage,
   head: () => ({
-    meta: [{ title: 'Writing — Darpan' }],
+    meta: [{ title: 'Notes — Darpan' }],
   }),
 })
 
@@ -25,9 +25,9 @@ function WritingIndexPage() {
               Notes from the team.
             </h2>
             <p className="vl-lede">
-              Working notes on reconciliation, retail data, and how the books
-              close when they do. New entries land as we have something worth
-              writing down.
+              Working notes on reconciliation: matching data across the systems
+              that never quite line up, and proving what&rsquo;s left over. For
+              operators and finance both.
             </p>
           </div>
           <div className="vl-cards-wall">
@@ -35,7 +35,7 @@ function WritingIndexPage() {
               <a
                 className="vl-card"
                 key={entry.slug}
-                href={`/writing/${entry.slug}`}
+                href={`/notes/${entry.slug}`}
                 style={
                   {
                     '--pillar': pillarColor[entry.category] ?? '#8a867a',

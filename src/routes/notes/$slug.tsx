@@ -6,14 +6,14 @@ import { VlPage } from '@/components/VlChrome'
 
 const SITE_URL = 'https://drpn.ai'
 
-export const Route = createFileRoute('/writing/$slug')({
+export const Route = createFileRoute('/notes/$slug')({
   component: WritingPostPage,
   // Don't publish articles that aren't written yet: an entry only goes live
   // once it has body content. Unwritten or unknown slugs bounce to the index
   // rather than rendering an empty "coming soon" stub.
   beforeLoad: ({ params }) => {
     if (!getArticle(params.slug)) {
-      throw redirect({ to: '/writing' })
+      throw redirect({ to: '/notes' })
     }
   },
   head: ({ params }) => {
@@ -23,7 +23,7 @@ export const Route = createFileRoute('/writing/$slug')({
     const description =
       article?.description ??
       'Working notes on reconciliation, retail data, and how the books close when they do.'
-    const url = `${SITE_URL}/writing/${params.slug}`
+    const url = `${SITE_URL}/notes/${params.slug}`
     const meta: Array<Record<string, string>> = [
       { title },
       { name: 'description', content: description },
@@ -43,7 +43,7 @@ export const Route = createFileRoute('/writing/$slug')({
 })
 
 function WritingPostPage() {
-  const { slug } = useParams({ from: '/writing/$slug' })
+  const { slug } = useParams({ from: '/notes/$slug' })
   const entry = writingEntries.find((e) => e.slug === slug)
   const article = getArticle(slug)
 
@@ -63,7 +63,7 @@ function WritingPostPage() {
           <h1>{entry?.title ?? 'Post coming soon'}</h1>
           <p>
             This entry is being prepared. Check back, or see{' '}
-            <a href="/writing">all writing</a>.
+            <a href="/notes">all writing</a>.
           </p>
         </article>
       </section>

@@ -12,7 +12,7 @@ const NAV: ReadonlyArray<readonly [string, string]> = [
   ['The gap', '/#gap'],
   ['Rules', '/#rules'],
   ['Proof', '/#proof'],
-  ['Notes', '/writing'],
+  ['Notes', '/notes'],
 ]
 
 export function VlHeader() {

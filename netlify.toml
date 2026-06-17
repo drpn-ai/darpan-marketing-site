@@ -5,3 +5,17 @@
   command = "npm run dev"
   targetPort = 3000
   port = 8888
+
+# The Notes section moved from /writing to /notes (aligns with the page wording).
+# 301 the old paths so existing links and any indexed URLs don't break. force=true
+# so these win over the SSR catch-all.
+[[redirects]]
+  from = "/writing/*"
+  to = "/notes/:splat"
+  status = 301
+  force = true
+[[redirects]]
+  from = "/writing"
+  to = "/notes"
+  status = 301
+  force = true
