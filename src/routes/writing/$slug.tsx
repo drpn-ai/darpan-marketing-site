@@ -1,4 +1,4 @@
-import { createFileRoute, useParams } from '@tanstack/react-router'
+import { createFileRoute, redirect, useParams } from '@tanstack/react-router'
 import { writingEntries } from '@/data/writing-entries'
 import { getArticle } from '@/data/writing-content'
 import { WritingArticle } from '@/components/WritingArticle'
@@ -8,6 +8,14 @@ const SITE_URL = 'https://drpn.ai'
 
 export const Route = createFileRoute('/writing/$slug')({
   component: WritingPostPage,
+  // Don't publish articles that aren't written yet: an entry only goes live
+  // once it has body content. Unwritten or unknown slugs bounce to the index
+  // rather than rendering an empty "coming soon" stub.
+  beforeLoad: ({ params }) => {
+    if (!getArticle(params.slug)) {
+      throw redirect({ to: '/writing' })
+    }
+  },
   head: ({ params }) => {
     const article = getArticle(params.slug)
     const entry = writingEntries.find((e) => e.slug === params.slug)

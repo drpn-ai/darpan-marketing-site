@@ -1,6 +1,11 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { writingEntries, pillarColor } from '@/data/writing-entries'
+import { getArticle } from '@/data/writing-content'
 import { VlPage } from '@/components/VlChrome'
+
+// Only surface entries whose article body actually exists — an entry listed
+// ahead of its content stays hidden until it's written.
+const publishedEntries = writingEntries.filter((entry) => getArticle(entry.slug))
 
 export const Route = createFileRoute('/writing/')({
   component: WritingIndexPage,
@@ -26,7 +31,7 @@ function WritingIndexPage() {
             </p>
           </div>
           <div className="vl-cards-wall">
-            {writingEntries.map((entry) => (
+            {publishedEntries.map((entry) => (
               <a
                 className="vl-card"
                 key={entry.slug}
