@@ -1193,6 +1193,7 @@
   border-top: 1px solid var(--line);
 }
 .vl-close h2 {
+  font-family: var(--sans);
   font-size: clamp(28px, 4vw, 50px);
   line-height: 1.06;
   letter-spacing: -0.03em;
