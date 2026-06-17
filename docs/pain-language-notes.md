@@ -110,3 +110,41 @@ _Verbatim from Reddit threads surfaced by the Stage 1 miner (see `analysis_daily
 - BFCM: _"brands put all their energy into ads and discounts but the real problems show up in the backend… inventory sync failing across Shopify, Amazon, and warehouses… returns/fees blowing up margins."_ **[Part-B · ops]** [link](https://reddit.com/r/smallbusiness/comments/1p0lv6f/whats_the_real_bottleneck_in_your_bfcm_prep_this/)
 
 **Honest framing read (this pull):** the systems-disagree evidence is strong, but the people voicing it are overwhelmingly bookkeepers / AP / FP&A / controllers — not COOs. The ops-framed exceptions are the inventory-sync threads (QB≠Shopify, data silos, BFCM). Part B (mechanism) is well-supported; Part A's _ownership_ claim (COO, not finance) is not corroborated by who is actually complaining.
+
+---
+
+### Reddit pull 2026-06-05
+
+_Verbatim from threads surfaced this run (see `analysis_daily_brief.md`, `recon_new_since_last.md`). Quotes truncated as captured by the miner; … marks truncation. Tag = ops / finance / Part-B. (post) / (comment) marks source. No new Part B threads and 0 old threads with new comments this run, so all pulls below are from POST bodies._
+
+**Best-of-breed seams / move-vs-verify (strongest reuse):**
+- AR/ERP integration: _"we have invoices going out from our ERP, payment reminders from a separate tool, customers paying by wire, ACH, and random portals, and reconciliation happening in excel. none of it talks to each other. feels like we have **five versions of the truth and none of them match**."_ **[Part-B-in-substance · finance/controller · (post)]** — names ERP + separate reminder tool + Excel + multiple rails; miner did **not** tag it Part B (flagged as a miner-side gap). [link](https://reddit.com/r/Accounting/comments/1txedv9/what_do_you_use_for_ar_erp_integration_without/)
+- ERP↔eCommerce, synced-but-still-exposed: _"integrating ERP and eCommerce is viewed as a data synchronization challenge… On paper, that sounds like success. But what happens when payment te[rms drift]…"_ **[ops · (post)]** — rare ops-tagged thread; vendor-flavored but the synced≠verified framing is exactly the wedge. [link](https://reddit.com/r/ERP/comments/1twff14/your_payment_terms_are_synced_so_why_is_your/)
+
+**Resolve-not-flag (the investigation is the hard part):**
+- Netsuite month-end, 40 replies: _"The bottleneck isn't the close itself it's **waiting on people outside finance for data**"_ and _"**Reconciliations can be automated but the investigation of discrepancies can't** and that[…]"_ **[finance · (post)]** — supports "flagging exceptions isn't enough." [link](https://reddit.com/r/Netsuite/comments/1txep1v/a_few_weeks_ago_i_asked_this_community_why/)
+
+**Validate-before-you-trust (feeds csv-gotchas / schemas):**
+- File sanity check: _"a simple validation layer that sits before a file is accepted into a process. Instead of discovering issues late[…]"_ **[unknown/ops-leaning · (post)]** [link](https://reddit.com/r/excel/comments/1txcljs/do_you_think_a_file_sanity_check_before_using/)
+
+**One-source-of-truth-from-many at small scale:**
+- Master sheet: _"I have to pull the messy data into their respective sheet to clean the data… pull marketing dollars spent from each channel… for every single market (13 markets)."_ **[unknown · (post)]** [link](https://reddit.com/r/excel/comments/1txbd2q/how_to_sync_separate_sheets_data_into_one_master/)
+
+**Honest framing read (this pull):** today's genuinely-painful new threads still read **predominantly finance** (AR/ERP, Netsuite month-end close, PayPal chargeback). The clearly-operational exceptions are the r/ERP synced-but-at-risk post and the Netsuite inventory-worksheet import error — both real but thin. The miner's new-this-run lexicon tally was ops 6 · finance 5 · mixed 0 · unknown 25; unknown dominates. Nothing this run moves the Part A (ownership) signal toward operations.
+
+---
+
+### Reddit pull 2026-06-07
+
+_Verbatim from threads in the 06-06 miner delta (`recon_new_since_last.md`) and `recon_reddit_digest.md`. Quotes truncated as captured by the miner; … / [bracketed] marks truncation or my completion. Tag = ops / finance / Part-B. (post) / (comment) marks source. **No new Part B threads and 0 old threads with new comments this run; all pulls are POST bodies.**_
+
+**Automate-vs-don't (feeds resolve-not-flag + a new teaching angle):**
+- Accounting-practice automation: _"some of it was the best decision I ever made but some of it was a complete waste of time and actually made things worse"_ — with _"Transaction categorization"_ named as the clearest win. **[finance · (post)]** — pairs with the carried-over "reconciliations can be automated but the investigation of discrepancies can't" (06-05). [link](https://reddit.com/r/Accounting/comments/1tumehy/after_4_years_of_trying_to_automate_everything_in/)
+
+**Manual-tie-out sprawl (feeds urgency; note: founder/vendor self-promo, log as validation not endorsement):**
+- A founder building a "reconciliation management platform" describes teams managing reconciliations _"through dozens (sometimes hundreds) of spreadsheets, email sign-offs, and manual tie-outs."_ **[finance · (post) · vendor]** — one founder's framing, not a practitioner endorsement. [link](https://reddit.com/r/Accounting/comments/1twzvj9/controllers_accounting_managers_and_senior/)
+
+**Inventory records that don't tie out (ops-adjacent; echoes the DeHoratius/Raman keystone at seller scale):**
+- Three low-pain FBA/tax threads report inventory that won't reconcile — titles verbatim: _"Orders don't match up with inventory left"_ ([link](https://reddit.com/r/FulfillmentByAmazon/comments/1gub665/orders_dont_match_up_with_inventory_left/)), _"Accidentally overstated inventory value last year, what do I do."_ ([link](https://reddit.com/r/tax/comments/mhyp9x/accidentally_overstated_inventory_value_last_year/)), _"Beginning inventory doesn't match ending inventory for home business"_ ([link](https://reddit.com/r/tax/comments/lnyhkz/beginning_inventory_doesnt_match_ending_inventory/)). **[ops-adjacent · (post)]** — individually small and tax-driven; collectively real inventory-record-inaccuracy echoes, but below the COO buyer's scale. Don't overweight toward Part A ownership.
+
+**Honest framing read (this pull):** the 06-06 new set is **predominantly finance** (r/Accounting practice-automation, month-end close cadence, controllers building recon tools; r/tax Schedule C and inventory tax; r/Bookkeeping QBO support). The inventory-doesn't-tie-out threads are ops-adjacent but small-seller/tax-framed, not operator-owned. **No new Part B, no COO-voiced demand.** Consistent with every prior pull: Part B mechanism keeps showing up; Part A ownership (COO, not finance) still has no independent corroboration in who is complaining.

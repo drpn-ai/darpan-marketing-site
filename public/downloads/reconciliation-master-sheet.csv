@@ -1,0 +1,5 @@
+Payout ID,Payout date (bank),Gross sales,Refunds,Processing fees,Adjustments,Expected net,Bank deposit,Difference,Status,Notes
+PO-2026-0411,2026-04-13,4820.00,150.00,142.10,0.00,4527.90,4527.90,0.00,Matched,
+PO-2026-0412,2026-04-14,3110.50,0.00,91.80,0.00,3018.70,2983.70,-35.00,Exception,Deposit $35 short — likely an unbooked chargeback or dispute fee; check the payout statement line by line
+PO-2026-0415,2026-04-17,5640.00,320.00,167.40,0.00,5152.60,5152.60,0.00,Matched,
+(how to use),,,,,,,,,,One row per payout. Expected net = Gross sales − Refunds − Processing fees − Adjustments. Difference = Bank deposit − Expected net. A non-zero Difference is your exception list — work only those. Delete the three example rows above before you start.
