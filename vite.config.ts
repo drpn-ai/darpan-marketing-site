@@ -25,6 +25,11 @@ const config = defineConfig({
         enabled: true,
         crawlLinks: true,
         failOnError: true,
+        // Emit flat files (why.html) instead of subfolder indexes (why/index.html).
+        // Our internal links point at no-slash URLs (/why, /notes/:slug); with
+        // subfolder indexes Netlify 301s /why -> /why/, adding a redirect hop that
+        // pushed some pages to ~1s. Flat files let Netlify serve /why directly (200).
+        autoSubfolderIndex: false,
       },
       pages: [
         { path: '/' },
