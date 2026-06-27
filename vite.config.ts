@@ -12,7 +12,30 @@ const config = defineConfig({
     }),
     tailwindcss(),
     netlify(),
-    tanstackStart(),
+    // Prerender every page to static HTML at build time (SSG). This site has no
+    // per-request data, so serving on-demand SSR through a Netlify Function only
+    // bought us cold starts (~11s TTFB on the first hit). Prerendered HTML is
+    // served straight from Netlify's CDN — no function on the hot path, sub-1s
+    // loads even when cold. crawlLinks discovers the /notes/:slug articles from
+    // the /notes index; the explicit pages list guarantees every top-level route
+    // is emitted even if it isn't linked from the nav. The SSR function stays as
+    // a fallback for any path not prerendered.
+    tanstackStart({
+      prerender: {
+        enabled: true,
+        crawlLinks: true,
+        failOnError: true,
+      },
+      pages: [
+        { path: '/' },
+        { path: '/why' },
+        { path: '/customers' },
+        { path: '/notes' },
+        { path: '/notebook' },
+        { path: '/terms' },
+        { path: '/privacy' },
+      ],
+    }),
     viteReact(),
   ],
 })

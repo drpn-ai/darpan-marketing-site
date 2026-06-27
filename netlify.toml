@@ -1,6 +1,14 @@
 [build]
   command = "vite build"
   publish = "dist/client"
+
+# The build prerenders every page to static HTML (see vite.config.ts). TanStack
+# Start's prerenderer spins up a local server and fetches itself over
+# http://localhost; force Node to resolve localhost to IPv4 so the server bind
+# and the fetch always agree, regardless of the build host's IPv6 loopback state.
+[build.environment]
+  NODE_OPTIONS = "--dns-result-order=ipv4first"
+
 [dev]
   command = "npm run dev"
   targetPort = 3000
