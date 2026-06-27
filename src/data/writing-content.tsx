@@ -2002,6 +2002,346 @@ const articles: Article[] = [
     ],
   },
   {
+    slug: 'reconciliation-prompt-pack',
+    title: 'A copy-paste reconciliation prompt pack (the directions AI actually needs)',
+    description:
+      'AI can help you reconcile two files, but only if you hand it very clear directions — which is exactly what most people never do. This is the pack: a sequenced set of copy-paste prompts that walk any capable AI assistant through a reconciliation from file census, to join key, to a deterministic merge, to a classified difference list, to verification. One rule runs through all of them — the model may parse, propose, and explain, but it must never decide whether two numbers are equal; code does the matching and the math. Includes standing-instructions you paste once, a fill-in-your-specifics template, and a downloadable file you can reuse every close.',
+    keywords: [
+      'reconciliation prompt pack',
+      'ai reconciliation prompts',
+      'chatgpt reconcile two files prompt',
+      'prompt to reconcile csv with ai',
+      'copy paste reconciliation prompts',
+      'ai prompt for bank reconciliation',
+      'how to tell ai to reconcile files',
+    ],
+    lead: 'The most useful thing anyone says about AI in finance is also the most deflating: it only helps if you tell it exactly what to do. The top-voted reply in an [r/FPandA thread on whether agentic AI actually makes finance teams more effective](https://reddit.com/r/FPandA/comments/1o920tp/are_agentic_ai_tools_really_making_finance_teams/) put it plainly — ["the AI solutions require very clear directions. There is a lot of learning/teaching to be done for the system to answer your questions properly."](https://reddit.com/r/FPandA/comments/1o920tp/are_agentic_ai_tools_really_making_finance_teams/) Right. And almost nobody hands over the directions. So here they are: a copy-paste pack that walks any capable assistant through reconciling two files, in order, with one rule that keeps every number yours to check — the model may parse, propose, and explain, but it never decides whether two numbers are equal. [Code does that.](/notes/can-an-ai-agent-reconcile-your-data)',
+    blocks: [
+      {
+        t: 'p',
+        text: 'There is no shortage of "use AI to reconcile" advice. What is missing is the actual prompts — the literal text that turns a chatty assistant into a careful one. The other pieces here cover the [why](/notes/can-an-ai-agent-reconcile-your-data) and the [patterns](/notes/prompting-ai-to-help-reconcile-two-files); this is the grab-and-go version. Copy the prompts below in order, swap in your filenames and key, and you have the "very clear directions" that thread was asking for. Then keep them — the same pack works next month.',
+      },
+      { t: 'h2', text: 'The one rule the whole pack is built on' },
+      {
+        t: 'p',
+        text: 'Every prompt here enforces a single division of labor: the model handles language and judgment, code handles matching and math. The reason is not snobbery about AI — it is that a language model asked to total ten thousand rows will hand you a confident number in the same fluent tone whether it is right or invented. That failure has a name, [hallucination](https://en.wikipedia.org/wiki/Hallucination_%28artificial_intelligence%29), and you cannot catch it by reading the answer. So the matching and the arithmetic live in code the assistant writes and runs in front of you, and the model is left doing the parts it is genuinely good at: proposing a field map, guessing a key, sorting a difference list, explaining a row. For the long version of this line, see [can an AI agent reconcile your data](/notes/can-an-ai-agent-reconcile-your-data) and the [end-to-end walkthrough](/notes/reconcile-two-files-with-an-ai-agent).',
+      },
+      {
+        t: 'callout',
+        kind: 'note',
+        text: 'The rule in one sentence: the model may parse, propose, write code, run it, and explain — but it must never be the thing that decides whether two numbers are equal. If a number was not printed by code you can re-run, treat it as decoration.',
+      },
+      { t: 'h2', text: 'How to use the pack' },
+      {
+        t: 'ol',
+        items: [
+          'Paste Prompt 0 once at the top of the chat. It sets the standing rules for the whole session so you are not re-typing them.',
+          'Then paste Prompts 1 through 7 in order, one at a time. Read the output of each before pasting the next — the point is to catch a wrong key or a misread column early, not at the end.',
+          'Swap the placeholders for your specifics: your two filenames, the join key, and the amount column you are comparing.',
+          'Use any assistant that can actually run code in a sandbox. The pack is tool-agnostic; the safety comes from what you ask for, not the brand.',
+        ],
+      },
+      {
+        t: 'p',
+        text: 'Here is what each prompt produces and the specific trap it heads off — skim it once so the order makes sense.',
+      },
+      {
+        t: 'table',
+        head: ['Prompt', 'What it gets you', 'The trap it avoids'],
+        rows: [
+          ['0 — standing rules', 'A model that refuses to invent numbers for the whole session', 'Re-improvising directions every message, and getting different behavior each time'],
+          ['1 — census', 'Column names, row counts, sample rows, a field map', 'Reconciling files the model misread on the way in'],
+          ['2 — join key', 'The unique key, confirmed by a distinct count', 'A bad key that silently multiplies or drops rows'],
+          ['3 — merge code', 'A short, readable merge you approve before it runs', 'Matching logic you cannot see or re-run'],
+          ['4 — real differences', 'Only the nonzero diffs, plus the missing rows', 'A prose summary that hides what actually broke'],
+          ['5 — classify', 'Each difference tagged timing / fee / error / missing', 'Doing the tedious sorting by hand'],
+          ['6 — explain one', 'A two-sentence cause a reviewer can act on', 'A confident story the numbers do not support'],
+          ['7 — verify', 'A row census, file totals, and three traced rows', 'Trusting a result you never checked'],
+        ],
+      },
+      { t: 'h2', text: 'The prompts' },
+      {
+        t: 'p',
+        text: 'These are written to be pasted as-is. The placeholders in angle brackets — `<KEY>`, `<AMOUNT>` — are the only things you change. The full set is also a [single download](/downloads/reconciliation-prompt-pack.md) if you would rather keep it in a file.',
+      },
+      { t: 'h3', text: 'Prompt 0 — standing instructions (paste once)' },
+      {
+        t: 'code',
+        text: 'You are helping me reconcile two data files. Follow these rules for the\nwhole session:\n- Never state a total, count, or difference unless it was printed by code\n  you just ran. If you didn\'t run code for a number, don\'t give the number.\n- Read all ID/key columns as text. Never let an ID become a float.\n- Do the matching and arithmetic in code (Python/pandas). Use prose only to\n  explain what the code printed.\n- When unsure, stop and ask. Do not guess a key, a mapping, or a number.',
+      },
+      { t: 'h3', text: 'Prompt 1 — census the files before matching' },
+      {
+        t: 'p',
+        text: 'You are checking the assistant read the files the way you expect. No matching yet. (If it cannot even read them cleanly, that is a [CSV gotcha](/notes/csv-gotchas-encoding-delimiters) to fix before anything else.)',
+      },
+      {
+        t: 'code',
+        text: 'Here are two files: system_a.csv and system_b.csv.\nDo NOT reconcile them yet. First, for each file, run code that prints:\n- the column names\n- the row count\n- 3 sample rows\nThen list, side by side, which column in A maps to which column in B. Flag\nany format differences (currency units, date formats, casing). No diffs yet.',
+      },
+      { t: 'h3', text: 'Prompt 2 — propose the join key (and justify it)' },
+      {
+        t: 'p',
+        text: 'This is the one decision that quietly sinks most reconciliations, so make the model justify it and prove it. It is also where a [composite key](/notes/what-we-mean-when-we-say-primary-id) gets caught — when no single column is unique on its own.',
+      },
+      {
+        t: 'code',
+        text: 'Propose the minimal set of columns that uniquely identifies a row in each\nfile. Explain why a single column is or isn\'t enough. If no single column\nis unique, propose a composite key. Then run code that counts distinct keys\nvs. total rows and prints whether the proposed key is actually unique.\nReason from the column meanings; do not assume.',
+      },
+      { t: 'h3', text: 'Prompt 3 — write the merge as readable code' },
+      {
+        t: 'p',
+        text: 'Two arguments do the trust work: `indicator=True` tags each row left_only / right_only / both, and `validate="one_to_one"` makes the [pandas merge](https://pandas.pydata.org/docs/reference/api/pandas.merge.html) error out loudly if the key is not unique instead of quietly doubling rows.',
+      },
+      {
+        t: 'code',
+        text: 'Write Python (pandas) that:\n- reads both files with every ID column as text (dtype=str)\n- does an OUTER merge on <KEY>, with indicator=True and validate="one_to_one"\n- prints the count of left_only, right_only, and both\nShow me the code first. Don\'t run it until I say go.',
+      },
+      { t: 'h3', text: 'Prompt 4 — show only the real differences' },
+      {
+        t: 'p',
+        text: 'The left_only and right_only buckets are the answer, not leftovers — those are the [rows in one file and missing from the other](/notes/find-missing-rows-in-excel-countif-match), which is usually the whole reason you reconciled.',
+      },
+      {
+        t: 'code',
+        text: 'Go. After the merge, for rows present in BOTH files, compute the difference\nin the <AMOUNT> column in code. Print ONLY the rows where the difference is\nnonzero, sorted largest-first. Do not summarize the numbers in prose. Also\nprint the full left_only and right_only rows — those are the missing\nrecords, not noise.',
+      },
+      { t: 'h3', text: 'Prompt 5 — classify the differences' },
+      {
+        t: 'p',
+        text: 'Now the model does what it is actually good at: sorting an already-computed list into categories. Note it is told not to touch the numbers — same constraint as the standalone [classify pattern](/notes/prompting-ai-to-help-reconcile-two-files).',
+      },
+      {
+        t: 'code',
+        text: 'Here is the list of nonzero differences you just printed. Do NOT change any\nnumbers. For each row, classify the likely cause as one of: timing,\nfee/adjustment, value error, or missing record. Give a one-line reason per\nrow. Flag any you can\'t classify with confidence.',
+      },
+      { t: 'h3', text: 'Prompt 6 — explain one exception to a human' },
+      {
+        t: 'p',
+        text: 'The model at its best: turning a flagged row into a sentence a reviewer can act on, while being told to flag when the story does not fit the figures.',
+      },
+      {
+        t: 'code',
+        text: 'Take row <KEY=...>. Context: <e.g. order placed May 2, refund issued May 9,\nprocessor fee 2.9% + 0.30>. In two sentences, explain the most likely cause\nof the difference for a finance reviewer. If the numbers don\'t support your\nexplanation, say so instead of forcing one.',
+      },
+      { t: 'h3', text: 'Prompt 7 — verify it did not drop rows' },
+      {
+        t: 'p',
+        text: 'This is the step that separates a number you can defend from a confident guess, and it is the same thing [an auditor looks for](/notes/what-auditors-look-for): completeness, a unique key, totals that tie, and a trail you can follow. Reading IDs as text throughout matters here — a long order number rounded into scientific notation on export is the single most common way a join silently fails.',
+      },
+      {
+        t: 'code',
+        text: 'Print three things so I can check your work:\n- the row census again (left_only + right_only + both = total)\n- the sum of <AMOUNT> in each original file, before the merge\n- 3 specific rows traced end to end, including one that should NOT match\nThen I will compare the file totals to a number I already trust.',
+      },
+      {
+        t: 'callout',
+        kind: 'warning',
+        text: 'Never accept a figure that only appears in the assistant\'s prose. The same prompt can return a different number next time, and a reconciliation has to produce the same result every run on the same data. If you cannot re-run the code that produced it, you do not have a reconciliation — you have a guess in a nicer font.',
+      },
+      { t: 'h2', text: 'Why "save the directions" matters more than any single prompt' },
+      {
+        t: 'p',
+        text: 'The reason to keep this pack as a file instead of re-improvising each month is not tidiness. It is that vague, one-off directions are exactly where AI accuracy decays. An [r/BusinessIntelligence thread summarizing an AI vendor\'s internal write-up](https://reddit.com/r/BusinessIntelligence/comments/1txaamo/anthropic_says_agentic_analytics_accuracy_drifts/) reported the shape of the problem — ["Without skill files, their internal accuracy sits at 21%. With skill files, 95%. Without active maintenance, it drifts back to 65% in a single month."](https://reddit.com/r/BusinessIntelligence/comments/1txaamo/anthropic_says_agentic_analytics_accuracy_drifts/) Those are a vendor\'s own numbers, not an independent benchmark, so hold them loosely. But the direction is the part the practitioners in that thread agreed on, and one commenter named the cause bluntly: ["Drift is caused by poor design and lack of reinforcement of system prompts."](https://reddit.com/r/BusinessIntelligence/comments/1txaamo/anthropic_says_agentic_analytics_accuracy_drifts/) A saved, reused prompt pack is that reinforcement. You write the directions once, vet them once, and stop re-teaching the model from scratch every close. (For the underlying technique, [prompt engineering](https://en.wikipedia.org/wiki/Prompt_engineering) is just the formal name for "write down the directions and keep refining them.")',
+      },
+      { t: 'h2', text: 'When the pack is the wrong tool' },
+      {
+        t: 'p',
+        text: 'Honest limits. This pack shines on the awkward one-off — an odd export, a key you have to reconstruct, a file too messy to wrangle by hand but not worth building a pipeline for. It is not the only answer, and not always the right one.',
+      },
+      {
+        t: 'table',
+        head: ['If you are…', 'Reach for', 'Because'],
+        rows: [
+          ['Reconciling two messy or one-off files', 'This prompt pack + an assistant that runs code', 'The model writes the parsing you would otherwise hand-build'],
+          ['Running the same two clean files every week', '[XLOOKUP in Excel](/notes/reconcile-two-files-in-excel-with-xlookup)', 'A stable formula is simpler than re-prompting'],
+          ['Reconciling a supported platform monthly', 'A purpose-built parser (A2X, Synder, etc.)', 'It already knows that platform\'s settlement format — but it is locked to the platforms it covers'],
+          ['Handing it off entirely', 'A bookkeeper', 'Fine, but you still cannot answer how a number was reached without asking them'],
+        ],
+      },
+      {
+        t: 'p',
+        text: 'The purpose-built parsers are genuinely good at what they cover; they are also retrospective money-to-ledger tools locked to specific platforms, which is a different job than matching two arbitrary exports. Use whichever fits the file in front of you — the pack is for when nothing off-the-shelf does.',
+      },
+      {
+        t: 'callout',
+        kind: 'tip',
+        text: 'Free download: the full sequence as one file — [reconciliation-prompt-pack.md](/downloads/reconciliation-prompt-pack.md). Copy it into a notes app or your assistant\'s saved-instructions field, swap in your filenames and key, and reuse it every close. No macros, no signup, nothing to buy.',
+      },
+      {
+        t: 'p',
+        text: 'The whole pack is one idea wearing seven prompts: make the assistant show its work in code, and keep yourself as the person who reads it. Do that and you get the speed the demos promise without trusting a number you cannot defend. If the assistant is ever unavailable, the same logic runs as a [by-hand method](/notes/how-to-reconcile-two-systems-by-hand) you control end to end — and either way, a reconciliation you can stand behind is one where you can point at exactly how every number was reached.',
+      },
+    ],
+    faq: [
+      {
+        q: 'What is a reconciliation prompt pack?',
+        a: 'A sequenced set of copy-paste prompts that walk an AI assistant through reconciling two files — from reading the files, to confirming the join key, to running a deterministic merge, to classifying the differences, to verifying nothing was dropped. The point is to hand the model the very clear directions it needs, while keeping every number in code you can re-run rather than in the model\'s prose.',
+      },
+      {
+        q: 'Why not just ask the AI to reconcile the two files?',
+        a: 'Because a language model predicts text, so asked for a total over thousands of rows it can return a fluent, confident number that is wrong, and a different one on the next run. The pack avoids this by making the model write and run code for all matching and arithmetic, and using its language only to map fields, propose a key, and explain differences.',
+      },
+      {
+        q: 'Do these prompts work with any AI tool?',
+        a: 'Yes, as long as the assistant can actually execute code in a sandbox rather than only chatting. The safety comes from what the prompts ask for — read IDs as text, outer merge, validate the key, print the counts, never state a number code did not produce — not from any one product, so they transfer across capable assistants.',
+      },
+      {
+        q: 'How do I check the AI did not drop or double rows?',
+        a: 'Run the verification prompt: print the row census from the merge indicator so left_only, right_only, and both add up to the totals; sum the amount column in each original file and tie it to a number you already trust; and trace three real rows by hand, including one that should not match. If the totals do not tie, the merge changed the data.',
+      },
+      {
+        q: 'Should I save the prompts or rewrite them each time?',
+        a: 'Save them. Reusing a vetted pack is what keeps the assistant consistent — re-improvised, one-off instructions are where accuracy tends to drift. Keep the standing-rules prompt and the sequence in a file or your assistant\'s saved-instructions field, and adjust only the filenames, key, and amount column each run.',
+      },
+    ],
+  },
+  {
+    slug: 'reconcile-two-files-with-an-ai-agent',
+    title: 'Reconcile two files with an AI agent: a safe, end-to-end walkthrough',
+    description:
+      'A step-by-step walkthrough for using an AI agent to reconcile two exports — by making it write and run the matching code instead of eyeballing the numbers, so every figure is computed, reproducible, and yours to check.',
+    keywords: [
+      'reconcile two files with ai',
+      'ai agent reconciliation walkthrough',
+      'ai data reconciliation step by step',
+      'automate reconciliation ai',
+      'ai code interpreter reconcile',
+      'reconcile csv with ai',
+    ],
+    lead: 'The threads asking whether AI can just do your reconciliation tend to get two replies: a joke about whatever bot someone is about to plug, or "pay a bookkeeper." Neither tells you how to actually do it. Here is the move that makes an AI agent genuinely useful — and safe — for reconciling two files: don\'t ask it to reconcile. Ask it to write and run the code that reconciles. Then every number is computed, reproducible, and yours to check.',
+    blocks: [
+      { t: 'h2', text: 'Stop asking the agent to reconcile' },
+      {
+        t: 'p',
+        text: 'The instinct is to paste two files in and say "reconcile these." Don\'t. A modern AI agent has two modes, and they are not equally trustworthy. In one it talks — it predicts plausible text, including plausible-sounding numbers. In the other it writes and runs real code in a sandbox, and shows you the output. You want the second mode doing every calculation, and the first mode doing only the messy judgment around it. This is the same division of labor behind [AI for setup, code for truth](/notes/can-an-ai-agent-reconcile-your-data): the model proposes, the code decides.',
+      },
+      {
+        t: 'p',
+        text: 'Why so strict? Because a language model that is asked to add up ten thousand rows will hand you a confident total in the same fluent tone whether it is right or invented — that failure has a name, [hallucination](https://en.wikipedia.org/wiki/Hallucination_%28artificial_intelligence%29), and you cannot spot it by looking. So the matching and the math have to live in code the agent runs, not in the sentence it types. Your job in this walkthrough is mostly to hold that line.',
+      },
+      {
+        t: 'callout',
+        kind: 'note',
+        text: 'The whole method in one line: the agent may parse, guess the key, write the code, run it, and explain the result — but it must never be the thing that decides whether two numbers are equal. Code does that.',
+      },
+      { t: 'h2', text: 'What you need before you start' },
+      {
+        t: 'ul',
+        items: [
+          'An AI agent with a code or data-analysis tool — anything that actually executes Python in a sandbox, not just chat. Tool-agnostic: the discipline is the same whichever you use.',
+          'Two exports of the same thing from two systems (CSV is easiest). A month of real rows beats clean demo data.',
+          'A [primary ID](/notes/what-we-mean-when-we-say-primary-id) you expect to join on — or at least a guess the agent can confirm. If no single column is unique, you are looking for a composite key.',
+          'One number you already trust — a gross sales figure, a deposit total, last month\'s known balance. That is your control total, and it is how you catch the agent quietly dropping rows.',
+        ],
+      },
+      { t: 'h2', text: 'The walkthrough, step by step' },
+      {
+        t: 'ol',
+        items: [
+          'Upload both files and ask for a census first — columns, row counts, and three sample rows from each. No matching yet. You are checking the agent read the files the way you expect.',
+          'Have it propose the join key and say why. Confirm it, or correct it. This is the one decision that quietly sinks most reconciliations, so do not skip it.',
+          'Ask it to write the merge as code that reads IDs as text, does an outer join, and tags every row by source. Read the code before it runs — it is short.',
+          'Have it run the code and print the row census: how many rows matched, how many exist only on the left, how many only on the right.',
+          'For matched rows, have it compute the value differences in code and show only the nonzero ones — not a prose summary.',
+          'Verify against your control total before you believe anything (next section).',
+          'Only now let the agent explain the differences in words — timing, fee, refund, real error — which is where it genuinely helps.',
+        ],
+      },
+      {
+        t: 'p',
+        text: 'The prompt that sets this up is mostly a list of refusals. Paste something like this, adjusted to your filenames and key:',
+      },
+      {
+        t: 'code',
+        text: 'You have two files: system_a.csv and system_b.csv.\nDo NOT reconcile them in your reply. Work in steps:\n1. Show the columns, row count, and 3 sample rows from each file.\n2. Propose which column is the shared key, and explain why.\n3. Write Python (pandas) that reads IDs as text, does an OUTER merge\n   on that key, with indicator=True and validate="one_to_one".\n4. Run it. Print the count of left_only, right_only, and both.\n5. For rows in both, compute the amount difference in code and show\n   only the nonzero ones. Do not summarize the numbers in prose.',
+      },
+      {
+        t: 'p',
+        text: 'What it should produce is an ordinary [pandas merge](https://pandas.pydata.org/docs/reference/api/pandas.merge.html) — the workhorse join, documented in the [merging guide](https://pandas.pydata.org/docs/user_guide/merging.html). Two arguments do the heavy lifting for trust: `indicator=True` tags each row as `left_only`, `right_only`, or `both`, and `validate="one_to_one"` makes the code error out loudly if the key is not unique instead of silently multiplying rows.',
+      },
+      {
+        t: 'code',
+        text: 'import pandas as pd\n\na = pd.read_csv("system_a.csv", dtype=str)   # keep IDs as text\nb = pd.read_csv("system_b.csv", dtype=str)\n\nmerged = a.merge(\n    b,\n    on="order_id",\n    how="outer",\n    indicator=True,         # tags each row left_only / right_only / both\n    validate="one_to_one",  # raises if the key is not unique on either side\n)\n\nprint(merged["_merge"].value_counts())   # your row-level census',
+      },
+      {
+        t: 'p',
+        text: 'Reading IDs as text matters more than it looks: it is the single most common way a join silently fails, because one system zero-pads an order number and the other does not, or a long ID gets rounded into scientific notation on export. Those [CSV gotchas](/notes/csv-gotchas-encoding-delimiters) make two identical IDs look different, and the agent will happily merge around them unless you force text. If you have ever done this [by hand in Excel with XLOOKUP](/notes/reconcile-two-files-in-excel-with-xlookup), it is the same trap, just earlier in the pipeline.',
+      },
+      { t: 'h2', text: 'Verify it did not quietly drop rows' },
+      {
+        t: 'p',
+        text: 'This is the step that separates a number you can defend from a confident guess. The agent ran code, which is good — but you still have to prove the code did what you think. Four cheap checks catch nearly everything, and they are the same things [an auditor looks for](/notes/what-auditors-look-for): completeness, a unique key, totals that tie, and a trail you can follow.',
+      },
+      {
+        t: 'table',
+        head: ['Check', 'What it catches', 'How'],
+        rows: [
+          ['Row census', 'Rows dropped or duplicated by the join', 'indicator=True, then count left_only / right_only / both and confirm they add up'],
+          ['Key is unique', 'A bad join that multiplies rows', 'validate="one_to_one" — it errors instead of guessing'],
+          ['Control total', 'Money silently missing', 'Sum the amount column in each file before the merge; the totals must reconcile to your trusted number'],
+          ['Spot-check', 'A wrong rule or a misread column', 'Trace three real rows by hand against the output, including one that should not match'],
+        ],
+      },
+      {
+        t: 'p',
+        text: 'The `left_only` and `right_only` buckets are not noise — they are the answer. Those are the [rows present in one file and missing from the other](/notes/find-missing-rows-in-excel-countif-match), which is usually the whole reason you reconciled in the first place. If the agent waves them away as "minor differences," that is the moment to push back.',
+      },
+      {
+        t: 'callout',
+        kind: 'warning',
+        text: 'Never accept a figure that only appears in the agent\'s prose. If a total is not printed by code you can see and re-run, treat it as decoration. The same prompt can give a different number next time — and a reconciliation has to produce the same result every run on the same data.',
+      },
+      { t: 'h2', text: 'When this beats a spreadsheet — and when to reach for a tool' },
+      {
+        t: 'p',
+        text: 'An AI agent that writes and runs code is at its best on the awkward one-off: an odd export, a key you have to reconstruct, a file too messy to wrangle by hand but not worth building a pipeline for. It is not the only answer, and it is not always the right one. Here is the honest comparison:',
+      },
+      {
+        t: 'table',
+        head: ['Approach', 'Good for', 'Watch out for'],
+        rows: [
+          ['AI agent that writes + runs code', 'Messy or one-off files, odd formats, a key you have to guess', 'Confirm it actually ran the code; never trust a number it only typed'],
+          ['XLOOKUP / formulas in Excel', 'Two fairly clean files, a stable repeat task', 'Formatting mismatches and the missing rows a lookup cannot surface on its own'],
+          ['Purpose-built parser (A2X, Synder, etc.)', 'A supported platform you reconcile the same way every month', 'Locked to the platforms it covers; still a retrospective, money-to-ledger view'],
+          ['Hand it to a bookkeeper', 'You would genuinely rather not touch it', 'You still cannot answer how a number was reached without asking them'],
+        ],
+      },
+      {
+        t: 'p',
+        text: 'That last column is the recurring complaint underneath the threads. In one [r/smallbusiness thread on monthly close time](https://reddit.com/r/smallbusiness/comments/1ncesi9/how_much_time_does_your_monthly/), a commenter describes spending "4-5 hours monthly" and then "outsourcing to a local bookkeeper for $200/month" just to make it stop — a fair trade, but it does not make the numbers any more inspectable. And the cynical replies on the AI side — like the top comment "I\'m going to use the first AI tool that your alt account plugs in the comments" on an [r/Accounting thread about manual Excel reconciliation](https://reddit.com/r/Accounting/comments/1szfy9x/anyone_else_still_doing_a_lot_of_manual/) — are reacting to vendors who hide the math behind a model. Making the agent show its code is the opposite of that.',
+      },
+      {
+        t: 'quote',
+        text: 'I\'ve seen a lot of demos, the problem I have is that the AI solutions require very clear directions.',
+      },
+      {
+        t: 'p',
+        text: 'That top-voted reply in an [r/FPandA thread on whether agentic AI tools actually help finance teams](https://reddit.com/r/FPandA/comments/1o920tp/are_agentic_ai_tools_really_making_finance_teams/) is exactly right, and it is good news here: the clarity it asks for is the prompt above. The directions are not vague vibes — they are "read IDs as text, outer merge, validate one-to-one, print the counts, do not summarize the numbers." Give an agent that, and the [prompt patterns that keep it in its lane](/notes/prompting-ai-to-help-reconcile-two-files), and you get the speed without surrendering the audit trail. If the agent is ever unavailable or you want a fallback you fully control, the same logic runs as a [by-hand method](/notes/how-to-reconcile-two-systems-by-hand). A reconciliation you can defend is one where you can point at how every number was reached — and that is true whether the code was typed by you or by an agent you supervised.',
+      },
+    ],
+    faq: [
+      {
+        q: 'Can an AI agent reconcile two files for me?',
+        a: 'Yes, if you make it write and run code for the matching and the math rather than answering from its own text. Used that way it parses messy exports, proposes the join key, runs a deterministic merge, and explains the differences. Asking it to reconcile in prose instead produces fast answers you cannot trust or reproduce.',
+      },
+      {
+        q: 'Is it safe to let AI do my reconciliation?',
+        a: 'It is safe for the setup and the explanation, and only safe for the numbers when those numbers come out of code the agent runs and prints, not out of its narration. Keep the arithmetic in code, verify against a control total and the row counts, and you keep both the speed and a result you can defend.',
+      },
+      {
+        q: 'Which AI tools can run the code for this?',
+        a: 'Any assistant with a code or data-analysis capability that actually executes Python in a sandbox works. The method is tool-agnostic because the safety comes from what you ask for — read IDs as text, outer merge, validate the key, print the counts — not from a specific product.',
+      },
+      {
+        q: 'How do I check the AI did not make a mistake?',
+        a: 'Run four checks: a row census from the merge indicator so nothing is dropped or duplicated, a unique-key validation that errors loudly, a control total that ties the summed amounts to a number you already trust, and a hand spot-check of three real rows including one that should not match.',
+      },
+      {
+        q: 'Is this better than reconciling in Excel?',
+        a: 'It is better for messy, one-off, or oddly formatted files, and for cases where you have to reconstruct the key, because the agent can write the parsing for you. For two clean files and a stable monthly task, a spreadsheet with XLOOKUP is often simpler. Neither replaces a repeatable system once the same reconciliation runs every week.',
+      },
+    ],
+  },
+  {
     slug: 'can-an-ai-agent-reconcile-your-data',
     title: 'Can an AI agent reconcile your data? What works and what does not',
     description:

@@ -76,6 +76,20 @@ export const writingEntries: readonly WritingEntry[] = [
     meta: '6 min read',
   },
   {
+    slug: 'reconciliation-prompt-pack',
+    date: 'APR 29, 2026',
+    category: 'AI',
+    title: 'A copy-paste reconciliation prompt pack (the directions AI actually needs).',
+    meta: '7 min read',
+  },
+  {
+    slug: 'reconcile-two-files-with-an-ai-agent',
+    date: 'APR 26, 2026',
+    category: 'AI',
+    title: 'Reconcile two files with an AI agent: a safe, end-to-end walkthrough.',
+    meta: '8 min read',
+  },
+  {
     slug: 'amazon-settlement-reconciliation',
     date: 'APR 22, 2026',
     category: 'Guides',
