@@ -59,9 +59,9 @@ function RootDocument({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
       <head>
-        <link rel="icon" type="image/svg+xml" href="/darpan-mark.svg" />
-        <link rel="shortcut icon" href="/darpan-mark.svg" />
-        <link rel="apple-touch-icon" href="/darpan-mark.svg" />
+        <link rel="icon" type="image/svg+xml" href="/darpan-mark-white.svg" />
+        <link rel="shortcut icon" href="/darpan-mark-white.svg" />
+        <link rel="apple-touch-icon" href="/darpan-mark-white.svg" />
         <HeadContent />
       </head>
       <body>
