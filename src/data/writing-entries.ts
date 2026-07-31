@@ -20,6 +20,48 @@ export const pillarColor: Record<string, string> = {
 
 export const writingEntries: readonly WritingEntry[] = [
   {
+    slug: 'credit-card-and-expense-reconciliation',
+    date: 'JUN 18, 2026',
+    category: 'Guides',
+    title: 'Credit card and expense reconciliation: one statement, three different matches.',
+    meta: '8 min read',
+  },
+  {
+    slug: 'spreadsheet-to-system-migration-checklist',
+    date: 'JUN 15, 2026',
+    category: 'Methods',
+    title: 'Moving off spreadsheets: a migration checklist that proves nothing got lost.',
+    meta: '8 min read',
+  },
+  {
+    slug: 'intercompany-reconciliation',
+    date: 'JUN 11, 2026',
+    category: 'Guides',
+    title: 'Intercompany reconciliation: when A’s payable doesn’t match B’s receivable.',
+    meta: '9 min read',
+  },
+  {
+    slug: 'inventory-reconciliation-cycle-counts',
+    date: 'JUN 8, 2026',
+    category: 'Guides',
+    title: 'Inventory reconciliation with cycle counts: keeping the shelf, the storefront, and the books in agreement.',
+    meta: '9 min read',
+  },
+  {
+    slug: 'reconcile-your-integration-dropped-records',
+    date: 'JUN 4, 2026',
+    category: 'Guides',
+    title: 'Your integration ran clean and still dropped records: catching the orders that never made it across.',
+    meta: '9 min read',
+  },
+  {
+    slug: '3pl-inventory-sync-oversells',
+    date: 'JUN 1, 2026',
+    category: 'Guides',
+    title: 'Why inventory oversells across Shopify, Amazon, and your 3PL — and how to reconcile it.',
+    meta: '9 min read',
+  },
+  {
     slug: 'reconcile-shopify-orders-against-your-erp',
     date: 'MAY 28, 2026',
     category: 'Guides',

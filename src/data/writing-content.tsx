@@ -31,6 +31,865 @@ export type Article = {
 
 const articles: Article[] = [
   {
+    slug: 'credit-card-and-expense-reconciliation',
+    title: 'Credit card and expense reconciliation: one statement, three different matches',
+    description:
+      'A credit card reconciliation is three different matches, not one: statement lines against your ledger, charges against receipts and expense reports, and the payment against your bank account. Running them as one pass is why the job takes days instead of an hour. This guide explains why a reconciliation that balances to zero can still be wrong (offsetting errors hide inside a zero difference), how to set each card up as a liability account you can actually reconcile instead of one monthly bill, a step-by-step statement-to-ledger procedure with copy-paste Excel checks, and how to run the receipt match as its own pass so twenty cardholders do not swallow month-end.',
+    keywords: [
+      'credit card reconciliation',
+      'reconcile credit card statement to books',
+      'credit card reconciliation balanced but still wrong',
+      'corporate card expense reconciliation process',
+      'credit card liability account setup',
+      'match credit card transactions in excel',
+      'statement closing date timing differences',
+      'undo previous reconciliation quickbooks desktop',
+      'employee card receipts month end',
+      'credit card payment double counted expense',
+    ],
+    lead: 'A bookkeeper on [r/Bookkeeping](https://reddit.com/r/Bookkeeping/comments/1st4iym/quickbooks_desktop_credit_card_reconciliation/) did everything right: "I reconciled my organization’s Capital One statement for 2/19–3/21 and it balanced to zero." Then came the discovery — "I accidentally included two Zoom charges ($50 each) in that reconciliation, when the statement only had one." A reconciliation that balanced, and was still wrong. If that sentence makes you slightly nervous about your own card recs, good — it should, and the fix is not working harder. It is knowing what a credit card reconciliation actually checks. A zero difference proves your cleared total equals the statement total. It says nothing about whether you cleared the right items. This guide covers the whole job: the three separate matches hiding inside "reconcile the card," the account setup that makes the match possible at all, the statement-to-ledger procedure step by step, and how to stop receipts from twenty cardholders turning a one-hour match into a week.',
+    blocks: [
+      { t: 'h2', text: 'How can a credit card reconciliation balance to zero and still be wrong?' },
+      {
+        t: 'p',
+        text: 'Because [reconciliation](https://en.wikipedia.org/wiki/Reconciliation_%28accounting%29) compares totals, and totals can agree for the wrong reasons. When you tick items off against a statement, the software checks one thing: cleared items minus statement balance equals zero. Clear an extra $50 charge that is not on this statement and miss a real $50 charge that is, and the two errors cancel. The screen says zero. The set is wrong. That is exactly what a commenter diagnosed in the Capital One thread: ["If you cleared a transaction from a future period, and you reconciled, then you missed another transaction, or multiples, that total the $50."](https://reddit.com/r/Bookkeeping/comments/1st4iym/quickbooks_desktop_credit_card_reconciliation/) The same mechanism lets [duplicate payments hide behind offsetting amounts](/notes/fuzzy-matching-records), and it is why [an auditor never accepts "it balanced" as evidence on its own](/notes/what-auditors-look-for).',
+      },
+      {
+        t: 'callout',
+        kind: 'warning',
+        text: 'A zero difference proves the total, not the set. The reconciliation is only done when the difference is zero AND every line on the statement is ticked against a ledger item from the same period — no extras cleared, none skipped.',
+      },
+      {
+        t: 'p',
+        text: 'When you do find a bad reconciliation after the fact, fix it properly rather than patching around it. Another commenter in that thread gave the QuickBooks Desktop answer — ["I\'d just undo the last reconciliation"](https://reddit.com/r/Bookkeeping/comments/1st4iym/quickbooks_desktop_credit_card_reconciliation/) — and that is a real, supported feature: Desktop has an [Undo Last Reconciliation option](https://quickbooks.intuit.com/learn-support/en-us/help-article/reconciliation-reports/reconcile-account-quickbooks-desktop/L2U5ZKM1J_US_en_US) on the reconcile screen, and QuickBooks Online has an equivalent [undo-and-remove flow](https://quickbooks.intuit.com/learn-support/en-us/help-article/accounting-bookkeeping/undo-remove-transactions-reconciliations-online/L6ERlEXxn_US_en_US). Undo back to the last reconciliation you trust, fix the misclears, and re-run. Never force the next period to balance with an adjustment entry — a plug hides the error permanently and poisons every opening balance after it.',
+      },
+      { t: 'h2', text: 'What are you actually reconciling a credit card against?' },
+      {
+        t: 'p',
+        text: 'The sharpest reply in a [r/Accounting thread about a 1,400-transaction card rec](https://reddit.com/r/Accounting/comments/1thka04/how_long_for_1400_credit_card_reconciliation/) was not an answer but a question: ["Reconciling to what? Expense system outputs? Paper receipts? To nothing (so chasing cardholders for submissions)?"](https://reddit.com/r/Accounting/comments/1thka04/how_long_for_1400_credit_card_reconciliation/) That question is the whole subject. "Reconcile the card" is actually three different matches, with different sources, different purposes, and different failure modes — and most of the pain in card reconciliation comes from running them as one undifferentiated pass.',
+      },
+      {
+        t: 'table',
+        head: ['Match', 'What you compare', 'What it proves', 'Where it breaks'],
+        rows: [
+          ['1. Statement to ledger', 'Every line on the card statement against the card’s liability account in your books', 'Your books are complete and accurate: no missing charges, no duplicates, no amount typos', 'Cross-period clearing, offsetting errors, interest and fees never entered'],
+          ['2. Charge to support', 'Each charge against a receipt, expense report, or purchase order', 'The spend is legitimate and coded to the right category or job', 'Receipts arriving days late or never; personal spend on the company card'],
+          ['3. Payment to bank', 'The payment that reduces the card balance against the bank account it left', 'The transfer leg posted once, in both accounts', 'Payment booked as an expense — double-counting spend that was already recorded charge by charge'],
+        ],
+      },
+      {
+        t: 'p',
+        text: 'Match 1 is the reconciliation in the [accounting sense](https://en.wikipedia.org/wiki/Reconciliation_%28accounting%29) — it is what "balanced to zero" refers to, and it is mechanical. Match 2 is a compliance check that involves humans and paper, which is why it is slow. Match 3 is one transfer, but it is where books quietly double-count. Keep the three separate — in your procedure and in your head — and each one gets easier.',
+      },
+      {
+        t: 'callout',
+        kind: 'note',
+        text: 'Same phrase, different job: if you accept card payments from customers, "credit card reconciliation" can also mean matching the processor’s deposits to your sales — a merchant on [r/shopify was off by $135k over six months](https://reddit.com/r/shopify/comments/1ptattu/shopify_credit_card_reconciliation_off_by_135k_in/) on that side of it. That is payout reconciliation, and it has its own guides: [why Shopify deposits never match sales](/notes/why-shopify-deposits-never-match-sales) and [marketplace payout reconciliation](/notes/marketplace-payout-reconciliation). This article is about cards you spend on.',
+      },
+      { t: 'h2', text: 'How should the card be set up in your books?' },
+      {
+        t: 'p',
+        text: 'As a [liability account](https://en.wikipedia.org/wiki/Liability_%28financial_accounting%29) — one per card program, with each charge posted to it as it happens. This is the setup question underneath a [r/Accounting thread](https://reddit.com/r/Accounting/comments/1p6nz41/credit_card_reconciliation_question/) from an office manager whose predecessor "paid the full balance of all credit cards monthly by creating a bill, entering the transactions, and paying via check" — until their CPA flagged it and they moved the cards onto the chart of accounts "so that I will be able to actually reconcile them." That last clause is the point. A monthly lump bill gives you an expense with no per-transaction detail: nothing to tick against the statement, no way to catch a duplicate or a missing charge, no liability balance to verify. With a liability account, the mechanics are simple and the [platform docs spell them out](https://quickbooks.intuit.com/learn-support/en-us/help-article/pay-bills/record-payments-credit-cards/L7IjpiWLZ_US_en_US): charges increase the card balance and hit expense categories when they occur; the monthly payment is a transfer from bank to card — not an expense. Book the payment as an expense and you have counted the spend twice, once per charge and once in the lump.',
+      },
+      {
+        t: 'callout',
+        kind: 'tip',
+        text: 'Card statements close on a cycle date, not at month-end — the Capital One statement above ran 2/19 to 3/21. Charges dated after the closing date belong to next cycle: leave them uncleared, and let the reconciliation carry them as timing items the way [deposits in transit work in a bank rec](/notes/bank-reconciliation-step-by-step). They are not errors. Chasing them as errors is a classic way to lose an evening.',
+      },
+      { t: 'h2', text: 'Step by step: reconcile the statement to your ledger' },
+      {
+        t: 'p',
+        text: 'This is match 1, and it is the same discipline as a [bank reconciliation](/notes/bank-reconciliation-step-by-step) with the direction flipped: the card is a liability, so charges increase the balance and payments reduce it. The procedure:',
+      },
+      {
+        t: 'ol',
+        items: [
+          'Pull both files. Export the statement period as CSV from the card portal, and export the card’s ledger account (or the transaction feed) for the same date range. Watch the [usual CSV traps](/notes/csv-gotchas-encoding-delimiters) — amounts as text and locale-flipped dates break every match downstream.',
+          'Confirm the opening balance. The statement’s opening balance must equal the ending balance of your last reconciliation. If it does not, stop — someone edited or deleted a cleared transaction, and reconciling on a wrong opening balance builds on sand. Fix that first.',
+          'Match exact first: amount plus date (give the date a day or two of slack for posting lag), then merchant as a tiebreaker. In a spreadsheet this is [XLOOKUP](/notes/reconcile-two-files-in-excel-with-xlookup) or [COUNTIFS](/notes/find-missing-rows-in-excel-countif-match) work; the checks below flag both directions.',
+          'Work the exceptions by direction. On the statement but not in your books: a real charge you never recorded — enter it (this is where interest and card fees usually hide). In your books but not on the statement: either a timing item dated after the closing date (leave it for next cycle) or a duplicate entry (delete it, and note how it got in).',
+          'Declare done only on both conditions: difference zero AND every statement line ticked. A zero with unticked statement lines or extra cleared items is the offsetting-error case from the top of this piece.',
+          'Record the payment as a transfer from the bank account to the card liability account — never as an expense. This is also the one entry that must appear in two reconciliations: this one and [the bank’s](/notes/bank-reconciliation-step-by-step).',
+          'Save the reconciliation report with the statement. That pairing — statement, cleared list, explained timing items — is [exactly the evidence an auditor asks for](/notes/what-auditors-look-for), and it costs nothing to keep now.',
+        ],
+      },
+      {
+        t: 'code',
+        text: 'Layout: columns A (date), B (merchant), C (amount) in both sheets —\none named Statement, one named Ledger.\n\nIn the Statement sheet — flags a statement line with no same-amount\nledger entry within 3 days (a charge missing from your books):\n=COUNTIFS(Ledger!C:C, C2, Ledger!A:A, ">="&A2-3, Ledger!A:A, "<="&A2+3) = 0\n\nIn the Ledger sheet — flags a ledger entry with no matching statement\nline (a timing item after the closing date, or a duplicate):\n=COUNTIFS(Statement!C:C, C2, Statement!A:A, ">="&A2-3, Statement!A:A, "<="&A2+3) = 0\n\nIn the Ledger sheet — flags a possible duplicate entry\n(same merchant, same amount):\n=COUNTIFS(B:B, B2, C:C, C2) > 1',
+      },
+      {
+        t: 'p',
+        text: 'On volume: the 1,400-transaction thread’s top answer was ["You should just be able to match on amounts and dates with an excel export of the two files. Should take less than 30 minutes, maybe an hour if there are a lot of discrepancies"](https://reddit.com/r/Accounting/comments/1thka04/how_long_for_1400_credit_card_reconciliation/) — and for match 1, that is about right. The exact-match pass scales fine; [the same by-hand method](/notes/how-to-reconcile-two-systems-by-hand) that handles 100 rows handles 1,400. What does not scale in minutes is everything the question hid: if "reconcile" includes chasing receipts and coding spend, you are doing matches 2 and 3 as well, and those are measured in days for a different reason.',
+      },
+      { t: 'h2', text: 'How do you keep receipts and twenty cardholders from swallowing month-end?' },
+      {
+        t: 'p',
+        text: 'By treating the receipt match as its own pass with its own rules — because its bottleneck is people, not data. An operator on [r/QuickBooks](https://reddit.com/r/QuickBooks/comments/1sfqouy/how_to_automate_expense_tracking_and_actually/) described the shape of it: "The transaction hits the feed, but the receipt comes in three days later if at all" — usually as a blurry photo in an email. A [50-person agency in another thread](https://reddit.com/r/QuickBooks/comments/1obqr2q/are_we_overcomplicating_credit_card_coding_at_our/) runs "around 500 credit card transactions per month across those 20 cards" through an internal budgeting system, then syncs the bank feed on top — and the one useful reply named the principle: when charges are already entered from your expense system, ["the syncing from PNC is strictly to "match" and make sure there aren\'t any missing charges"](https://reddit.com/r/QuickBooks/comments/1obqr2q/are_we_overcomplicating_credit_card_coding_at_our/). One stream is the record; the other stream verifies it. Do not code the same charge in both.',
+      },
+      {
+        t: 'ul',
+        items: [
+          'Split the pass by cardholder, not by date. Twenty small per-card lists, each owned by the person who spent the money, close faster than one 500-row pile owned by the accountant.',
+          'Give the policy a consequence, and put the deadline before the statement match. One commenter’s rule, verbatim: ["No clear receipt that is legible and includes all information….it is assumed it was personal purchase and deducted from payroll."](https://reddit.com/r/QuickBooks/comments/1sfqouy/how_to_automate_expense_tracking_and_actually/) You do not need one that severe — but a stated consequence beats a monthly reminder email, every time.',
+          'A missing receipt does not block the statement match. The charge is still real and still reconciles to the ledger; flag it unsupported and keep the statement pass moving. Match 2 has its own exception list.',
+          'Capture-at-swipe tools exist for exactly this. The thread names Ramp, Airwallex, Payhawk, and Wallester — spend-management cards built to capture the receipt at purchase time rather than at month-end. They compress match 2; they do not do match 1 for you, and [expense management](https://en.wikipedia.org/wiki/Expense_management) as a category is about the claim-and-audit workflow, not the statement tie-out.',
+        ],
+      },
+      {
+        t: 'p',
+        text: 'The order of operations matters more than the tooling: statement to ledger first (it is mechanical and tells you the books are complete), receipts second (against a ledger you now trust), payment to bank last. Then the rec goes in the file with [the rest of the month-end tie-outs](/notes/tick-and-tie-checklist). Three small matches, run separately, each with a clear done condition. Boring on purpose — and a card program that stops eating the last week of the month.',
+      },
+    ],
+    faq: [
+      {
+        q: 'Is reconciling a credit card the same as reconciling a bank account?',
+        a: 'Same discipline, flipped direction. The card is a liability, so charges increase the balance and payments reduce it. You still compare the statement to your books line by line, explain timing items (charges after the statement closing date), and finish only when the difference is zero and every statement line is accounted for.',
+      },
+      {
+        q: 'My credit card reconciliation balanced to zero — can it still be wrong?',
+        a: 'Yes. Zero proves your cleared total equals the statement total, not that you cleared the right items. An extra cleared charge and a missed real charge of the same amount cancel out. Done means zero difference and every statement line ticked against a same-period ledger item, with no extras cleared.',
+      },
+      {
+        q: 'Should credit card charges be entered as one monthly bill?',
+        a: 'No. A monthly lump gives you an expense with no per-transaction detail, so there is nothing to reconcile and duplicates or missing charges cannot be caught. Set the card up as a liability account, post charges as they occur, and record the monthly payment as a transfer from the bank to the card — not as an expense, or the spend is counted twice.',
+      },
+      {
+        q: 'What do I do with charges dated after the statement closing date?',
+        a: 'Leave them uncleared. Card statements run on a cycle (for example the 19th to the 21st of the next month), so charges after the closing date belong to the next statement. They are timing items, not errors, and they will clear next cycle.',
+      },
+      {
+        q: 'Do I need every receipt before I can reconcile the statement?',
+        a: 'No. The statement-to-ledger match and the charge-to-receipt match are separate passes. A charge with a missing receipt still reconciles to the statement — flag it as unsupported on the expense side and keep the statement pass moving. Blocking the reconciliation on receipts is how a one-hour match becomes a week.',
+      },
+    ],
+  },
+  {
+    slug: 'spreadsheet-to-system-migration-checklist',
+    title: 'Moving off spreadsheets: a migration checklist that proves nothing got lost',
+    description:
+      'A spreadsheet-to-system migration is not done when the importer says success — it is done when the new system reconciles to the frozen spreadsheets on a control set you defined before you moved: record counts, control totals, open items, and opening balances that tie to the old numbers. This checklist covers the whole move: what to clean before you export (one owning sheet per record type, a stable primary ID, deduped rows, text-formatted keys and ISO dates), the import-proving procedure (freeze the sheets, count what left, count what arrived, tie the totals, anti-join the misses, tie the opening trial balance), how long to run old and new in parallel, and why the old spreadsheets get archived read-only instead of deleted. Includes a printable migration checklist download.',
+    keywords: [
+      'spreadsheet to system migration checklist',
+      'migrate from excel to accounting software',
+      'move from spreadsheets to erp',
+      'data migration reconciliation',
+      'validate migrated data record counts control totals',
+      'opening balance does not match after migration',
+      'xero conversion balances trial balance',
+      'quickbooks opening balance migration',
+      'parallel run old and new system',
+      'freeze spreadsheets after migration audit trail',
+    ],
+    lead: 'An Australian distributor asked [r/smallbusiness](https://reddit.com/r/smallbusiness/comments/1tap1s9/stuck_on_legacy_systems_at_3m_revenue_with_10/) what sensible modernization looks like at $3M revenue and 5,000 orders a year: HubSpot for CRM, MYOB for accounting, FileMaker for sample loans, and ["a graveyard of Google Sheets for dispatch, credit card payments, overseas supplier payments"](https://reddit.com/r/smallbusiness/comments/1tap1s9/stuck_on_legacy_systems_at_3m_revenue_with_10/). Forty-three comments later, the advice ran to which system to buy and what made the business special — nobody laid out the part that decides whether the move actually works: how do you get years of spreadsheet data into a system and prove nothing got lost or bent on the way? So here is that answer, up front. A migration is a reconciliation. It is not done when the importer says success — it is done when the new system ties to the frozen spreadsheets on a control set you wrote down before you moved: record counts, control totals, open items, and opening balances. Miss that step and you will spend the next year not trusting the new system for the same reason you did not trust the sheets. The full checklist is below, and there is a [printable version](/downloads/spreadsheet-to-system-migration-checklist.md) to take with you.',
+    blocks: [
+      { t: 'h2', text: 'Why do spreadsheet-to-system migrations go wrong?' },
+      {
+        t: 'p',
+        text: 'Because "imported" gets mistaken for "correct." An importer reports what it processed, not whether what arrived still means what it meant in the sheet. [Data migration](https://en.wikipedia.org/wiki/Data_migration) has a whole verification discipline for exactly this reason: after the transfer, [data verification](https://en.wikipedia.org/wiki/Data_verification) checks that records were translated accurately and completely — because the failure modes are quiet. A key column that [lost its leading zeros or flipped to scientific notation](/notes/csv-gotchas-encoding-delimiters) on the way through CSV. A date column read in the wrong locale. A currency column that silently dropped its negative signs on refunds. None of these stop the import. All of them break every match you try to run afterward.',
+      },
+      {
+        t: 'p',
+        text: 'The other classic failure is duplication rather than loss. An operator on [r/QuickBooks](https://reddit.com/r/QuickBooks/comments/1l1uwaz/can_i_match_imported_gross_cc_payments_to/) — mid-move, "reconciling accounts monthly using a very dense spreadsheet, and I\'m hoping to move everything to QuickBooks Online" — got the sharpest description of it from a commenter: ["you have two separate import streams creating duplicate records of the same transaction in QBO, and there\'s no automatic way for QBO to match them since they came in through different doors"](https://reddit.com/r/QuickBooks/comments/1l1uwaz/can_i_match_imported_gross_cc_payments_to/). Two sheets that both mention the same order become two records the moment you import both. The system did not make a mistake. The migration plan did — by never deciding [which sheet owns which record](/notes/what-we-mean-when-we-say-primary-id).',
+      },
+      { t: 'h2', text: 'What should you clean before you export?' },
+      {
+        t: 'p',
+        text: 'One commenter in that thread — from a CFO-services firm, so read it as a practitioner with something to sell — pushed back on the buy-something reflex, and was half right: ["don’t buy an erp because your process is messy. at $3m and 5,000 orders, the win is killing duplicate entry and paper handoffs first."](https://reddit.com/r/smallbusiness/comments/1tap1s9/stuck_on_legacy_systems_at_3m_revenue_with_10/) Right — a system inherits your mess with better fonts. But "clean it up first" needs a concrete meaning, and for a migration it is this:',
+      },
+      {
+        t: 'ul',
+        items: [
+          'One owning sheet per record type. Products, customers, open orders, open invoices, on-hand quantities: each gets exactly one sheet declared the source of truth for the move. Every other sheet that mentions those records is reference material, not import material. This is the single decision that prevents the two-doors duplicate problem above.',
+          'A [primary ID](/notes/what-we-mean-when-we-say-primary-id) that survives the trip. Every row needs a stable, unique key — order number, SKU, invoice number — formatted as text so Excel and the importer cannot [reshape it in transit](/notes/csv-gotchas-encoding-delimiters). If rows have no natural key, mint one now and keep it through the import; it is how you will trace any missing row back.',
+          'Deduplicate before you export, not after. Near-miss duplicates — the same vendor spelled two ways, the same invoice keyed twice with slightly different numbers — import as clean separate records and are much harder to unpick inside a system. [Fuzzy-match them in the sheet](/notes/fuzzy-matching-records) while it is still cheap.',
+          'Normalize the fragile formats: dates to ISO YYYY-MM-DD, one currency convention, no merged cells, no color-as-data. If the meaning lives in formatting, it will not survive a CSV.',
+          'Migrate facts, not formulas. Derived columns — running balances, lookups, subtotals — get recomputed by the new system. Exporting them just gives you two versions of a number that can disagree later.',
+        ],
+      },
+      { t: 'h2', text: 'What does "the migration is done" actually mean?' },
+      {
+        t: 'p',
+        text: 'Write the definition down before you import anything, because afterward it is too easy to declare victory. Done means: the new system reconciles to the frozen sheets on a small set of controls, every control passes or has a named, explained exception, and someone signed it. That is the same standard [an auditor holds a reconciliation to](/notes/what-auditors-look-for) — not "it looks right," but "here is the evidence." The control set is short:',
+      },
+      {
+        t: 'table',
+        head: ['Control', 'From the frozen sheets', 'From the new system', 'Passes when'],
+        rows: [
+          ['Record counts', 'Row count per exported sheet', 'Record count per imported type', 'Equal, or the difference is a named list of intentionally skipped rows'],
+          ['Control totals', 'Sum of amount, quantity, balance columns', 'Same sums from a system report', 'Equal to the cent / unit'],
+          ['Open items', 'Count + total of unpaid invoices, open orders', 'Open-item reports after import', 'Both match, item by item'],
+          ['Opening balances', 'Closing balances in the sheets on cutover date', 'Opening trial balance in the system', 'Every account ties; nothing unexplained parked in an equity plug'],
+          ['Spot-check sample', '10-20 real rows, including the ugly ones', 'The same records, opened in the UI', 'Every field means what it meant in the sheet'],
+        ],
+      },
+      {
+        t: 'p',
+        text: 'Opening balances deserve the extra sentence, because the accounting platforms are explicit about them. Xero calls them [conversion balances](https://central.xero.com/s/article/Enter-conversion-balances) and expects you to bring the [trial balance](https://en.wikipedia.org/wiki/Trial_balance) from your previous system as of the day before your [conversion date](https://central.xero.com/s/article/Setting-your-conversion-date); QuickBooks Online has the same concept as [opening balances](https://quickbooks.intuit.com/learn-support/en-us/help-article/bank-deposits/enter-opening-balance-account-quickbooks-online/L7NcxTbuu_US_en_US), offset through an opening-balance-equity account. If your "previous system" is a stack of sheets, the closing totals of those sheets on cutover day are your trial balance. They have to tie — that number is the foundation [every future reconciliation builds on](/notes/tick-and-tie-checklist).',
+      },
+      { t: 'h2', text: 'How do you prove the import, step by step?' },
+      {
+        t: 'ol',
+        items: [
+          'Pick the cutover date. First of a month, immediately after a close you trust. Xero requires the first of a month for its conversion date; it is the right convention everywhere else too.',
+          'Freeze the sheets. Make a dated, read-only copy of every owning sheet. This frozen set is the migration baseline: every check below compares against it, not against a live sheet someone can still edit.',
+          'Record what is leaving. For each frozen sheet: row count, and the sum of every amount, quantity, and balance column. Write them in a control log.',
+          'Clean per the list above, in a working copy — never in the frozen baseline.',
+          'Export and import. Keep the key column formatted as text end to end.',
+          'Count what arrived. Pull record counts and the same sums from the new system\'s reports. Compare against the control log.',
+          'Find the misses by name. If counts differ, anti-join the frozen sheet against a system export on the primary ID — [COUNTIF / MATCH](/notes/find-missing-rows-in-excel-countif-match) or [XLOOKUP](/notes/reconcile-two-files-in-excel-with-xlookup) does it in minutes — so you get the exact rows that dropped or duplicated, not just a discrepancy.',
+          'Tie the opening balances. Enter them from the frozen sheets\' closing totals, run the system\'s trial balance, and confirm every line. Do not plug a difference to make it balance — a plug today is an unexplainable number forever. Investigate: it is a dropped row, a duplicate, or a bent field, and step 7 will name it.',
+        ],
+      },
+      {
+        t: 'code',
+        text: 'Control log, per exported sheet\n-------------------------------\nrows_out    = COUNTA(A2:A5001)        row count leaving the sheet\ntotal_out   = SUM(F2:F5001)           per amount / qty / balance column\n\nAfter import, from the system\'s own reports\n--------------------------------------------\nrows_in     = record count for the imported type\ntotal_in    = same sums, from a system report\n\nPass condition\n--------------\nrows_out = rows_in   AND   total_out = total_in   (to the cent / unit)\n\nIf not — name the rows. Anti-join on the primary ID:\n----------------------------------------------------\n=COUNTIF(SystemExport!A:A, A2)        0    = this row never arrived\n=COUNTIF(A:A, A2) > 1                 TRUE = duplicate in the source',
+      },
+      { t: 'h2', text: 'Should you run the old and new systems in parallel?' },
+      {
+        t: 'p',
+        text: 'For one full cycle, yes. [Parallel running](https://en.wikipedia.org/wiki/Parallel_running) — operating both, feeding both the same transactions, comparing the outputs — is the classic way to prove a new system before you depend on it, and comparing those outputs is just [reconciling two systems](/notes/how-to-reconcile-two-systems-by-hand), which after this migration you are already set up to do. Honesty about the cost: it is double the work, which is why the textbook caveat is that it gets prohibitive at scale. So scope it. One month-end in both. If your operation is bigger, parallel only the processes where an error is expensive — cash, open orders, inventory on hand — and cut the rest over directly. What you are buying is one close where a disagreement points at a configuration mistake you can still fix cheaply, instead of a mystery you discover in production.',
+      },
+      { t: 'h2', text: 'What happens to the old spreadsheets?' },
+      {
+        t: 'p',
+        text: 'They get archived read-only, and they never get deleted. The frozen sheets are the evidence behind your opening balances — the thing you point at when a number is questioned two years from now. When a poster on [r/FPandA](https://reddit.com/r/FPandA/comments/1rwyar6/whats_actually_in_your_saas_finance_stack_that/) described a "full reset" of their finance stack that took the close from 8 days to 2, the replies went straight at the trail: ["Did you actually migrate the ledger or just start a new \'Company\' file in QB? Because starting fresh is cheating lol"](https://reddit.com/r/FPandA/comments/1rwyar6/whats_actually_in_your_saas_finance_stack_that/), and a more pointed one — cutting a close by 75% ["usually means you’re cutting corners on the audit trail"](https://reddit.com/r/FPandA/comments/1rwyar6/whats_actually_in_your_saas_finance_stack_that/). That is the reputation a bridge-less migration earns. The frozen baseline plus the signed control log is what makes yours defensible instead.',
+      },
+      {
+        t: 'callout',
+        kind: 'warning',
+        text: 'The fresh-start trap: entering opening balances nobody can trace back to anything. It feels clean — new system, round numbers, move on. But an opening balance with no bridge to the old records is an unverifiable base, and every reconciliation you run afterward inherits it. A thread title on r/Netsuite says where that road ends: [Migrating to Standard Bank Rec and Dealing with a 10-year gap](https://reddit.com/r/Netsuite/comments/1s2mqzb/migrating_to_standard_bank_rec_and_dealing_with_a/) — ten years of unreconciled history to excavate, and zero replies. Draw the line on cutover day, prove it once, and nobody ever has to dig it back up.',
+      },
+      {
+        t: 'callout',
+        kind: 'note',
+        text: 'Free download: the whole thing as a printable checklist — [spreadsheet-to-system-migration-checklist.md](/downloads/spreadsheet-to-system-migration-checklist.md). Freeze, clean, export, prove, parallel, archive — with the control log built in. No macros, no signup; delete the example rows and add your own sheets.',
+      },
+      {
+        t: 'p',
+        text: 'One more thing, because it is the part everyone skips in the relief of being done: the checking does not stop at go-live. The day-one control set — counts, totals, anti-join on the key — is exactly the check you should keep running between the new system and whatever still feeds it, because [integrations drop records too](/notes/reconcile-your-integration-dropped-records), and they do it silently. The migration taught you to verify a transfer instead of trusting it. Keep the habit; it is worth more than the new software.',
+      },
+    ],
+    faq: [
+      {
+        q: 'Do I need to migrate historical transactions, or just opening balances?',
+        a: 'The minimum is opening balances plus open items: unpaid invoices, unshipped orders, on-hand quantities. History is optional — most teams keep it in the archived read-only sheets and import one to two years at most, because every imported year is another year of data to verify. If you skip history, the frozen sheets remain your archive, which is another reason they never get deleted.',
+      },
+      {
+        q: 'How long should the parallel run last?',
+        a: 'At least one full close cycle — a complete month-end processed in both, with the outputs compared line by line. One cycle catches most configuration and mapping errors. Running parallel for many months usually means nobody defined what would count as passing, so define the pass condition first and stop when it holds.',
+      },
+      {
+        q: 'What if the new system\'s balances don\'t match the spreadsheet after import?',
+        a: 'Do not plug the difference. Work the sequence: compare record counts first (did rows drop or duplicate?), then control totals per column (did a field bend — signs, decimals, dates?), then anti-join on the primary ID to name the exact offending rows. A migration difference is always one of three things — a missing row, a duplicated row, or a changed value — and the sequence identifies which before you touch anything.',
+      },
+      {
+        q: 'Should I clean the data before or after migrating?',
+        a: 'Before, in a working copy of the frozen export. Cleaning inside the new system means reconciling a moving target: you can no longer tell whether a difference against the old sheets is a migration error or your own cleanup. Fix duplicates, keys, and formats in the sheet, re-run the control totals, then import.',
+      },
+      {
+        q: 'Can I just start fresh in the new system and skip the migration?',
+        a: 'You can start with balances only and no transaction history — that is a legitimate lightweight migration. What you cannot skip is proving those balances: they must tie to the closing totals of the old records on cutover day, and the old records must be kept read-only as evidence. A fresh start with untraceable numbers is not a migration, it is a gap that every future reconciliation sits on top of.',
+      },
+    ],
+  },
+  {
+    slug: 'intercompany-reconciliation',
+    title: 'Intercompany reconciliation: when A\'s payable doesn\'t match B\'s receivable',
+    description:
+      'Intercompany balances never tie out on their own because there is no outside statement to check against — the counterparty\'s ledger is the statement, and both ledgers are yours. This guide gives the working method: treat every intercompany relationship as a mirror pair (one entity\'s payable against the other\'s receivable), reconcile pair by pair in a counterparty matrix, match at transaction level in the transaction currency so FX translation stops looking like an error, classify every difference into one of five causes (one-sided booking, timing, FX translation, fees and partial payments, quiet write-offs), book corrections in the ledger that is actually wrong instead of plugging at consolidation, and have both entities certify the same closing balance before elimination runs. Includes a worked pair reconciliation, the clearing-account-that-keeps-revaluing trap in NetSuite, and the cadence that keeps intercompany from eating the last two days of close.',
+    keywords: [
+      'intercompany reconciliation',
+      'intercompany balances do not net to zero',
+      'intercompany receivable payable mismatch',
+      'intercompany elimination out of balance',
+      'intercompany matrix reconciliation',
+      'reconcile intercompany accounts month end',
+      'intercompany clearing account revaluation',
+      'netsuite intercompany elimination',
+      'intercompany cutoff month end close',
+    ],
+    lead: 'Subsidiary A\'s books say it owes subsidiary B twenty dollars. B\'s books show no receivable at all. An accountant put exactly that to [r/Accounting](https://reddit.com/r/Accounting/comments/shnrhm/stupid_question_how_do_you_eliminate_intercompany/) — ["A owes B net of $20, but there\'s no intercompany receivable on B\'s balance sheet"](https://reddit.com/r/Accounting/comments/shnrhm/stupid_question_how_do_you_eliminate_intercompany/) — and the top answer was one line: ["It means one subsidiary didn’t book an entry properly most likely"](https://reddit.com/r/Accounting/comments/shnrhm/stupid_question_how_do_you_eliminate_intercompany/). True. Also not a method. Here\'s the thing that makes intercompany feel cursed: there is no bank statement. Every other reconciliation checks your books against an outside referee — [the bank](/notes/bank-reconciliation-step-by-step), the platform, the processor. In intercompany, the "statement" is just another ledger you also own, kept by another team, in another currency, on another calendar. Every balance is a mirror pair: A\'s payable to B has to equal B\'s receivable from A, exactly, or consolidation breaks. The method below makes the mirrors match — pair by pair, in the transaction currency, before the close starts, so elimination becomes arithmetic instead of archaeology.',
+    blocks: [
+      { t: 'h2', text: 'Why does intercompany have to tie out at all?' },
+      {
+        t: 'p',
+        text: 'Because consolidation assumes it does. When a group reports, everything the subsidiaries did with each other has to disappear: in [consolidated financial statements](https://en.wikipedia.org/wiki/Consolidated_financial_statement), one company\'s intragroup payable is cancelled against the other\'s receivable, so the group only shows business done with the outside world. That cancellation — elimination — is pure arithmetic, and it only works if both sides carry the same number. A owes B 20; B shows 0; eliminate both and the consolidated balance sheet is off by 20, hiding somewhere it doesn\'t belong. The mismatch that was invisible inside each entity becomes a real error in the group numbers.',
+      },
+      {
+        t: 'p',
+        text: 'And the one-line Reddit answer is where the work starts, not where it ends. A second commenter on that thread got closer to the real job — investigate side B: ["Maybe there was a mistake and instead of booking $1230 someone booked $1210 giving you $20 left"](https://reddit.com/r/Accounting/comments/shnrhm/stupid_question_how_do_you_eliminate_intercompany/) — a booking error, a write-off one side never heard about, an entry that never happened. All plausible. Which one it is decides who books the fix and in which period. So the question isn\'t "why doesn\'t it net to zero" — it\'s "which of my mirrors disagree, and by what, and why." That needs structure.',
+      },
+      { t: 'h2', text: 'The unit of work is the pair, not the account' },
+      {
+        t: 'p',
+        text: 'Stop thinking in accounts and start thinking in relationships. With three entities you have three pairs; with six entities, fifteen. Each pair has two directions — what A shows against B, and what B shows against A — and reconciling the pair means both directions mirror. Lay it out as a counterparty matrix: one row per pair and direction, one column per side, and a difference column that should read zero. This is the intercompany version of [reconciling any two systems](/notes/how-to-reconcile-two-systems-by-hand): pick the two datasets, diff them, explain the residual — except here you repeat it for every cell.',
+      },
+      {
+        t: 'table',
+        head: ['Pair', 'One side shows', 'Mirror side shows', 'Difference'],
+        rows: [
+          ['US → UK', 'US payable to UK: 84,200', 'UK receivable from US: 84,200', '0 — reconciled'],
+          ['US → AU', 'US receivable from AU: 46,750', 'AU payable to US: 44,900', '1,850 to explain'],
+          ['UK → AU', 'UK receivable from AU: 0', 'AU payable to UK: 3,120', '3,120 — one side never booked it'],
+        ],
+      },
+      {
+        t: 'p',
+        text: 'The matrix does two things a plain trial balance can\'t. It tells you where to dig — only the pairs with a difference — and it makes one-sided bookings jump out, because a zero staring at a 3,120 is unmissable in a matrix and invisible in an account listing. The UK → AU row is the twenty-dollar Reddit question at real scale: somebody billed, and somebody never heard about it.',
+      },
+      { t: 'h2', text: 'What is an intercompany difference, actually?' },
+      {
+        t: 'p',
+        text: 'Nearly every intercompany mismatch is one of five things. Knowing the list turns a scary unexplained number into a sorting exercise — the same move that works in [AR and AP reconciliation](/notes/ar-ap-reconciliation), where an aging-to-GL gap always decomposes into a short list of known causes.',
+      },
+      {
+        t: 'table',
+        head: ['Cause', 'What it looks like', 'The fix'],
+        rows: [
+          ['One-sided booking', 'A raised the invoice; B never recorded it — or B wrote it off and A still carries it', 'The entity missing the entry books it, in its own ledger, in the open period'],
+          ['Timing / in transit', 'A billed on the 30th; B received and booked it on the 2nd', 'A cutoff rule plus a named in-transit list — the same device as deposits in transit on a bank rec'],
+          ['FX translation', 'The same EUR invoice translated at different rates or dates on each side', 'Match in the transaction currency first; the base-currency residual is translation, not a missing transaction'],
+          ['Fees and partial payments', 'A wire fee deducted in transit, withholding tax, or a payment applied to the wrong invoice', 'Gross fees up as their own line so the settled amount ties back to the invoice'],
+          ['Quiet write-offs and netting', 'One side rounded, netted, or wrote off a small residual the other side still carries', 'A shared write-off threshold both sides apply — and tell each other about'],
+        ],
+      },
+      {
+        t: 'p',
+        text: 'The FX row deserves a beat, because it generates the most false alarms. When each entity keeps books in its own currency, the same invoice sits on both ledgers at different translated values — a [translation difference, not an error](https://corporatefinanceinstitute.com/resources/accounting/foreign-exchange-gain-loss/), and chasing it as if a transaction were missing wastes hours. The way out is the same one that works for [multi-currency reconciliation](/notes/multi-currency-reconciliation) generally: compare the two sides in the currency the transaction actually happened in, where they should tie to the cent, and let the base-currency gap fall out as FX. If the pair ties in EUR and differs in USD, nothing is missing.',
+      },
+      { t: 'h2', text: 'How do you reconcile one pair?' },
+      {
+        t: 'p',
+        text: 'Here is the procedure for a single cell of the matrix. It\'s deliberately boring. Run it per pair, and the scary consolidated mess decomposes into a stack of small two-file matches — each one no harder than [comparing two exports in Excel](/notes/reconcile-two-files-in-excel-with-xlookup).',
+      },
+      {
+        t: 'ol',
+        items: [
+          'Fix the scope: one counterparty pair, one date range, both directions. Do not reconcile "the intercompany account" — reconcile US↔UK, then US↔AU, then UK↔AU.',
+          'Export both sides at transaction level, in the transaction currency, for the same period. Balances alone cannot tell you which transactions disagree.',
+          'Match on a shared reference — the intercompany invoice or charge number that exists on both ledgers. This is the [primary ID](/notes/what-we-mean-when-we-say-primary-id) of the match; if no shared reference exists, start stamping one on every intercompany document going forward, because matching on amount alone will happily pair the wrong items.',
+          'List what each side has that the other doesn\'t — a [COUNTIF or MATCH set-difference](/notes/find-missing-rows-in-excel-countif-match) does this in minutes — then classify every unmatched or unequal item into one of the five causes above.',
+          'Book corrections in the ledger that is wrong, dated in the open period. Never fix it at consolidation: a consolidation-level plug leaves the subsidiary\'s books still wrong, so the same difference comes back next month with interest.',
+          'Certify the pair: both entities sign off on the same closing balance, in writing. One person reconciling both sides beats two teams reconciling at each other.',
+          'Then run elimination. Matched pairs cancel to zero; anything left is a named, explained exception — not noise you hope the auditors don\'t ask about.',
+        ],
+      },
+      {
+        t: 'p',
+        text: 'A worked cell, in the transaction currency so FX is out of the picture:',
+      },
+      {
+        t: 'code',
+        text: 'US entity — payable to UK (GBP)              118,400.00\nUK entity — receivable from US (GBP)         121,900.00\nDifference to explain                           3,500.00\n\nUK invoice 2214, never booked by US            2,800.00   → US books it now\nBank fee deducted in transit on May wire         120.00   → US grosses up as fee expense\nUK applied a payment to the wrong invoice        580.00   → UK reapplies it\nExplained                                      3,500.00\n\nAfter corrections: both sides show 121,180.00 → eliminate to zero',
+      },
+      {
+        t: 'callout',
+        kind: 'warning',
+        text: 'Never plug an intercompany difference. A plug doesn\'t resolve the error — it relocates it into consolidated numbers where nobody owns it, and it erases the trail while the underlying books stay wrong. [Auditors treat unexplained intercompany residuals](/notes/what-auditors-look-for) the way they treat any balance that nets to zero without support: as a place to dig. An open, named difference with an owner is a finding you control; a plug is a finding they make.',
+      },
+      { t: 'h2', text: 'Why won\'t my intercompany clearing account go to zero?' },
+      {
+        t: 'p',
+        text: 'There\'s a specific version of this that torments multi-currency groups: the flow-through account that should always empty, and doesn\'t. A NetSuite user described it exactly — an Other Asset Clearing account used for intercompany between subsidiaries in different currencies, where ["Every transaction coming into this account is debited and then credited - so the balance should always be $0"](https://reddit.com/r/Netsuite/comments/1tmwyk0/how_do_i_reconcile_my_other_asset_clearing/) — except the balance kept moving on its own, revaluing every period.',
+      },
+      {
+        t: 'p',
+        text: 'The mechanics: entries hit the clearing account in multiple currencies, and any that are still open at period end are foreign-currency balances, which the system [revalues at the period-end rate](https://docs.oracle.com/en/cloud/saas/netsuite/ns-online-help/section_N1409370.html) — posting real adjustment entries to an account that was supposed to be empty. A commenter on the thread pointed at the setting: with Revalue Balances checked, ["it\'s not actually the consolidated exchange rates it\'s that hard Curr Reval which actually posts a hard DB/CR like a JE"](https://reddit.com/r/Netsuite/comments/1tmwyk0/how_do_i_reconcile_my_other_asset_clearing/). The account isn\'t haunted. It\'s holding open FX balances, and open FX balances get revalued.',
+      },
+      {
+        t: 'p',
+        text: 'The fix is upstream of the setting: match and clear the debit-credit pairs in their transaction currency and settle them promptly, so nothing is open when revaluation runs. A clearing account that empties every cycle has nothing to revalue. If pairs must straddle a period end, expect the revaluation entries and reconcile the account net of them — the same discipline as any [in-and-out clearing account](/notes/netsuite-reconciliation-inventory-and-gl), just with a currency dimension. Note the close-sequence trap too: in NetSuite\'s period close checklist, [intercompany elimination runs after open foreign-currency balances are revalued](https://docs.oracle.com/en/cloud/saas/netsuite/ns-online-help/bridgehead_N1501792.html), so an unsettled clearing balance gets revalued first and then eliminated against a number that just moved. NetSuite\'s own model for the output side is [elimination subsidiaries](https://docs.oracle.com/en/cloud/saas/netsuite/ns-online-help/section_N268759.html) — as another commenter explained, ["NetSuite has "elimination" subsidiaries that are children to a parent subsidiary"](https://reddit.com/r/Netsuite/comments/1tmwyk0/how_do_i_reconcile_my_other_asset_clearing/) that absorb the cancelling entries so consolidated books balance without touching any entity\'s own ledger — the system\'s way of enforcing the rule above: corrections belong in the entity, eliminations belong at the group. The [feature\'s docs](https://docs.oracle.com/en/cloud/saas/netsuite/ns-online-help/section_N1498385.html) cover the setup.',
+      },
+      { t: 'h2', text: 'Reconcile continuously — not in the last two days of close' },
+      {
+        t: 'p',
+        text: 'The volume version of this problem is brutal. A poster in r/Accounting put it flatly: ["I work in a F500 that has high, high volume Intercompany transactions. And some accounts are an absolute mess."](https://reddit.com/r/Accounting/comments/w43577/continuous_accounting_for_intercompany/) For the worst entities, ["I am spending 4+ hours per day to reconcile a single account"](https://reddit.com/r/Accounting/comments/w43577/continuous_accounting_for_intercompany/). One reply pointed them at a university research lab. Another commenter — one who had just moved to a reconciliation tool, so weigh the enthusiasm accordingly — named the actual mechanism: ["waiting until the last 2 days of close to reconcile intercompany is what makes it spiral"](https://reddit.com/r/Accounting/comments/w43577/continuous_accounting_for_intercompany/).',
+      },
+      {
+        t: 'p',
+        text: 'That mechanism is worth taking seriously, because it\'s structural. A difference found during close has to be investigated by two teams who are both slammed, corrected in a period that\'s about to lock, and re-eliminated — all in 48 hours. The same difference found mid-month is one email. And the cost of leaving it late lands on the whole business, not just finance: an operator running eighteen locations on separate QuickBooks files put it as ["Month-end close takes forever because of intercompany reconciliation and nobody has a clean picture of the business until like two weeks after close"](https://reddit.com/r/sysadmin/comments/1rsux5z/ai_native_multi_entity_erp_flow/). Two weeks of flying blind, every month, because the mirrors only get checked at the deadline.',
+      },
+      {
+        t: 'ul',
+        items: [
+          'Match active pairs weekly: pull both sides, run the set-difference, chase one-sided items while the person who booked them still remembers. High-volume pairs may warrant daily.',
+          'Set an intercompany cutoff: no new intercompany invoices in the last N business days of the period. Late items wait for next month — a small delay that buys a clean elimination.',
+          'Set a dispute deadline: differences raised by day minus-three get resolved in-period; anything later is carried as a named open item, never a plug.',
+          'Keep the certification: each pair\'s closing balance confirmed by both entities, filed with the [close checklist](/notes/tick-and-tie-checklist). At close, elimination should confirm what you already know.',
+        ],
+      },
+      {
+        t: 'p',
+        text: 'On tooling: the threads name Flow, Rillet, and Datarails, and NetSuite sells automated intercompany management — and a reconciliation-heavy group can genuinely be helped by any of them, or by [pointing an AI agent at the two exports](/notes/can-an-ai-agent-reconcile-your-data). But notice what every tool automates: the matching and the chasing. The matrix, the shared reference, the cutoff, the write-off threshold, and who-books-the-correction are policy decisions, and they cost nothing but agreement. Get those right in a spreadsheet first; automate them when the volume says so. If a cross-charge system exposes too few fields to trace a charge back to its documents — one NetSuite user\'s exact complaint, that ["each cross charge can be linked to several PO\'s but it\'s very hard to report on that"](https://reddit.com/r/Netsuite/comments/1lija8r/intercompany_charges_help/) — that\'s your shared-reference problem again, and no amount of matching automation fixes a reference that doesn\'t exist.',
+      },
+    ],
+    faq: [
+      {
+        q: 'Why don\'t my intercompany receivables and payables net to zero?',
+        a: 'Because the two sides are maintained by different teams in different ledgers, and nothing forces them to agree. The difference is almost always one of five things: one entity never booked the transaction, a timing gap around period end, FX translation when each side holds a different currency, fees or partial payments that shaved the settled amount, or a write-off one side made that the other never heard about. Reconcile the pair at transaction level in the transaction currency and classify each item into one of those causes.',
+      },
+      {
+        q: 'Which entity books the correction when intercompany balances disagree?',
+        a: 'The entity whose ledger is actually wrong — the one missing the entry, carrying the wrong amount, or holding a misapplied payment. Book it in that entity\'s own books, in the open period. Never adjust at the consolidation level: a consolidation plug leaves the subsidiary ledger wrong, so the same difference returns every month.',
+      },
+      {
+        q: 'Should intercompany accounts be reconciled in local currency or group currency?',
+        a: 'Transaction currency first. The two sides of an intercompany invoice should tie exactly in the currency the transaction was denominated in. Whatever difference remains after translating to group currency is FX translation, not a missing transaction, and it belongs in the FX line — not in the exception list.',
+      },
+      {
+        q: 'How often should intercompany balances be reconciled?',
+        a: 'Continuously for active pairs — weekly is a good default, daily for high-volume relationships — with a full pass and both-sides certification before elimination runs at close. Differences discovered during the close window take the most effort to fix, because two busy teams must investigate and correct entries in a period that is about to lock.',
+      },
+      {
+        q: 'What is an intercompany matrix?',
+        a: 'A table with one row per entity pair and direction, showing what each side records against the other and the difference. It turns a pile of intercompany accounts into a short list of relationships, shows exactly which pairs disagree and by how much, and makes one-sided bookings obvious because a zero sits across from a real balance.',
+      },
+    ],
+  },
+  {
+    slug: 'inventory-reconciliation-cycle-counts',
+    title: 'Inventory reconciliation with cycle counts: keeping the shelf, the storefront, and the books in agreement',
+    description:
+      'Your systems can all show the same inventory number and still be wrong, because a single source of truth only makes every system agree — it does nothing to make that number match the physical shelf. Stock drifts away from every record through shrink, damaged units, receiving errors, mis-picks, and returns restocked wrong, and the only thing that corrects it is counting. This guide separates the two reconciliations most operators collapse into one: system-to-shelf (is the number actually true?) and system-to-system (do Shopify, your ERP, and your 3PL agree?). It explains cycle counting — counting a rotating subset of SKUs on a schedule instead of shutting down for a full physical count — how to rank SKUs by value with ABC analysis so your best sellers get counted most often, how to record a count blind and post the variance with a reason code, the inventory record accuracy formula and the 97 to 98 percent target most operations aim for, and how to push each correction from your source of truth back out to the sales channels so the fix does not immediately drift away again.',
+    keywords: [
+      'inventory reconciliation cycle count',
+      'why quickbooks inventory does not match shopify',
+      'cycle counting ABC analysis',
+      'inventory record accuracy formula',
+      'reconcile inventory across systems',
+      'physical count vs system inventory',
+      'inventory shrinkage reconciliation',
+      'how often to cycle count',
+      'inventory count variance threshold',
+    ],
+    lead: 'Open QuickBooks and Shopify side by side and the inventory counts just… don\'t match. Orders are syncing fine. Both systems look right on their own. They still disagree. That exact scene gets posted over and over — one seller in [r/smallbusiness](https://reddit.com/r/smallbusiness/comments/1qtw544/why_doesnt_quickbooks_inventory_quantity_match/) put it plainly: ["Even when orders are syncing correctly, inventory quantities still do not match between Shopify and QuickBooks. It does not seem random."](https://reddit.com/r/smallbusiness/comments/1qtw544/why_doesnt_quickbooks_inventory_quantity_match/) The usual reply is "pick a single source of truth." That\'s half right — and the missing half is the half that actually costs you money. A source of truth only makes every system agree on one number. It does nothing to make that number match what\'s on the shelf. Here is how to fix both: the counting that makes the number true, and the sync that makes the systems agree.',
+    blocks: [
+      { t: 'h2', text: 'You have two problems, not one' },
+      {
+        t: 'p',
+        text: 'The complaint "my inventory doesn\'t reconcile" is almost always two separate failures stacked on top of each other. The first is system-to-shelf: does the number in your source of truth match the units physically sitting in the warehouse? The second is system-to-system: do Shopify, your ERP, and your 3PL all show the same number? These have different causes and different fixes, and collapsing them is why the problem never fully goes away. Fix the sync and the systems agree — on a number that\'s still wrong. Fix the shelf in one system and the others keep showing the old figure. You have to do both, in that order: make it true, then make it agree.',
+      },
+      {
+        t: 'p',
+        text: 'Most advice only ever names the second problem. A commenter in [r/FulfillmentByAmazon](https://reddit.com/r/FulfillmentByAmazon/comments/1t0soap/trying_to_diversify_off_amazon_is_basically_a/) gave the standard answer: ["you need a single source of truth for inventory, not three systems arguing about who\'s right."](https://reddit.com/r/FulfillmentByAmazon/comments/1t0soap/trying_to_diversify_off_amazon_is_basically_a/) That\'s good advice for the agreement problem. But naming one system the winner doesn\'t make the winner correct — it just means everyone now trusts the same number, right or wrong. The physical shelf is the only real source of truth, and no software knows what\'s on it until someone counts.',
+      },
+      { t: 'h2', text: 'Why the number drifts away from the shelf' },
+      {
+        t: 'p',
+        text: 'Inventory records don\'t stay right on their own, even in a well-run warehouse. Every system starts from a count and then tracks changes — sales out, receipts in — but a whole category of events changes the shelf without ever touching the record. This isn\'t rare. In one widely cited study, [DeHoratius and Raman examined nearly 370,000 inventory records across 37 stores and found 65% of them inaccurate](https://pubsonline.informs.org/doi/abs/10.1287/mnsc.1070.0789). The record and the shelf disagree by default; keeping them together is active work, not a resting state.',
+      },
+      {
+        t: 'p',
+        text: 'You can watch it happen in the threads. A seller in [r/AmazonSeller](https://reddit.com/r/AmazonSeller/comments/16puxku/amazon_warehouse_eating_my_inventory/) noticed ["the number of orders I received doesn\'t match with inventory"](https://reddit.com/r/AmazonSeller/comments/16puxku/amazon_warehouse_eating_my_inventory/) — units vanishing between what was sent and what sold — and a replying seller confirmed the same: ["Had 4 books go missing in the last day. 6 this week!"](https://reddit.com/r/AmazonSeller/comments/16puxku/amazon_warehouse_eating_my_inventory/) That\'s shrink, and it\'s only one of the ways the shelf walks away from the record.',
+      },
+      {
+        t: 'table',
+        head: ['What changed the shelf', 'Example', 'Why the record never caught it'],
+        rows: [
+          ['Shrink', 'Theft, damage, spoilage, units that quietly disappear', 'No transaction fires — the stock is just gone. This is what shrink means: recorded minus actual'],
+          ['Receiving errors', 'PO says 100, 96 arrived, or 4 were damaged in transit', 'The receipt was posted at the PO quantity, not what was actually put away'],
+          ['Mis-picks', 'The wrong SKU shipped; two different SKUs offset each other', 'The order decremented the ordered SKU, not the one that physically left'],
+          ['Returns restocked wrong', 'A return added back to the wrong SKU, location, or condition', 'The refund posted, but the physical restock didn\'t match the record'],
+          ['Bundles and kits', 'A kit sells but its components aren\'t decremented (or vice versa)', 'The system tracks the sellable unit, not the parts on the shelf'],
+          ['Location transfers', 'Stock moved between locations but the transfer wasn\'t posted', 'Each location\'s record is now wrong in opposite directions'],
+        ],
+      },
+      {
+        t: 'p',
+        text: 'A commenter on that QuickBooks-vs-Shopify thread landed on the same list from the software side: the mismatches, they said, aren\'t just sales failing to sync but ["returns/refunds + location transfers + bundles"](https://reddit.com/r/smallbusiness/comments/1qtw544/why_doesnt_quickbooks_inventory_quantity_match/) creating phantom quantities. Same drift, two vantage points. The point is that none of these error out. The record looks clean. It\'s just no longer true.',
+      },
+      {
+        t: 'p',
+        text: 'The formula for how far the record has drifted is simple, and it\'s worth internalizing because it\'s also the definition of shrink. Per [Shopify\'s own guidance](https://www.shopify.com/blog/retail-shrinkage), inventory shrinkage equals recorded inventory minus actual inventory. If your system says 100 and the shelf holds 96, you have four units of shrink — and until someone counts, you don\'t know it exists.',
+      },
+      { t: 'h2', text: 'The once-a-year physical count is the wrong tool' },
+      {
+        t: 'p',
+        text: 'The instinct is to fix drift with a full physical count: stop everything, count all of it, reset the numbers. It works, briefly. But a full count means shutting the warehouse (or counting through a weekend), it happens once or twice a year, and by February the number you reset in January is wrong again. Worse, it tells you the total drift without telling you which SKUs drifted or when, so you learn nothing about the cause. It\'s a reset, not a control.',
+      },
+      {
+        t: 'p',
+        text: 'And the manual version of "just recount it" quietly eats the team. A write-up interviewing 40-plus Shopify warehouse merchants (fair warning — it was pitching a tool) named the top pain not as overselling but as ["The Monday morning reconciliation ritual"](https://reddit.com/r/smallbusiness/comments/1tgf9vg/the_hidden_cost_of_good_enough_inventory_tracking/) of manual recounts: ["I went into this thinking the biggest inventory problem would be overselling. It\'s not."](https://reddit.com/r/smallbusiness/comments/1tgf9vg/the_hidden_cost_of_good_enough_inventory_tracking/) Treat that as one person\'s framing rather than a statistic, but the shape is familiar to anyone who\'s done it: recounting everything, all the time, by hand, and still not trusting the number.',
+      },
+      { t: 'h2', text: 'Cycle counting: count a slice, on a schedule, without stopping' },
+      {
+        t: 'p',
+        text: 'The tool built for this is the cycle count. Instead of counting everything at once, you count a small subset of SKUs on a rotating schedule while the warehouse keeps running — a [perpetual auditing procedure that counts a specific subset in a continuous, repeated sequence](https://en.wikipedia.org/wiki/Cycle_count). Over a quarter you cover everything, but on any given day you\'re only counting a handful of bins. No shutdown, and because counts happen constantly, drift gets caught in days instead of at year-end. [Shopify](https://www.shopify.com/blog/cycle-count) and [NetSuite](https://www.netsuite.com/portal/resource/articles/inventory-management/using-inventory-control-software-for-cycle-counting.shtml) both document the practice; the mechanics below are the same regardless of which system you run.',
+      },
+      {
+        t: 'p',
+        text: 'The question is which SKUs to count how often. Counting everything equally wastes effort on the slow movers and under-counts the ones that matter. The standard answer is ABC analysis: rank SKUs by annual value (unit cost × units sold) and count the high-value ones most. It\'s the [Pareto pattern applied to inventory](https://www.netsuite.com/portal/resource/articles/inventory-management/abc-inventory-analysis.shtml) — a small share of your SKUs drives most of your value, so they earn the most attention.',
+      },
+      {
+        t: 'table',
+        head: ['Class', 'Roughly', 'Typical count frequency', 'Why'],
+        rows: [
+          ['A', 'Top ~20% of SKUs, ~80% of value', 'Weekly or monthly', 'Most of your money; drift here is expensive and worth catching fast'],
+          ['B', 'Next ~30% of SKUs, ~15% of value', 'Quarterly', 'Moderate value; a slower cadence keeps them honest'],
+          ['C', 'Remaining ~50% of SKUs, ~5% of value', 'Twice a year to annually', 'Low value; frequent counting isn\'t worth the labor'],
+        ],
+      },
+      {
+        t: 'callout',
+        kind: 'note',
+        text: 'The percentages are a starting convention, not a law. Re-rank quarterly — a C item that becomes a hero SKU should move to A before its drift becomes a stockout you didn\'t see coming.',
+      },
+      { t: 'h2', text: 'How to run a count and post the variance' },
+      {
+        t: 'p',
+        text: 'The procedure below is deliberately mechanical. The whole value of a cycle count is that it\'s repeatable and boring, so it should read that way.',
+      },
+      {
+        t: 'ol',
+        items: [
+          'Pull today\'s count list from the schedule — the SKUs and locations due based on their ABC class.',
+          'Count blind: give the counter the SKU and bin, not the expected quantity. Seeing the system number first is how a count turns into a confirmation instead of a check.',
+          'Record the physical quantity per SKU per location, then compare it to the system quantity to get the variance.',
+          'Apply a variance threshold. Small, in-tolerance differences (often ±1–2 units or a small percentage on high-count SKUs) get posted and moved on; anything past the threshold gets investigated before you adjust.',
+          'Investigate the exceptions: was it a mis-pick, an unposted transfer, a receiving error, a return to the wrong SKU, or genuine shrink? The cause determines whether a process needs fixing, not just a number.',
+          'Post the adjustment in your source of truth with a reason code, not a silent overwrite — Shopify, for instance, lets you [add a reason to every inventory adjustment](https://help.shopify.com/en/manual/products/inventory/adjusting-inventory/adjusting-inventory-quantities) so the change is explainable later.',
+          'Log the accuracy result so you can trend it over time (next section).',
+        ],
+      },
+      {
+        t: 'code',
+        text: 'Per-count math (one SKU at one location)\n----------------------------------------\nsystem_qty    = quantity the record shows        e.g. 100\nphysical_qty  = quantity actually counted        e.g.  96\nvariance      = physical_qty - system_qty        =    -4   (4 units of shrink)\nabs_var_pct   = |variance| / system_qty * 100    =     4.0%\n\nInventory Record Accuracy for the count batch\n---------------------------------------------\nIRA = (# SKUs within tolerance / # SKUs counted) * 100\n  e.g. 47 of 50 SKUs matched within tolerance -> 94.0%\n\nShrinkage (value, over a period)\n--------------------------------\nshrinkage = recorded_inventory - actual_inventory   (Shopify\'s definition)',
+      },
+      {
+        t: 'callout',
+        kind: 'tip',
+        text: 'Counting blind is the single highest-leverage habit here. A counter who can see "system says 100" will find 100 far more often than they should. Hide the expected number and your accuracy metric starts measuring reality instead of confirmation bias.',
+      },
+      {
+        t: 'p',
+        text: 'What\'s a good accuracy number? Most operations target inventory record accuracy of 97 to 98 percent or higher — meaning the large majority of counted SKUs land within tolerance. The exact target matters less than the trend: if your weekly IRA is climbing, your process is working; if it\'s flat and low, you have a systemic cause (a bad receiving step, an unreliable integration) that counting alone won\'t fix.',
+      },
+      { t: 'h2', text: 'Now reconcile the systems to each other' },
+      {
+        t: 'p',
+        text: 'Once your source of truth matches the shelf, the second reconciliation is the mechanical one you already know how to do: prove the other systems agree, and fix the ones that don\'t. Match every SKU across systems on a [stable primary ID](/notes/what-we-mean-when-we-say-primary-id) — the SKU or a shared product code, not the display name — and list the differences. In a spreadsheet that\'s the exact [COUNTIF / MATCH set-difference move](/notes/find-missing-rows-in-excel-countif-match): SKUs present in one system and missing in the other, and SKUs present in both whose quantities differ.',
+      },
+      {
+        t: 'p',
+        text: 'When the systems disagree even after the shelf is right, the causes are their own short list. Sync timing lag: a commenter noted the ["zapier-in-the-middle setup breaks specifically during high volume"](https://reddit.com/r/FulfillmentByAmazon/comments/1t0soap/trying_to_diversify_off_amazon_is_basically_a/) because scheduled polling can\'t keep up when orders come in fast. Logic that isn\'t mirrored: another put it as ["most mismatches I\'ve seen come from inventory logic not being mirrored, not just sync delays"](https://reddit.com/r/smallbusiness/comments/1qtw544/why_doesnt_quickbooks_inventory_quantity_match/) — bundles decremented in one system but not the other, multi-location totals that don\'t roll up the same way. As one commenter shrugged, ["Shopify and QuickBooks were actually never meant to hold hands."](https://reddit.com/r/smallbusiness/comments/1qtw544/why_doesnt_quickbooks_inventory_quantity_match/) They don\'t have to be friends; they have to agree on a number, and you have to check that they do.',
+      },
+      {
+        t: 'p',
+        text: 'The deeper versions of the cross-system problem have their own guides: overselling when three channels disagree on availability is covered in [reconciling inventory across Shopify, Amazon, and your 3PL](/notes/3pl-inventory-sync-oversells); orders that never crossed at all (as opposed to quantities that drifted) are the [silently dropped records](/notes/reconcile-your-integration-dropped-records) problem; and the storefront-to-ERP field drift specifically is in [reconciling Shopify orders against your ERP](/notes/reconcile-shopify-orders-against-your-erp) and [where NetSuite\'s inventory and GL disagree](/notes/netsuite-reconciliation-inventory-and-gl).',
+      },
+      {
+        t: 'callout',
+        kind: 'warning',
+        text: 'Never let a "synced" system push inventory numbers to your channels before that system has itself been counted. If the source of truth is wrong, a fast, reliable sync just propagates the wrong number to every storefront faster. Count first, then sync.',
+      },
+      { t: 'h2', text: 'Make it a standing routine, not a fire drill' },
+      {
+        t: 'p',
+        text: 'Cycle counting only pays off as a habit. Put the count schedule on the calendar by ABC class, count blind, post with reason codes, and track weekly IRA per class so you can see drift building before it becomes a stockout or an oversell. The reason codes do double duty: they turn every adjustment into an audit trail, which is exactly the kind of evidence covered in [what auditors look for in a reconciliation](/notes/what-auditors-look-for) — [Shopify keeps a full adjustment history](https://help.shopify.com/en/manual/products/inventory/adjusting-inventory/adjustment-history) of who changed what and why, and most systems have an equivalent. When two SKUs keep offsetting each other, that\'s usually a mis-pick or a mislabeled bin, and it\'s the same detective work as [fuzzy matching records](/notes/fuzzy-matching-records): the numbers point you at a cause, not just a correction.',
+      },
+      {
+        t: 'p',
+        text: 'The honest ceiling: a spreadsheet and a disciplined weekly count will hold a small catalog steady for a long time. When you\'re counting across several locations, reconciling three or more systems every day, or need every adjustment traceable for an audit, the manual version starts to buckle — and that\'s the point where a dedicated reconciliation layer earns its place. Either way, the discipline is the same: count the shelf, make one system true, then make the rest agree.',
+      },
+    ],
+    faq: [
+      {
+        q: 'How often should I cycle count each SKU?',
+        a: 'Rank SKUs by annual value using ABC analysis and count by class: A items (your highest-value, roughly the top 20% of SKUs) weekly or monthly, B items quarterly, and C items twice a year to annually. Re-rank every quarter so a fast-rising SKU moves up before its drift surprises you. The goal is that everything gets counted over a rolling period without ever shutting the warehouse.',
+      },
+      {
+        q: 'What inventory accuracy should I aim for?',
+        a: 'Most operations target inventory record accuracy of 97 to 98 percent or higher — the share of counted SKUs that land within your variance tolerance. The exact target matters less than the direction: a rising weekly accuracy number means the process is working, while a flat, low number points to a systemic cause like a bad receiving step or an unreliable integration that counting alone will not fix.',
+      },
+      {
+        q: 'Do I have to stop selling or freeze the warehouse to cycle count?',
+        a: 'No — that is the whole advantage over a full physical count. You count a small subset of SKUs and locations on a schedule while normal operations continue. Count during a quiet window if you can, and if a bin is being actively picked, count it before the shift or note in-flight orders so movement during the count does not read as a false variance.',
+      },
+      {
+        q: 'Why do my counts still not match across Shopify and QuickBooks after I fix the shelf?',
+        a: 'Because that is a different reconciliation. Matching the shelf makes one system true; it does not make the others agree. Cross-system gaps come from sync timing lag, bundle or kit logic that is mirrored in one system but not the other, and multi-location totals that roll up differently. After the shelf is right in your source of truth, match every SKU across systems on a stable ID and correct the laggards from the counted source — never the other way around.',
+      },
+      {
+        q: 'Should the person counting see the expected quantity?',
+        a: 'No. Count blind — give the counter the SKU and location but not the system quantity. When people can see the expected number they tend to find it, which turns a genuine check into a rubber stamp and quietly inflates your accuracy metric. Record the physical count first, then compare to the system to get a real variance.',
+      },
+    ],
+  },
+  {
+    slug: 'reconcile-your-integration-dropped-records',
+    title: 'Your integration ran clean and still dropped records: how to catch the orders that never made it across',
+    description:
+      'An integration can finish with a green check and still drop records, because it only reports on the rows it actually processed — a missed webhook or a skipped polling page never errors, since you cannot flag a record you never received. This guide shows how to catch silently dropped orders and transactions: run a completeness check (a record count plus a control total on a numeric field) on each sync window to prove whether everything crossed, use an anti-join on a stable primary ID to list exactly which records are missing, and backfill them idempotently so recovery does not create duplicates. It covers the three ways records go missing and why none of them error, a copy-paste count check, and how to make the reconciliation a standing job instead of a Saturday fire drill.',
+    keywords: [
+      'integration dropped records',
+      'missing records sync',
+      'orders not syncing to ERP',
+      'missed webhook reconciliation',
+      'how to find missing records between systems',
+      'completeness check reconciliation',
+      'integration silently dropping records',
+      'reconcile source vs destination record count',
+      'backfill without creating duplicates',
+    ],
+    lead: 'The sync said it worked. Green check, no error, the job finished. And six orders from Saturday are just… not in your ERP. Nothing failed loudly — that is the whole problem. A seller in [r/FulfillmentByAmazon](https://reddit.com/r/FulfillmentByAmazon/comments/1t0soap/trying_to_diversify_off_amazon_is_basically_a/) described the version that at least announces itself: ["Just spent three hours trying to reconcile missing units because the amazon api decided to randomly stop talking to my woocommerce site over the weekend. again."](https://reddit.com/r/FulfillmentByAmazon/comments/1t0soap/trying_to_diversify_off_amazon_is_basically_a/) The quieter version never even goes dark — it drops a handful of records mid-run and reports success on the rest. Here is how to catch them: not by trusting the sync, but by counting what should have crossed against what actually did.',
+    blocks: [
+      {
+        t: 'p',
+        text: 'Search those threads and the advice is almost always "switch tools." A user in [r/QuickBooks](https://reddit.com/r/QuickBooks/comments/1bc99p0/working_square_integration/) calls the QuickBooks "Connect to Square" integration ["so horribly broken"](https://reddit.com/r/QuickBooks/comments/1bc99p0/working_square_integration/); the top reply tells them to switch connectors. Maybe that is right. But swapping connectors does nothing about the records the next one will also drop, because the gap is not which tool you use — it is that you are trusting the tool to tell you when it failed. It cannot tell you about a record it never received. The fix is a completeness check you run yourself: count the source, count the destination, and find the difference. That is the entire move, and almost nobody on these threads names it.',
+      },
+      { t: 'h2', text: 'Why a clean sync still loses records' },
+      {
+        t: 'p',
+        text: 'Most integrations move data one of two ways, and both lose records without erroring. The first is webhooks — the source fires an event when something happens and your side catches it. The catch: delivery is not guaranteed. Shopify says so directly — ["because webhook delivery isn\'t always guaranteed, you should implement reconciliation jobs to periodically fetch data"](https://shopify.dev/docs/apps/build/webhooks/best-practices). Stripe guarantees [at-least-once delivery, not exactly-once](https://docs.stripe.com/webhooks), which means an event can arrive twice or, if your endpoint times out during a deploy or a traffic spike, not arrive at all. A missed webhook is a record that never enters your system, and nothing logs it as missing because, from your side, it simply never happened.',
+      },
+      {
+        t: 'p',
+        text: 'The second is polling — the connector pulls "everything changed since last run" on a schedule. That works until a run overlaps an export window, a pagination cursor skips, a rate limit truncates the page, or the source API goes quiet (the Amazon-stopped-talking case above). The job still reports success on the rows it did pull. The ones it missed are invisible by construction: you cannot see a row that was never fetched. This is why the symptom list is always the same — the Square poster\'s ["mis-imports, missing imports, duplicates, incorrect transaction values, missing transfers"](https://reddit.com/r/QuickBooks/comments/1bc99p0/working_square_integration/). Duplicates and drops: the two signatures of a sync that processes what it sees and stays silent about what it misses.',
+      },
+      { t: 'h2', text: 'The three ways records go missing — and why none of them error' },
+      {
+        t: 'p',
+        text: '"Records are missing" is three different failures wearing one complaint. They need different fixes, but you sort them the same way — by where the record was last seen. Find the failure mode first; the repair follows from it.',
+      },
+      {
+        t: 'table',
+        head: ['Failure mode', 'What actually happens', 'Why it stays silent', 'Where to look'],
+        rows: [
+          ['Missed webhook', 'The source fired an event your endpoint never accepted — timeout, deploy, downtime', 'No retry succeeded; your side has no record the event ever existed', 'The source platform’s event log vs your ingest log'],
+          ['Polling gap', 'A scheduled pull skipped rows — cursor jump, rate limit, overlapping window, API outage', 'The job succeeds on the rows it fetched; un-fetched rows are invisible', 'Source record count for the window vs destination count'],
+          ['Dropped on arrival', 'The record crossed, then a mapping rule, validation, or bad key rejected it', 'It "synced," then silently fell out at the destination', 'The destination’s reject/error queue and unmapped-value logs'],
+        ],
+      },
+      {
+        t: 'p',
+        text: 'The first two are missing-on-arrival; the third crossed and then got dropped. But all three end the same way: a record that exists on one side and not the other. Find that set difference and you have found every one of them, no matter how it went missing. That is what makes one detection method cover all three.',
+      },
+      { t: 'h2', text: 'Stop trusting the green check — reconcile on counts' },
+      {
+        t: 'p',
+        text: 'Before you hunt individual records, answer one cheaper question: did the totals even cross? Two control totals catch most drops in seconds. A record count — how many orders, transactions, or lines should exist for the window — against how many landed. And a sum of one meaningful numeric field (order total, amount, quantity) on each side. If either disagrees, something dropped or duplicated. If both agree, you are very likely whole. This is an old, boring control, and it is boring because it works.',
+      },
+      {
+        t: 'code',
+        text: 'Window completeness check (run per sync window)\n-----------------------------------------------\nsource_count  = rows in source for [start, end]       e.g. 1,000 orders\ndest_count    = rows in destination for [start, end]   e.g.   994 orders\nsource_sum    = SUM(amount) in source                  e.g. 48,210.00\ndest_sum      = SUM(amount) in destination             e.g. 47,930.40\n\nif source_count != dest_count  -> records dropped or duplicated\nif source_sum  != dest_sum     -> records dropped, duplicated, or altered\n\nHere: 6 orders and 279.60 are missing on the destination side.\nThe counts told you *that* in one query. The next step finds *which*.',
+      },
+      { t: 'h2', text: 'Find exactly which records dropped: the anti-join' },
+      {
+        t: 'p',
+        text: 'Counts tell you something is missing; an anti-join tells you which IDs. List every record ID on the source side, list every ID on the destination side, and keep the source IDs that have no match on the destination. In a spreadsheet this is exactly the [COUNTIF / MATCH set-difference](/notes/find-missing-rows-in-excel-countif-match) move; in SQL it is a LEFT JOIN where the destination ID is null. Either way the output is your dropped records, by key.',
+      },
+      {
+        t: 'p',
+        text: 'This only works if you match on a [stable primary ID](/notes/what-we-mean-when-we-say-primary-id) that both systems carry unchanged — the source order ID, the gateway transaction ID — not a display number the destination reformats or a date that drifts by timezone. Match on the wrong field and the anti-join reports records as "missing" that are actually present under a mangled key, which is its own [CSV-and-formatting trap](/notes/csv-gotchas-encoding-delimiters). Get the key right first; the rest is mechanical.',
+      },
+      {
+        t: 'ol',
+        items: [
+          'Export the source IDs for the window — from the system that physically owns the event (the storefront for orders, the gateway for payments).',
+          'Export the destination IDs for the same window.',
+          'Anti-join: keep every source ID with no match in the destination. That set is your dropped records.',
+          'Reverse it once: destination IDs with no source match. Those are duplicates, test rows, or records imported under the wrong key — worth knowing too.',
+          'Spot-check three of the "dropped" IDs by hand in the destination before backfilling, to confirm they are truly absent and not just mis-keyed.',
+        ],
+      },
+      { t: 'h2', text: 'Backfill without creating duplicates' },
+      {
+        t: 'p',
+        text: 'Now re-send the missing records — and this is where people turn a drop into a double. Re-pulling a window almost always re-sends records that already landed, so the backfill has to be idempotent: keyed on the source ID so a record that already exists is updated or skipped, never inserted twice. Both major payment platforms give you a clean way to pull the gap. Stripe lets you [list undelivered events](https://docs.stripe.com/webhooks/process-undelivered-events) (GET /v1/events with delivery_success=false; events are retained for 30 days) and dedupe on the stable evt_ id. Shopify’s reconciliation jobs [fetch everything updated since the last run](https://shopify.dev/docs/apps/build/webhooks/best-practices). Use the platform’s own ID as the dedupe key and a re-run is safe to repeat.',
+      },
+      {
+        t: 'callout',
+        kind: 'warning',
+        text: 'The backfill is the single most dangerous step. Re-importing a date range without a dedupe key on the source ID is how a dropped-records cleanup becomes a duplicate-records cleanup next month. Confirm the destination upserts on the source ID before you re-send anything.',
+      },
+      { t: 'h2', text: 'Make it a standing check, not a Saturday fire drill' },
+      {
+        t: 'p',
+        text: 'You found this batch because you happened to look. The point is to stop depending on happening to look. Run the count-and-control-total check on every sync window automatically, and treat any mismatch as an exception to investigate — the same exception-first discipline good [auditors expect to see](/notes/what-auditors-look-for). Keep the webhooks, but stop trusting them alone: Shopify is explicit that a periodic full pull is the safety net under event delivery, not an optional extra. The trap is the pitch one [r/Accounting](https://reddit.com/r/Accounting/comments/1t3kczr/i_counted_the_apps_touching_my_quickbooks_last/) poster called out after counting seven apps wired into their books — ["the pitch for every single accounting adjacent tool is the same, seamless QuickBooks integration, automatic sync. Set it and forget it"](https://reddit.com/r/Accounting/comments/1t3kczr/i_counted_the_apps_touching_my_quickbooks_last/). Set it and forget it is exactly how records go missing for three weeks. Set it and reconcile it.',
+      },
+      {
+        t: 'p',
+        text: 'Plenty of tools will do the parsing for you — A2X and Synder for marketplace and gateway settlements, NetSuite connectors like Celigo at volume — and one Square user said the only stable pattern they found was to ["sync one Sales Receipt per day per location instead of individual orders"](https://reddit.com/r/QuickBooks/comments/1bc99p0/working_square_integration/) and let a clearing account absorb it. All reasonable. None of them remove the need for the completeness check, because every one of them is still a copy of someone else’s data, and copies drop rows. This is the same lesson as [reconciling Shopify orders against your ERP](/notes/reconcile-shopify-orders-against-your-erp) or [matching your OMS against the source of truth](/notes/reconcile-your-oms-against-the-source-of-truth): whatever moves your records, count them after. And it is the record-level cousin of [inventory drifting out of sync across channels](/notes/3pl-inventory-sync-oversells) — there the counts disagree; here the rows are gone entirely.',
+      },
+    ],
+    faq: [
+      {
+        q: 'How can an integration drop records without showing an error?',
+        a: 'Because it only reports on records it actually processed. A missed webhook or a skipped polling page means the record never entered your system, so there is nothing for the job to flag — you cannot error on a row you never received. The only way to see it is to compare counts between source and destination, not to read the sync log.',
+      },
+      {
+        q: 'What is the fastest way to tell if records went missing?',
+        a: 'Two control totals per sync window: the record count on each side, and the sum of one numeric field (order total or amount) on each side. If either differs, something dropped, duplicated, or changed. If both match, you are almost certainly complete. It is a one-query check you run before digging into individual records.',
+      },
+      {
+        q: 'How do I find exactly which records dropped?',
+        a: 'An anti-join on a stable ID. List the source IDs and the destination IDs for the same window, then keep the source IDs that have no match in the destination — that set is your dropped records. In a spreadsheet it is a COUNTIF or MATCH against the other column; in SQL it is a LEFT JOIN where the destination ID is null.',
+      },
+      {
+        q: 'Will re-running the sync to recover missing records create duplicates?',
+        a: 'It will, unless the backfill is idempotent. Re-pulling a date range re-sends records that already landed, so the destination must dedupe on the source system ID — updating or skipping anything it already has rather than inserting it again. Confirm that upsert behavior before re-sending a window.',
+      },
+      {
+        q: 'Are webhooks or scheduled polling more reliable for not losing records?',
+        a: 'Neither is reliable enough alone. Webhook delivery is not guaranteed — platforms like Shopify and Stripe say so directly and recommend a periodic reconciliation pull as the backstop. Polling misses rows to cursors, rate limits, and API outages. The durable pattern is webhooks for speed plus a scheduled full-pull reconciliation for completeness.',
+      },
+    ],
+  },
+  {
+    slug: '3pl-inventory-sync-oversells',
+    title: 'Why inventory oversells across Shopify, Amazon, and your 3PL: sync, source of truth, and the buffer that stops it',
+    description:
+      'Inventory oversells across Shopify, Amazon, and your 3PL not because the sync is broken but because a sync is a scheduled push, not a live guarantee — and your systems count different things. "My inventory doesn\'t match" is really three separate reconciliations: a physical count against the system (shrinkage), each channel against one source of truth (sync drift), and sellable quantity against the finance quantity (counting logic). This guide shows how to tell them apart, how to pick a source of truth, how to size a safety buffer that covers the sync lag so a fast sales window can\'t oversell you, and a step-by-step reconciliation for each — with a worked example that traces exactly where the units went.',
+    keywords: [
+      'inventory oversell',
+      'inventory sync not matching',
+      'shopify amazon inventory out of sync',
+      '3pl inventory reconciliation',
+      'why does inventory oversell',
+      'single source of truth inventory',
+      'inventory buffer to prevent overselling',
+      'reconcile inventory across channels',
+      'shopify quickbooks inventory mismatch',
+    ],
+    lead: 'You oversold. A drop went out, orders came in faster than your systems could talk to each other, and now you\'re emailing customers to say the thing they bought isn\'t actually in stock. The reflex is to blame the sync — but the sync mostly did its job. A sync is a scheduled push, not a promise, and underneath it three systems were quietly disagreeing about how many units you had the whole time. A seller in [r/FulfillmentByAmazon](https://reddit.com/r/FulfillmentByAmazon/comments/1t0soap/trying_to_diversify_off_amazon_is_basically_a/) described the daily version of it: ["Just spent three hours trying to reconcile missing units because the amazon api decided to randomly stop talking to my woocommerce site over the weekend. again."](https://reddit.com/r/FulfillmentByAmazon/comments/1t0soap/trying_to_diversify_off_amazon_is_basically_a/) Here is how to find where the counts drift, and how to set things up so the drift can\'t turn into an oversell.',
+    blocks: [
+      {
+        t: 'p',
+        text: 'The most useful answer to this whole problem is sitting in one buried comment on that thread: ["you need a single source of truth for inventory, not three systems arguing about who\'s right."](https://reddit.com/r/FulfillmentByAmazon/comments/1t0soap/trying_to_diversify_off_amazon_is_basically_a/) That is correct, and almost nobody connects it to an actual procedure. Everyone else either names one cause (returns, ghost entries) or plugs a tool. So that is what this is: the buried insight, turned into steps you can run tonight.',
+      },
+      { t: 'h2', text: 'Why "everything syncs" and the numbers still disagree' },
+      {
+        t: 'p',
+        text: 'A sync is a scheduled poll, not a live mirror. Most channel-to-channel inventory connectors — and the Zapier-in-the-middle setups people bootstrap — check for changes on an interval and push the new number. Between polls, the systems are out of date by design. The sharpest comment on that FBA thread named the failure exactly: the ["zapier-in-the-middle setup breaks specifically during high volume because zapier polls on a schedule (usually 5-15 min depending on your plan)."](https://reddit.com/r/FulfillmentByAmazon/comments/1t0soap/trying_to_diversify_off_amazon_is_basically_a/) During a normal week you never notice. During a drop, orders land inside the poll window, two channels both sell the last unit, and you are oversold. A seller in a BFCM thread watched it hit a peer: ["Had a buddy who oversold by like 300 units last year cause his shopify and amazon werent talking properly."](https://reddit.com/r/smallbusiness/comments/1p0lv6f/whats_the_real_bottleneck_in_your_bfcm_prep_this/)',
+      },
+      {
+        t: 'p',
+        text: 'The second reason is quieter: the systems do not even count the same thing. Shopify splits stock into [on hand, committed, available, and unavailable](https://help.shopify.com/en/manual/products/inventory/fundamentals/inventory-states) — on hand is the sum of the other three, available is what is actually sellable, committed is placed-but-not-yet-fulfilled. Your ERP or accounting system, meanwhile, tracks a quantity for valuation, not for selling. So "available" in Shopify and "quantity on hand" in QuickBooks are answering different questions, and expecting them to be equal is the mistake. A merchant in [r/smallbusiness](https://reddit.com/r/smallbusiness/comments/1qtw544/why_doesnt_quickbooks_inventory_quantity_match/) hit exactly this wall — ["Even when orders are syncing correctly, inventory quantities still do not match between Shopify and QuickBooks."](https://reddit.com/r/smallbusiness/comments/1qtw544/why_doesnt_quickbooks_inventory_quantity_match/) A commenter got the diagnosis right: ["most mismatches I\'ve seen come from inventory logic not being mirrored, not just sync delays."](https://reddit.com/r/smallbusiness/comments/1qtw544/why_doesnt_quickbooks_inventory_quantity_match/)',
+      },
+      { t: 'h2', text: 'The three reconciliations hiding inside "my inventory doesn\'t match"' },
+      {
+        t: 'p',
+        text: '"Inventory doesn\'t match" is three different problems wearing one complaint. You cannot fix it until you know which one you are staring at, because each has a different cause and a different place to look. Sort the gap into one of these first:',
+      },
+      {
+        t: 'table',
+        head: ['Reconciliation', 'What you compare', 'What a gap means', 'Where to look'],
+        rows: [
+          ['Physical ↔ system', 'A real count of what is on the shelf vs the system on-hand', 'Shrinkage, damage, theft, receiving errors, miscounts', 'The warehouse / 3PL floor and your receiving log'],
+          ['Source of truth ↔ channel', 'Your master available vs what each storefront shows', 'Sync drift or latency — the push has not landed yet', 'The connector / sync logs and their timestamps'],
+          ['Ops qty ↔ finance qty', 'Sellable units (OMS/Shopify) vs valuation qty (ERP/QuickBooks)', 'Different counting logic — returns, bundles, transfers, ghost entries', 'The accounting inventory ledger, not the sync'],
+        ],
+      },
+      {
+        t: 'p',
+        text: 'Most people try to reconcile harder against all three at once and get nowhere. And this is not a rounding-error problem you can will away: a peer-reviewed study of nearly 370,000 retail inventory records found [65% of them were inaccurate](https://www.hbs.edu/faculty/Pages/item.aspx?num=30461). A gap between the system and the shelf is the normal state of inventory, not the exception. So the goal is not a perfect match. It is knowing which of the three is drifting, and by how much.',
+      },
+      { t: 'h2', text: 'Pick one source of truth — and make the others bow to it' },
+      {
+        t: 'p',
+        text: 'The fix the experienced sellers keep landing on is one line: ["you need a single source of truth for inventory, not three systems arguing about who\'s right."](https://reddit.com/r/FulfillmentByAmazon/comments/1t0soap/trying_to_diversify_off_amazon_is_basically_a/) Pick the system that physically knows what shipped — usually your OMS, your 3PL/WMS, or your ERP, not the storefront — and declare it the authority on available-to-sell. Every channel receives its count from that system; none of them argue back. This is the same move as [reconciling your OMS against the source of truth](/notes/reconcile-your-oms-against-the-source-of-truth), applied to units instead of orders. The storefront is a display. The warehouse is the truth. When they disagree, the warehouse wins and the channel gets corrected — never the other way.',
+      },
+      {
+        t: 'callout',
+        kind: 'note',
+        text: 'A source of truth is not whichever system you happen to trust most. It is the one closest to the physical event — the scan when a unit ships, the receipt when stock arrives. Everything downstream of that is a copy, and copies drift. Choose the copy nearest the loading dock.',
+      },
+      { t: 'h2', text: 'Set a buffer that covers the sync gap' },
+      {
+        t: 'p',
+        text: 'While any lag exists between your source of truth and a channel, a buffer is the only thing standing between a fast sales window and an oversell. This is plain [safety stock](https://en.wikipedia.org/wiki/Safety_stock), sized to the one risk you can actually measure: how many units can sell on a channel before the next sync corrects it. The math is boring and it works:',
+      },
+      {
+        t: 'code',
+        text: 'Buffer per SKU, per channel\n---------------------------\nsync_latency   = minutes between inventory pushes (worst case, peak load)\npeak_velocity  = max units/min that SKU sells on this channel during a drop\n\nbuffer = ceil(sync_latency * peak_velocity) + safety_margin\n\nExample — a hot SKU during a launch:\n   sync_latency  = 10 min      (connector polls every 10 min under load)\n   peak_velocity = 1.2 units/min\n   buffer        = ceil(10 * 1.2) = 12 units   (+ a few for safety)\n\nStop selling on the channel at 12 units on hand, not 0.\nThose last 12 units are the cushion the sync delay can burn\nthrough before the correction lands.',
+      },
+      {
+        t: 'p',
+        text: 'Set the buffer high on your fastest movers and during known spikes; drop it back when velocity is predictable, because every buffered unit is a unit you are choosing not to sell. The buffer is a patch over latency, not a replacement for the source of truth — it buys you the minutes the sync needs, and nothing more. Shrink the latency and you shrink the buffer.',
+      },
+      { t: 'h2', text: 'Reconcile on hand against the floor: the shrinkage check' },
+      {
+        t: 'p',
+        text: 'This is reconciliation #1 — the one your sync can never fix, because the gap is physical. Run it on a cadence (small, frequent cycle counts beat one giant annual count), against whatever actually holds your stock. For FBA, Amazon hands you the raw material directly: the [Inventory Ledger report](https://sellercentral.amazon.com/help/hub/reference/external/G4FKT5KQWFFJ7LDN?locale=en-US) shows your starting balance, units received, customer orders and returns, adjustments, and reconciliation events for damaged or lost units. The seller who posted that ["the number of orders I received doesn\'t match with inventory"](https://reddit.com/r/AmazonSeller/comments/16puxku/amazon_warehouse_eating_my_inventory/) was seeing exactly this — units that left the system without leaving as a sale.',
+      },
+      {
+        t: 'ol',
+        items: [
+          'Count a slice of SKUs physically (a cycle count) — start with your highest-velocity or highest-value items.',
+          'Pull the system on-hand for those same SKUs as of the count moment. Freeze movement during the count, or the numbers will never tie.',
+          'Diff count vs system. For FBA, pull the Inventory Ledger and inventory adjustments for the same window so the events are itemized for you.',
+          'Classify each gap: received-not-logged, shipped-not-decremented, damaged, lost, or miscount. The classification is the answer; the number is just the flag.',
+          'Adjust the system to match the physical count, and file reimbursement claims for anything the warehouse lost. The count wins, every time.',
+        ],
+      },
+      { t: 'h2', text: 'Reconcile each channel against the source of truth: the drift check' },
+      {
+        t: 'p',
+        text: 'This is reconciliation #2 — pure data, no warehouse required, and the one you can automate. You are comparing your master available against what each channel is currently showing, SKU by SKU, to catch drift before it becomes an oversell. It is the same two-file discipline as [reconciling two systems by hand](/notes/how-to-reconcile-two-systems-by-hand), pointed at inventory:',
+      },
+      {
+        t: 'ol',
+        items: [
+          'Export available-to-sell by SKU from your source of truth.',
+          'Export the inventory each channel currently shows (Shopify "Available," Amazon "Available," and so on).',
+          'Join on the SKU — the [primary ID the whole reconciliation hangs on](/notes/what-we-mean-when-we-say-primary-id). If your SKUs are not identical across channels, fix that first; nothing else works until they are.',
+          'Clean the exports before you match. A SKU that Excel mangled into a number, or a stray encoding mark, will fake a mismatch — these are the [CSV gotchas that quietly break a reconciliation](/notes/csv-gotchas-encoding-delimiters).',
+          'Diff the two columns. In a spreadsheet, [COUNTIF and MATCH find the rows present in one file and missing from the other](/notes/find-missing-rows-in-excel-countif-match); a simple subtraction column finds the SKUs that exist in both but disagree.',
+          'For every SKU that is off, check the sync timestamp. A gap with a recent successful sync is real drift to investigate; a gap with a stale or failed sync is just a push that did not land — re-run it.',
+        ],
+      },
+      { t: 'h2', text: 'A worked example: where the 12 units went' },
+      {
+        t: 'p',
+        text: 'One SKU, three systems, the end of a launch day. The storefront says one thing, the warehouse another, the books a third. Walk it the way you would walk it live:',
+      },
+      {
+        t: 'table',
+        head: ['System', 'Shows available', 'Why'],
+        rows: [
+          ['3PL / source of truth', '88', 'The real count: 100 received − 12 shipped'],
+          ['Shopify (channel)', '94', 'Sync is two polls behind; 6 of the 12 shipments have not decremented yet'],
+          ['QuickBooks (finance)', '100', '2 customer returns re-added to quantity, and a bundle SKU never relieved its components'],
+        ],
+      },
+      {
+        t: 'p',
+        text: 'Three different numbers, three different stories, and not one of them "broken." Shopify is drift — reconciliation #2: re-sync now, raise the buffer next launch. QuickBooks is counting logic — reconciliation #3, an accounting fix for the returns and the bundle relief, the same family of gap covered in [where NetSuite inventory and the GL disagree](/notes/netsuite-reconciliation-inventory-and-gl), not a sync problem at all. The 3PL is right, which is the entire point of making it the source of truth. And notice the oversell risk lived only in Shopify\'s six un-decremented units — a buffer of 12 would have absorbed it without a single apology email.',
+      },
+      { t: 'h2', text: 'When do you actually need software for this?' },
+      {
+        t: 'p',
+        text: 'Two files and a spreadsheet reconcile inventory across two or three channels fine — the by-hand method scales further than people expect. You start needing real tooling when the channel count climbs, when the sync interval has to shrink toward real-time, or when a launch\'s velocity outruns any buffer you would be willing to hold. Multi-channel inventory tools — SkuVault, Veeqo, Cin7 and the like — exist to be that single source of truth and to push faster than a polling middleware can. They earn their keep when manual re-syncs and held buffer cost you more than the subscription. What they do not do is the physical reconciliation: no tool knows a unit was damaged in the warehouse until someone counts it.',
+      },
+      {
+        t: 'p',
+        text: 'Whatever you use to move the numbers, the job underneath is the same — one source of truth, a buffer sized to the lag, and a regular check that the channels and the floor still agree. That is the reconciliation. The tool is just how fast you get to run it.',
+      },
+    ],
+    faq: [
+      {
+        q: 'Why does my inventory oversell even though my systems are synced?',
+        a: 'Because a sync is a scheduled push, not a live guarantee. Most connectors poll for changes on an interval — often every 5 to 15 minutes. During a fast sales window, two channels can both sell the last unit inside that interval before the decrement reaches the other one. The sync is not broken; it is just behind. A safety buffer sized to cover the poll interval is what prevents the oversell while the lag exists.',
+      },
+      {
+        q: 'What should be my source of truth for inventory?',
+        a: 'The system closest to the physical event — usually your OMS, your 3PL or warehouse system, or your ERP, not your storefront. It is the one that knows what actually shipped and what actually arrived. Every sales channel should receive its available count from that system and never overwrite it. When two systems disagree, the one nearest the warehouse wins.',
+      },
+      {
+        q: 'Why doesn\'t my Shopify inventory match QuickBooks even when orders sync correctly?',
+        a: 'Because they count different things. Shopify tracks sellable units and splits them into on hand, committed, available, and unavailable. QuickBooks tracks a quantity for valuation, which moves on returns, refunds, bundles, location transfers, and the occasional ghost entry. Those are different logics, so the two numbers were never meant to be identical. Reconcile them as an accounting question, not a sync problem.',
+      },
+      {
+        q: 'How do I calculate an inventory buffer to prevent oversells?',
+        a: 'Multiply your worst-case sync latency in minutes by the SKU\'s peak sales velocity in units per minute during a spike, round up, and add a small safety margin. That is the number of units that could sell before the next sync corrects the channel. Stop selling that SKU on the channel when on-hand hits the buffer rather than zero. Raise it for fast movers and known spikes; lower it when demand is predictable.',
+      },
+      {
+        q: 'Do I need inventory software, or can I reconcile by hand?',
+        a: 'A spreadsheet handles two or three channels: export available-to-sell from your source of truth and from each channel, join on SKU, and diff. You start needing dedicated multi-channel software when channels multiply, when you need the sync closer to real-time than a polling tool allows, or when launch velocity outruns any buffer you would hold. Software keeps the systems agreeing faster; it still cannot count the warehouse floor for you.',
+      },
+    ],
+  },
+  {
     slug: 'marketplace-payout-reconciliation',
     title: 'Marketplace payout reconciliation: the clearing account that makes every platform tie out',
     description:
@@ -478,6 +1337,142 @@ const articles: Article[] = [
       {
         q: 'When should I move off the spreadsheet to a dedicated tool?',
         a: 'When the structure stops fitting: multiple processors and channels with different export formats, partial payments and bundled deposits that no longer map to a single key, or other people who need to trust the number without re-deriving it. A spreadsheet saves the answer but not the reasoning, and once a team depends on that reasoning it needs to live somewhere more repeatable and auditable than a cell formula.',
+      },
+    ],
+  },
+  {
+    slug: 'bank-reconciliation-in-excel',
+    title: 'Bank reconciliation in Excel: matching bundled deposits and partial payments when XLOOKUP gives up',
+    description:
+      'XLOOKUP assumes one row in the bank export matches one row in your books on a shared key. Bank data breaks that assumption twice: one deposit bundles many transactions into a single line, and one invoice gets paid in several partial payments. This guide shows the Excel methods that survive both — SUMIFS batch totals for bundled deposits, a running paid-versus-billed balance for partial payments, and the Solver combination-sum trick for the stubborn residual — plus the key cleanup that has to happen first and the warning signs that a matched amount is not the right match.',
+    keywords: [
+      'bank reconciliation excel',
+      'match bundled deposits excel',
+      'partial payment reconciliation excel',
+      'one deposit multiple invoices excel',
+      'sumifs reconciliation',
+      'find transactions that add up to an amount excel',
+      'excel solver subset sum reconciliation',
+      'xlookup one to many reconciliation',
+      'running balance invoice payments excel',
+      'match deposits to invoices excel',
+    ],
+    lead: 'A poster on [r/tax](https://reddit.com/r/tax/comments/1q99c0e/how_do_you_guys_handle_partial_payment/) described the wall everyone hits: "clients make partial payments that don\'t match the invoice totals" and "Excel\'s VLOOKUP/XLOOKUP isn\'t cutting it because the unique identifiers don\'t align perfectly." The formula is not the problem. XLOOKUP assumes every row on one side matches exactly one row on the other, joined by a shared key — and bank data breaks that assumption in both directions. One deposit bundles fifty transactions into a single line. One invoice gets paid in three installments. The fix is not a cleverer lookup. It is switching what you compare: totals against totals for bundled deposits, running balances for partial payments, and — for the last few orphans — a combination-sum trick you should use sparingly. This guide covers all three, in the order that keeps you sane.',
+    blocks: [
+      { t: 'h2', text: 'Why does XLOOKUP give up on bank reconciliation?' },
+      {
+        t: 'p',
+        text: '[XLOOKUP](https://support.microsoft.com/en-us/office/xlookup-function-b7fd680e-6d10-43e6-84f9-88eae8bf5929) searches a range and returns the item corresponding to the first match it finds. That is the whole design: one lookup value, one matching row, one answer. It reconciles [two well-behaved exports](/notes/reconcile-two-files-in-excel-with-xlookup) beautifully. A bank statement is not well-behaved. A poster on [r/Accounting](https://reddit.com/r/Accounting/comments/yrpw9d/whats_the_easiest_way_to_reconcile_credit_card/) trying to reconcile merchant-processor activity against a GL put it plainly: "There is also no common identifiers besides the amount and SOMETIMES the date." No shared key, and no one-to-one rows to join even if there were one. Three shapes show up in real bank data, and only the first is XLOOKUP\'s job:',
+      },
+      {
+        t: 'table',
+        head: ['Shape', 'Example', 'What to compare', 'Tool'],
+        rows: [
+          ['One-to-one', 'A wire with an invoice number in the memo', 'Row to row on a shared key', 'XLOOKUP'],
+          ['Many-to-one', 'One deposit bundling a day\'s card settlements', 'Batch total to deposit amount', 'SUMIFS'],
+          ['One-to-many', 'An invoice paid in three installments', 'Running paid balance to invoice total', 'SUMIFS running balance'],
+        ],
+      },
+      {
+        t: 'p',
+        text: 'Threads asking about this get strikingly little help. The r/tax poster\'s only substantive reply was a diagnostic question — ["Are you reconciling settlement report vs actual bank credit? Sometimes fee deductions + refunds create mismatch."](https://reddit.com/r/tax/comments/1q99c0e/how_do_you_guys_handle_partial_payment/) — a fair point, but not a method. And when [an r/Accounting poster asked how much month-end reconciliation still happens manually in Excel](https://reddit.com/r/Accounting/comments/1szfy9x/anyone_else_still_doing_a_lot_of_manual/), naming "matching transactions between exports" and "dealing with missing or slightly different references," the replies accused the poster of vendor self-promotion instead of answering. The method below is the answer those threads never got.',
+      },
+      { t: 'h2', text: 'Step 0: clean the keys, or nothing below works' },
+      {
+        t: 'p',
+        text: 'Every technique on this page compares amounts, dates, and reference strings. If those columns are quietly broken, you will manufacture false mismatches and then spend an evening chasing them. Before anything else: amounts stored as numbers, not text; dates as real dates, not strings that sort wrong; and one clean-key helper column on each sheet — trimmed, prefix-stripped, case-consistent — the same preparation covered in [the XLOOKUP guide](/notes/reconcile-two-files-in-excel-with-xlookup) and, for exports that arrive already mangled, [the CSV gotchas that break reconciliations](/notes/csv-gotchas-encoding-delimiters). If your references are near-misses rather than exact matches — ORD-1042 against 1042 — [normalize them before you match](/notes/fuzzy-matching-records) rather than teaching every formula to forgive them.',
+      },
+      { t: 'h2', text: 'How do you match one bundled deposit to many transactions?' },
+      {
+        t: 'p',
+        text: 'Stop trying to match the deposit to any single row — it is not any single row. A bundled deposit is a batch total, so build the batch total on your side and compare totals. A commenter on [r/Bookkeeping](https://reddit.com/r/Bookkeeping/comments/1s8h7ry/is_anyone_else_dealing_with_payment_gateway/) nailed the most common version of the mismatch: "the mismatch is usually because QBO records the gross sale amount but your bank gets the net deposit after processing fees. if you\'re recording both and trying to match them 1:1 they\'ll never line up." So the batch total has to be net — gross minus fees and refunds — before it will ever equal the deposit. The mechanics:',
+      },
+      {
+        t: 'ol',
+        items: [
+          'On the ledger sheet, add a Batch column that groups rows the way the bank bundles them: the settlement batch ID if your processor provides one, otherwise the expected payout date.',
+          'Add a Net column per row: gross amount minus that row\'s share of fees and refunds.',
+          'On the bank sheet, next to each deposit, total the matching batch with [SUMIFS](https://support.microsoft.com/en-us/office/sumifs-function-c9e748f5-7ea7-455d-9406-611cebce642b).',
+          'Compare the batch total to the deposit amount, rounded to cents, and flag the difference.',
+          'Work only the non-zero rows: drill into that one batch, not the whole month.',
+        ],
+      },
+      { t: 'code', text: '=SUMIFS(Ledger!$D:$D, Ledger!$B:$B, A2)\n\nwhere Ledger!D = net amount, Ledger!B = batch/payout date, A2 = deposit date\n\n=IF(ROUND(C2-B2,2)=0, "ok", "diff " & TEXT(C2-B2, "0.00"))' },
+      {
+        t: 'p',
+        text: 'This is the same per-payout logic that makes [Shopify deposits reconcilable](/notes/why-shopify-deposits-never-match-sales) and [marketplace payouts tie out through a clearing account](/notes/marketplace-payout-reconciliation) — the deposit is a settlement batch, so the batch is the unit of reconciliation. It also matters for cleanup later: as a commenter on [r/Bookkeeping](https://reddit.com/r/Bookkeeping/comments/1bde8l5/and_what_way_will_it_affect_my_books_if_i_match_a/) noted about matching a deposit to an invoice inside a bigger deposit, "it brings the items in individually which can be a pain for verifying the reconciliation" — batches you split apart by hand are batches you re-verify by hand.',
+      },
+      { t: 'h2', text: 'How do you reconcile partial payments against one invoice?' },
+      {
+        t: 'p',
+        text: 'Flip the comparison. Instead of asking "which payment matches this invoice?" — there is no single one — ask "how much has been paid against this invoice so far, and does the remainder make sense?" That is a running balance, and SUMIFS builds it in one column:',
+      },
+      {
+        t: 'ol',
+        items: [
+          'Put invoices on one sheet with the invoice key and total; payments on another with the invoice key and amount. Normalize both keys in a helper column first.',
+          'On the invoice sheet, compute paid-to-date per invoice with SUMIFS against the payments sheet.',
+          'Compute the open balance: invoice total minus paid-to-date.',
+          'Add a status column: OPEN when nothing has been paid, PARTIAL when something has, PAID at zero remaining, OVERPAID when payments exceed the total.',
+          'Review PARTIAL rows by age and OVERPAID rows immediately — overpayment is how a duplicate payment announces itself.',
+        ],
+      },
+      { t: 'code', text: '=SUMIFS(Payments!$C:$C, Payments!$A:$A, A2)\n\n=IF(D2=0, "OPEN", IF(ROUND(B2-D2,2)=0, "PAID", IF(D2<B2, "PARTIAL", "OVERPAID")))\n\nwhere B2 = invoice total, D2 = paid-to-date' },
+      {
+        t: 'p',
+        text: 'The honest catch: this assumes each payment carries the invoice key. The r/tax poster\'s payments did not — that is what "the unique identifiers don\'t align perfectly" means in practice. When the key is missing or mangled, allocate by customer instead: filter payments to the customer, apply them to that customer\'s open invoices oldest-first, and flag anything ambiguous for a human decision. Do not let a formula silently guess which invoice a keyless payment belongs to. A [primary ID](/notes/what-we-mean-when-we-say-primary-id) is exactly what is missing here, and pretending you have one is worse than knowing you do not.',
+      },
+      {
+        t: 'callout',
+        kind: 'warning',
+        text: 'OVERPAID is a finding, not a formatting problem. Payments exceeding the invoice total usually mean a duplicate payment or a payment applied to the wrong invoice — the same failure mode that hides behind offsetting amounts in a reconciliation that "balances."',
+      },
+      { t: 'h2', text: 'What about a deposit with no key at all — the combination-sum trick?' },
+      {
+        t: 'p',
+        text: 'After batch totals and running balances, you will usually have a small residual: a deposit or two that matches nothing, with no reference to work from. The classic advice — from that same [r/Accounting credit-card thread](https://reddit.com/r/Accounting/comments/yrpw9d/whats_the_easiest_way_to_reconcile_credit_card/), where a commenter suggested you "find combination of transactions that add up to an amount" — is the [subset-sum problem](https://en.wikipedia.org/wiki/Subset_sum_problem), and Excel\'s [Solver add-in](https://support.microsoft.com/en-us/office/define-and-solve-a-problem-by-using-solver-5d1a388f-079d-43ac-a7eb-f63e45925040) can brute-force it:',
+      },
+      {
+        t: 'ol',
+        items: [
+          'List the candidate transactions in one column and add a 0/1 flag column beside them.',
+          'Compute the selected total with [SUMPRODUCT](https://support.microsoft.com/en-us/office/sumproduct-function-16753e75-9f68-4874-94ac-4d2145a2fd2e) of the amounts and the flags.',
+          'In Solver: set the objective to that total equalling the deposit amount, the variable cells to the flag column, and a constraint that the flags are binary.',
+          'Solve. The rows flagged 1 are a combination that sums to the deposit.',
+        ],
+      },
+      { t: 'code', text: '=SUMPRODUCT($B$2:$B$50, $C$2:$C$50)\n\nSolver: objective = deposit amount · variables = C2:C50 · constraint = C2:C50 bin' },
+      {
+        t: 'callout',
+        kind: 'warning',
+        text: 'Solver finds a combination that sums to the target — not necessarily the right one. With enough candidates, several different subsets can hit the same total. Shrink the candidate pool first (same date window, same customer or processor), and treat the result as a hypothesis to verify against source documents, not a match.',
+      },
+      {
+        t: 'p',
+        text: 'Use this on a handful of stubborn rows at the end, not as the method. If you are running combination-sums every week, the real problem is upstream — the export is missing the reference that would make matching deterministic. An hour of fixing that at the source beats a lifetime of solving puzzles downstream.',
+      },
+      { t: 'h2', text: 'Where the spreadsheet method runs out' },
+      {
+        t: 'p',
+        text: 'These three techniques will get a monthly bank rec done in Excel, and done defensibly — the full statement-to-books procedure lives in [bank reconciliation, step by step](/notes/bank-reconciliation-step-by-step), and a ready-made layout in [the reconciliation spreadsheet template](/notes/reconciliation-spreadsheet-template). But notice what the workbook does not keep: the reasoning. Which batch rule you used, why you allocated a keyless payment to that invoice, which Solver result you accepted. That is precisely [what an auditor asks for](/notes/what-auditors-look-for), and re-deriving it from cell formulas months later is its own reconciliation. When the same comparison runs every week, when partial payments and bundled deposits are the norm rather than the residual, or when someone else has to trust the number, the logic needs to live somewhere repeatable — whether that is [a carefully prompted AI assistant](/notes/prompting-ai-to-help-reconcile-two-files), a script, or a dedicated tool. Until then: totals to totals, balances to balances, and Solver only when cornered.',
+      },
+    ],
+    faq: [
+      {
+        q: 'Why does XLOOKUP not work for bank reconciliation?',
+        a: 'XLOOKUP returns the first match for one lookup value — a one-to-one join on a shared key. Bank data is usually one-to-many (one deposit bundling many transactions) or many-to-one (several partial payments against one invoice), often with no shared key at all. Compare batch totals and running balances with SUMIFS instead of forcing row-to-row lookups.',
+      },
+      {
+        q: 'How do I match one deposit to multiple invoices in Excel?',
+        a: 'Group your ledger rows by the way the bank bundles them — settlement batch ID or expected payout date — total each batch net of fees and refunds with SUMIFS, and compare the batch total to the deposit amount. Only drill into individual rows when a batch total disagrees with its deposit.',
+      },
+      {
+        q: 'How do I track partial payments against an invoice in Excel?',
+        a: 'Build a running balance: SUMIFS the payments by invoice key to get paid-to-date, subtract from the invoice total, and add a status column of OPEN, PARTIAL, PAID, or OVERPAID. Review OVERPAID rows first — payments exceeding an invoice total usually mean a duplicate or misapplied payment.',
+      },
+      {
+        q: 'How do I find which transactions add up to a deposit amount?',
+        a: 'Use the Solver add-in: a 0/1 flag column per candidate transaction, a SUMPRODUCT of amounts and flags as the objective set equal to the deposit, and a binary constraint on the flags. Verify the result against source documents — several different subsets can sum to the same total, so a solved combination is a hypothesis, not proof.',
       },
     ],
   },
