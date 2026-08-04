@@ -186,3 +186,36 @@ _First fresh corpus in 43 days (miner regenerated 07-30 19:03; corpus 854 → 91
 - A single system disagreeing with itself: _"there's a variance within their Clover POS reports that has befuddled me."_ **[finance/bookkeeper · (post)]** — 15 comments, none exported. [link](https://reddit.com/r/Bookkeeping/comments/1v1en8w/unexplainable_variance_between_pos_taxes_sales/)
 
 **Honest framing read (this pull):** the resumed corpus's readable new threads are **overwhelmingly finance-voiced** — r/Accounting confessions, bookkeeper/AP/FP&A pain, QuickBooks trust, credit-card recon review. No COO- or operator-voiced thread in the readable new set (the closest ops items — a Shopify dev-outsourcing question and the Shopifreaks news recaps — are off-thesis). The one new systems-disagree story with named systems is suspected AI-seeded. Net: this pull adds pain-language and content seeds but does **not** move Part A's ownership claim toward operations, and adds no clean new Part B.
+
+---
+
+### Reddit pull 2026-08-03
+
+_Covers the 07-31 and 08-02 miner runs (no Stage-2 runs on 08-01/08-02; corpus 912 → 921). The delta reports **1 new painful thread · 0 new questions · 0 old threads with new comments**; two additional threads first-seen 07-31 (`1u60t68`, `1uht1v5`) are new to Stage 2 but title-only in the corpus. Verbatim below is from `corpus.json`'s exported snippet, truncated as captured by the miner (… marks truncation). Tag = ops / finance / Part-B. (post)/(comment) marks source._
+
+**"Fully reconciled and still wrong" — reconciliation ≠ correctness (feeds the verification thesis, with a strong caveat):**
+- "Month-End Close Mistakes | The Errors That Make Financial Statements Wrong" — _"Four classes of error turn up in month-end closes. Some just make the close late. The others do something worse — they produce statements that are fully reconciled, tie to the penny, and are still wrong. None of these require anybody to be bad at their job. Every one is a decision made late in a close by somebody who ran out of time."_ **[finance · (post) · suspected-seeded]** [link](https://reddit.com/r/Accounting/comments/1vct0uu/monthend_close_mistakes_the_errors_that_make/) — **Caveat: score 1, 0 comments, polished listicle structure ("Four classes of error… 1. CUTOFF FAILURES"), not a question — reads like content marketing, not organic pain.** The theme (a reconciliation that "ties to the penny" can still be wrong) is squarely on Darpan's verification thesis, but treat as a content-angle seed and a someone-else-is-publishing-in-this-lane signal, not practitioner evidence.
+
+**Flagged but unreadable (logged for honesty, not quoted):**
+- "The most common reason your Shopify payouts don't match your bank account" ([link](https://reddit.com/r/smallbusiness/comments/1u60t68/the_most_common_reason_your_shopify_payouts_dont/)) **[finance · (post)]** — pain 6, 1 comment, topic `shopify-payout-bundling`; first-seen 07-31 but **no body or comment text in any corpus file** (title-only). Title suggests another teaching-style post in the payout-bundling lane.
+- "bookkeeping mistakes I see small businesses make over and over" ([link](https://reddit.com/r/smallbusiness/comments/1uht1v5/bookkeeping_mistakes_i_see_small_businesses_make/)) **[finance · (post)]** — pain 4, 5 comments, topic `bank-rec`; title-only, comments not exported.
+- Recovery-auditor thread `1u5pe9p` +6 comments: **still in no corpus file** (gap open since 06-18).
+
+**Honest framing read (this pull):** the only readable new thread is finance-framed and probably seeded; the two unreadable ones are finance-framed by topic. **No ops/operator-voiced content, no new Part B (post or comment), no comment-derived signal** — the delta's "0 old threads with new comments" checks out (the digest's new-comment sections are empty). Nothing this pull moves Part A's ownership claim toward operations. Note the pattern now visible across pulls: the corpus is accumulating *polished educational posts* (Prime Day, 12-currencies FX, month-end-mistakes, payouts-don't-match) — the lane Darpan is writing in has active, possibly AI-assisted, competition for attention on these subreddits.
+
+---
+
+### Reddit pull 2026-08-04
+
+_Covers the 08-03 miner run (corpus 921 → 934). Delta: **11 new painful threads · 4 new unanswered questions · 0 old threads with new comments.** **No quotes this pull:** none of the 11 new thread IDs have body or comment text in any corpus file (digest, questions bank, or summary CSV) — the text-export gap is now total for the delta. Everything below is title + metadata only, logged for the record; nothing here meets the verbatim-quote bar._
+
+**Ops-titled unanswered questions (the on-thesis subset — title-only, low pain, unverifiable):**
+- "Why does my Shopify inventory keep going out of sync?" ([link](https://reddit.com/r/shopify/comments/1u1bsin/why_does_my_shopify_inventory_keep_going_out_of/)) **[ops · (post) · title-only]** — pain 1, why-question, unanswered, 1 unexported comment; created 06-09, first-seen 08-03.
+- "How are you handling Square POS and Shopify inventory sync?" ([link](https://reddit.com/r/shopify/comments/1u1w25f/how_are_you_handling_square_pos_and_shopify/)) **[ops · (post) · title-only]** — pain 1, how-question, unanswered, 0 comments; two named systems, but **no body → no verifiable disagreement signal → NOT logged as Part B**.
+- "How many hours per week do you spend on data entry and spreadsheet management?" ([link](https://reddit.com/r/smallbusiness/comments/1uj505t/how_many_hours_per_week_do_you_spend_on_data/)) **[ops-adjacent · (post) · title-only]** — pain 4, unanswered.
+
+**Attention-competition sightings (not pain evidence):**
+- Prime Day reorder post now in a **third** subreddit: [r/smallbusiness](https://reddit.com/r/smallbusiness/comments/1u7bc0t/prime_day_is_coming_up_and_im_not_sure_if_i/) (created 06-16, first-seen 08-03, 4 unexported comments) — reinforces the seeded read from 06-18.
+- "You didn't start a brand to become a full-time plugin manager. (The hidden cost of e-commerce complexity)" ([link](https://reddit.com/r/smallbusiness/comments/1uv6rao/you_didnt_start_a_brand_to_become_a_fulltime/)) **[(post) · title-only · suspected-seeded]** — polished teaching-style title in the lane.
+
+**Honest framing read (this pull):** by *title*, the on-topic subset of today's delta reads operational (two inventory-sync questions + a data-entry-hours question) — the first ops-titled unanswered questions since Prime Day, and mild directional color for the COO lane. But the evidence quality is the weakest of any pull yet: title-only, pain 1–4, several threads weeks old at first-seen, and ~half the delta off-topic entirely (supermarket franchising, Google Ads, hiring, loyalty app — relevance filter may have loosened). **No new Part B, no comment signal, no quotable practitioner language.** This pull does not move either half of the thesis.
