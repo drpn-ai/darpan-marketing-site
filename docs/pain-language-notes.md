@@ -578,3 +578,14 @@ _2 new threads (corpus 1044). No comments in the corpus for either._
 
 - (post, ops-leaning, not Part B) "Do you genuinely reconcile all of that against your rate card and actual orders?" — [r/ecommerce 3PL invoices thread](https://reddit.com/r/ecommerce/comments/1x37tux/do_you_actually_check_your_3pl_invoices_line_by/). Poster is an e-commerce brand asking about 3PL invoice checking. This is vendor-invoice verification, closer to operations/AP than to a systems-disagree story; I would not count it as Part B.
 - Logged, not quoted: [India accounting/compliance thread](https://reddit.com/r/Accounting/comments/1x4ygww/engineer_trying_to_learn_how_accounting_tax_and/) (post, title only). Looks like outside research by a would-be builder; finance/compliance-framed.
+
+### Reddit pull 2026-10-22
+_3 new threads (corpus 1053). 0 old threads with new comments. No comment lines in the corpus for any of the three._
+
+- (post, ops, Part B-adjacent) "The most annoying inventory problem in my boutique isn't when I have 50 units of something. It's when I have one left. I sell through Shopify online and Square in my physical store, and that's when inventory mismatches actually become noticeable." — [r/shopify, posted 2026-09-29](https://reddit.com/r/shopify/comments/1wtg20k/the_lastitem_inventory_problem_that_kept_haunting/). Names two systems (Shopify and Square) that disagree on stock. The poster runs a single boutique and may be the owner rather than an ops lead. The corpus holds only about the first 400 characters; the 8 comments are not in it.
+- Logged, not quoted: [AP software for QuickBooks](https://reddit.com/r/Accounting/comments/1xbfm3j/what_should_a_growing_small_business_look_for_in/) (post, title only; finance/AP; unanswered) and [I don't know what I am doing at work...](https://reddit.com/r/Accounting/comments/1xb6w7x/i_dont_know_what_i_am_doing_at_work_and/) (post, title only; career advice, not reconciliation).
+
+### Reddit pull 2026-10-23
+_1 new thread (corpus 1055). 0 old threads with new comments. No comment lines in the corpus for it._
+
+- (post, finance, not Part B) "wanted me to migrate over four years of historical data from Excel to QuickBooks Online for account reconciliations against their existing sheets, and also find a way to make the process relatively straightforward going forward" — [r/QuickBooks, Finally understand why everyone hates QuickBooks](https://reddit.com/r/QuickBooks/comments/1xbs9kl/finally_understand_why_everyone_hates_quickbooks/). Poster is a freelance accountant/bookkeeper-type taking a client; the problem is spreadsheet-to-QBO migration, not two live systems disagreeing. Only the first ~400 characters are in the corpus.
