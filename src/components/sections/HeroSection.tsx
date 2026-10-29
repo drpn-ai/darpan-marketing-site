@@ -29,8 +29,8 @@ export function HeroSection() {
               Request a walkthrough
               <ArrowRight size={18} weight="regular" aria-hidden />
             </a>
-            <a className="hero-secondary" href="/customers">
-              Read the product brief
+            <a className="hero-secondary" href="/">
+              See how Darpan works
               <ArrowUpRight size={14} weight="regular" aria-hidden />
             </a>
           </div>

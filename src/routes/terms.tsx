@@ -1,11 +1,15 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { VlPage } from '@/components/VlChrome'
+import { pageHead } from '@/data/site'
 
 export const Route = createFileRoute('/terms')({
   component: TermsPage,
-  head: () => ({
-    meta: [{ title: 'Terms — Darpan' }],
-  }),
+  head: () =>
+    pageHead(
+      '/terms',
+      'Terms — Darpan',
+      'Terms of use for Darpan.',
+    ),
 })
 
 function TermsPage() {

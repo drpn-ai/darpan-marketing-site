@@ -27,3 +27,16 @@
   to = "/notes"
   status = 301
   force = true
+
+# /why (the long-form essay) and /customers (placeholder logos) were retired in
+# the DAR-MKT-001 rethink; send old links and indexed URLs to the homepage.
+[[redirects]]
+  from = "/why"
+  to = "/"
+  status = 301
+  force = true
+[[redirects]]
+  from = "/customers"
+  to = "/"
+  status = 301
+  force = true

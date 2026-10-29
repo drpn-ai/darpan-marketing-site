@@ -9,41 +9,38 @@ export const Route = createRootRoute({
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       { name: 'theme-color', content: '#F4F2EC' },
       {
-        title:
-          'Darpan — the verification layer for the composable retail stack',
+        title: 'Darpan — checks for the work between your systems',
       },
       {
         name: 'description',
         content:
-          'You’ve connected your systems. Nobody’s checking they still line up. Darpan keeps verifying that Shopify, your OMS, the WMS, and the processor still reconcile after data lands — row by row, in time for operations to act.',
+          'Your integrations report success. Darpan checks the outcome every morning and keeps each break on a list, with its owner and evidence, until it’s fixed.',
       },
       { property: 'og:type', content: 'website' },
       { property: 'og:site_name', content: 'Darpan' },
-      { property: 'og:url', content: 'https://drpn.ai/' },
       {
         property: 'og:title',
         content:
-          'Darpan — the verification layer for the composable retail stack',
+          'Darpan — checks for the work between your systems',
       },
       {
         property: 'og:description',
         content:
-          'Keep your best-of-breed tools. Add the layer that proves they line up — continuous verification that your retail systems still reconcile, built for operations.',
+          'Your integrations report success. Darpan checks the outcome every morning and keeps each break on a list, with its owner and evidence, until it’s fixed.',
       },
       { name: 'twitter:card', content: 'summary_large_image' },
       {
         name: 'twitter:title',
         content:
-          'Darpan — the verification layer for the composable retail stack',
+          'Darpan — checks for the work between your systems',
       },
       {
         name: 'twitter:description',
         content:
-          'You’ve connected your systems. Nobody’s checking they still line up. Continuous verification that your retail systems still reconcile — built for operations.',
+          'Your integrations report success. Darpan checks the outcome every morning and keeps each break on a list, with its owner and evidence, until it’s fixed.',
       },
     ],
     links: [
-      { rel: 'canonical', href: 'https://drpn.ai/' },
       { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
       {
         rel: 'preconnect',

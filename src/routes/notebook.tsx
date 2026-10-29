@@ -18,8 +18,6 @@ export const Route = createFileRoute('/notebook')({
 
 const notebookNav = [
   ['Product', '#product'],
-  ['Why Darpan', '/why'],
-  ['Customers', '/customers'],
   ['Notes', '/notes'],
 ] as const
 

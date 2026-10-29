@@ -1,11 +1,15 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { VlPage } from '@/components/VlChrome'
+import { pageHead } from '@/data/site'
 
 export const Route = createFileRoute('/privacy')({
   component: PrivacyPage,
-  head: () => ({
-    meta: [{ title: 'Privacy — Darpan' }],
-  }),
+  head: () =>
+    pageHead(
+      '/privacy',
+      'Privacy — Darpan',
+      'How Darpan handles privacy and data questions.',
+    ),
 })
 
 function PrivacyPage() {

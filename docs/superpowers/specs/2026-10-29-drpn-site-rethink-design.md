@@ -183,6 +183,8 @@ not confirmed by ship time is **dropped, not waited for** — nothing on the sit
 | A finding names its cause when the run's conclusions explain it; otherwise it shows evidence | verified | `audits.mdx` |
 | Darpan does not change records in Shopify, HotWax or NetSuite | verified by code read 2026-10-29 | Shopify's only mutation is `bulkOperationRunQuery` (starts a read, `ShopifyBulkOperationClient.groovy`); HotWax POSTs are query calls (`OmsRestSourceSupport.groovy`); NetSuite calls run SuiteQL/RESTlet reads |
 | On SFTP, Darpan moves each file it has finished reading into an `archive/` folder | verified by code read | `pollSftpAndRunReconciliation.groovy` ~L300 |
+| An SFTP automation writes each run's result file back to the source server | verified by code read (final review 2026-10-29) | `pollSftpAndRunReconciliation.groovy` ~L513-547 "Upload Result to SFTP (Server 1)" |
+| Shopify reads cover orders, payments, fulfilments, refunds, returns and exchanges | verified | shopify-darpan order, payment-capture, fulfilment and return-refs extracts |
 | Checks run every morning on a schedule the tenant sets | verified | `audits.mdx` (Schedule) |
 | A finding stays open until a later check sees it fixed | verified | `audits.mdx` |
 | Every read of a company's records is filtered to the signed-in company at the data layer; no active company = no rows (deny by default) | verified | `EntityFilterSet DARPAN_ACTIVE_COMPANY_SCOPE` (55 entity filters, `darpan/data/SecuritySeedData.xml`); `TenantScopedFinder.groovy` (default-deny sentinel) |

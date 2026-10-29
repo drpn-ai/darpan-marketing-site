@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 import { List, X } from '@phosphor-icons/react'
-import { navItems } from '@/routes/index'
+import { NAV_ITEMS, WALKTHROUGH_HREF } from '@/data/site'
 
 const FOCUSABLE_SELECTOR =
   'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])'
@@ -91,7 +91,7 @@ export function MobileMenu() {
               aria-label="Site navigation"
             >
               <nav className="mobile-menu-nav" aria-label="Sections">
-                {navItems.map(([label, href]) => (
+                {NAV_ITEMS.map(([label, href]) => (
                   <a
                     key={label}
                     href={href}
@@ -102,11 +102,11 @@ export function MobileMenu() {
                   </a>
                 ))}
                 <a
-                  href="#talk"
+                  href={WALKTHROUGH_HREF}
                   className="mobile-menu-cta"
                   onClick={() => setOpen(false)}
                 >
-                  Request a walkthrough
+                  Talk to us
                 </a>
               </nav>
             </div>,

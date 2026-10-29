@@ -2,6 +2,7 @@ import { createFileRoute } from '@tanstack/react-router'
 import { writingEntries, pillarColor } from '@/data/writing-entries'
 import { getArticle } from '@/data/writing-content'
 import { VlPage } from '@/components/VlChrome'
+import { pageHead } from '@/data/site'
 
 // Only surface entries whose article body actually exists — an entry listed
 // ahead of its content stays hidden until it's written.
@@ -9,9 +10,12 @@ const publishedEntries = writingEntries.filter((entry) => getArticle(entry.slug)
 
 export const Route = createFileRoute('/notes/')({
   component: WritingIndexPage,
-  head: () => ({
-    meta: [{ title: 'Notes — Darpan' }],
-  }),
+  head: () =>
+    pageHead(
+      '/notes',
+      'Notes — Darpan',
+      'Working notes on where systems drift between each other, and what to do about it.',
+    ),
 })
 
 function WritingIndexPage() {

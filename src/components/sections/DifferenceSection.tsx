@@ -66,7 +66,7 @@ export function DifferenceSection() {
         <p className="work-coda">
           The verification layer for the composable retail stack.{' '}
           <span aria-hidden> · </span>
-          <a className="hero-secondary" href="/why">Why Darpan is built this way →</a>
+          <a className="hero-secondary" href="/">See how Darpan works →</a>
         </p>
       </div>
     </section>

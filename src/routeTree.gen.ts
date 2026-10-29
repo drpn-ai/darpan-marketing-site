@@ -9,24 +9,31 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as WhyRouteImport } from './routes/why'
+import { Route as TourRouteImport } from './routes/tour'
 import { Route as TermsRouteImport } from './routes/terms'
+import { Route as SecurityRouteImport } from './routes/security'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as NotesRouteImport } from './routes/notes'
 import { Route as NotebookRouteImport } from './routes/notebook'
-import { Route as CustomersRouteImport } from './routes/customers'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as WorksWithIndexRouteImport } from './routes/works-with/index'
 import { Route as NotesIndexRouteImport } from './routes/notes/index'
+import { Route as WorksWithPairRouteImport } from './routes/works-with/$pair'
 import { Route as NotesSlugRouteImport } from './routes/notes/$slug'
 
-const WhyRoute = WhyRouteImport.update({
-  id: '/why',
-  path: '/why',
+const TourRoute = TourRouteImport.update({
+  id: '/tour',
+  path: '/tour',
   getParentRoute: () => rootRouteImport,
 } as any)
 const TermsRoute = TermsRouteImport.update({
   id: '/terms',
   path: '/terms',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SecurityRoute = SecurityRouteImport.update({
+  id: '/security',
+  path: '/security',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PrivacyRoute = PrivacyRouteImport.update({
@@ -44,20 +51,25 @@ const NotebookRoute = NotebookRouteImport.update({
   path: '/notebook',
   getParentRoute: () => rootRouteImport,
 } as any)
-const CustomersRoute = CustomersRouteImport.update({
-  id: '/customers',
-  path: '/customers',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const WorksWithIndexRoute = WorksWithIndexRouteImport.update({
+  id: '/works-with/',
+  path: '/works-with/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const NotesIndexRoute = NotesIndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => NotesRoute,
+} as any)
+const WorksWithPairRoute = WorksWithPairRouteImport.update({
+  id: '/works-with/$pair',
+  path: '/works-with/$pair',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const NotesSlugRoute = NotesSlugRouteImport.update({
   id: '/$slug',
@@ -67,89 +79,103 @@ const NotesSlugRoute = NotesSlugRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/customers': typeof CustomersRoute
   '/notebook': typeof NotebookRoute
   '/notes': typeof NotesRouteWithChildren
   '/privacy': typeof PrivacyRoute
+  '/security': typeof SecurityRoute
   '/terms': typeof TermsRoute
-  '/why': typeof WhyRoute
+  '/tour': typeof TourRoute
   '/notes/$slug': typeof NotesSlugRoute
+  '/works-with/$pair': typeof WorksWithPairRoute
   '/notes/': typeof NotesIndexRoute
+  '/works-with/': typeof WorksWithIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/customers': typeof CustomersRoute
   '/notebook': typeof NotebookRoute
   '/privacy': typeof PrivacyRoute
+  '/security': typeof SecurityRoute
   '/terms': typeof TermsRoute
-  '/why': typeof WhyRoute
+  '/tour': typeof TourRoute
   '/notes/$slug': typeof NotesSlugRoute
+  '/works-with/$pair': typeof WorksWithPairRoute
   '/notes': typeof NotesIndexRoute
+  '/works-with': typeof WorksWithIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/customers': typeof CustomersRoute
   '/notebook': typeof NotebookRoute
   '/notes': typeof NotesRouteWithChildren
   '/privacy': typeof PrivacyRoute
+  '/security': typeof SecurityRoute
   '/terms': typeof TermsRoute
-  '/why': typeof WhyRoute
+  '/tour': typeof TourRoute
   '/notes/$slug': typeof NotesSlugRoute
+  '/works-with/$pair': typeof WorksWithPairRoute
   '/notes/': typeof NotesIndexRoute
+  '/works-with/': typeof WorksWithIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
-    | '/customers'
     | '/notebook'
     | '/notes'
     | '/privacy'
+    | '/security'
     | '/terms'
-    | '/why'
+    | '/tour'
     | '/notes/$slug'
+    | '/works-with/$pair'
     | '/notes/'
+    | '/works-with/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
-    | '/customers'
     | '/notebook'
     | '/privacy'
+    | '/security'
     | '/terms'
-    | '/why'
+    | '/tour'
     | '/notes/$slug'
+    | '/works-with/$pair'
     | '/notes'
+    | '/works-with'
   id:
     | '__root__'
     | '/'
-    | '/customers'
     | '/notebook'
     | '/notes'
     | '/privacy'
+    | '/security'
     | '/terms'
-    | '/why'
+    | '/tour'
     | '/notes/$slug'
+    | '/works-with/$pair'
     | '/notes/'
+    | '/works-with/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  CustomersRoute: typeof CustomersRoute
   NotebookRoute: typeof NotebookRoute
   NotesRoute: typeof NotesRouteWithChildren
   PrivacyRoute: typeof PrivacyRoute
+  SecurityRoute: typeof SecurityRoute
   TermsRoute: typeof TermsRoute
-  WhyRoute: typeof WhyRoute
+  TourRoute: typeof TourRoute
+  WorksWithPairRoute: typeof WorksWithPairRoute
+  WorksWithIndexRoute: typeof WorksWithIndexRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/why': {
-      id: '/why'
-      path: '/why'
-      fullPath: '/why'
-      preLoaderRoute: typeof WhyRouteImport
+    '/tour': {
+      id: '/tour'
+      path: '/tour'
+      fullPath: '/tour'
+      preLoaderRoute: typeof TourRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/terms': {
@@ -157,6 +183,13 @@ declare module '@tanstack/react-router' {
       path: '/terms'
       fullPath: '/terms'
       preLoaderRoute: typeof TermsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/security': {
+      id: '/security'
+      path: '/security'
+      fullPath: '/security'
+      preLoaderRoute: typeof SecurityRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/privacy': {
@@ -180,18 +213,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof NotebookRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/customers': {
-      id: '/customers'
-      path: '/customers'
-      fullPath: '/customers'
-      preLoaderRoute: typeof CustomersRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/': {
       id: '/'
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/works-with/': {
+      id: '/works-with/'
+      path: '/works-with'
+      fullPath: '/works-with/'
+      preLoaderRoute: typeof WorksWithIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/notes/': {
@@ -200,6 +233,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/notes/'
       preLoaderRoute: typeof NotesIndexRouteImport
       parentRoute: typeof NotesRoute
+    }
+    '/works-with/$pair': {
+      id: '/works-with/$pair'
+      path: '/works-with/$pair'
+      fullPath: '/works-with/$pair'
+      preLoaderRoute: typeof WorksWithPairRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/notes/$slug': {
       id: '/notes/$slug'
@@ -225,12 +265,14 @@ const NotesRouteWithChildren = NotesRoute._addFileChildren(NotesRouteChildren)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  CustomersRoute: CustomersRoute,
   NotebookRoute: NotebookRoute,
   NotesRoute: NotesRouteWithChildren,
   PrivacyRoute: PrivacyRoute,
+  SecurityRoute: SecurityRoute,
   TermsRoute: TermsRoute,
-  WhyRoute: WhyRoute,
+  TourRoute: TourRoute,
+  WorksWithPairRoute: WorksWithPairRoute,
+  WorksWithIndexRoute: WorksWithIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
