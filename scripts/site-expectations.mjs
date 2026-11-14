@@ -115,7 +115,7 @@ export const PAGES = [
     path: '/tour',
     title: 'Tour',
     mustContain: [
-      'Three minutes, start to finish.',
+      'Under three minutes, start to finish.',
       'A team tells Darpan, in plain words, how its month should close',
       'From a brand that runs Darpan; names and ids changed.',
       'Talk to us',

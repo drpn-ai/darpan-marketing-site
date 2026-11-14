@@ -21,7 +21,7 @@ function TourPage() {
           <div className="vl-sec-head">
             <span className="vl-kicker">Tour</span>
             <h1 className="vl-h2" id="tour-heading">
-              Three minutes, start to finish.
+              Under three minutes, start to finish.
             </h1>
           </div>
           <DemoVideo />
