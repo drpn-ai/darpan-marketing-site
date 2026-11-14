@@ -31,7 +31,7 @@ export function Hero() {
             Talk to us <span className="arr">&rarr;</span>
           </a>
           <a className="vl-textlink" href="/tour">
-            See a morning&rsquo;s breaks <span aria-hidden>&#8599;</span>
+            Watch the three-minute tour <span aria-hidden>&#8599;</span>
           </a>
         </div>
         <p className="vl-hero-proof vl-rise" style={rise(4)}>

@@ -1,6 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { VlPage } from '@/components/VlChrome'
-import { TOUR_FRAMES } from '@/components/tour/TourFrames'
+import { DemoVideo } from '@/components/DemoVideo'
 import { WALKTHROUGH_HREF, pageHead } from '@/data/site'
 
 export const Route = createFileRoute('/tour')({
@@ -9,7 +9,7 @@ export const Route = createFileRoute('/tour')({
     pageHead(
       '/tour',
       'Tour — Darpan',
-      'One morning in Darpan: the statements your team wrote, the checks behind them, the findings at 06:00, and how a finding closes.',
+      'Three minutes in Darpan: a team describes how its month should close, Darpan writes the checks, and a real month close lists every break with the team that owns it.',
     ),
 })
 
@@ -21,20 +21,10 @@ function TourPage() {
           <div className="vl-sec-head">
             <span className="vl-kicker">Tour</span>
             <h1 className="vl-h2" id="tour-heading">
-              One morning, start to finish.
+              Three minutes, start to finish.
             </h1>
           </div>
-          <ol className="vl-tour">
-            {TOUR_FRAMES.map((frame, i) => (
-              <li className="vl-tour-frame" key={frame.id}>
-                <p className="vl-tour-caption">
-                  <span className="vl-tour-step">{i + 1}</span>
-                  {frame.caption}
-                </p>
-                {frame.render()}
-              </li>
-            ))}
-          </ol>
+          <DemoVideo />
           <p className="vl-page-cta">
             <a className="vl-cta" href={WALKTHROUGH_HREF}>
               Talk to us <span className="arr">&rarr;</span>

@@ -115,13 +115,10 @@ export const PAGES = [
     path: '/tour',
     title: 'Tour',
     mustContain: [
-      'One morning, start to finish.',
-      'One audit holds the statements your team wrote.',
-      'Each statement is tested by a check that reads both systems.',
-      'At 06:00, this morning’s findings arrive.',
-      'A finding shows its owner, the evidence on each side and, when Darpan can name it, the cause.',
-      'One schedule runs every check, in your time zone.',
-      'When a later check sees it fixed, the finding closes and keeps its history.',
+      'Three minutes, start to finish.',
+      'A team tells Darpan, in plain words, how its month should close',
+      'From a brand that runs Darpan; names and ids changed.',
+      'Talk to us',
     ],
   },
 ]

@@ -74,7 +74,7 @@ function PairPage() {
               Talk to us <span className="arr">&rarr;</span>
             </a>
             <a className="vl-textlink" href="/tour">
-              See a morning&rsquo;s breaks <span aria-hidden>&#8599;</span>
+              Watch the three-minute tour <span aria-hidden>&#8599;</span>
             </a>
           </p>
         </div>

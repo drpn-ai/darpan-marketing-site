@@ -1,3 +1,5 @@
+import { DemoVideo } from '@/components/DemoVideo'
+
 const steps = [
   { k: 'Tell it', p: 'Describe how the work should flow, in your own words.' },
   {
@@ -32,6 +34,7 @@ export function HowItWorks() {
             </div>
           ))}
         </div>
+        <DemoVideo />
         <p className="vl-gap-foot" data-reveal>
           Your integration tool confirms each hand-off. Darpan checks the next
           morning that what was handed off arrived, complete and at the same
