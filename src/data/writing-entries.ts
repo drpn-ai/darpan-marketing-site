@@ -20,25 +20,11 @@ export const pillarColor: Record<string, string> = {
 
 export const writingEntries: readonly WritingEntry[] = [
   {
-    slug: 'credit-card-and-expense-reconciliation',
-    date: 'JUN 18, 2026',
-    category: 'Guides',
-    title: 'Credit card and expense reconciliation: one statement, three different matches.',
-    meta: '8 min read',
-  },
-  {
     slug: 'spreadsheet-to-system-migration-checklist',
     date: 'JUN 15, 2026',
     category: 'Methods',
     title: 'Moving off spreadsheets: a migration checklist that proves nothing got lost.',
     meta: '8 min read',
-  },
-  {
-    slug: 'intercompany-reconciliation',
-    date: 'JUN 11, 2026',
-    category: 'Guides',
-    title: 'Intercompany reconciliation: when A’s payable doesn’t match B’s receivable.',
-    meta: '9 min read',
   },
   {
     slug: 'inventory-reconciliation-cycle-counts',
@@ -83,32 +69,11 @@ export const writingEntries: readonly WritingEntry[] = [
     meta: '7 min read',
   },
   {
-    slug: 'can-an-ai-agent-reconcile-your-data',
-    date: 'MAY 20, 2026',
-    category: 'AI',
-    title: 'Can an AI agent reconcile your data? What works and what doesn’t.',
-    meta: '7 min read',
-  },
-  {
-    slug: 'prompting-ai-to-help-reconcile-two-files',
-    date: 'MAY 16, 2026',
-    category: 'AI',
-    title: 'Prompting an AI model to help reconcile two files: patterns that work.',
-    meta: '7 min read',
-  },
-  {
     slug: 'reconcile-two-files-in-excel-with-xlookup',
     date: 'MAY 12, 2026',
     category: 'Spreadsheets',
     title: 'Reconcile two files in Excel with XLOOKUP, the right way.',
     meta: '7 min read',
-  },
-  {
-    slug: 'find-missing-rows-in-excel-countif-match',
-    date: 'MAY 8, 2026',
-    category: 'Spreadsheets',
-    title: 'Finding what’s missing: Excel set differences with COUNTIF and MATCH.',
-    meta: '6 min read',
   },
   {
     slug: 'how-to-reconcile-two-systems-by-hand',
@@ -125,13 +90,6 @@ export const writingEntries: readonly WritingEntry[] = [
     meta: '7 min read',
   },
   {
-    slug: 'reconcile-two-files-with-an-ai-agent',
-    date: 'APR 26, 2026',
-    category: 'AI',
-    title: 'Reconcile two files with an AI agent: a safe, end-to-end walkthrough.',
-    meta: '8 min read',
-  },
-  {
     slug: 'amazon-settlement-reconciliation',
     date: 'APR 22, 2026',
     category: 'Guides',
@@ -144,27 +102,6 @@ export const writingEntries: readonly WritingEntry[] = [
     category: 'Guides',
     title: 'Marketplace payout reconciliation: the clearing account that makes every platform tie out.',
     meta: '9 min read',
-  },
-  {
-    slug: 'reconciliation-spreadsheet-template',
-    date: 'APR 15, 2026',
-    category: 'Spreadsheets',
-    title: 'A free reconciliation spreadsheet template for Shopify and Stripe payouts.',
-    meta: '8 min read',
-  },
-  {
-    slug: 'bank-reconciliation-in-excel',
-    date: 'APR 11, 2026',
-    category: 'Spreadsheets',
-    title: 'Bank reconciliation in Excel: matching bundled deposits and partial payments when XLOOKUP gives up.',
-    meta: '9 min read',
-  },
-  {
-    slug: 'ar-ap-reconciliation',
-    date: 'APR 8, 2026',
-    category: 'Guides',
-    title: 'AR and AP reconciliation: when the aging report doesn’t tie to the GL.',
-    meta: '8 min read',
   },
   {
     slug: 'multi-currency-reconciliation',
@@ -181,45 +118,10 @@ export const writingEntries: readonly WritingEntry[] = [
     meta: '7 min read',
   },
   {
-    slug: 'why-shopify-deposits-never-match-sales',
-    date: 'MAR 28, 2026',
-    category: 'Guides',
-    title: 'Why Shopify deposits never match your sales (and how to reconcile payouts instead).',
-    meta: '9 min read',
-  },
-  {
-    slug: 'what-auditors-look-for',
-    date: 'MAR 25, 2026',
-    category: 'Operations',
-    title: 'What auditors look for in a reconciliation — and how to be ready before they ask.',
-    meta: '8 min read',
-  },
-  {
     slug: 'fuzzy-matching-records',
     date: 'MAR 21, 2026',
     category: 'Methods',
     title: 'Fuzzy matching records: catching the duplicate the invoice number hides.',
-    meta: '7 min read',
-  },
-  {
-    slug: 'bank-reconciliation-step-by-step',
-    date: 'MAR 18, 2026',
-    category: 'Guides',
-    title: 'Bank reconciliation, step by step (and why it never feels done).',
-    meta: '8 min read',
-  },
-  {
-    slug: 'what-we-mean-when-we-say-primary-id',
-    date: 'MAR 14, 2026',
-    category: 'Concepts',
-    title: 'What we mean when we say “primary ID.”',
-    meta: '5 min read',
-  },
-  {
-    slug: 'tick-and-tie-checklist',
-    date: 'MAR 10, 2026',
-    category: 'Methods',
-    title: 'A month-end tick-and-tie checklist (and why the order matters).',
     meta: '7 min read',
   },
 ] as const

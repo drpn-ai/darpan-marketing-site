@@ -28,6 +28,84 @@
   status = 301
   force = true
 
+# Notes clean-up (2026-11-14): articles merged into a hub, or removed, 301 to the
+# hub or the index. Old /writing/<slug> links reach these via the /writing/* rule.
+[[redirects]]
+  from = "/notes/why-shopify-deposits-never-match-sales"
+  to = "/notes/marketplace-payout-reconciliation"
+  status = 301
+  force = true
+[[redirects]]
+  from = "/notes/reconciliation-spreadsheet-template"
+  to = "/notes/marketplace-payout-reconciliation"
+  status = 301
+  force = true
+[[redirects]]
+  from = "/notes/bank-reconciliation-in-excel"
+  to = "/notes/marketplace-payout-reconciliation"
+  status = 301
+  force = true
+[[redirects]]
+  from = "/notes/find-missing-rows-in-excel-countif-match"
+  to = "/notes/reconcile-two-files-in-excel-with-xlookup"
+  status = 301
+  force = true
+[[redirects]]
+  from = "/notes/what-we-mean-when-we-say-primary-id"
+  to = "/notes/how-to-reconcile-two-systems-by-hand"
+  status = 301
+  force = true
+[[redirects]]
+  from = "/notes/ar-ap-reconciliation"
+  to = "/notes/netsuite-reconciliation-inventory-and-gl"
+  status = 301
+  force = true
+[[redirects]]
+  from = "/notes/can-an-ai-agent-reconcile-your-data"
+  to = "/notes/reconciliation-prompt-pack"
+  status = 301
+  force = true
+[[redirects]]
+  from = "/notes/prompting-ai-to-help-reconcile-two-files"
+  to = "/notes/reconciliation-prompt-pack"
+  status = 301
+  force = true
+[[redirects]]
+  from = "/notes/reconcile-two-files-with-an-ai-agent"
+  to = "/notes/reconciliation-prompt-pack"
+  status = 301
+  force = true
+[[redirects]]
+  from = "/notes/credit-card-and-expense-reconciliation"
+  to = "/notes"
+  status = 301
+  force = true
+[[redirects]]
+  from = "/notes/intercompany-reconciliation"
+  to = "/notes"
+  status = 301
+  force = true
+[[redirects]]
+  from = "/notes/bank-reconciliation-step-by-step"
+  to = "/notes"
+  status = 301
+  force = true
+[[redirects]]
+  from = "/notes/what-auditors-look-for"
+  to = "/notes"
+  status = 301
+  force = true
+[[redirects]]
+  from = "/notes/tick-and-tie-checklist"
+  to = "/notes"
+  status = 301
+  force = true
+[[redirects]]
+  from = "/downloads/month-end-tick-and-tie-checklist.md"
+  to = "/notes"
+  status = 301
+  force = true
+
 # /why (the long-form essay) and /customers (placeholder logos) were retired in
 # the DAR-MKT-001 rethink; send old links and indexed URLs to the homepage.
 [[redirects]]
