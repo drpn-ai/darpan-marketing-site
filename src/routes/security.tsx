@@ -56,7 +56,9 @@ function SecurityPage() {
           </p>
 
           <h2 className="writing-h2">Where it runs</h2>
-          <p>Darpan runs in the cloud.</p>
+          <p>
+            Darpan runs on Amazon Web Services in the United States (Ohio).
+          </p>
 
           <p className="vl-page-cta">
             <a className="vl-cta" href={WALKTHROUGH_HREF}>

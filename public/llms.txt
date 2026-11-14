@@ -1,0 +1,19 @@
+# Darpan
+
+> Darpan checks every morning that orders, returns and refunds line up across Shopify, HotWax, NetSuite and your databases, and lists each break with the team that owns it until it's fixed.
+
+Darpan is for operations teams running a storefront, an order management system and an ERP. You describe how your business should run in plain words; Darpan's AI turns that into checks people and machines can both read, and your team approves each one. Every morning Darpan reads each system (read-only), runs the checks, and lists each break with its evidence, its owner and, where it can name one, its cause. A break stays listed until a later check sees it fixed. Setup takes about a day. Darpan runs on Amazon Web Services in the United States.
+
+## Pages
+
+- [How it works](https://drpn.ai/#how): from a plain-words business story to daily checks
+- [Works with](https://drpn.ai/works-with): Shopify, HotWax Commerce, NetSuite, MySQL, PostgreSQL, IBM Db2 and files over SFTP, and what Darpan checks for each pair
+- [Tour](https://drpn.ai/tour): one morning in Darpan, from statements to a closed break
+- [Security](https://drpn.ai/security): what Darpan reads, what it never changes, how credentials and each company's data are kept
+- [Notes](https://drpn.ai/notes): where systems drift, and what to do about it
+- [Talk to us](https://drpn.ai/talk): ask for a walkthrough
+
+## Docs
+
+- [Product docs](https://docs.drpn.ai)
+- [Developer docs](https://developers.drpn.ai)

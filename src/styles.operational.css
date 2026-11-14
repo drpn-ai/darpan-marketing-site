@@ -170,7 +170,10 @@
 .vl-nav a:hover {
   color: var(--ink);
 }
-.vl a.vl-cta {
+.vl a.vl-cta,
+.vl button.vl-cta {
+  font-family: inherit;
+  cursor: pointer;
   display: inline-flex;
   align-items: center;
   gap: 8px;
@@ -184,7 +187,8 @@
   transition: background 0.15s var(--ease), border-color 0.15s var(--ease),
     transform 0.15s var(--ease), box-shadow 0.15s var(--ease);
 }
-.vl a.vl-cta:hover {
+.vl a.vl-cta:hover,
+.vl button.vl-cta:hover:not(:disabled) {
   border-color: rgba(28, 27, 24, 0.36);
   transform: translateY(-1px);
   box-shadow: 0 5px 14px -5px rgba(28, 27, 24, 0.2);
@@ -196,7 +200,8 @@
 .vl-cta .arr {
   transition: transform 0.2s var(--ease);
 }
-.vl a.vl-cta:hover .arr {
+.vl a.vl-cta:hover .arr,
+.vl button.vl-cta:hover:not(:disabled) .arr {
   transform: translateX(3px);
 }
 .vl a.vl-textlink {
@@ -330,6 +335,10 @@
   font-size: 16px;
   color: var(--ink-2);
   max-width: 64ch;
+}
+/* Lead line above the 'also found' cards: room before the card rules. */
+.vl-gap-foot.vl-also {
+  margin: 56px 0 24px;
 }
 
 /* ============================================================
@@ -982,6 +991,54 @@
   }
 }
 
+/* Hero proof line under the CTAs: quiet, one line on desktop. */
+.vl-hero-proof {
+  margin: 18px 0 0;
+  font-size: 14px;
+  color: var(--ink-3);
+}
+
+/* /talk form: labelled fields on paper, one CTA button. */
+.vl-form {
+  display: grid;
+  gap: 18px;
+  max-width: 520px;
+  margin-top: 32px;
+}
+.vl-form label {
+  display: grid;
+  gap: 6px;
+  font-size: 14px;
+  color: var(--ink-2);
+}
+.vl-form input,
+.vl-form textarea {
+  font: inherit;
+  font-size: 16px; /* 16px stops iOS zooming into the field */
+  color: var(--ink);
+  background: var(--paper-2);
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  padding: 10px 12px;
+}
+.vl-form input:focus-visible,
+.vl-form textarea:focus-visible {
+  outline: 2px solid var(--agree);
+  outline-offset: 1px;
+}
+.vl-form button:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+.vl-form-error {
+  color: var(--drift);
+  font-size: 15px;
+  margin: 0;
+}
+.vl-form-error a {
+  text-decoration: underline;
+}
+
 /* Secondary-page CTA row and plain lists inside long-form prose. */
 .vl-page-cta {
   display: flex;
@@ -1134,25 +1191,8 @@
 }
 
 /* ============================================================
-   Homepage — connector chips and footer links.
+   Footer links.
    ============================================================ */
-.vl-chips {
-  list-style: none;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin: 0 0 26px;
-  padding: 0;
-}
-.vl-chips li {
-  font-family: var(--mono);
-  font-size: 13px;
-  padding: 8px 14px;
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  background: var(--paper-2);
-  color: var(--ink);
-}
 .vl-footer-links {
   display: flex;
   align-items: center;

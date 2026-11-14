@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <!-- Exists only so Netlify registers the "talk" form at build time; never
+         shown. Fields must match src/components/TalkForm.tsx exactly. -->
+    <form name="talk" data-netlify="true" netlify-honeypot="bot-field" hidden>
+      <input type="text" name="name" />
+      <input type="email" name="email" />
+      <input type="text" name="company" />
+      <textarea name="systems"></textarea>
+      <input type="text" name="bot-field" />
+    </form>
+  </body>
+</html>

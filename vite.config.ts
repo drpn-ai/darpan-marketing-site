@@ -44,6 +44,7 @@ const config = defineConfig({
         { path: '/works-with/databases-and-files' },
         { path: '/tour' },
         { path: '/privacy' },
+        { path: '/talk' },
       ],
     }),
     viteReact(),

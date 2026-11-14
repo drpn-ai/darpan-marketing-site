@@ -22,8 +22,9 @@ export function pageHead(path: string, title: string, description: string) {
   }
 }
 
-export const WALKTHROUGH_HREF =
-  'mailto:hello@drpn.ai?subject=Darpan%20walkthrough'
+// Every "Talk to us" goes to the /talk form (Netlify Forms). A mailto did
+// nothing on machines without a mail client.
+export const WALKTHROUGH_HREF = '/talk'
 
 export const NAV_ITEMS: ReadonlyArray<readonly [label: string, href: string]> =
   [

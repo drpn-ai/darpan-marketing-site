@@ -13,7 +13,7 @@ export function Close() {
             Talk to us <span className="arr">&rarr;</span>
           </a>
           <a className="vl-textlink" href="/tour">
-            Take the tour <span aria-hidden>&#8599;</span>
+            See a morning&rsquo;s breaks <span aria-hidden>&#8599;</span>
           </a>
         </div>
       </div>

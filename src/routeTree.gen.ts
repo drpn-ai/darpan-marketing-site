@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as TourRouteImport } from './routes/tour'
 import { Route as TermsRouteImport } from './routes/terms'
+import { Route as TalkRouteImport } from './routes/talk'
 import { Route as SecurityRouteImport } from './routes/security'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as NotesRouteImport } from './routes/notes'
@@ -29,6 +30,11 @@ const TourRoute = TourRouteImport.update({
 const TermsRoute = TermsRouteImport.update({
   id: '/terms',
   path: '/terms',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TalkRoute = TalkRouteImport.update({
+  id: '/talk',
+  path: '/talk',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SecurityRoute = SecurityRouteImport.update({
@@ -83,6 +89,7 @@ export interface FileRoutesByFullPath {
   '/notes': typeof NotesRouteWithChildren
   '/privacy': typeof PrivacyRoute
   '/security': typeof SecurityRoute
+  '/talk': typeof TalkRoute
   '/terms': typeof TermsRoute
   '/tour': typeof TourRoute
   '/notes/$slug': typeof NotesSlugRoute
@@ -95,6 +102,7 @@ export interface FileRoutesByTo {
   '/notebook': typeof NotebookRoute
   '/privacy': typeof PrivacyRoute
   '/security': typeof SecurityRoute
+  '/talk': typeof TalkRoute
   '/terms': typeof TermsRoute
   '/tour': typeof TourRoute
   '/notes/$slug': typeof NotesSlugRoute
@@ -109,6 +117,7 @@ export interface FileRoutesById {
   '/notes': typeof NotesRouteWithChildren
   '/privacy': typeof PrivacyRoute
   '/security': typeof SecurityRoute
+  '/talk': typeof TalkRoute
   '/terms': typeof TermsRoute
   '/tour': typeof TourRoute
   '/notes/$slug': typeof NotesSlugRoute
@@ -124,6 +133,7 @@ export interface FileRouteTypes {
     | '/notes'
     | '/privacy'
     | '/security'
+    | '/talk'
     | '/terms'
     | '/tour'
     | '/notes/$slug'
@@ -136,6 +146,7 @@ export interface FileRouteTypes {
     | '/notebook'
     | '/privacy'
     | '/security'
+    | '/talk'
     | '/terms'
     | '/tour'
     | '/notes/$slug'
@@ -149,6 +160,7 @@ export interface FileRouteTypes {
     | '/notes'
     | '/privacy'
     | '/security'
+    | '/talk'
     | '/terms'
     | '/tour'
     | '/notes/$slug'
@@ -163,6 +175,7 @@ export interface RootRouteChildren {
   NotesRoute: typeof NotesRouteWithChildren
   PrivacyRoute: typeof PrivacyRoute
   SecurityRoute: typeof SecurityRoute
+  TalkRoute: typeof TalkRoute
   TermsRoute: typeof TermsRoute
   TourRoute: typeof TourRoute
   WorksWithPairRoute: typeof WorksWithPairRoute
@@ -183,6 +196,13 @@ declare module '@tanstack/react-router' {
       path: '/terms'
       fullPath: '/terms'
       preLoaderRoute: typeof TermsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/talk': {
+      id: '/talk'
+      path: '/talk'
+      fullPath: '/talk'
+      preLoaderRoute: typeof TalkRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/security': {
@@ -269,6 +289,7 @@ const rootRouteChildren: RootRouteChildren = {
   NotesRoute: NotesRouteWithChildren,
   PrivacyRoute: PrivacyRoute,
   SecurityRoute: SecurityRoute,
+  TalkRoute: TalkRoute,
   TermsRoute: TermsRoute,
   TourRoute: TourRoute,
   WorksWithPairRoute: WorksWithPairRoute,

@@ -9,7 +9,7 @@ export function FinanceBand() {
           </h2>
           <p className="vl-lede">
             Refunds without a credit memo show up the same morning as everything
-            else. By the close, they&rsquo;re already fixed.
+            else, weeks before the close instead of during it.
           </p>
         </div>
       </div>
