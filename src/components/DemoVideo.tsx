@@ -22,8 +22,8 @@ export function DemoVideo() {
         Darpan writes the checks. Then a real month close: every break, with
         the team that owns it and what to do next.{' '}
         <span className="vl-demo-fine">
-          From a brand that runs Darpan; names and ids changed. Three minutes,
-          no sound.
+          From a brand that runs Darpan; names and ids changed. Under three
+          minutes, no sound.
         </span>
       </figcaption>
     </figure>
