@@ -1,5 +1,5 @@
 // The product demo: a team's own words become checks, then a real month close.
-// preload="none" keeps the 6.5 MB file off the wire until someone presses play;
+// preload="none" keeps the 8.6 MB file (1080p, 60 fps) off the wire until someone presses play;
 // the poster carries the first impression. No audio track; captions are burned in.
 export function DemoVideo() {
   return (
