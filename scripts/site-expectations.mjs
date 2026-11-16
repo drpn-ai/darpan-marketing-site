@@ -21,7 +21,7 @@ export const PAGES = [
       'about $11,000 of orders',
       'never both.',
       'Running every morning at five-plus brands.',
-      'Month-end is the worst time to find a problem.',
+      'None of it was a month-end problem.',
       'about one order in a hundred breaks somewhere between two systems',
       'Your business story, as checks.',
       'Your integration tool confirms each hand-off.',
