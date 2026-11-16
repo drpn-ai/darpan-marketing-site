@@ -8,7 +8,7 @@ export const Route = createFileRoute('/works-with/')({
   head: () =>
     pageHead(
       '/works-with',
-      'Works with — Darpan',
+      'Integrations — Darpan',
       'Darpan reads the storefront, order system, ERP and databases you already run, and works with Claude, ChatGPT, Gemini and any AI assistant that speaks MCP.',
     ),
 })
@@ -22,7 +22,7 @@ function WorksWithPage() {
       >
         <div className="vl-wrap">
           <div className="vl-sec-head">
-            <span className="vl-kicker">Works with</span>
+            <span className="vl-kicker">Integrations</span>
             <h1 className="vl-h2" id="works-with-heading">
               Darpan fits around what you already run.
             </h1>

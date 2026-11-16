@@ -28,12 +28,12 @@ export const WALKTHROUGH_HREF = '/talk'
 
 export const NAV_ITEMS: ReadonlyArray<readonly [label: string, href: string]> =
   [
-    ['How it works', '/#how'],
     ['Agent', '/agent'],
-    ['Works with', '/works-with'],
+    ['Integrations', '/works-with'],
     ['Tour', '/tour'],
     ['Security', '/security'],
     ['Notes', '/notes'],
+    ['About', '/about'],
   ]
 
 export type Connector = { name: string; reads: string }

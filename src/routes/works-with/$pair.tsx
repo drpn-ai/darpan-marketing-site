@@ -16,7 +16,7 @@ export const Route = createFileRoute('/works-with/$pair')({
     const pair = findPair(params.pair)
     return pageHead(
       `/works-with/${params.pair}`,
-      `${pair?.name ?? 'Works with'} — Darpan`,
+      `${pair?.name ?? 'Integrations'} — Darpan`,
       pair?.description ?? '',
     )
   },
@@ -33,7 +33,7 @@ function PairPage() {
         <div className="vl-wrap">
           <div className="vl-sec-head">
             <span className="vl-kicker">
-              <a href="/works-with">Works with</a> &middot; {pair.name}
+              <a href="/works-with">Integrations</a> &middot; {pair.name}
             </span>
             <h1 className="vl-h2" id="pair-heading">
               {pair.h1}

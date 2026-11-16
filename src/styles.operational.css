@@ -2377,3 +2377,242 @@
     grid-template-columns: minmax(0, 1fr);
   }
 }
+
+/* About page. */
+.vl-why-more {
+  display: inline-block;
+  margin-top: 22px;
+}
+.vl-linkedin {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 26px;
+  padding: 12px 20px;
+  border: 1px solid rgba(47, 107, 79, 0.45);
+  border-radius: 999px;
+  background: var(--agree-soft);
+  color: var(--agree);
+  text-decoration: none;
+  font-size: 15.5px;
+  transition: background 0.2s var(--ease);
+}
+.vl-linkedin:hover {
+  background: rgba(47, 107, 79, 0.16);
+}
+.vl-close .vl-linkedin {
+  margin-top: 0;
+}
+.vl-founder {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  max-width: 380px;
+  margin-left: auto;
+  padding: 30px 30px 32px;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background: var(--paper-2);
+  box-shadow: 0 40px 70px -50px rgba(28, 27, 24, 0.5);
+}
+.vl-founder-mark {
+  display: grid;
+  place-items: center;
+  width: 84px;
+  height: 84px;
+  margin-bottom: 18px;
+  border-radius: 50%;
+  background: var(--agree-soft);
+  color: var(--agree);
+  font-size: 28px;
+  letter-spacing: 0.02em;
+}
+.vl-founder-name {
+  font-size: 22px;
+  color: var(--ink);
+}
+.vl-founder-role {
+  margin-top: 2px;
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--agree);
+}
+.vl-founder p {
+  margin: 14px 0 0;
+  font-size: 15.5px;
+  line-height: 1.55;
+  color: var(--ink-2);
+}
+.vl-about-sign {
+  margin: 18px 0 0;
+  font-family: 'Patrick Hand', var(--sans);
+  font-size: 24px;
+  color: var(--agree);
+}
+.vl-about-today .vl-cap .k {
+  margin-top: 4px;
+}
+@media (max-width: 900px) {
+  .vl-founder {
+    margin-left: 0;
+  }
+}
+
+/* About: the story as a timeline of five beats down a thin line; the
+   picture stays in view beside it and settles at the turn. */
+.vl-story {
+  align-items: start;
+}
+/* The picture's column runs the full height of the timeline; the picture
+   itself sticks with its centre on the screen's centre line, beside the beat
+   that is there. Its height is 480/560 of the column width, so half of it is
+   42.86cqw of the column (the column is an inline-size container). */
+@media (min-width: 901px) {
+  .vl-story-visual {
+    align-self: stretch;
+    /* Room above the first beat and below the last, so the picture can
+       centre beside them too. */
+    margin-block: -120px;
+  }
+  .vl-sv-stick {
+    position: sticky;
+    top: calc(50vh - 42.86cqw);
+  }
+}
+.vl-timeline {
+  position: relative;
+  margin: 0;
+  padding: 0 0 0 36px;
+  list-style: none;
+}
+.vl-timeline::before {
+  content: "";
+  position: absolute;
+  top: 10px;
+  bottom: 10px;
+  left: 6px;
+  width: 1px;
+  background: var(--line);
+}
+.vl-timeline li {
+  position: relative;
+}
+.vl-timeline li + li {
+  margin-top: clamp(56px, 7vw, 96px);
+}
+.vl-timeline li::before {
+  content: "";
+  position: absolute;
+  top: 4px;
+  left: -36px;
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  background: var(--paper);
+  border: 2px solid var(--drift);
+}
+.vl-timeline li.is-turn::before {
+  border-color: var(--agree);
+  background: var(--agree);
+}
+.vl-timeline-k {
+  display: block;
+  margin-bottom: 10px;
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #9a4a14;
+}
+.vl-timeline li.is-turn .vl-timeline-k {
+  color: var(--agree);
+}
+.vl-timeline-big {
+  margin: 0;
+  max-width: 20ch;
+  font-size: clamp(26px, 3vw, 36px);
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  text-wrap: balance;
+}
+.vl-timeline-num {
+  color: #9a4a14;
+}
+.vl-timeline li.is-turn .vl-timeline-num {
+  color: var(--agree);
+}
+.vl-timeline-small {
+  margin: 14px 0 0;
+  max-width: 46ch;
+  font-size: 17px;
+  line-height: 1.55;
+  color: var(--ink-2);
+}
+
+/* About story picture (StoryVisual): pieces for each beat fade and slide in
+   and out as the timeline scrolls, either way. */
+.vl-sv-piece {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transform: translateY(calc(var(--u) * 18));
+  transition:
+    opacity 0.6s var(--ease),
+    transform 0.6s var(--ease);
+  pointer-events: none;
+}
+.vl-sv-piece.is-on {
+  opacity: 1;
+  transform: none;
+}
+.vl-sv-piece.is-dim {
+  opacity: 0.18;
+  transform: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .vl-sv-piece {
+    transition: none;
+  }
+}
+.vl-sv-trace {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--u) * 8);
+  padding: calc(var(--u) * 20) calc(var(--u) * 22);
+  border: 1px solid rgba(47, 107, 79, 0.3);
+  border-radius: calc(var(--u) * 14);
+  background: var(--paper-2);
+  box-shadow: 0 calc(var(--u) * 30) calc(var(--u) * 60) calc(var(--u) * -36) rgba(28, 27, 24, 0.5);
+}
+.vl-sv-trace-k {
+  font-family: var(--mono);
+  font-size: calc(var(--u) * 12);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--agree);
+}
+.vl-sv-trace-title {
+  font-family: var(--mono);
+  font-size: calc(var(--u) * 15);
+  color: var(--ink);
+}
+.vl-sv-trace-row {
+  display: flex;
+  justify-content: space-between;
+  padding-top: calc(var(--u) * 8);
+  border-top: 1px solid var(--line-2);
+  font-size: calc(var(--u) * 15);
+  color: var(--ink);
+}
+.vl-sv-trace-row > span:first-child {
+  color: var(--ink-2);
+}
+.vl-sv-trace-gap {
+  margin-top: calc(var(--u) * 6);
+  font-size: calc(var(--u) * 34);
+  letter-spacing: -0.02em;
+  color: #9a4a14;
+}

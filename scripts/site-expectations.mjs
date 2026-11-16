@@ -64,7 +64,7 @@ export const PAGES = [
   },
   {
     path: '/works-with',
-    title: 'Works with',
+    title: 'Integrations',
     mustContain: [
       'Darpan fits around what you already run.',
       'And with your AI',
@@ -111,6 +111,17 @@ export const PAGES = [
     ],
   },
   {
+    path: '/about',
+    title: 'About',
+    mustContain: [
+      'Darpan began with three nights at one month-end close.',
+      'Aditi Patel',
+      'None of it was a month-end problem.',
+      'Follow Darpan on LinkedIn',
+      'Talk to us',
+    ],
+  },
+  {
     path: '/agent',
     title: 'The agent',
     mustContain: [
@@ -143,6 +154,7 @@ export const VOICE_CHECKED = [
   '/works-with/databases-and-files',
   '/tour',
   '/agent',
+  '/about',
   '/talk',
 ]
 
