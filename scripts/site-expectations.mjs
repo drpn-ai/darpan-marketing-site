@@ -111,6 +111,16 @@ export const PAGES = [
     ],
   },
   {
+    path: '/agent',
+    title: 'The agent',
+    mustContain: [
+      'One brain. Every order. Every system. Every morning.',
+      'The brain behind it',
+      'questions asked twice',
+      'Talk to us',
+    ],
+  },
+  {
     path: '/tour',
     title: 'Tour',
     mustContain: [
@@ -132,6 +142,7 @@ export const VOICE_CHECKED = [
   '/works-with/shopify-hotwax',
   '/works-with/databases-and-files',
   '/tour',
+  '/agent',
   '/talk',
 ]
 

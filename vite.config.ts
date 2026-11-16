@@ -43,6 +43,7 @@ const config = defineConfig({
         { path: '/works-with/shopify-hotwax' },
         { path: '/works-with/databases-and-files' },
         { path: '/tour' },
+        { path: '/agent' },
         { path: '/privacy' },
         { path: '/talk' },
       ],

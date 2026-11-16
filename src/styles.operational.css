@@ -1698,3 +1698,550 @@
     grid-template-columns: minmax(0, 1fr);
   }
 }
+
+/* ============================================================
+   Agent page: the brain as a calm stack of four layers.
+   ============================================================ */
+.vl-brain-layers {
+  margin-top: 0;
+}
+.vl-brain-num {
+  display: block;
+  margin-bottom: 6px;
+  font-size: clamp(44px, 5vw, 60px);
+  line-height: 1;
+  letter-spacing: -0.03em;
+  color: var(--agree);
+}
+
+/* Agent page bands: the hero gives the network room; the closing band of
+   the "where" section is centred. */
+.vl-agent-hero {
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+}
+.vl-agent-hero .vl-hero-cta {
+  margin-top: 28px;
+}
+.vl-ai-link {
+  display: inline-block;
+  margin-top: 22px;
+}
+
+/* The brain network (BrainNet.tsx). */
+.vl-net svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+.vl-net-titles text {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-anchor: middle;
+  fill: var(--ink-2);
+}
+.vl-net-edges path {
+  fill: none;
+  stroke: rgba(28, 27, 24, 0.16);
+  stroke-width: 1.2;
+  stroke-dasharray: 100;
+  stroke-dashoffset: 0;
+}
+.vl-animate .vl-net .vl-net-edges path {
+  stroke-dashoffset: 100;
+  transition: stroke-dashoffset 1.6s var(--ease);
+}
+.vl-animate .vl-net.is-in .vl-net-edges path {
+  stroke-dashoffset: 0;
+}
+.vl-net-node {
+  stroke-width: 1.5;
+}
+.vl-net-node.is-in {
+  fill: var(--ink);
+  stroke: var(--ink);
+}
+.vl-net-node.is-fact,
+.vl-net-node.is-cause {
+  fill: var(--paper-2);
+  stroke: var(--ink);
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: vl-net-breathe 3.2s ease-in-out infinite;
+}
+.vl-net-node.is-break {
+  fill: var(--drift);
+  stroke: var(--drift);
+}
+.vl-net-ring {
+  fill: none;
+  stroke: var(--drift);
+  stroke-width: 1.5;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: vl-net-ring 2.4s ease-out infinite;
+}
+.vl-net-node.is-check {
+  fill: var(--agree);
+  stroke: var(--agree);
+}
+.vl-net-tick {
+  fill: none;
+  stroke: var(--paper-2);
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.vl-net-label {
+  font-family: var(--sans);
+  font-size: 13px;
+  fill: var(--ink);
+}
+.vl-net-label.is-left {
+  text-anchor: end;
+}
+.vl-net-pulse.is-ok {
+  fill: var(--agree);
+}
+.vl-net-pulse.is-break {
+  fill: var(--drift);
+}
+@keyframes vl-net-breathe {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.25); }
+}
+@keyframes vl-net-ring {
+  0% { transform: scale(0.6); opacity: 0.9; }
+  100% { transform: scale(1.6); opacity: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .vl-net-pulses {
+    display: none;
+  }
+  .vl-net-node.is-fact,
+  .vl-net-node.is-cause,
+  .vl-net-ring {
+    animation: none;
+  }
+}
+
+/* Agent scenes (AgentScenes.tsx): steps play in order when revealed. */
+.vl-scene {
+  padding: clamp(20px, 3vw, 28px);
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background: var(--paper-2);
+  box-shadow: 0 40px 70px -48px rgba(28, 27, 24, 0.55);
+}
+.vl-scene-step + .vl-scene-step {
+  margin-top: 12px;
+}
+.vl-animate .vl-scene .vl-scene-step {
+  opacity: 0;
+  transform: translateY(12px);
+}
+.vl-animate .vl-scene.is-in .vl-scene-step {
+  animation: vl-scene-step 0.6s var(--ease) forwards;
+  animation-delay: calc(var(--i) * 0.9s + 0.4s);
+}
+@keyframes vl-scene-step {
+  to { opacity: 1; transform: none; }
+}
+.vl-chat-you,
+.vl-chat-agent {
+  max-width: 82%;
+  padding: 12px 16px;
+  border-radius: 14px;
+  font-size: 15.5px;
+  line-height: 1.45;
+}
+.vl-chat-you {
+  margin-left: auto;
+  background: var(--ink);
+  color: var(--paper);
+  border-bottom-right-radius: 4px;
+}
+.vl-chat-agent {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  color: var(--ink);
+  border-bottom-left-radius: 4px;
+}
+.vl-teach-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.vl-teach-chips span {
+  padding: 5px 11px;
+  border-radius: 999px;
+  background: var(--agree-soft);
+  color: var(--agree);
+  font-family: var(--mono);
+  font-size: 13px;
+}
+.vl-animate .vl-teach .vl-teach-chips span {
+  opacity: 0;
+  transform: scale(0.8);
+}
+.vl-animate .vl-teach.is-in .vl-teach-chips span {
+  animation: vl-scene-step 0.45s var(--ease) forwards;
+  animation-delay: calc(4.6s + var(--j) * 0.12s);
+}
+.vl-calls-row + .vl-calls-row {
+  margin-top: 26px;
+}
+.vl-calls-label {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--ink);
+}
+.vl-calls-track {
+  display: block;
+  height: 14px;
+  border-radius: 999px;
+  background: var(--line-2);
+  overflow: hidden;
+}
+.vl-calls-bar {
+  display: block;
+  height: 100%;
+  border-radius: 999px;
+}
+.vl-calls-bar.is-before {
+  width: 100%;
+  background: var(--drift);
+}
+.vl-calls-bar.is-after {
+  width: 2%;
+  background: var(--agree);
+}
+.vl-animate .vl-calls .vl-calls-bar {
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 1.6s var(--ease);
+}
+.vl-animate .vl-calls.is-in .vl-calls-bar {
+  transform: none;
+}
+.vl-animate .vl-calls.is-in .vl-calls-bar.is-after {
+  transition-delay: 0.6s;
+}
+.vl-calls-value {
+  display: block;
+  margin-top: 6px;
+  font-family: var(--mono);
+  font-size: 13px;
+  color: #9a4a14;
+}
+.vl-calls-value.is-good {
+  color: var(--agree);
+}
+@media (prefers-reduced-motion: reduce) {
+  .vl-animate .vl-scene .vl-scene-step,
+  .vl-animate .vl-teach .vl-teach-chips span {
+    opacity: 1;
+    transform: none;
+    animation: none;
+  }
+}
+@media (max-width: 900px) {
+  .vl-agent-hero {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* A two-sided thread (TeachScene): the agent on the left, your team on the
+   right, each with an avatar and a time. */
+.vl-finding + .vl-scene-step {
+  margin-top: 16px;
+}
+.vl-msg {
+  display: flex;
+  align-items: flex-end;
+  gap: 10px;
+}
+.vl-msg.is-you {
+  flex-direction: row-reverse;
+}
+.vl-msg-avatar {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--agree);
+  color: var(--paper-2);
+  font-size: 12px;
+}
+.vl-msg.is-you .vl-msg-avatar {
+  background: var(--ink);
+}
+.vl-msg .vl-chat-you,
+.vl-msg .vl-chat-agent {
+  display: block;
+  margin-left: 0;
+}
+.vl-msg.is-you .vl-chat-you {
+  border-bottom-right-radius: 4px;
+}
+.vl-msg-meta {
+  display: block;
+  margin-bottom: 4px;
+  font-size: 11.5px;
+  color: var(--ink-2);
+}
+.vl-chat-you .vl-msg-meta {
+  color: rgba(244, 242, 236, 0.65);
+}
+.vl-msg .vl-teach-chips {
+  margin-top: 10px;
+}
+
+/* A finding, drawn the way the app shows one: status, order, headline and
+   each system's record side by side. */
+.vl-finding {
+  padding: 14px 16px 16px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--paper);
+  font-family: var(--mono);
+}
+.vl-finding-top {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 11.5px;
+  color: var(--ink-2);
+}
+.vl-finding-status {
+  padding: 2px 9px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--paper-2);
+  color: var(--ink);
+}
+.vl-finding-since {
+  margin-left: auto;
+  padding: 2px 9px;
+  border-radius: 999px;
+  background: var(--drift-soft);
+  color: #9a4a14;
+}
+.vl-finding-title {
+  margin: 10px 0 12px;
+  font-size: 14.5px;
+  color: var(--ink);
+}
+.vl-finding-sides {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+  font-size: 12.5px;
+  color: var(--ink);
+}
+.vl-finding-sides > span {
+  padding: 8px 10px;
+  border-radius: 8px;
+  background: var(--line-2);
+}
+.vl-finding-k {
+  display: block;
+  margin-bottom: 3px;
+  font-size: 11px;
+  color: var(--ink-2);
+}
+.vl-finding .is-missing {
+  color: #9a4a14;
+}
+
+/* Assistant bubbles (AssistantBubbles.tsx): Darpan in the middle, the
+   assistants drifting gently around it. */
+.vl-bubbles {
+  position: relative;
+  aspect-ratio: 5 / 4;
+}
+.vl-bubbles-lines {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+.vl-comet-head {
+  fill: var(--agree);
+}
+.vl-comet-halo {
+  fill: var(--agree);
+  fill-opacity: 0.16;
+}
+.vl-comet-tail {
+  fill: var(--agree);
+}
+.vl-comet.is-faint {
+  opacity: 0.6;
+}
+.vl-bubble {
+  position: absolute;
+  display: grid;
+  place-items: center;
+  transform: translate(-50%, -50%);
+  animation: vl-bubble-float var(--t, 5s) ease-in-out infinite alternate;
+  animation-delay: var(--d, 0s);
+}
+.vl-bubble img {
+  display: block;
+  filter: drop-shadow(0 10px 12px rgba(28, 27, 24, 0.18));
+}
+.vl-bubble.is-darpan {
+  animation: none;
+}
+.vl-bubble.is-darpan img {
+  border-radius: 16px;
+  box-shadow: 0 0 0 14px var(--agree-soft), 0 0 0 28px rgba(47, 107, 79, 0.05);
+  filter: none;
+}
+@keyframes vl-bubble-float {
+  from { transform: translate(-50%, -50%) rotate(-4deg); }
+  to { transform: translate(-50%, calc(-50% - 14px)) rotate(4deg); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .vl-bubble {
+    animation: none;
+  }
+  .vl-comet {
+    display: none;
+  }
+}
+@media (max-width: 560px) {
+  .vl-bubble img {
+    width: 34px;
+    height: 34px;
+  }
+  .vl-bubble.is-darpan img {
+    width: 52px;
+    height: 52px;
+  }
+}
+
+/* Tell it (AgentChat): a sentence, the phrases that become checks (numbered
+   highlights that sweep in), the checks with matching numbers, one rule
+   nobody said, and the approval. */
+.vl-tell .vl-scene-step + .vl-scene-step {
+  margin-top: 10px;
+}
+.vl-tell-k {
+  display: block;
+  margin-bottom: 8px;
+  font-family: var(--mono);
+  font-size: 11.5px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+}
+.vl-tell-k.is-agent {
+  margin: 18px 0 0;
+  color: var(--agree);
+}
+.vl-tell-quote {
+  display: block;
+  font-size: 17px;
+  line-height: 1.6;
+  color: var(--ink);
+}
+.vl-tell-quote mark {
+  position: relative;
+  padding: 1px 2px;
+  border-radius: 4px;
+  color: inherit;
+  background: linear-gradient(var(--agree-soft), var(--agree-soft)) no-repeat
+    left / 100% 100%;
+}
+.vl-tell-quote mark::after {
+  content: attr(data-n);
+  position: relative;
+  top: -0.55em;
+  margin-left: 3px;
+  font-family: var(--mono);
+  font-size: 10.5px;
+  color: var(--agree);
+}
+.vl-animate .vl-tell .vl-tell-quote mark {
+  background-size: 0% 100%;
+}
+.vl-animate .vl-tell.is-in .vl-tell-quote mark {
+  animation: vl-mark 0.7s var(--ease) forwards;
+  animation-delay: 1.1s;
+}
+.vl-animate .vl-tell.is-in .vl-tell-quote mark + mark,
+.vl-animate .vl-tell.is-in .vl-tell-quote mark[data-n="2"] {
+  animation-delay: 1.5s;
+}
+@keyframes vl-mark {
+  to { background-size: 100% 100%; }
+}
+.vl-tell-check {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 11px 14px;
+  border: 1px solid rgba(47, 107, 79, 0.28);
+  border-radius: 12px;
+  background: var(--paper);
+}
+.vl-tell-check.is-new {
+  border-style: dashed;
+}
+.vl-tell-n {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+  margin-top: 1px;
+  border-radius: 50%;
+  background: var(--agree);
+  color: var(--paper-2);
+  font-family: var(--mono);
+  font-size: 11.5px;
+}
+.vl-tell-check.is-new .vl-tell-n {
+  background: var(--paper-2);
+  border: 1px solid var(--agree);
+  color: var(--agree);
+}
+.vl-tell-text {
+  display: block;
+  font-size: 14.5px;
+  line-height: 1.35;
+  color: var(--ink);
+}
+.vl-tell-meta {
+  display: block;
+  margin-top: 3px;
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--ink-2);
+}
+.vl-tell-check.is-new .vl-tell-meta {
+  color: var(--agree);
+}
+.vl-tell-approve {
+  display: flex;
+  justify-content: flex-end;
+}
+.vl-tell-approve span {
+  padding: 7px 16px;
+  border-radius: 999px;
+  background: var(--agree);
+  color: var(--paper-2);
+  font-size: 14px;
+}
+@media (prefers-reduced-motion: reduce) {
+  .vl-animate .vl-tell .vl-tell-quote mark {
+    background-size: 100% 100%;
+    animation: none;
+  }
+}
