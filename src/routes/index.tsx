@@ -92,8 +92,8 @@ function Home() {
         <Hero />
       </div>
       <Gap />
-      <FromProduction />
       <WhyBand />
+      <FromProduction />
       <HowItWorks />
       <Breadth />
       <SecurityStrip />

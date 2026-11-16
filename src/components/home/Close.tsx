@@ -5,8 +5,8 @@ export function Close() {
     <section className="vl-close" id="talk">
       <div className="vl-wrap">
         <h2>
-          Tomorrow your systems will report success. Darpan will tell you
-          whether they still line up.
+          Make every morning a close day. Each break gets fixed while it&rsquo;s
+          still small.
         </h2>
         <div className="vl-hero-cta">
           <a className="vl-close-cta" href={WALKTHROUGH_HREF}>

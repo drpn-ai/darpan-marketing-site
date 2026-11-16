@@ -9,8 +9,8 @@ const steps = [
     p: 'Each check matches records across systems that name them differently, a prefix here, a different id there, by the keys you choose.',
   },
   {
-    k: 'Keep it until it’s fixed',
-    p: 'Each break arrives with evidence, an owner and, where Darpan can name one, its cause. Ops managers work the list each morning and can share it with partner teams; a break stays listed until a check sees it fixed.',
+    k: 'Fix it for good',
+    p: 'Each break arrives with evidence, an owner and, where Darpan can name one, its cause. Ops managers work the list each morning and can share it with partner teams. A day-old cause can be fixed at the source instead of patched by hand, and the break stays listed until a check sees it fixed.',
   },
 ] as const
 

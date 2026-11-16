@@ -5,11 +5,13 @@ export function FinanceBand() {
         <div className="vl-sec-head" data-reveal>
           <span className="vl-kicker">For finance, too</span>
           <h2 className="vl-h2" id="vl-finance-heading">
-            And month-end has nothing left to chase.
+            The close becomes a review, not a rescue.
           </h2>
           <p className="vl-lede">
-            Refunds without a credit memo show up the same morning as everything
-            else, weeks before the close instead of during it.
+            Each break is found the morning after it happens and fixed while its
+            cause is fresh, so by month-end finance is reviewing work already
+            done. The numbers that reach the board have been explained, line by
+            line, weeks before anyone asks.
           </p>
         </div>
       </div>
