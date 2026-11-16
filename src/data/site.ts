@@ -39,20 +39,28 @@ export type Connector = { name: string; reads: string }
 
 export const CONNECTORS: readonly Connector[] = [
   {
-    name: 'Shopify',
+    name: 'POS and ecommerce',
     reads: 'Orders, payments, fulfilments, refunds, returns and exchanges.',
   },
   {
-    name: 'HotWax Commerce',
+    name: 'Order management',
     reads: 'Orders, shipments, returns and payments.',
   },
   {
-    name: 'NetSuite',
+    name: 'ERP',
     reads:
       'Sales orders, fulfilments, invoices, return authorizations and credit memos, through queries you can preview.',
   },
   {
-    name: 'MySQL, PostgreSQL and IBM Db2',
+    name: 'Payments and returns',
+    reads: 'Charges, refunds, payouts, disputes and return requests.',
+  },
+  {
+    name: 'Warehouses and shipping',
+    reads: 'Shipments, tracking, inventory and receipts.',
+  },
+  {
+    name: 'Databases',
     reads: 'The rows a SELECT you write returns, through a read-only account.',
   },
   {
@@ -71,7 +79,8 @@ export const SECURITY_FACTS: readonly SecurityFact[] = [
   {
     id: 'no-changes',
     heading: 'It doesn’t change your records.',
-    body: 'Darpan reads Shopify, HotWax, NetSuite and your databases. It never edits an order, a return or a row.',
+    body:
+      'Darpan only reads from the systems you connect. It never edits an order, a return or a row.',
   },
   {
     id: 'sealed',
@@ -80,8 +89,8 @@ export const SECURITY_FACTS: readonly SecurityFact[] = [
   },
   {
     id: 'own-lane',
-    heading: 'Each company stays in its own lane.',
-    body: 'Every read is filtered to the company you’re signed in to. Another company’s records answer as if they don’t exist.',
+    heading: 'Your records stay yours.',
+    body: 'Every company works in its own space. No other company can see your orders, returns or refunds, and you never see theirs.',
   },
 ]
 

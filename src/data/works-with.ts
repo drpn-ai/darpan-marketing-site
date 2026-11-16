@@ -31,7 +31,8 @@ export const PAIRS: readonly SystemPair[] = [
     reads: [
       {
         system: 'Shopify',
-        records: 'orders, payments, fulfilments, refunds, returns and exchanges',
+        records:
+          'orders, payments, fulfilments, refunds, returns and exchanges',
       },
       {
         system: 'NetSuite',
@@ -68,7 +69,8 @@ export const PAIRS: readonly SystemPair[] = [
       },
       {
         system: 'NetSuite',
-        records: 'sales orders, fulfilments, invoices and return authorizations',
+        records:
+          'sales orders, fulfilments, invoices and return authorizations',
       },
     ],
     statements: [
@@ -142,3 +144,74 @@ export const PAIRS: readonly SystemPair[] = [
 export function findPair(slug: string): SystemPair | undefined {
   return PAIRS.find((p) => p.slug === slug)
 }
+
+// Everything Darpan reads, grouped the way a buyer thinks about their stack.
+// Built and in production today: Shopify, HotWax Commerce, NetSuite, MySQL,
+// PostgreSQL, IBM Db2 and files over SFTP. The rest are systems Darpan can read
+// through the same data-defined connections (an API, a database or a file);
+// the Facts register marks them as direction (Aditi 2026-11-16).
+export const SYSTEM_GROUPS: ReadonlyArray<{
+  kind: string
+  systems: readonly string[]
+}> = [
+  {
+    kind: 'Storefronts',
+    systems: [
+      'Shopify',
+      'Shopify POS',
+      'BigCommerce',
+      'Salesforce Commerce Cloud',
+      'Adobe Commerce',
+      'WooCommerce',
+    ],
+  },
+  {
+    kind: 'Order management',
+    systems: [
+      'HotWax Commerce',
+      'Manhattan Active Omni',
+      'Fluent Commerce',
+      'IBM Sterling',
+    ],
+  },
+  {
+    kind: 'ERPs',
+    systems: [
+      'NetSuite',
+      'Microsoft Dynamics 365',
+      'SAP S/4HANA',
+      'Acumatica',
+      'Sage Intacct',
+    ],
+  },
+  {
+    kind: 'Payments and returns',
+    systems: ['Stripe', 'Adyen', 'PayPal', 'Loop Returns', 'Narvar'],
+  },
+  {
+    kind: 'Warehouses and shipping',
+    systems: ['ShipBob', 'ShipStation', 'Extensiv'],
+  },
+  {
+    kind: 'Databases and files',
+    systems: [
+      'MySQL',
+      'PostgreSQL',
+      'IBM Db2',
+      'Snowflake',
+      'BigQuery',
+      'CSV and JSON over SFTP',
+    ],
+  },
+]
+
+// The AI assistants that use Darpan through its CLI and MCP server
+// (DAR-CLI-003; darpan 0.2.x on Homebrew): as the signed-in user, with that
+// user's permissions.
+export const AI_CLIENTS = [
+  'Claude',
+  'ChatGPT',
+  'Gemini',
+  'Cursor',
+  'Any MCP assistant',
+] as const

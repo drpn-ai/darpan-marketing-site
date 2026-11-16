@@ -95,9 +95,9 @@ function Home() {
       <WhyBand />
       <FromProduction />
       <HowItWorks />
+      <FinanceBand />
       <Breadth />
       <SecurityStrip />
-      <FinanceBand />
       <FaqStrip />
       <Close />
       <NotesStrip />

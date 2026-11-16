@@ -2,7 +2,8 @@
 // skill). Names, vendors and order ids stay out; the facts and the closing
 // estimate (about one order in a hundred) are in the Facts register
 // (docs/superpowers/specs/2026-10-29-drpn-site-rethink-design.md).
-import { BreakList } from '@/components/BreakList'
+import { ExchangeCollage } from '@/components/home/ExchangeCollage'
+import { useSettle } from '@/components/home/useSettle'
 
 // Three more cases from one jewelry brand's 2026-11-13 audit run, re-read
 // from production; counts, totals and run ids are in the Facts register.
@@ -22,6 +23,13 @@ const alsoFound = [
 ] as const
 
 export function FromProduction() {
+  // The picture moves from the two systems' screens to Darpan's first list
+  // as the story sets them side by side, so it is in view while the reader
+  // reaches the morning Darpan was switched on.
+  const { turnRef, visualRef, settled } = useSettle<
+    HTMLParagraphElement,
+    HTMLDivElement
+  >()
   return (
     <section
       className="vl-band"
@@ -44,11 +52,11 @@ export function FromProduction() {
               Nobody told the WMS about the cancellation, so it shipped the
               replacement to a customer the brand had just decided not to trust.
             </p>
-            <p className="vl-lede">
+            <p className="vl-lede" ref={turnRef}>
               The storefront showed a cancelled exchange, the WMS showed a
               finished shipment, and each was telling the truth. Breaks like
-              this usually surface when a customer calls to complain, or at the
-              month-end close. This customer was never going to call.
+              this usually surface when a customer calls to complain. This
+              customer was never going to call.
             </p>
             <p className="vl-lede">
               The morning Darpan&rsquo;s checks were switched on, the exchange
@@ -59,25 +67,7 @@ export function FromProduction() {
             </p>
           </div>
           <div className="vl-split-visual" data-reveal>
-            <BreakList
-              title="First morning · 06:00"
-              summary="9 open"
-              label="The first morning's list: an exchange the storefront cancelled but the WMS shipped, and eight more exchanges with the same break."
-              items={[
-                {
-                  text: 'Exchange cancelled, replacement shipped',
-                  meta: 'storefront: cancelled · WMS: shipped',
-                  state: 'open',
-                  badge: 'day 1',
-                },
-                {
-                  text: 'Eight more exchanges, same break',
-                  meta: 'storefront: cancelled · WMS: shipped',
-                  state: 'open',
-                  badge: 'day 1',
-                },
-              ]}
-            />
+            <ExchangeCollage settled={settled} visualRef={visualRef} />
           </div>
         </div>
 

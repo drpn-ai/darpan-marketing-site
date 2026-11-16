@@ -1,8 +1,15 @@
 // Why Darpan exists, in Aditi's words (2026-11-16), written with the
 // darpan-copy skill. No company names; every claim is in the Facts register.
-import { MonthCompare } from '@/components/home/MonthCompare'
+import { NightsCollage } from '@/components/home/NightsCollage'
+import { useSettle } from '@/components/home/useSettle'
 
 export function WhyBand() {
+  // The picture settles from the three nights into the morning list when the
+  // story turns ("Looking back, none of them belonged to month-end").
+  const { turnRef, visualRef, settled } = useSettle<
+    HTMLParagraphElement,
+    HTMLDivElement
+  >()
   return (
     <section className="vl-band" aria-labelledby="vl-why-heading">
       <div className="vl-wrap vl-split">
@@ -25,7 +32,7 @@ export function WhyBand() {
             promised to come back, and once the pressure lifted, nobody did. The
             same breaks were waiting the next month.
           </p>
-          <p className="vl-lede">
+          <p className="vl-lede" ref={turnRef}>
             Looking back, none of them belonged to month-end. Every break had
             started on an ordinary day and sat unnoticed for weeks. Caught the
             next morning, each one would have been small, fresh enough to trace
@@ -38,7 +45,7 @@ export function WhyBand() {
           </p>
         </div>
         <div className="vl-split-visual" data-reveal>
-          <MonthCompare />
+          <NightsCollage settled={settled} visualRef={visualRef} />
         </div>
       </div>
     </section>

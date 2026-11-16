@@ -17,14 +17,8 @@ export function DemoVideo() {
       >
         <source src="/video/darpan-demo.mp4" type="video/mp4" />
       </video>
-      <figcaption className="vl-demo-caption">
-        A team tells Darpan, in plain words, how its month should close, and
-        Darpan writes the checks. Then a real month close: every break, with
-        the team that owns it and what to do next.{' '}
-        <span className="vl-demo-fine">
-          From a brand that runs Darpan; names and ids changed. Under three
-          minutes, no sound.
-        </span>
+      <figcaption className="vl-demo-fine">
+        From a brand that runs Darpan; names and ids changed. No sound.
       </figcaption>
     </figure>
   )

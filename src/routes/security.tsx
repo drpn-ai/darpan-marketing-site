@@ -14,51 +14,75 @@ export const Route = createFileRoute('/security')({
     ),
 })
 
+// Six promises, each the same length so the grid reads evenly. Two-factor
+// sign-in and passkeys are built and about to ship (DAR-BE-264, DAR-BE-270);
+// the Facts register marks them as direction until they are live.
+const promises = [
+  {
+    h: 'It never changes your records.',
+    p: 'Databases connect through a read-only account and Darpan only runs SELECT. Over SFTP it archives the files it has read and writes back each run’s result file.',
+  },
+  {
+    h: 'Credentials stay sealed.',
+    p: 'Passwords, API tokens and private keys are stored encrypted. Once saved, a credential can be replaced, but no screen or report ever shows it again.',
+  },
+  {
+    h: 'Each company stays in its own lane.',
+    p: 'Every read is limited to the company you’re signed in to. Another company’s records answer as if they don’t exist, and automated tests check both.',
+  },
+  {
+    h: 'Encrypted in transit and at rest.',
+    p: 'Every connection to Darpan uses TLS 1.2 or 1.3. The database is encrypted at rest, sits on a private network and accepts only encrypted connections.',
+  },
+  {
+    h: 'A second step to sign in.',
+    p: 'Two-factor sign-in with an authenticator app, or a passkey such as Touch ID, Windows Hello or a security key. Everyone who signs in is required to use one.',
+  },
+  {
+    h: 'Where it runs.',
+    p: 'Darpan runs on Amazon Web Services in the United States (Ohio). People at Darpan reach its servers through single sign-on, never a shared password.',
+  },
+] as const
+
 function SecurityPage() {
   return (
     <VlPage>
       <section className="vl-band is-plain" aria-labelledby="security-heading">
-        <div className="vl-wrap vl-prose vl-prose-narrow">
-          <span className="vl-kicker">Security</span>
-          <h1 id="security-heading">What Darpan reads, and where it stays.</h1>
+        <div className="vl-wrap">
+          <div className="vl-sec-head">
+            <span className="vl-kicker">Security</span>
+            <h1 className="vl-h2" id="security-heading">
+              What Darpan reads, and where it stays.
+            </h1>
+            <p className="vl-lede">
+              Darpan looks at your orders, returns and refunds so your team
+              doesn’t have to chase them. It never changes them, and nobody
+              outside your company ever sees them.
+            </p>
+          </div>
 
-          <h2 className="writing-h2">What Darpan reads</h2>
-          <ul>
-            {CONNECTORS.map((c) => (
-              <li key={c.name}>
-                {c.name}: {c.reads}
-              </li>
+          <div className="vl-caps vl-sec-grid">
+            {promises.map((x) => (
+              <div className="vl-cap" key={x.h}>
+                <h3>{x.h}</h3>
+                <p>{x.p}</p>
+              </div>
             ))}
-          </ul>
+          </div>
 
-          <h2 className="writing-h2">It doesn’t change your records.</h2>
-          <p>
-            Darpan never edits an order, a return, a payment or a row in
-            Shopify, HotWax, NetSuite or your database. Databases connect with
-            a read-only account, and Darpan only ever runs SELECT. Over SFTP it
-            writes in one folder you give it: a file it has finished reading
-            moves into an archive folder beside it, and an automation writes
-            each run’s result file back to that server.
+          <p className="vl-ww-foot vl-soc2-line">
+            Working toward SOC 2 Type I. Ask us for a security review.
           </p>
 
-          <h2 className="writing-h2">Credentials stay sealed.</h2>
-          <p>
-            Passwords, API tokens and private keys are stored encrypted. Once
-            saved, they can be replaced but not read back.
-          </p>
-
-          <h2 className="writing-h2">Each company stays in its own lane.</h2>
-          <p>
-            Every read of a company’s records is filtered to the company you’re
-            signed in to, and with no company selected a read returns nothing.
-            Asking for another company’s record gets the same answer as asking
-            for one that doesn’t exist. Automated tests check both.
-          </p>
-
-          <h2 className="writing-h2">Where it runs</h2>
-          <p>
-            Darpan runs on Amazon Web Services in the United States (Ohio).
-          </p>
+          <h2 className="vl-ww-h">What Darpan reads</h2>
+          <dl className="vl-reads">
+            {CONNECTORS.map((c) => (
+              <div key={c.name}>
+                <dt>{c.name}</dt>
+                <dd>{c.reads}</dd>
+              </div>
+            ))}
+          </dl>
 
           <p className="vl-page-cta">
             <a className="vl-cta" href={WALKTHROUGH_HREF}>

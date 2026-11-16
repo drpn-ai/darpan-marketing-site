@@ -8,15 +8,15 @@ export const FAQ = [
   },
   {
     q: 'Who writes the checks?',
-    a: 'You describe how your business should run, in plain words. Darpan’s AI turns that into checks, and your team approves each one before it runs.',
+    a: 'You do, in plain words. Darpan’s agent turns them into checks, and you approve each one.',
   },
   {
-    q: 'Does Darpan change our data?',
-    a: 'No. It never edits an order, a return or a row; over SFTP it only archives the files it has read. You fix a break in its own system, and the next morning’s check sees it fixed.',
+    q: 'Does it change our data?',
+    a: 'No. It never edits an order, a return or a row; you fix each break at its source.',
   },
   {
     q: 'What if a check is wrong?',
-    a: 'Change the sentence it checks. Each check is one plain statement, so fixing it means editing a sentence, not code.',
+    a: 'Edit the sentence it checks. Each check is one plain statement, not code.',
   },
 ] as const
 

@@ -13,6 +13,22 @@ export const Route = createFileRoute('/tour')({
     ),
 })
 
+// What the video shows, in order, so a viewer knows what they are watching.
+const chapters = [
+  {
+    k: 'Their words',
+    p: 'A team describes how its month should close, the way they’d explain it to a new hire.',
+  },
+  {
+    k: 'The agent’s checks',
+    p: 'Darpan’s agent turns that story into checks anyone can read, and the team approves each one.',
+  },
+  {
+    k: 'A real close',
+    p: 'A brand’s actual month close: every break listed with its owner and the next step.',
+  },
+] as const
+
 function TourPage() {
   return (
     <VlPage>
@@ -21,16 +37,28 @@ function TourPage() {
           <div className="vl-sec-head">
             <span className="vl-kicker">Tour</span>
             <h1 className="vl-h2" id="tour-heading">
-              Under three minutes, start to finish.
+              A month close that ends with a list, not a long night.
             </h1>
+            <p className="vl-lede">
+              Under three minutes, from a team’s own words to a real month
+              close.
+            </p>
           </div>
           <DemoVideo />
+          <div className="vl-caps vl-tour-chapters">
+            {chapters.map((c) => (
+              <div className="vl-cap" key={c.k}>
+                <div className="k">{c.k}</div>
+                <p>{c.p}</p>
+              </div>
+            ))}
+          </div>
           <p className="vl-page-cta">
             <a className="vl-cta" href={WALKTHROUGH_HREF}>
               Talk to us <span className="arr">&rarr;</span>
             </a>
             <a className="vl-textlink" href="/works-with">
-              See what Darpan checks <span aria-hidden>&#8599;</span>
+              See what it connects to <span aria-hidden>&rarr;</span>
             </a>
           </p>
         </div>
