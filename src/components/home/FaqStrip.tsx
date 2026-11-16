@@ -30,14 +30,14 @@ export function FaqStrip() {
             What teams ask first.
           </h2>
         </div>
-        <div className="vl-caps is-four">
+        <dl className="vl-faq">
           {FAQ.map((f) => (
-            <div className="vl-cap" key={f.q} data-reveal>
-              <h3>{f.q}</h3>
-              <p>{f.a}</p>
+            <div key={f.q} data-reveal>
+              <dt>{f.q}</dt>
+              <dd>{f.a}</dd>
             </div>
           ))}
-        </div>
+        </dl>
       </div>
     </section>
   )

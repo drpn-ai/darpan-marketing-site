@@ -18,7 +18,7 @@ const statements = [
 export function Breadth() {
   return (
     <section className="vl-band" aria-labelledby="vl-breadth-heading">
-      <div className="vl-wrap">
+      <div className="vl-wrap vl-split is-flip">
         <div className="vl-sec-head" data-reveal>
           <span className="vl-kicker">Not just commerce</span>
           <h2 className="vl-h2" id="vl-breadth-heading">
@@ -28,14 +28,19 @@ export function Breadth() {
             Every check is one sentence your team would say out loud.
           </p>
         </div>
-        <div className="vl-caps">
+        <ul className="vl-split-visual vl-sentences">
           {statements.map((x) => (
-            <div className="vl-cap" key={x.k} data-reveal>
-              <div className="k">{x.k}</div>
-              <h3>{x.s}</h3>
-            </div>
+            <li key={x.k} data-reveal>
+              <span className="vl-sentences-tick" aria-hidden>
+                ✓
+              </span>
+              <span>
+                <span className="vl-sentences-k">{x.k}</span>
+                <span className="vl-sentences-s">{x.s}</span>
+              </span>
+            </li>
           ))}
-        </div>
+        </ul>
       </div>
     </section>
   )
