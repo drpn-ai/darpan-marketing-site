@@ -2,6 +2,7 @@
 // skill). Names, vendors and order ids stay out; the facts and the closing
 // estimate (about one order in a hundred) are in the Facts register
 // (docs/superpowers/specs/2026-10-29-drpn-site-rethink-design.md).
+import { BreakList } from '@/components/BreakList'
 
 // Three more cases from one jewelry brand's 2026-11-13 audit run, re-read
 // from production; counts, totals and run ids are in the Facts register.
@@ -28,39 +29,62 @@ export function FromProduction() {
       aria-labelledby="vl-production-heading"
     >
       <div className="vl-wrap">
-        <div className="vl-sec-head" data-reveal>
-          <span className="vl-kicker">From production</span>
-          <h2 className="vl-h2" id="vl-production-heading">
-            The fraud screen worked. The order shipped anyway.
-          </h2>
-          <p className="vl-lede">
-            At a footwear brand, a customer asked to exchange a pair. The
-            storefront&rsquo;s fraud screen flagged the request and cancelled
-            it, which is exactly what a fraud screen is for.
-          </p>
-          <p className="vl-lede">
-            Nobody told the WMS about the cancellation, so it shipped the
-            replacement to a customer the brand had just decided not to trust.
-          </p>
-          <p className="vl-lede">
-            The storefront showed a cancelled exchange, the WMS showed a
-            finished shipment, and each was telling the truth. Breaks like this
-            usually surface when a customer calls to complain, or at the
-            month-end close. This customer was never going to call.
-          </p>
-          <p className="vl-lede">
-            The morning Darpan&rsquo;s checks were switched on, the exchange
-            appeared on its list of problems to fix, marked as cancelled in the
-            storefront but shipped by the WMS, with the team responsible named
-            beside it. It wasn&rsquo;t the only one; the same thing had
-            happened nine times.
-          </p>
+        <div className="vl-split is-flip">
+          <div className="vl-sec-head" data-reveal>
+            <span className="vl-kicker">From production</span>
+            <h2 className="vl-h2" id="vl-production-heading">
+              The fraud screen worked. The order shipped anyway.
+            </h2>
+            <p className="vl-lede">
+              At a footwear brand, a customer asked to exchange a pair. The
+              storefront&rsquo;s fraud screen flagged the request and cancelled
+              it, which is exactly what a fraud screen is for.
+            </p>
+            <p className="vl-lede">
+              Nobody told the WMS about the cancellation, so it shipped the
+              replacement to a customer the brand had just decided not to trust.
+            </p>
+            <p className="vl-lede">
+              The storefront showed a cancelled exchange, the WMS showed a
+              finished shipment, and each was telling the truth. Breaks like
+              this usually surface when a customer calls to complain, or at the
+              month-end close. This customer was never going to call.
+            </p>
+            <p className="vl-lede">
+              The morning Darpan&rsquo;s checks were switched on, the exchange
+              appeared on its list of problems to fix, marked as cancelled in
+              the storefront but shipped by the WMS, with the team responsible
+              named beside it. It wasn&rsquo;t the only one; the same thing had
+              happened nine times.
+            </p>
+          </div>
+          <div className="vl-split-visual" data-reveal>
+            <BreakList
+              title="First morning · 06:00"
+              summary="9 open"
+              label="The first morning's list: an exchange the storefront cancelled but the WMS shipped, and eight more exchanges with the same break."
+              items={[
+                {
+                  text: 'Exchange cancelled, replacement shipped',
+                  meta: 'storefront: cancelled · WMS: shipped',
+                  state: 'open',
+                  badge: 'day 1',
+                },
+                {
+                  text: 'Eight more exchanges, same break',
+                  meta: 'storefront: cancelled · WMS: shipped',
+                  state: 'open',
+                  badge: 'day 1',
+                },
+              ]}
+            />
+          </div>
         </div>
 
         <p className="vl-gap-foot" data-reveal>
           From a brand that runs Darpan; details withheld. Nine replacement
-          pairs come to roughly $1,000 of product, estimated at a typical pair price.
-          Across the five-plus brands in production, about one order in a
+          pairs come to roughly $1,000 of product, estimated at a typical pair
+          price. Across the five-plus brands in production, about one order in a
           hundred breaks somewhere between two systems.
         </p>
 

@@ -1,9 +1,11 @@
 // Why Darpan exists, in Aditi's words (2026-11-16), written with the
 // darpan-copy skill. No company names; every claim is in the Facts register.
+import { MonthCompare } from '@/components/home/MonthCompare'
+
 export function WhyBand() {
   return (
     <section className="vl-band" aria-labelledby="vl-why-heading">
-      <div className="vl-wrap">
+      <div className="vl-wrap vl-split">
         <div className="vl-sec-head" data-reveal>
           <span className="vl-kicker">Why we built it</span>
           <h2 className="vl-h2" id="vl-why-heading">
@@ -20,8 +22,8 @@ export function WhyBand() {
             Any one of those breaks could be patched by hand in an evening. The
             permanent cure meant a code change and a deploy, and even that
             couldn’t repair a month already on the books. So we patched,
-            promised to come back, and once the pressure lifted, nobody did.
-            The same breaks were waiting the next month.
+            promised to come back, and once the pressure lifted, nobody did. The
+            same breaks were waiting the next month.
           </p>
           <p className="vl-lede">
             Looking back, none of them belonged to month-end. Every break had
@@ -34,6 +36,9 @@ export function WhyBand() {
             the team where it began, it turned up 23 bugs that were then fixed
             in code, and the next close took a few hours, not three nights.
           </p>
+        </div>
+        <div className="vl-split-visual" data-reveal>
+          <MonthCompare />
         </div>
       </div>
     </section>

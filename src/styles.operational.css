@@ -1187,3 +1187,126 @@
   align-items: center;
   gap: 22px;
 }
+
+/* ============================================================
+   Story bands with a visual: Why we built it (visual right) and
+   From production (visual left), so the two never mirror.
+   ============================================================ */
+.vl-split {
+  display: grid;
+  grid-template-columns: 1.04fr 0.96fr;
+  gap: clamp(40px, 6vw, 88px);
+  align-items: center;
+}
+.vl-split .vl-sec-head {
+  max-width: none;
+  margin-bottom: 0;
+}
+.vl-split.is-flip {
+  grid-template-columns: 0.96fr 1.04fr;
+}
+.vl-split.is-flip .vl-split-visual {
+  order: -1;
+}
+/* The stories run longer than the visuals: the visual stays in view beside them. */
+@media (min-width: 901px) {
+  .vl-split {
+    align-items: start;
+  }
+  .vl-split-visual {
+    position: sticky;
+    top: 120px;
+  }
+}
+@media (max-width: 900px) {
+  .vl-split,
+  .vl-split.is-flip {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .vl-split.is-flip .vl-split-visual {
+    order: 0;
+  }
+}
+.vl-split + .vl-gap-foot {
+  margin-top: clamp(40px, 5vw, 64px);
+}
+
+/* One month, two ways (MonthCompare). Card matches the break list. */
+.vl-month {
+  background: var(--paper-2);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  box-shadow:
+    0 2px 0 rgba(255, 255, 255, 0.5) inset,
+    0 40px 70px -42px rgba(28, 27, 24, 0.55);
+  overflow: hidden;
+  font-family: var(--mono);
+}
+.vl-month-row {
+  padding: 20px 20px 22px;
+  border-top: 1px solid var(--line-2);
+}
+.vl-breaks-head + .vl-month-row {
+  border-top: 0;
+}
+.vl-month-label {
+  display: block;
+  margin-bottom: 12px;
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+.vl-month-days {
+  display: grid;
+  grid-template-columns: repeat(15, minmax(0, 1fr));
+  gap: 5px;
+}
+.vl-month-day {
+  aspect-ratio: 1;
+  border-radius: 4px;
+  border: 1px solid var(--line);
+}
+.vl-month-day.is-night {
+  background: var(--drift);
+  border-color: var(--drift);
+}
+.vl-month-day.is-checked {
+  background: var(--agree-soft);
+  border-color: transparent;
+  position: relative;
+}
+.vl-month-day.is-checked::after {
+  content: '';
+  position: absolute;
+  inset: 34%;
+  border-radius: 50%;
+  background: var(--agree);
+}
+.vl-month-day.is-close {
+  background: var(--agree);
+}
+.vl-month-day.is-close::after {
+  background: var(--paper-2);
+}
+.vl-month-note {
+  display: block;
+  margin-top: 12px;
+  font-size: 12px;
+  color: var(--ink-2);
+}
+.vl-month-note .is-drift {
+  color: var(--drift);
+}
+.vl-month-note .is-agree {
+  color: var(--agree);
+}
+@media (max-width: 560px) {
+  .vl-month-row {
+    padding-left: 14px;
+    padding-right: 14px;
+  }
+  .vl-month-days {
+    gap: 4px;
+  }
+}
