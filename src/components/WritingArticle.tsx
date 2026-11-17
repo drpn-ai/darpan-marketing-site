@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react'
 import type { Article, Block, FaqItem } from '@/data/writing-content'
 import type { WritingEntry } from '@/data/writing-entries'
+import { Byline } from '@/components/Byline'
 import { PageClose } from '@/components/PageClose'
 import { VlPage } from '@/components/VlChrome'
 
@@ -37,7 +38,9 @@ function renderInline(text: string, keyPrefix: string) {
   LINK_RE.lastIndex = 0
   while ((match = LINK_RE.exec(text)) !== null) {
     if (match.index > last) {
-      nodes.push(...renderCode(text.slice(last, match.index), `${keyPrefix}-${seg}`))
+      nodes.push(
+        ...renderCode(text.slice(last, match.index), `${keyPrefix}-${seg}`),
+      )
     }
     const label = match[1]
     const href = match[2]
@@ -99,7 +102,9 @@ function BlockView({ block, index }: { block: Block; index: number }) {
             <thead>
               <tr>
                 {block.head.map((h, i) => (
-                  <th key={`${key}-h-${i}`}>{renderInline(h, `${key}-h-${i}`)}</th>
+                  <th key={`${key}-h-${i}`}>
+                    {renderInline(h, `${key}-h-${i}`)}
+                  </th>
                 ))}
               </tr>
             </thead>
@@ -172,7 +177,11 @@ function buildJsonLd(article: Article, entry: WritingEntry | undefined) {
       description: article.description,
       url,
       mainEntityOfPage: url,
-      author: { '@type': 'Organization', name: 'Darpan' },
+      author: {
+        '@type': 'Person',
+        name: 'Aditi Patel',
+        jobTitle: 'Founder, Darpan',
+      },
       publisher: { '@type': 'Organization', name: 'Darpan' },
       articleSection: entry?.category ?? 'Reconciliation',
       keywords: article.keywords.join(', '),
@@ -206,12 +215,9 @@ export function WritingArticle({
     <VlPage>
       <section className="vl-band is-plain">
         <article className="vl-wrap vl-prose">
-          <span className="vl-kicker">
-            {entry?.date}
-            {entry?.date ? <span aria-hidden> · </span> : null}
-            {entry?.category}
-          </span>
+          <span className="vl-kicker">{entry?.category}</span>
           <h1>{article.title}</h1>
+          <Byline date={entry?.date} />
           <p className="writing-lead">{renderInline(article.lead, 'lead')}</p>
           {article.blocks.map((block, i) => (
             <BlockView key={`block-${i}`} block={block} index={i} />

@@ -1,4 +1,5 @@
 import { createFileRoute } from '@tanstack/react-router'
+import { HeroFacts } from '@/components/HeroFacts'
 import { PageClose } from '@/components/PageClose'
 import { VlPage } from '@/components/VlChrome'
 import { StoryVisual } from '@/components/about/StoryVisual'
@@ -21,25 +22,10 @@ export const Route = createFileRoute('/about')({
 
 const LINKEDIN = 'https://www.linkedin.com/company/drpn-ai'
 
-const beliefs = [
-  {
-    k: 'Every morning is a close day.',
-    p: 'Breaks start on ordinary days. Looking every morning finds each one while it is a day old and still small.',
-  },
-  {
-    k: 'Fix it at the source, not by hand.',
-    p: 'A patch keeps the numbers right for one month. A fix in the system keeps the same break from coming back.',
-  },
-  {
-    k: 'The answer belongs to the team.',
-    p: 'When someone explains a break once, it should be remembered for good, not live in one person’s head.',
-  },
-] as const
-
 const today = [
   { n: '5+', k: 'brands live' },
-  { n: '100+', k: 'fixes in code' },
-  { n: '0', k: 'records changed' },
+  { n: '100+', k: 'code fixes' },
+  { n: '50+', k: 'hours saved' },
 ] as const
 
 function AboutPage() {
@@ -68,26 +54,26 @@ function AboutPage() {
             >
               Follow Darpan on LinkedIn <span aria-hidden>&#8599;</span>
             </a>
+            <HeroFacts
+              label="Darpan today"
+              items={today.map((t) => ({ k: t.n, p: t.k }))}
+            />
           </div>
           <div className="vl-split-visual">
-            <div className="vl-founder" data-reveal>
-              <span className="vl-founder-frame">
-                <img
-                  className="vl-founder-photo"
-                  src="/team/aditi-patel.webp"
-                  alt="Aditi Patel, founder of Darpan, drawn in pencil"
-                  width={720}
-                  height={720}
-                  loading="lazy"
-                />
-              </span>
-              <span className="vl-founder-name">Aditi Patel</span>
-              <span className="vl-founder-role">Founder, Darpan</span>
-              <p>
-                Built Darpan inside an order-management team, starting from the
-                close she used to do by hand.
-              </p>
-            </div>
+            <figure className="vl-founder" data-reveal>
+              <img
+                className="vl-founder-photo"
+                src="/team/aditi-patel.webp"
+                alt="Aditi Patel, founder of Darpan, drawn in pencil"
+                width={720}
+                height={720}
+                loading="lazy"
+              />
+              <figcaption>
+                <span className="vl-founder-name">Aditi Patel</span>
+                <span className="vl-founder-role">Founder, Darpan</span>
+              </figcaption>
+            </figure>
           </div>
         </div>
       </section>
@@ -160,7 +146,7 @@ function AboutPage() {
               </li>
             </ol>
             <div className="vl-split-visual vl-story-visual">
-              <div className="vl-sv-stick">
+              <div className="vl-sv-stick" data-reveal>
                 <StoryVisual step={active} />
               </div>
             </div>
@@ -168,21 +154,59 @@ function AboutPage() {
         </div>
       </section>
 
+      {/* The values as a letter from Aditi, in her words (2026-11-17): a
+          mirror shows, it never blames; fix the root cause, in customers'
+          systems and our own code; need Darpan less every month. */}
       <section className="vl-band" aria-labelledby="about-believe-heading">
-        <div className="vl-wrap">
+        <div className="vl-wrap vl-split is-flip vl-letter">
           <div className="vl-sec-head" data-reveal>
-            <span className="vl-kicker is-agree">What we believe</span>
-            <h2 className="vl-h2 is-line" id="about-believe-heading">
-              Three things those nights taught us.
+            <span className="vl-kicker is-agree">Core values</span>
+            <h2 className="vl-h2" id="about-believe-heading">
+              What those nights taught me.
             </h2>
+            <div className="vl-letter-body">
+              <h3>Clarity</h3>
+              <p>
+                Darpan means mirror, and a mirror{' '}
+                <span className="mk">shows, it never blames</span>. We are not
+                here to police your data. We want every team to see what broke,
+                and fix it together.
+              </p>
+              <h3>Rigor</h3>
+              <p>
+                I believe in{' '}
+                <span className="mk">fixing the root, not the row</span>. A
+                patch quiets one month; a real fix ends the break. We hold our
+                own code to the same rule.
+              </p>
+              <h3>Progress</h3>
+              <p>
+                And I hope that, every month, you{' '}
+                <span className="mk">need Darpan a little less</span>. When the
+                causes are fixed, the morning list grows shorter. That is the
+                goal.
+              </p>
+            </div>
+            <p className="vl-letter-sign">
+              <img
+                src="/team/aditi-patel-signature.webp"
+                alt="Aditi Patel"
+                width={639}
+                height={402}
+                loading="lazy"
+              />
+              <span>Founder, Darpan</span>
+            </p>
           </div>
-          <div className="vl-promises">
-            {beliefs.map((b) => (
-              <div className="vl-promise" key={b.k} data-reveal>
-                <h3>{b.k}</h3>
-                <p>{b.p}</p>
-              </div>
-            ))}
+          <div className="vl-split-visual" data-reveal>
+            <img
+              className="vl-letter-portrait"
+              src="/team/aditi-patel-writing.webp"
+              alt="Aditi Patel writing in a notebook, drawn in pencil"
+              width={900}
+              height={900}
+              loading="lazy"
+            />
           </div>
         </div>
       </section>
@@ -195,16 +219,7 @@ function AboutPage() {
           label: 'Follow Darpan on LinkedIn',
           external: true,
         }}
-      >
-        <ul className="vl-about-proof" aria-label="Darpan today">
-          {today.map((t) => (
-            <li key={t.k}>
-              <span className="n">{t.n}</span>
-              <span className="k">{t.k}</span>
-            </li>
-          ))}
-        </ul>
-      </PageClose>
+      ></PageClose>
     </VlPage>
   )
 }

@@ -626,6 +626,8 @@
 .vl-animate [data-reveal].is-in:nth-child(2) { transition-delay: 0.08s; }
 .vl-animate [data-reveal].is-in:nth-child(3) { transition-delay: 0.16s; }
 .vl-animate [data-reveal].is-in:nth-child(4) { transition-delay: 0.24s; }
+.vl-animate [data-reveal].is-in:nth-child(5) { transition-delay: 0.32s; }
+.vl-animate [data-reveal].is-in:nth-child(6) { transition-delay: 0.4s; }
 
 /* Hand-drawn underline that draws itself on the brand phrase "lining up".
    Reuses the stroke-dashoffset doodle technique. `pathLength` normalises the
@@ -923,29 +925,6 @@
 }
 
 /* writing index — a wall of sticky notes */
-.vl-cards-wall {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(224px, 1fr));
-  gap: 38px 26px;
-  margin-top: 8px;
-}
-.vl-cards-wall .vl-card:nth-child(3n + 1) {
-  transform: rotate(-2deg) translateY(8px);
-}
-.vl-cards-wall .vl-card:nth-child(3n + 2) {
-  transform: rotate(1.4deg) translateY(-6px);
-}
-.vl-cards-wall .vl-card:nth-child(3n) {
-  transform: rotate(-0.8deg) translateY(13px);
-}
-.vl-cards-wall .vl-card:hover {
-  transform: rotate(0deg) translateY(-5px) scale(1.02);
-  box-shadow:
-    0 2px 2px rgba(28, 27, 24, 0.18),
-    0 26px 40px -14px rgba(28, 27, 24, 0.42),
-    0 8px 14px -4px rgba(28, 27, 24, 0.16);
-  z-index: 2;
-}
 
 /* ============================================================
    Break list — a morning's breaks, as the product shows them.
@@ -1170,6 +1149,48 @@
 .vl-split .vl-sec-head {
   max-width: none;
   margin-bottom: 0;
+}
+/* A page's opening: the words start at the top of their column, so every
+   heading sits the same distance under the header whatever the picture's
+   height beside it. */
+.vl-band.is-plain > .vl-split {
+  align-items: start;
+}
+/* Every split opening (Agent, Integrations, Security, About) is the same
+   height, the tallest one (Security). Pictures centre against the words. */
+@media (min-width: 901px) {
+  .vl-band.is-plain > .vl-split {
+    min-height: 488px;
+  }
+  .vl-band.is-plain > .vl-split > .vl-split-visual {
+    align-self: center;
+  }
+}
+/* Hero facts: three short facts under an opening's buttons. */
+.vl-hero-facts {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+  margin: 40px 0 0;
+  padding: 22px 0 0;
+  border-top: 1px solid var(--line);
+  list-style: none;
+}
+.vl-hero-facts li {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.vl-hero-facts .k {
+  font-size: 24px;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: var(--agree);
+}
+.vl-hero-facts .p {
+  font-size: 14.5px;
+  line-height: 1.4;
+  color: var(--ink-2);
 }
 .vl-split.is-flip {
   grid-template-columns: 0.96fr 1.04fr;
@@ -2566,57 +2587,77 @@
 .vl-close .vl-linkedin {
   margin-top: 0;
 }
-.vl-founder {
+/* About opening: the portrait is exactly as tall as the words beside it.
+   The picture column stretches to the text's height and the portrait fills
+   it (positioned, so it never makes the row taller). */
+.vl-band.is-plain > .vl-split.vl-about-hero > .vl-split-visual {
+  position: relative;
+  align-self: stretch;
+}
+.vl-about-hero .vl-founder {
+  position: absolute;
+  inset: 0;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  max-width: 380px;
-  margin-left: auto;
-  padding: 30px 30px 32px;
-  border: 1px solid var(--line);
-  border-radius: 18px;
-  background: var(--paper-2);
-  box-shadow: 0 40px 70px -50px rgba(28, 27, 24, 0.5);
+  max-width: none;
+  margin: 0;
 }
-/* The founder's pencil portrait, toned to the site: grey, then multiplied
-   onto the card so its white becomes the card's paper and the lines stay ink. */
-.vl-founder-frame {
-  display: block;
-  width: 100%;
-  aspect-ratio: 1;
-  margin-bottom: 18px;
-  overflow: hidden;
-  border-radius: 14px;
-}
-/* Zoomed to head and shoulders: anchored at the top of the drawing so the
-   hair stays in frame, down to just below the necklace. */
-.vl-founder-photo {
-  display: block;
+.vl-about-hero .vl-founder-photo {
+  flex: 1 1 auto;
+  min-height: 0;
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  transform: scale(1.35);
-  transform-origin: 52% 4%;
-  filter: grayscale(1) contrast(1.06) brightness(1.02);
-  mix-blend-mode: multiply;
+  object-fit: contain;
+  object-position: center bottom;
+}
+/* Name and role under the portrait. */
+.vl-founder figcaption {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  margin-top: 4px;
+  text-align: center;
 }
 .vl-founder-name {
-  font-size: 22px;
+  font-size: 19px;
   color: var(--ink);
 }
 .vl-founder-role {
-  margin-top: 2px;
   font-family: var(--mono);
   font-size: 12px;
   letter-spacing: 0.06em;
   text-transform: uppercase;
   color: var(--agree);
 }
-.vl-founder p {
-  margin: 14px 0 0;
-  font-size: 15.5px;
-  line-height: 1.55;
-  color: var(--ink-2);
+@media (max-width: 900px) {
+  .vl-about-hero .vl-split-visual {
+    position: static;
+  }
+  .vl-about-hero .vl-founder {
+    position: static;
+    max-width: 320px;
+  }
+  .vl-about-hero .vl-founder-photo {
+    width: 100%;
+    height: auto;
+    margin-left: 0;
+  }
+}
+/* Founder portrait: her pencil drawing standing on the page, image only.
+   Grey and the paper colour are built into the file (no blending, so no
+   white flash while it fades in); edges fade out with a mask. */
+.vl-founder {
+  margin: 0 0 0 auto;
+  max-width: 360px;
+  text-align: center;
+}
+.vl-founder-photo {
+  display: block;
+  width: 100%;
+  height: auto;
+  -webkit-mask-image: radial-gradient(ellipse 62% 64% at 50% 42%, #000 58%, transparent 100%);
+  mask-image: radial-gradient(ellipse 62% 64% at 50% 42%, #000 58%, transparent 100%);
 }
 .vl-about-sign {
   margin: 18px 0 0;
@@ -2786,35 +2827,286 @@
   color: #9a4a14;
 }
 
-/* About: the proof row inside the closing call to action. */
-.vl-about-proof {
+
+/* Notes index: a compact header, then a full-width cork board (the newest
+   note pinned left, the kinds as pinned scraps that filter the notes on the
+   right), then the rest as sticky notes in the same width. */
+/* Notes: the latest note pinned to an abstract cork board (the brand's
+   soft orange tint with a fine speckle), the rest as tossed sticky notes. */
+.vl-board {
+  position: relative;
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  max-width: 720px;
-  margin: clamp(36px, 5vw, 56px) auto clamp(36px, 5vw, 52px);
-  padding: 0;
-  list-style: none;
+  grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr);
+  gap: clamp(24px, 4vw, 56px);
+  align-items: center;
+  margin: 28px 0 clamp(40px, 5vw, 56px);
+  padding: clamp(20px, 2.4vw, 26px) clamp(20px, 3.5vw, 40px);
+  border-radius: 16px;
+  background-color: rgba(176, 87, 27, 0.09);
+  background-image:
+    radial-gradient(rgba(176, 87, 27, 0.16) 1px, transparent 1.4px),
+    radial-gradient(rgba(176, 87, 27, 0.1) 1px, transparent 1.6px);
+  background-size: 11px 11px, 17px 17px;
+  background-position: 0 0, 5px 8px;
+  box-shadow: inset 0 0 0 1px rgba(176, 87, 27, 0.14);
 }
-.vl-about-proof li {
+.vl-card.vl-board-note {
+  margin: 0;
+  min-height: 0;
+  padding: 26px 26px 20px;
+  transform: rotate(-1.2deg);
+}
+.vl-card.vl-board-note:hover {
+  transform: rotate(0deg) translateY(-4px);
+}
+.vl-board-note h2 {
+  margin: 0;
+  font-family: var(--sans);
+  font-size: clamp(21px, 2vw, 26px);
+  font-weight: 400;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+}
+.vl-board-note p {
+  margin: 10px 0 16px;
+  font-size: 15.5px;
+  line-height: 1.5;
+  color: var(--ink-2);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+/* A green pin through the top of the note. */
+.vl-board-pin {
+  position: absolute;
+  top: -9px;
+  left: 50%;
+  width: 18px;
+  height: 18px;
+  margin-left: -9px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #5b9a7c, var(--agree) 60%);
+  box-shadow: 0 3px 5px rgba(28, 27, 24, 0.3);
+  z-index: 1;
+}
+/* The wall: sticky notes in an even grid, each tossed a little. */
+.vl-notes-wall {
+  gap: 36px 28px;
+}
+.vl-notes-wall .vl-card p {
+  margin: 10px 0 0;
+  font-size: 14.5px;
+  line-height: 1.5;
+  color: var(--ink-2);
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.vl-notes-wall > a.vl-card:nth-of-type(3n + 1) {
+  transform: rotate(-1.6deg) translateY(6px);
+}
+.vl-notes-wall > a.vl-card:nth-of-type(3n + 2) {
+  transform: rotate(1.2deg) translateY(-4px);
+}
+.vl-notes-wall > a.vl-card:nth-of-type(3n) {
+  transform: rotate(-0.7deg) translateY(9px);
+}
+.vl-notes-wall > a.vl-card:hover {
+  transform: rotate(0deg) translateY(-5px) scale(1.02);
+}
+@media (max-width: 900px) {
+  .vl-notes-wall {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 600px) {
+  .vl-notes-wall {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+/* The kinds as small pinned scraps on the board; each filters the notes. */
+.vl-board-scraps {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px 16px;
+  align-content: center;
+}
+.vl-scrap {
+  position: relative;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 8px;
-  padding: 4px 12px;
+  align-items: flex-start;
+  gap: 2px;
+  padding: 18px 14px 12px;
+  border: 0;
+  border-top: 3px solid var(--pillar);
+  border-radius: 2px;
+  background: var(--paper-2);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  box-shadow:
+    0 1px 1px rgba(28, 27, 24, 0.14),
+    0 8px 14px -8px rgba(28, 27, 24, 0.3);
+  transition: transform 0.2s var(--ease), box-shadow 0.2s var(--ease),
+    opacity 0.2s var(--ease), background 0.2s var(--ease);
 }
-.vl-about-proof li + li {
-  border-left: 1px solid var(--line);
+.vl-scrap:nth-child(4n + 1) {
+  transform: rotate(-2deg);
 }
-.vl-about-proof .n {
-  font-size: clamp(36px, 4vw, 52px);
+.vl-scrap:nth-child(4n + 2) {
+  transform: rotate(1.6deg) translateY(4px);
+}
+.vl-scrap:nth-child(4n + 3) {
+  transform: rotate(1deg) translateY(-2px);
+}
+.vl-scrap:nth-child(4n) {
+  transform: rotate(-1.3deg) translateY(3px);
+}
+.vl-scrap:hover {
+  transform: rotate(0deg) translateY(-3px);
+  box-shadow:
+    0 2px 2px rgba(28, 27, 24, 0.16),
+    0 14px 22px -10px rgba(28, 27, 24, 0.38);
+}
+/* The chosen kind: bright white paper, a thicker strip in its colour,
+   straightened and lifted off the board. */
+.vl-scrap.is-on {
+  transform: rotate(0deg) translateY(-5px) scale(1.05);
+  background: #ffffff;
+  border-top-width: 6px;
+  box-shadow:
+    0 2px 3px rgba(28, 27, 24, 0.16),
+    0 18px 26px -12px rgba(28, 27, 24, 0.42);
+  z-index: 1;
+}
+/* With one kind chosen, the other scraps step back. */
+.vl-board-scraps.is-filtered .vl-scrap:not(.is-on) {
+  opacity: 0.55;
+}
+.vl-board-scraps.is-filtered .vl-scrap:not(.is-on):hover {
+  opacity: 1;
+}
+.vl-scrap:focus-visible {
+  outline: 2px solid var(--agree);
+  outline-offset: 2px;
+}
+.vl-scrap .n {
+  font-size: 24px;
   line-height: 1;
-  letter-spacing: -0.03em;
+  letter-spacing: -0.02em;
+  color: var(--pillar);
+}
+.vl-scrap .k {
+  font-size: 13.5px;
+  color: var(--ink-2);
+}
+.vl-scrap-pin {
+  position: absolute;
+  top: -6px;
+  left: 50%;
+  width: 11px;
+  height: 11px;
+  margin-left: -5.5px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #5b9a7c, var(--agree) 60%);
+  box-shadow: 0 2px 3px rgba(28, 27, 24, 0.3);
+}
+@media (max-width: 900px) {
+  .vl-board {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .vl-board-scraps {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+/* Byline: Aditi's writing portrait, name and date (notes and the featured note). */
+.vl-byline {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+}
+.vl-byline img {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  border: 1px solid var(--line);
+  object-fit: cover;
+}
+.vl-byline > span {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.vl-byline-name {
+  font-size: 15.5px;
+  color: var(--ink);
+}
+.vl-byline-meta {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--ink-3);
+}
+.vl-prose .vl-byline {
+  margin: 4px 0 26px;
+}
+
+/* About values as a letter from Aditi: her writing portrait on the left
+   (grey and paper colour built into the file, edges faded), the letter on the right,
+   the three values picked out in green, signed in her hand. */
+.vl-letter-body h3 {
+  margin: 28px 0 0;
+  font-family: var(--sans);
+  font-size: clamp(20px, 1.8vw, 24px);
+  font-weight: 400;
+  letter-spacing: -0.015em;
   color: var(--agree);
 }
-.vl-about-proof .k {
-  font-family: var(--mono);
-  font-size: 11.5px;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+.vl-letter-body p {
+  margin: 6px 0 0;
+  max-width: 50ch;
+  font-size: clamp(17px, 1.35vw, 19px);
+  line-height: 1.7;
   color: var(--ink-2);
+}
+.vl-letter-body .mk {
+  color: var(--agree);
+}
+/* Her own signature (her drawing), in graphite on the paper colour. */
+.vl-letter-sign {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin: 22px 0 0;
+}
+.vl-letter-sign img {
+  display: block;
+  position: relative;
+  z-index: 1;
+  /* Sized so the P's downstroke lands in the gap between "Founder," and
+     "Darpan" below, as a real signature runs over a printed name. */
+  width: 112px;
+  height: auto;
+  margin: -6px 0 -20px -4px;
+  /* Graphite strokes on a transparent background, straightened 8 degrees:
+     no paper box to show and nothing to blend while it fades in. */
+}
+.vl-letter-sign span {
+  margin-top: 2px;
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+.vl-letter-portrait {
+  display: block;
+  width: 100%;
+  height: auto;
+  -webkit-mask-image: radial-gradient(ellipse 56% 58% at 55% 50%, #000 48%, transparent 100%);
+  mask-image: radial-gradient(ellipse 56% 58% at 55% 50%, #000 48%, transparent 100%);
 }

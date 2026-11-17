@@ -9,6 +9,7 @@ import {
 import { useReveal } from '@/components/useReveal'
 import { VlPage } from '@/components/VlChrome'
 import { CONNECTORS, WALKTHROUGH_HREF, pageHead } from '@/data/site'
+import { HeroFacts } from '@/components/HeroFacts'
 import { ReviewPicture } from '@/components/HeroPictures'
 
 // Facts only: every line here traces to the Facts register in
@@ -115,6 +116,14 @@ function SecurityPage() {
                 Read the docs <span aria-hidden>&#8599;</span>
               </a>
             </div>
+            <HeroFacts
+              label="Security at a glance"
+              items={[
+                { k: 'Read-only', p: 'never changes your records' },
+                { k: 'Encrypted', p: 'in transit and at rest' },
+                { k: 'Two-step', p: 'sign-in for everyone' },
+              ]}
+            />
           </div>
           <div className="vl-split-visual" data-reveal>
             <ReviewPicture />

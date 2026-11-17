@@ -20,7 +20,9 @@ export function useReveal(): void {
           }
         }
       },
-      { threshold: 0.16, rootMargin: '0px 0px -8% 0px' },
+      // The bottom 15% of the screen doesn't count, so a heading that only
+      // peeks in at page load still fades in once the reader scrolls.
+      { threshold: 0.16, rootMargin: '0px 0px -15% 0px' },
     )
     root.querySelectorAll('[data-reveal]').forEach((el) => observer.observe(el))
     return () => observer.disconnect()

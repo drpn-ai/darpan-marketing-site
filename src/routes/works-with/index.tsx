@@ -3,6 +3,7 @@ import { PageClose } from '@/components/PageClose'
 import { VlPage } from '@/components/VlChrome'
 import { AI_CLIENTS, SYSTEM_GROUPS } from '@/data/works-with'
 import { WALKTHROUGH_HREF, pageHead } from '@/data/site'
+import { HeroFacts } from '@/components/HeroFacts'
 import { ConnectPicture } from '@/components/HeroPictures'
 import { useReveal } from '@/components/useReveal'
 
@@ -43,6 +44,14 @@ function WorksWithPage() {
                 Watch the three-minute tour <span aria-hidden>&rarr;</span>
               </a>
             </div>
+            <HeroFacts
+              label="How Darpan connects"
+              items={[
+                { k: 'Read-only', p: 'never changes a record' },
+                { k: 'Next morning', p: 'your first list of breaks' },
+                { k: '7 kinds', p: 'of system, storefront to SFTP' },
+              ]}
+            />
           </div>
           <div className="vl-split-visual" data-reveal>
             <ConnectPicture />
@@ -52,27 +61,30 @@ function WorksWithPage() {
 
       <section className="vl-band" aria-labelledby="works-with-stack-heading">
         <div className="vl-wrap">
-          <h2 className="vl-ww-h is-first" id="works-with-stack-heading">
-            Your stack
-          </h2>
-          <div className="vl-stack">
-            {SYSTEM_GROUPS.map((group) => (
-              <div className="vl-stack-group" key={group.kind}>
-                <h3>{group.kind}</h3>
-                <ul className="vl-chips">
-                  {group.systems.map((system) => (
-                    <li key={system}>{system}</li>
-                  ))}
-                </ul>
-              </div>
-            ))}
+          {/* The label reveals with its groups, so it never shows alone. */}
+          <div data-reveal>
+            <h2 className="vl-ww-h is-first" id="works-with-stack-heading">
+              Your stack
+            </h2>
+            <div className="vl-stack">
+              {SYSTEM_GROUPS.map((group) => (
+                <div className="vl-stack-group" key={group.kind} data-reveal>
+                  <h3>{group.kind}</h3>
+                  <ul className="vl-chips">
+                    {group.systems.map((system) => (
+                      <li key={system}>{system}</li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </div>
           </div>
-          <p className="vl-ww-foot">
+          <p className="vl-ww-foot" data-reveal>
             Missing one? Darpan can easily connect with anything that has an
             API, a database or a file export.
           </p>
 
-          <div className="vl-ai">
+          <div className="vl-ai" data-reveal>
             <div>
               <h2 className="vl-ww-h is-first">And with your AI</h2>
               <p className="vl-ai-lede">
