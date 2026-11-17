@@ -94,3 +94,67 @@ export function ListCard({
     </div>
   )
 }
+
+// A still picture: collage pieces with no before/after swap.
+export function Picture({
+  label,
+  children,
+}: {
+  label: string
+  children: ReactNode
+}) {
+  return (
+    <div className="vl-col" role="img" aria-label={label}>
+      <div aria-hidden>{children}</div>
+    </div>
+  )
+}
+
+// A small record card: a label, a title, label/value rows and an optional
+// large green line.
+export function Card({
+  style,
+  k,
+  title,
+  rows,
+  big,
+  faint,
+}: {
+  style: CSSProperties
+  k: string
+  title: string
+  rows: readonly (readonly [string, string])[]
+  big?: string
+  faint?: boolean
+}) {
+  return (
+    <div
+      className={`vl-col-item vl-sv-trace${faint ? ' is-faint' : ''}`}
+      style={style}
+    >
+      <span className="vl-sv-trace-k">{k}</span>
+      <span className="vl-sv-trace-title">{title}</span>
+      {rows.map(([a, b]) => (
+        <span className="vl-sv-trace-row" key={a}>
+          <span>{a}</span>
+          <span>{b}</span>
+        </span>
+      ))}
+      {big ? <span className="vl-sv-trace-gap is-calm">{big}</span> : null}
+    </div>
+  )
+}
+
+export function Chip({
+  style,
+  children,
+}: {
+  style: CSSProperties
+  children: string
+}) {
+  return (
+    <div className="vl-col-item vl-col-chip is-day" style={style}>
+      {children}
+    </div>
+  )
+}

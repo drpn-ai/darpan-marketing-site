@@ -1,9 +1,10 @@
 import { createFileRoute } from '@tanstack/react-router'
+import { PageClose } from '@/components/PageClose'
 import { VlPage } from '@/components/VlChrome'
 import { StoryVisual } from '@/components/about/StoryVisual'
 import { useActiveBeat } from '@/components/about/useActiveBeat'
 import { useReveal } from '@/components/useReveal'
-import { WALKTHROUGH_HREF, pageHead } from '@/data/site'
+import { pageHead } from '@/data/site'
 
 // Why Darpan exists, in Aditi Patel's words (2026-11-16): the founder story in
 // full (the home page carries a short version), what it taught us, and where
@@ -14,7 +15,7 @@ export const Route = createFileRoute('/about')({
     pageHead(
       '/about',
       'About — Darpan',
-      'Darpan began with three nights at one month-end close. Aditi Patel built it so every morning is a close day: breaks caught while they are small, and fixed for good.',
+      'Darpan means mirror: every morning it holds your systems up side by side, so your team sees each break the day it starts. Aditi Patel built it after closing the month by hand.',
     ),
 })
 
@@ -36,9 +37,9 @@ const beliefs = [
 ] as const
 
 const today = [
-  { n: '5+', k: 'brands run it every morning' },
-  { n: '100+', k: 'real fixes made in code' },
-  { n: 'Hours', k: 'to close the month, not nights' },
+  { n: '5+', k: 'brands live' },
+  { n: '100+', k: 'fixes in code' },
+  { n: '0', k: 'records changed' },
 ] as const
 
 function AboutPage() {
@@ -52,11 +53,12 @@ function AboutPage() {
           <div className="vl-sec-head" data-reveal>
             <span className="vl-kicker is-agree">About</span>
             <h1 className="vl-h2" id="about-heading">
-              Darpan began with three nights at one month-end close.
+              Darpan means mirror.
             </h1>
             <p className="vl-lede">
-              It was built by someone who closed the month by hand, so that no
-              team has to spend its nights that way again.
+              Every morning it holds your systems up side by side, so your team
+              sees each break the day it starts, not at month-end. I built it
+              after closing the month by hand, so no team has to do that again.
             </p>
             <a
               className="vl-linkedin"
@@ -69,8 +71,15 @@ function AboutPage() {
           </div>
           <div className="vl-split-visual">
             <div className="vl-founder" data-reveal>
-              <span className="vl-founder-mark" aria-hidden>
-                AP
+              <span className="vl-founder-frame">
+                <img
+                  className="vl-founder-photo"
+                  src="/team/aditi-patel.webp"
+                  alt="Aditi Patel, founder of Darpan, drawn in pencil"
+                  width={720}
+                  height={720}
+                  loading="lazy"
+                />
               </span>
               <span className="vl-founder-name">Aditi Patel</span>
               <span className="vl-founder-role">Founder, Darpan</span>
@@ -95,50 +104,43 @@ function AboutPage() {
             <ol className="vl-timeline">
               <li className="is-night" data-reveal ref={beatRef(0)}>
                 <span className="vl-timeline-k">Three nights</span>
-                <p className="vl-timeline-big">
-                  Three nights on one month-end close.
-                </p>
+                <p className="vl-timeline-big">Three nights on one close.</p>
                 <p className="vl-timeline-small">
                   An integration team, a retail tech ops lead and me, chasing
-                  refunds with no credit memo and orders stuck on backorder
-                  until the numbers the board would see lined up.
+                  refunds and backorders until the numbers lined up.
                 </p>
               </li>
               <li className="is-night" data-reveal ref={beatRef(1)}>
                 <span className="vl-timeline-k">The write-off</span>
                 <p className="vl-timeline-big">
-                  <span className="vl-timeline-num">$40,000</span> written off,
-                  because we couldn’t trace it.
+                  <span className="vl-timeline-num">$40,000</span> written off.
+                </p>
+                <p className="vl-timeline-small">
+                  Even after three nights, some refunds couldn’t be traced, so
+                  we wrote them off and closed the month.
                 </p>
               </li>
               <li className="is-night" data-reveal ref={beatRef(2)}>
                 <span className="vl-timeline-k">The next month</span>
-                <p className="vl-timeline-big">The same breaks were back.</p>
+                <p className="vl-timeline-big">The same breaks came back.</p>
                 <p className="vl-timeline-small">
-                  We had found them at month-end with the board waiting, so
-                  there was only time to patch the numbers by hand. The real
-                  fix, a change to the code, could wait. Once the close was
-                  over, it never happened.
+                  Found at month-end with the board waiting, they only got
+                  patched by hand. The real fix never happened.
                 </p>
               </li>
               <li className="is-turn" data-reveal ref={beatRef(3)}>
                 <span className="vl-timeline-k">Looking back</span>
-                <p className="vl-timeline-big">
-                  None of it was a month-end problem.
-                </p>
+                <p className="vl-timeline-big">Not a month-end problem.</p>
                 <p className="vl-timeline-small">
-                  Every break had started weeks earlier, on an ordinary day. The
-                  breaks weren’t the problem. Finding them too late to fix
-                  properly was.
+                  Every break had started weeks earlier, on an ordinary day. We
+                  just found it too late to fix properly.
                 </p>
               </li>
               <li className="is-turn" data-reveal ref={beatRef(4)}>
                 <span className="vl-timeline-k">So I built Darpan</span>
-                <p className="vl-timeline-big">
-                  Check every morning, not every month.
-                </p>
+                <p className="vl-timeline-big">Check every morning.</p>
                 <p className="vl-timeline-small">
-                  Caught the morning after, a break is small, its cause is still
+                  Caught the morning after, a break is small, its cause is
                   fresh, and there is time to fix it for real.
                 </p>
               </li>
@@ -147,12 +149,12 @@ function AboutPage() {
                   The first month with Darpan
                 </span>
                 <p className="vl-timeline-big">
-                  <span className="vl-timeline-num">23</span> real fixes. A
-                  close of a few hours.
+                  <span className="vl-timeline-num">23</span> real fixes, in
+                  code.
                 </p>
                 <p className="vl-timeline-small">
-                  Every break was fixed in the system that caused it, with a
-                  change to the code, not a makeshift patch to the data.
+                  Each break fixed in the system that caused it, not patched in
+                  the data, and the close took a few hours.
                 </p>
                 <p className="vl-about-sign">Aditi Patel, founder</p>
               </li>
@@ -170,7 +172,7 @@ function AboutPage() {
         <div className="vl-wrap">
           <div className="vl-sec-head" data-reveal>
             <span className="vl-kicker is-agree">What we believe</span>
-            <h2 className="vl-h2" id="about-believe-heading">
+            <h2 className="vl-h2 is-line" id="about-believe-heading">
               Three things those nights taught us.
             </h2>
           </div>
@@ -185,43 +187,24 @@ function AboutPage() {
         </div>
       </section>
 
-      <section className="vl-band" aria-labelledby="about-today-heading">
-        <div className="vl-wrap">
-          <div className="vl-sec-head" data-reveal>
-            <span className="vl-kicker is-agree">Today</span>
-            <h2 className="vl-h2" id="about-today-heading">
-              From one team’s close to brands’ every morning.
-            </h2>
-          </div>
-          <div className="vl-caps vl-about-today">
-            {today.map((t) => (
-              <div className="vl-cap" key={t.k} data-reveal>
-                <span className="vl-brain-num">{t.n}</span>
-                <div className="k">{t.k}</div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="vl-close">
-        <div className="vl-wrap">
-          <h2>Come and see your own mornings.</h2>
-          <div className="vl-hero-cta">
-            <a className="vl-close-cta" href={WALKTHROUGH_HREF}>
-              Talk to us <span className="arr">&rarr;</span>
-            </a>
-            <a
-              className="vl-linkedin"
-              href={LINKEDIN}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Follow Darpan on LinkedIn <span aria-hidden>&#8599;</span>
-            </a>
-          </div>
-        </div>
-      </section>
+      <PageClose
+        id="about-cta"
+        title="See what Darpan finds."
+        link={{
+          href: LINKEDIN,
+          label: 'Follow Darpan on LinkedIn',
+          external: true,
+        }}
+      >
+        <ul className="vl-about-proof" aria-label="Darpan today">
+          {today.map((t) => (
+            <li key={t.k}>
+              <span className="n">{t.n}</span>
+              <span className="k">{t.k}</span>
+            </li>
+          ))}
+        </ul>
+      </PageClose>
     </VlPage>
   )
 }

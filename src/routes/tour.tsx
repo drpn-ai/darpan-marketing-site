@@ -1,6 +1,8 @@
 import { createFileRoute } from '@tanstack/react-router'
+import { PageClose } from '@/components/PageClose'
 import { VlPage } from '@/components/VlChrome'
-import { DemoVideo } from '@/components/DemoVideo'
+import { useReveal } from '@/components/useReveal'
+import { TourPlayer } from '@/components/TourPlayer'
 import { WALKTHROUGH_HREF, pageHead } from '@/data/site'
 
 export const Route = createFileRoute('/tour')({
@@ -9,60 +11,40 @@ export const Route = createFileRoute('/tour')({
     pageHead(
       '/tour',
       'Tour — Darpan',
-      'Three minutes in Darpan: a team describes how its month should close, Darpan writes the checks, and a real month close lists every break with the team that owns it.',
+      'A ten-stop tour of Darpan in under three minutes: a team tells the agent how its business should run, approves the checks, and a real month is checked, every break listed with its owner.',
     ),
 })
 
-// What the video shows, in order, so a viewer knows what they are watching.
-const chapters = [
-  {
-    k: 'Their words',
-    p: 'A team describes how its month should close, the way they’d explain it to a new hire.',
-  },
-  {
-    k: 'The agent’s checks',
-    p: 'Darpan’s agent turns that story into checks anyone can read, and the team approves each one.',
-  },
-  {
-    k: 'A real close',
-    p: 'A brand’s actual month close: every break listed with its owner and the next step.',
-  },
-] as const
-
 function TourPage() {
+  useReveal()
   return (
     <VlPage>
       <section className="vl-band is-plain" aria-labelledby="tour-heading">
         <div className="vl-wrap">
-          <div className="vl-sec-head">
+          <div className="vl-sec-head vl-tour-head" data-reveal>
             <span className="vl-kicker">Tour</span>
-            <h1 className="vl-h2" id="tour-heading">
-              A month close that ends with a list, not a long night.
+            <h1 className="vl-h2 is-line" id="tour-heading">
+              Watch Darpan find every break.
             </h1>
             <p className="vl-lede">
-              Under three minutes, from a team’s own words to a real month
-              close.
+              Ten stops in under three minutes. Pick one to jump straight to it.
             </p>
+            <div className="vl-hero-cta">
+              <a className="vl-cta" href={WALKTHROUGH_HREF}>
+                Talk to us <span className="arr">&rarr;</span>
+              </a>
+              <a className="vl-textlink" href="/agent">
+                Meet the agent <span aria-hidden>&rarr;</span>
+              </a>
+            </div>
           </div>
-          <DemoVideo />
-          <div className="vl-caps vl-tour-chapters">
-            {chapters.map((c) => (
-              <div className="vl-cap" key={c.k}>
-                <div className="k">{c.k}</div>
-                <p>{c.p}</p>
-              </div>
-            ))}
-          </div>
-          <p className="vl-page-cta">
-            <a className="vl-cta" href={WALKTHROUGH_HREF}>
-              Talk to us <span className="arr">&rarr;</span>
-            </a>
-            <a className="vl-textlink" href="/works-with">
-              See what it connects to <span aria-hidden>&rarr;</span>
-            </a>
-          </p>
+          <TourPlayer />
         </div>
       </section>
+      <PageClose
+        title="See it on your own systems."
+        link={{ href: '/works-with', label: 'See what it connects to' }}
+      />
     </VlPage>
   )
 }

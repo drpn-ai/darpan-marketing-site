@@ -1,4 +1,5 @@
 import { createFileRoute } from '@tanstack/react-router'
+import { PageClose } from '@/components/PageClose'
 import { VlPage } from '@/components/VlChrome'
 import { WALKTHROUGH_HREF, pageHead } from '@/data/site'
 import { useReveal } from '@/components/useReveal'
@@ -94,8 +95,8 @@ function AgentPage() {
               rules nobody ever wrote down.
             </p>
             <p className="vl-lede">
-              Nothing runs until your team approves it. And when a rule
-              changes, you change the sentence, not the code.
+              Nothing runs until your team approves it. And when a rule changes,
+              you change the sentence, not the code.
             </p>
           </div>
           <div className="vl-split-visual">
@@ -204,19 +205,10 @@ function AgentPage() {
         </div>
       </section>
 
-      <section className="vl-close">
-        <div className="vl-wrap">
-          <h2>Teach it once, and wake up to answers every morning.</h2>
-          <div className="vl-hero-cta">
-            <a className="vl-close-cta" href={WALKTHROUGH_HREF}>
-              Talk to us <span className="arr">&rarr;</span>
-            </a>
-            <a className="vl-textlink" href="/tour">
-              Watch the three-minute tour <span aria-hidden>&#8599;</span>
-            </a>
-          </div>
-        </div>
-      </section>
+      <PageClose
+        title="Teach it once, and wake up to answers every morning."
+        link={{ href: '/tour', label: 'Watch the three-minute tour' }}
+      />
     </VlPage>
   )
 }

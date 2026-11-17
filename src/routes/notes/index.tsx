@@ -1,12 +1,15 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { writingEntries, pillarColor } from '@/data/writing-entries'
 import { getArticle } from '@/data/writing-content'
+import { PageClose } from '@/components/PageClose'
 import { VlPage } from '@/components/VlChrome'
 import { pageHead } from '@/data/site'
 
 // Only surface entries whose article body actually exists — an entry listed
 // ahead of its content stays hidden until it's written.
-const publishedEntries = writingEntries.filter((entry) => getArticle(entry.slug))
+const publishedEntries = writingEntries.filter((entry) =>
+  getArticle(entry.slug),
+)
 
 export const Route = createFileRoute('/notes/')({
   component: WritingIndexPage,
@@ -54,6 +57,10 @@ function WritingIndexPage() {
           </div>
         </div>
       </section>
+      <PageClose
+        title="Let Darpan run these checks for you."
+        link={{ href: '/tour', label: 'Watch the three-minute tour' }}
+      />
     </VlPage>
   )
 }

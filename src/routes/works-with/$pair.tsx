@@ -1,8 +1,9 @@
 import { createFileRoute, redirect } from '@tanstack/react-router'
+import { PageClose } from '@/components/PageClose'
 import { VlPage } from '@/components/VlChrome'
 import { BreakList } from '@/components/BreakList'
 import { findPair } from '@/data/works-with'
-import { WALKTHROUGH_HREF, pageHead } from '@/data/site'
+import { pageHead } from '@/data/site'
 
 export const Route = createFileRoute('/works-with/$pair')({
   component: PairPage,
@@ -68,17 +69,12 @@ function PairPage() {
               label={`An example break for ${pair.name}: ${pair.exampleBreak.text}, ${pair.exampleBreak.meta}, open since day 1.`}
             />
           </div>
-
-          <p className="vl-page-cta">
-            <a className="vl-cta" href={WALKTHROUGH_HREF}>
-              Talk to us <span className="arr">&rarr;</span>
-            </a>
-            <a className="vl-textlink" href="/tour">
-              Watch the three-minute tour <span aria-hidden>&#8599;</span>
-            </a>
-          </p>
         </div>
       </section>
+      <PageClose
+        title="See your systems side by side."
+        link={{ href: '/tour', label: 'Watch the three-minute tour' }}
+      />
     </VlPage>
   )
 }

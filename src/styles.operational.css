@@ -112,6 +112,10 @@
   margin: 16px 0 0;
   text-wrap: balance;
 }
+/* A headline short enough for one line keeps it, instead of balancing onto two. */
+.vl-h2.is-line {
+  max-width: none;
+}
 .vl-h2 .mk {
   color: var(--agree);
 }
@@ -260,6 +264,10 @@
   gap: 26px;
   flex-wrap: wrap;
 }
+/* A page's opening: the buttons sit a step below the lede. */
+.vl-sec-head .vl-lede + .vl-hero-cta {
+  margin-top: 28px;
+}
 
 /* ---- verdict pill: a break's open / closed badge ---- */
 
@@ -399,7 +407,9 @@
 .vl-close {
   text-align: center;
   padding: clamp(80px, 11vw, 150px) 0;
-  border-top: 1px solid var(--line);
+  /* Darpan green mixed into the light paper: reads as green, stays airy. */
+  background: color-mix(in srgb, var(--agree) 14%, var(--paper-2));
+  border-top: 1px solid rgba(47, 107, 79, 0.18);
 }
 .vl-close h2 {
   font-family: var(--sans);
@@ -408,7 +418,12 @@
   letter-spacing: -0.03em;
   color: var(--ink);
   margin: 0 auto;
-  max-width: 18ch;
+  max-width: 32ch;
+  text-wrap: balance;
+}
+/* Each sentence of a two-sentence headline on its own line, when it fits. */
+.vl-line {
+  display: inline-block;
 }
 .vl-close h2 .mk {
   color: var(--agree);
@@ -423,9 +438,9 @@
   display: inline-flex;
   align-items: center;
   gap: 9px;
-  background: #ffffff;
-  color: var(--ink);
-  border: 1px solid rgba(28, 27, 24, 0.16);
+  background: var(--agree);
+  color: var(--paper-2);
+  border: 1px solid var(--agree);
   font-size: 17px;
   padding: 14px 27px;
   border-radius: 8px;
@@ -434,9 +449,8 @@
     transform 0.15s var(--ease), box-shadow 0.15s var(--ease);
 }
 .vl a.vl-close-cta:hover {
-  border-color: rgba(28, 27, 24, 0.36);
   transform: translateY(-1px);
-  box-shadow: 0 6px 16px -6px rgba(28, 27, 24, 0.22);
+  box-shadow: 0 8px 20px -8px rgba(47, 107, 79, 0.55);
 }
 .vl-close .vl-hero-cta {
   justify-content: center;
@@ -1041,13 +1055,6 @@
 }
 
 /* Secondary-page CTA row and plain lists inside long-form prose. */
-.vl-page-cta {
-  display: flex;
-  align-items: center;
-  gap: 26px;
-  flex-wrap: wrap;
-  margin-top: 44px;
-}
 .vl-prose ul {
   margin: 0 0 22px;
   padding-left: 20px;
@@ -1121,8 +1128,7 @@
    Demo video — the tour.
    ============================================================ */
 .vl-demo {
-  margin: 0 0 clamp(48px, 7vw, 80px);
-  max-width: 960px;
+  margin: 0;
 }
 .vl-demo-video {
   display: block;
@@ -1657,46 +1663,206 @@
     font-size: 12.5px;
   }
 }
-.vl-tour-chapters {
-  max-width: 960px;
-  margin-top: clamp(40px, 5vw, 64px);
+/* The tour bar, attached under the video: two acts of segments, one per
+   stop and sized to its length. The playing segment fills green; any segment
+   jumps the video there. Below it, the stop on screen with previous / next. */
+.vl-tour-rail {
+  display: flex;
+  gap: 14px;
+  margin-top: 18px;
+}
+.vl-tour-act {
+  min-width: 0;
+}
+.vl-tour-act-k {
+  display: block;
+  margin-bottom: 8px;
+  font-family: var(--mono);
+  font-size: 11.5px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.vl-tour-segs {
+  display: flex;
+  gap: 4px;
+}
+.vl-tour-seg {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  min-width: 18px;
+  padding: 6px 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+.vl-tour-seg .bar {
+  position: relative;
+  display: block;
+  height: 5px;
+  border-radius: 999px;
+  overflow: hidden;
+  background: var(--line);
+  transition: background 0.2s var(--ease);
+}
+.vl-tour-seg .fill {
+  position: absolute;
+  inset: 0;
+  background: var(--agree);
+  transform-origin: left;
+  transition: transform 0.25s linear;
+}
+.vl-tour-seg .n {
+  font-family: var(--mono);
+  font-size: 11.5px;
+  color: var(--ink-3);
+}
+.vl-tour-seg:hover .bar {
+  background: rgba(47, 107, 79, 0.3);
+}
+.vl-tour-seg.is-active .n {
+  color: var(--agree);
+}
+.vl-tour-seg:focus-visible {
+  outline: 2px solid var(--agree);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+.vl-tour-now {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 20px;
+  margin-top: 14px;
+  padding: 16px 20px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--paper-2);
+}
+.vl-tour-now p {
+  margin: 0;
+  font-size: 18px;
+  line-height: 1.4;
+  color: var(--ink);
+}
+.vl-tour-now-k {
+  margin-right: 12px;
+  font-family: var(--mono);
+  font-size: 12.5px;
+  color: var(--agree);
+}
+.vl-tour-step {
+  padding: 9px 16px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--paper);
+  font: inherit;
+  font-size: 15px;
+  color: var(--ink);
+  cursor: pointer;
+  white-space: nowrap;
+}
+.vl-tour-step.is-next {
+  border-color: var(--agree);
+  background: var(--agree);
+  color: var(--paper-2);
+}
+.vl-tour-step:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+.vl-tour .vl-demo-fine {
+  margin-top: 14px;
+}
+@media (prefers-reduced-motion: reduce) {
+  .vl-tour-seg .fill {
+    transition: none;
+  }
+}
+@media (max-width: 760px) {
+  .vl-tour-seg .n,
+  .vl-tour-act-k .name {
+    display: none;
+  }
+  .vl-tour-now {
+    grid-template-columns: 1fr 1fr;
+  }
+  .vl-tour-now p {
+    grid-column: 1 / -1;
+    grid-row: 1;
+  }
+}
+/* The tour is the video: full page width, under a short heading. */
+.vl-tour-head {
+  max-width: none;
+}
+.vl-tour-head .vl-lede {
+  max-width: none;
 }
 
 /* ============================================================
-   Security page: SOC 2 status panel, even promise grid, reads list.
+   Security page: three split bands of paired promises, then the reads list.
    ============================================================ */
-.vl-soc2-line {
-  margin-top: clamp(36px, 4vw, 48px);
+.vl-sec-points {
+  display: grid;
+  gap: clamp(24px, 3vw, 32px);
+  margin-top: clamp(28px, 3.5vw, 40px);
 }
-.vl-sec-grid {
-  row-gap: clamp(40px, 5vw, 56px);
+.vl-sec-points h3 {
+  margin: 0 0 8px;
+  font-family: var(--sans);
+  font-size: 19px;
+  font-weight: 400;
+  color: var(--ink);
+}
+.vl-sec-points p {
+  margin: 0;
+  max-width: 46ch;
+  font-size: 16.5px;
+  line-height: 1.6;
+  color: var(--ink-2);
+}
+.vl-sec-foot {
+  margin: clamp(28px, 3.5vw, 40px) 0 0;
+  padding-top: 18px;
+  border-top: 1px solid var(--line);
+  max-width: 46ch;
+  color: var(--ink-2);
+}
+.vl-sv-trace.is-faint {
+  opacity: 0.55;
+}
+.vl-sv-trace-gap.is-calm {
+  color: var(--agree);
 }
 .vl-reads {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 0 clamp(32px, 5vw, 64px);
+  gap: 0 clamp(40px, 6vw, 88px);
   margin: 0;
 }
 .vl-reads > div {
-  padding: 16px 0;
+  padding: 22px 0 24px;
   border-top: 1px solid var(--line);
 }
 .vl-reads dt {
-  margin-bottom: 4px;
+  margin-bottom: 6px;
+  font-size: 18px;
   color: var(--ink);
 }
 .vl-reads dd {
   margin: 0;
   color: var(--ink-2);
-  font-size: 15.5px;
+  font-size: 16px;
+  line-height: 1.55;
 }
-@media (max-width: 900px) {
-  .vl-sec-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-}
-@media (max-width: 560px) {
-  .vl-sec-grid,
+@media (max-width: 700px) {
   .vl-reads {
     grid-template-columns: minmax(0, 1fr);
   }
@@ -1721,9 +1887,6 @@
    the "where" section is centred. */
 .vl-agent-hero {
   grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
-}
-.vl-agent-hero .vl-hero-cta {
-  margin-top: 28px;
 }
 .vl-ai-link {
   display: inline-block;
@@ -2415,17 +2578,27 @@
   background: var(--paper-2);
   box-shadow: 0 40px 70px -50px rgba(28, 27, 24, 0.5);
 }
-.vl-founder-mark {
-  display: grid;
-  place-items: center;
-  width: 84px;
-  height: 84px;
+/* The founder's pencil portrait, toned to the site: grey, then multiplied
+   onto the card so its white becomes the card's paper and the lines stay ink. */
+.vl-founder-frame {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1;
   margin-bottom: 18px;
-  border-radius: 50%;
-  background: var(--agree-soft);
-  color: var(--agree);
-  font-size: 28px;
-  letter-spacing: 0.02em;
+  overflow: hidden;
+  border-radius: 14px;
+}
+/* Zoomed to head and shoulders: anchored at the top of the drawing so the
+   hair stays in frame, down to just below the necklace. */
+.vl-founder-photo {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1.35);
+  transform-origin: 52% 4%;
+  filter: grayscale(1) contrast(1.06) brightness(1.02);
+  mix-blend-mode: multiply;
 }
 .vl-founder-name {
   font-size: 22px;
@@ -2450,9 +2623,6 @@
   font-family: 'Patrick Hand', var(--sans);
   font-size: 24px;
   color: var(--agree);
-}
-.vl-about-today .vl-cap .k {
-  margin-top: 4px;
 }
 @media (max-width: 900px) {
   .vl-founder {
@@ -2531,7 +2701,6 @@
 }
 .vl-timeline-big {
   margin: 0;
-  max-width: 20ch;
   font-size: clamp(26px, 3vw, 36px);
   line-height: 1.15;
   letter-spacing: -0.02em;
@@ -2615,4 +2784,37 @@
   font-size: calc(var(--u) * 34);
   letter-spacing: -0.02em;
   color: #9a4a14;
+}
+
+/* About: the proof row inside the closing call to action. */
+.vl-about-proof {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  max-width: 720px;
+  margin: clamp(36px, 5vw, 56px) auto clamp(36px, 5vw, 52px);
+  padding: 0;
+  list-style: none;
+}
+.vl-about-proof li {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 12px;
+}
+.vl-about-proof li + li {
+  border-left: 1px solid var(--line);
+}
+.vl-about-proof .n {
+  font-size: clamp(36px, 4vw, 52px);
+  line-height: 1;
+  letter-spacing: -0.03em;
+  color: var(--agree);
+}
+.vl-about-proof .k {
+  font-family: var(--mono);
+  font-size: 11.5px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-2);
 }

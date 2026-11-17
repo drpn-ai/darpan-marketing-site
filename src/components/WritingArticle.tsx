@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react'
 import type { Article, Block, FaqItem } from '@/data/writing-content'
 import type { WritingEntry } from '@/data/writing-entries'
+import { PageClose } from '@/components/PageClose'
 import { VlPage } from '@/components/VlChrome'
 
 const SITE_URL = 'https://drpn.ai'
@@ -229,6 +230,10 @@ export function WritingArticle({
           />
         </article>
       </section>
+      <PageClose
+        title="Let Darpan run these checks for you."
+        link={{ href: '/notes', label: 'More notes' }}
+      />
     </VlPage>
   )
 }

@@ -1,7 +1,10 @@
 import { createFileRoute } from '@tanstack/react-router'
+import { PageClose } from '@/components/PageClose'
 import { VlPage } from '@/components/VlChrome'
 import { AI_CLIENTS, SYSTEM_GROUPS } from '@/data/works-with'
 import { WALKTHROUGH_HREF, pageHead } from '@/data/site'
+import { ConnectPicture } from '@/components/HeroPictures'
+import { useReveal } from '@/components/useReveal'
 
 export const Route = createFileRoute('/works-with/')({
   component: WorksWithPage,
@@ -14,26 +17,44 @@ export const Route = createFileRoute('/works-with/')({
 })
 
 function WorksWithPage() {
+  useReveal()
   return (
     <VlPage>
       <section
         className="vl-band is-plain"
         aria-labelledby="works-with-heading"
       >
-        <div className="vl-wrap">
-          <div className="vl-sec-head">
+        <div className="vl-wrap vl-split">
+          <div className="vl-sec-head" data-reveal>
             <span className="vl-kicker">Integrations</span>
-            <h1 className="vl-h2" id="works-with-heading">
+            <h1 className="vl-h2 is-line" id="works-with-heading">
               Darpan fits around what you already run.
             </h1>
             <p className="vl-lede">
-              Connect your storefront, order system and ERP, and your first
-              list of breaks arrives the next morning. Nothing to replace,
-              nothing to rebuild.
+              Connect your storefront, order system and ERP, and your first list
+              of breaks arrives the next morning. Nothing to replace, nothing to
+              rebuild.
             </p>
+            <div className="vl-hero-cta">
+              <a className="vl-cta" href={WALKTHROUGH_HREF}>
+                Talk to us <span className="arr">&rarr;</span>
+              </a>
+              <a className="vl-textlink" href="/tour">
+                Watch the three-minute tour <span aria-hidden>&rarr;</span>
+              </a>
+            </div>
           </div>
+          <div className="vl-split-visual" data-reveal>
+            <ConnectPicture />
+          </div>
+        </div>
+      </section>
 
-          <h2 className="vl-ww-h">Your stack</h2>
+      <section className="vl-band" aria-labelledby="works-with-stack-heading">
+        <div className="vl-wrap">
+          <h2 className="vl-ww-h is-first" id="works-with-stack-heading">
+            Your stack
+          </h2>
           <div className="vl-stack">
             {SYSTEM_GROUPS.map((group) => (
               <div className="vl-stack-group" key={group.kind}>
@@ -81,17 +102,12 @@ function WorksWithPage() {
               </code>
             </div>
           </div>
-
-          <p className="vl-page-cta">
-            <a className="vl-cta" href={WALKTHROUGH_HREF}>
-              Talk to us <span className="arr">&rarr;</span>
-            </a>
-            <a className="vl-textlink" href="/tour">
-              Watch the three-minute tour <span aria-hidden>&#8599;</span>
-            </a>
-          </p>
         </div>
       </section>
+      <PageClose
+        title="See your systems side by side."
+        link={{ href: '/tour', label: 'Watch the three-minute tour' }}
+      />
     </VlPage>
   )
 }

@@ -114,9 +114,9 @@ export const PAGES = [
     path: '/about',
     title: 'About',
     mustContain: [
-      'Darpan began with three nights at one month-end close.',
+      'Darpan means mirror.',
       'Aditi Patel',
-      'None of it was a month-end problem.',
+      'Not a month-end problem.',
       'Follow Darpan on LinkedIn',
       'Talk to us',
     ],
@@ -135,8 +135,9 @@ export const PAGES = [
     path: '/tour',
     title: 'Tour',
     mustContain: [
-      'A month close that ends with a list, not a long night.',
-      'the way they’d explain it to a new hire',
+      'Watch Darpan find every break.',
+      'Pick one to jump straight to it.',
+      'Press play, or pick any stop on the bar.',
       'From a brand that runs Darpan; names and ids changed.',
       'Talk to us',
     ],

@@ -29,7 +29,7 @@ export function SecurityStrip() {
       <div className="vl-wrap">
         <div className="vl-sec-head" data-reveal>
           <span className="vl-kicker">Security</span>
-          <h2 className="vl-h2" id="vl-security-heading">
+          <h2 className="vl-h2 is-line" id="vl-security-heading">
             What Darpan reads, and where it stays.
           </h2>
         </div>
