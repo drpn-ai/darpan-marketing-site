@@ -638,7 +638,8 @@
   position: absolute;
   left: -0.05em;
   right: -0.05em;
-  bottom: -0.26em;
+  /* Close under the word, clear of the next line of a tight headline. */
+  bottom: -0.12em;
   height: 0.5em;
   overflow: visible;
   pointer-events: none;
