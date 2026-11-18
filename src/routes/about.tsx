@@ -16,7 +16,7 @@ export const Route = createFileRoute('/about')({
     pageHead(
       '/about',
       'About — Darpan',
-      'Darpan means mirror: every morning it holds your systems up side by side, so your team sees each break the day it starts. Aditi Patel built it after closing the month by hand.',
+      'Darpan means mirror: every day it holds your systems up side by side, so your team sees each break the day it starts. Aditi Patel built it after closing the month by hand.',
     ),
 })
 
@@ -42,7 +42,7 @@ function AboutPage() {
               Darpan means mirror.
             </h1>
             <p className="vl-lede">
-              Every morning it holds your systems up side by side, so your team
+              Every day it holds your systems up side by side, so your team
               sees each break the day it starts, not at month-end. I built it
               after closing the month by hand, so no team has to do that again.
             </p>
@@ -124,7 +124,7 @@ function AboutPage() {
               </li>
               <li className="is-turn" data-reveal ref={beatRef(4)}>
                 <span className="vl-timeline-k">So I built Darpan</span>
-                <p className="vl-timeline-big">Check every morning.</p>
+                <p className="vl-timeline-big">Check every day.</p>
                 <p className="vl-timeline-small">
                   Caught the morning after, a break is small, its cause is
                   fresh, and there is time to fix it for real.
@@ -142,7 +142,6 @@ function AboutPage() {
                   Each break fixed in the system that caused it, not patched in
                   the data, and the close took a few hours.
                 </p>
-                <p className="vl-about-sign">Aditi Patel, founder</p>
               </li>
             </ol>
             <div className="vl-split-visual vl-story-visual">

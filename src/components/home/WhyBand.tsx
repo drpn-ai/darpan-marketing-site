@@ -25,12 +25,12 @@ export function WhyBand() {
             we wrote off $40,000 we couldn’t trace.
           </p>
           <p className="vl-lede" ref={turnRef}>
-            Caught the next morning, each break would have been small and fixed
-            for good. So Darpan treats every morning as a close day, and the
-            next close took a few hours, not three nights.
+            Caught early, each break would have been small and fixed for good.
+            That&rsquo;s why Darpan treats every day like a close day. The next
+            close took a few hours, not three nights.
           </p>
           <a className="vl-textlink vl-why-more" href="/about">
-            Read why we built it <span aria-hidden>&rarr;</span>
+            Read more about why we built it <span aria-hidden>&rarr;</span>
           </a>
         </div>
         <div className="vl-split-visual" data-reveal>

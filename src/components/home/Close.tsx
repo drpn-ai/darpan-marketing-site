@@ -6,7 +6,7 @@ export function Close() {
       id="talk"
       title={
         <>
-          <span className="vl-line">Make every morning a close day.</span>{' '}
+          <span className="vl-line">Make every day a close day.</span>{' '}
           <span className="vl-line">
             Each break gets fixed while it&rsquo;s still small.
           </span>

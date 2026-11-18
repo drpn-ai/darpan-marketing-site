@@ -1,12 +1,12 @@
 # Darpan
 
-> Darpan is daily order reconciliation software for ecommerce and retail operations teams. Every morning it checks that each order, return and refund reached every system it was meant to (Shopify, an order management system such as HotWax, NetSuite and your databases) and lists each one that didn't, with the team that owns the fix.
+> Darpan is daily order reconciliation software for ecommerce and retail operations teams. Every day it checks that each order, return and refund reached every system it was meant to (Shopify, an order management system such as HotWax, NetSuite and your databases) and lists each one that didn't, with the team that owns the fix.
 
-Darpan is for operations teams running a storefront, an order management system and an ERP. You describe how your business should run in plain words; Darpan's agent turns that into checks people and machines can both read, and your team approves each one. Every morning Darpan reads each system (read-only), runs the checks, and lists each break with its evidence, its owner and, where it can name one, its cause. A break stays listed until a later check sees it fixed. Setup takes about a day. Darpan runs on Amazon Web Services in the United States.
+Darpan is for operations teams running a storefront, an order management system and an ERP. You describe how your business should run in plain words; Darpan's agent turns that into checks people and machines can both read, and your team approves each one. Every day Darpan reads each system (read-only), runs the checks, and lists each break with its evidence, its owner and, where it can name one, its cause. A break stays listed until a later check sees it fixed. Setup takes about a day. Darpan runs on Amazon Web Services in the United States.
 
 ## Common questions
 
-- What is Darpan? Daily order reconciliation, run for ops, not the books. Darpan checks every morning that orders, returns and refunds reached Shopify, the order management system and NetSuite, and lists each one that missed a system with the team that owns the fix.
+- What is Darpan? Daily order reconciliation for ops teams. Darpan checks every day that orders, returns and refunds reached Shopify, the order management system and NetSuite, and lists each one that missed a system with the team that owns the fix.
 - Who is it for? Operations teams at retailers and brands running Shopify (often with Shopify POS in stores), an order management system such as HotWax, and an ERP such as NetSuite.
 - What does it catch? Orders that never reached NetSuite, store returns credited at the counter but never received back, cancelled orders that still shipped or were still charged, refunds the ERP never saw, and orders fulfilled in one system but still open in another.
 - How is it different from an integration or iPaaS? An integration moves the record and reports that the hand-off worked. Darpan checks the result the next morning, in every system, and names who fixes each miss.

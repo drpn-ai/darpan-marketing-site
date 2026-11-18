@@ -76,7 +76,7 @@ export function AgentChat() {
         <span className="vl-tell-n">1</span>
         <span>
           <span className="vl-tell-text">Every exchange we approve ships.</span>
-          <span className="vl-tell-meta">Storefront ↔ WMS · every morning</span>
+          <span className="vl-tell-meta">Storefront ↔ WMS · every day</span>
         </span>
       </Step>
       <Step i={3} className="vl-tell-check">
@@ -85,7 +85,7 @@ export function AgentChat() {
           <span className="vl-tell-text">
             A cancelled exchange leaves nothing open in the ERP.
           </span>
-          <span className="vl-tell-meta">Storefront ↔ ERP · every morning</span>
+          <span className="vl-tell-meta">Storefront ↔ ERP · every day</span>
         </span>
       </Step>
       <Step i={4} className="vl-tell-check is-new">

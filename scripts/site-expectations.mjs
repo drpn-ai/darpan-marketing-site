@@ -10,10 +10,10 @@ export const PAGES = [
       'For ops teams running Shopify, an OMS and an ERP',
       'Every sync says it worked. Nobody checks that it did.',
       'Integrations confirm the hand-off, not the result.',
-      'Daily order reconciliation, run for ops, not the books.',
+      'Daily order reconciliation for ops teams.',
       'Tell Darpan, in plain words, how your business runs.',
       'The fraud screen worked. The order shipped anyway.',
-      'each was telling the truth',
+      'Each was telling the truth.',
       'This customer was never going to call.',
       'Also found this month, at a jewelry brand:',
       'What teams ask first.',
@@ -21,18 +21,17 @@ export const PAGES = [
       'you approve each one',
       'about $11,000 of orders',
       'never both.',
-      'Running every morning at five-plus brands.',
+      'Running every day at five-plus brands.',
       'None of it was a month-end problem.',
-      'about one order in a hundred breaks somewhere between two systems',
+      'about one order in a hundred breaks between two systems',
       'Your business story, as checks.',
-      'With Darpan, you finally get to believe it',
-      'even unwritten rules',
+      'the rules you didn’t think to say',
       'fixed while its cause is fresh',
       'Anywhere two systems have to line up.',
       'Every closed deal has an active subscription.',
       'Your records stay yours.',
       'The close becomes a review, not a rescue.',
-      'Make every morning a close day. Each break gets fixed while it’s still small.',
+      'Make every day a close day. Each break gets fixed while it’s still small.',
       'Talk to us',
     ],
   },
@@ -104,7 +103,7 @@ export const PAGES = [
     path: '/works-with/databases-and-files',
     title: 'Databases and files',
     mustContain: [
-      'A database or a file on each side, checked every morning.',
+      'A database or a file on each side, checked every day.',
       'read-only account',
       'SELECT',
       'write your own statements',
@@ -126,7 +125,7 @@ export const PAGES = [
     path: '/agent',
     title: 'The agent',
     mustContain: [
-      'One brain. Every order. Every system. Every morning.',
+      'One brain. Every order. Every system. Every day.',
       'The brain behind it',
       'questions asked twice',
       'Talk to us',
@@ -176,7 +175,7 @@ export const BANNED = [
 
 // Exact sentences exempt from BANNED: the category line in the homepage subhead
 // (Aditi, 2026-11-18). Only this wording passes; any other "reconcil" still fails.
-export const VOICE_ALLOWED = ['Daily order reconciliation, run for ops, not the books.']
+export const VOICE_ALLOWED = ['Daily order reconciliation for ops teams.']
 
 // Paths nothing may link to; each needs a 301 to / in netlify.toml.
 export const RETIRED = ['/why', '/customers']

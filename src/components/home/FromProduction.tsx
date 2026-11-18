@@ -10,15 +10,15 @@ import { useSettle } from '@/components/home/useSettle'
 const alsoFound = [
   {
     k: 'Refunded, then completed',
-    p: 'Eight orders were refunded seconds after they were placed, usually because the customer changed their mind. The order system never heard, and completed them anyway: about $11,000 of orders.',
+    p: '8 orders were refunded seconds after they were placed, usually because the customer changed their mind. The order system never heard and completed them anyway. That’s about $11,000 of orders.',
   },
   {
     k: 'Taken home, still on backorder',
-    p: 'Ninety store sales left with the customer. The ERP’s stock records for those 40 stores were wrong, so it still lists 166 of their lines on backorder. The orders total about $12,000.',
+    p: '90 store sales left with the customer, across 40 stores. The ERP’s stock records were wrong, so it still lists 166 of their lines on backorder. That’s about $12,000 of sales the ERP never logged as revenue.',
   },
   {
     k: 'An exchange waiting on the past',
-    p: 'A customer finished a store exchange and left with the new piece. The ERP never got it: the order system holds an exchange until its original order ships, and that one had waited six weeks.',
+    p: 'A customer left a store with an exchanged piece. The ERP never took that piece out of stock, so its inventory is now wrong. The order system was holding the exchange until the original order shipped, and that order had waited six weeks.',
   },
 ] as const
 
@@ -44,26 +44,25 @@ export function FromProduction() {
               The fraud screen worked. The order shipped anyway.
             </h2>
             <p className="vl-lede">
-              At a footwear brand, a customer asked to exchange a pair. The
-              storefront&rsquo;s fraud screen flagged the request and cancelled
-              it, which is exactly what a fraud screen is for.
+              At a footwear brand, a customer submitted an online request to
+              exchange a pair of sneakers. The storefront&rsquo;s fraud screen
+              flagged the request and cancelled it. That is exactly what a
+              fraud screen is for.
             </p>
             <p className="vl-lede">
-              Nobody told the WMS about the cancellation, so it shipped the
-              replacement to a customer the brand had just decided not to trust.
+              But no one told the WMS about the cancellation. So the warehouse
+              shipped the replacement anyway, to a customer the brand had just
+              decided not to trust.
             </p>
             <p className="vl-lede" ref={turnRef}>
-              The storefront showed a cancelled exchange, the WMS showed a
-              finished shipment, and each was telling the truth. Breaks like
-              this usually surface when a customer calls to complain. This
-              customer was never going to call.
+              The storefront showed a cancelled exchange. The WMS showed a
+              finished shipment. Each was telling the truth.
             </p>
             <p className="vl-lede">
-              The morning Darpan&rsquo;s checks were switched on, the exchange
-              appeared on its list of problems to fix, marked as cancelled in
-              the storefront but shipped by the WMS, with the team responsible
-              named beside it. It wasn&rsquo;t the only one; the same thing had
-              happened nine times.
+              When Darpan&rsquo;s audits were turned on, the brand found this
+              order. Breaks like this usually surface when a customer calls to
+              complain. This customer was never going to call. And this order
+              wasn&rsquo;t the only one: the same thing had happened nine times.
             </p>
           </div>
           <div className="vl-split-visual" data-reveal>
@@ -72,10 +71,9 @@ export function FromProduction() {
         </div>
 
         <p className="vl-gap-foot" data-reveal>
-          From a brand that runs Darpan; details withheld. Nine replacement
-          pairs come to roughly $1,000 of product, estimated at a typical pair
-          price. Across the five-plus brands in production, about one order in a
-          hundred breaks somewhere between two systems.
+          From a brand that runs Darpan. Nine pairs came to about $1,000 of
+          product. Across our brands, about one order in a hundred breaks
+          between two systems.
         </p>
 
         <p className="vl-gap-foot vl-also" data-reveal>

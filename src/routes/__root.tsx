@@ -14,7 +14,7 @@ export const Route = createRootRoute({
       {
         name: 'description',
         content:
-          'Daily order reconciliation for ops teams. Every morning, Darpan lists orders, returns and refunds that missed Shopify, your OMS or NetSuite, and who fixes each.',
+          'Daily order reconciliation for ops teams. Every day, Darpan lists orders, returns and refunds that missed Shopify, your OMS or NetSuite, and who fixes each.',
       },
       { property: 'og:type', content: 'website' },
       { property: 'og:site_name', content: 'Darpan' },
@@ -32,7 +32,7 @@ export const Route = createRootRoute({
       {
         property: 'og:description',
         content:
-          'Daily order reconciliation for ops teams. Every morning, Darpan lists orders, returns and refunds that missed Shopify, your OMS or NetSuite, and who fixes each.',
+          'Daily order reconciliation for ops teams. Every day, Darpan lists orders, returns and refunds that missed Shopify, your OMS or NetSuite, and who fixes each.',
       },
       { name: 'twitter:card', content: 'summary_large_image' },
       {
@@ -42,7 +42,7 @@ export const Route = createRootRoute({
       {
         name: 'twitter:description',
         content:
-          'Daily order reconciliation for ops teams. Every morning, Darpan lists orders, returns and refunds that missed Shopify, your OMS or NetSuite, and who fixes each.',
+          'Daily order reconciliation for ops teams. Every day, Darpan lists orders, returns and refunds that missed Shopify, your OMS or NetSuite, and who fixes each.',
       },
     ],
     links: [

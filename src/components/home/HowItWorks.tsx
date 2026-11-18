@@ -5,11 +5,11 @@ const steps = [
   },
   {
     k: 'Darpan writes the checks',
-    p: 'Its agent turns your words into checks, even unwritten rules like “returned or claimed under warranty, never both.”',
+    p: 'Darpan’s agent turns what you told it into checks. It also adds the rules you didn’t think to say, like “a piece is returned or claimed under warranty, never both.”',
   },
   {
-    k: 'Check it every morning',
-    p: 'Every morning, it finds each order, return and refund in every system, even where each one has a different id.',
+    k: 'Check it every day',
+    p: 'Every day, it finds each order, return and refund in every system, even where each one has a different id.',
   },
   {
     k: 'Fix it for good',
@@ -35,12 +35,6 @@ export function HowItWorks() {
             </div>
           ))}
         </div>
-        <p className="vl-gap-foot" data-reveal>
-          Every sync tells you it worked. With Darpan, you finally get to
-          believe it: by the next morning you know each order arrived
-          everywhere it should, in full. And if you&rsquo;d rather ask than
-          look, your own AI assistant can ask Darpan for you.
-        </p>
       </div>
     </section>
   )

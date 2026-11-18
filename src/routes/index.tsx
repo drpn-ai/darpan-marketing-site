@@ -21,9 +21,9 @@ import { pageHead } from '@/data/site'
 // DEFINITION: one quotable "Darpan is…" sentence for answer engines (JSON-LD).
 const TITLE = 'Daily order reconciliation for Shopify, OMS and ERP | Darpan'
 const DESCRIPTION =
-  'Daily order reconciliation for ops teams. Every morning, Darpan lists orders, returns and refunds that missed Shopify, your OMS or NetSuite, and who fixes each.'
+  'Daily order reconciliation for ops teams. Every day, Darpan lists orders, returns and refunds that missed Shopify, your OMS or NetSuite, and who fixes each.'
 const DEFINITION =
-  'Darpan is daily order reconciliation software for ecommerce and retail operations teams. Every morning it checks that each order, return and refund reached every system it was meant to (Shopify, an order management system such as HotWax, NetSuite and your databases) and lists each one that didn’t, with the team that owns the fix.'
+  'Darpan is daily order reconciliation software for ecommerce and retail operations teams. Every day it checks that each order, return and refund reached every system it was meant to (Shopify, an order management system such as HotWax, NetSuite and your databases) and lists each one that didn’t, with the team that owns the fix.'
 
 const JSON_LD = JSON.stringify({
   '@context': 'https://schema.org',
@@ -69,7 +69,7 @@ const JSON_LD = JSON.stringify({
         audienceType: 'Ecommerce and retail operations teams',
       },
       featureList: [
-        'Checks every morning that each order, return and refund reached Shopify, your order management system (such as HotWax), NetSuite and your databases',
+        'Checks every day that each order, return and refund reached Shopify, your order management system (such as HotWax), NetSuite and your databases',
         'Lists each one that missed a system, with its evidence, the team that owns the fix and, where it can name one, the cause',
         'Checks written in plain words; Darpan’s agent turns them into checks and your team approves each one',
         'Read-only: never changes an order, a return or a row',

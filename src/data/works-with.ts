@@ -26,7 +26,7 @@ export const PAIRS: readonly SystemPair[] = [
     name: 'Shopify and NetSuite',
     h1: 'Shopify orders, returns and exchanges missing in NetSuite, found the morning after.',
     description:
-      'Darpan checks every morning that what Shopify completes — exchanges, refunds, store credit — reached NetSuite at the same amount, and keeps each break listed until it is fixed.',
+      'Darpan checks every day that what Shopify completes — exchanges, refunds, store credit — reached NetSuite at the same amount, and keeps each break listed until it is fixed.',
     summary: 'Exchanges, refunds and store credit that never reached the ERP.',
     reads: [
       {
@@ -60,7 +60,7 @@ export const PAIRS: readonly SystemPair[] = [
     name: 'HotWax and NetSuite',
     h1: 'Orders HotWax completed that NetSuite never billed, found the morning after.',
     description:
-      'Darpan checks every morning that what HotWax Commerce fulfils, completes and takes back is in NetSuite, billed and closed, and keeps each break listed until it is fixed.',
+      'Darpan checks every day that what HotWax Commerce fulfils, completes and takes back is in NetSuite, billed and closed, and keeps each break listed until it is fixed.',
     summary: 'Fulfilled orders, store sales and returns the ERP never saw.',
     reads: [
       {
@@ -93,7 +93,7 @@ export const PAIRS: readonly SystemPair[] = [
     name: 'Shopify and HotWax',
     h1: 'Shopify orders that never reached HotWax, found the morning after.',
     description:
-      'Darpan checks every morning that every Shopify order and payment reached HotWax Commerce, and that what HotWax completes shows as fulfilled in Shopify.',
+      'Darpan checks every day that every Shopify order and payment reached HotWax Commerce, and that what HotWax completes shows as fulfilled in Shopify.',
     summary: 'Orders and payments that dropped between storefront and OMS.',
     reads: [
       { system: 'Shopify', records: 'orders, payments and fulfilments' },
@@ -114,7 +114,7 @@ export const PAIRS: readonly SystemPair[] = [
   {
     slug: 'databases-and-files',
     name: 'Databases and files',
-    h1: 'A database or a file on each side, checked every morning.',
+    h1: 'A database or a file on each side, checked every day.',
     description:
       'Point Darpan at a MySQL, PostgreSQL or IBM Db2 database through a read-only account, or at CSV and JSON files over SFTP, and write your own statements about what must line up.',
     summary: 'A SELECT or a file on each side; you write the statements.',

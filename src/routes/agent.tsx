@@ -30,7 +30,7 @@ const layers = [
   {
     n: '1',
     k: 'read per system',
-    p: 'Each morning the brain plans one pass per kind of record, carrying every field any check needs.',
+    p: 'Each day the brain plans one pass per kind of record, carrying every field any check needs.',
   },
   {
     n: '1',
@@ -58,7 +58,7 @@ function AgentPage() {
           <div className="vl-sec-head" data-reveal>
             <span className="vl-kicker">The agent</span>
             <h1 className="vl-h2" id="agent-heading">
-              One brain. Every order. Every system. Every morning.
+              One brain. Every order. Every system. Every day.
             </h1>
             <p className="vl-lede">
               Behind Darpan’s agent is a brain that holds your whole business in
@@ -139,7 +139,7 @@ function AgentPage() {
               Explain a break once. It remembers for good.
             </h2>
             <p className="vl-lede">
-              Most tools flag the same kind of break every morning and leave
+              Most tools flag the same kind of break every day and leave
               someone to work out why, again. The answer lives in one person’s
               head, and when they’re away, the team starts from zero.
             </p>
@@ -147,7 +147,7 @@ function AgentPage() {
               With Darpan, the agent asks. The first time someone explains a
               break, it turns that answer into a cause, finds every other order
               that looks the same, explains them all that morning, and keeps
-              doing it every morning after.
+              doing it every day after.
             </p>
             <p className="vl-lede">
               Each explanation makes the brain a little sharper, so fewer breaks
@@ -206,7 +206,7 @@ function AgentPage() {
       </section>
 
       <PageClose
-        title="Teach it once, and wake up to answers every morning."
+        title="Teach it once, and wake up to answers every day."
         link={{ href: '/tour', label: 'Watch the three-minute tour' }}
       />
     </VlPage>

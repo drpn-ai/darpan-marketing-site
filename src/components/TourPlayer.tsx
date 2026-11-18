@@ -49,7 +49,7 @@ const ACTS = [
       {
         t: 146,
         n: '10',
-        p: 'It shows what it checked, so a quiet morning can be trusted.',
+        p: 'It shows what it checked, so a quiet day can be trusted.',
       },
     ],
   },
