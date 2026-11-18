@@ -8,6 +8,7 @@ import {
   PAGES,
   VOICE_CHECKED,
   BANNED,
+  VOICE_ALLOWED,
   RETIRED,
   CHECK_UNUSED_CSS,
 } from './site-expectations.mjs'
@@ -32,6 +33,9 @@ const ENTITIES = {
 
 function visibleText(html) {
   return html
+    // The head (title, meta, JSON-LD) is for search and answer engines, where
+    // the category noun belongs (strategy doc §4); voice rules cover the body.
+    .replace(/<head[\s\S]*?<\/head>/i, ' ')
     .replace(/<script[\s\S]*?<\/script>/gi, ' ')
     .replace(/<style[\s\S]*?<\/style>/gi, ' ')
     .replace(/<svg[\s\S]*?<\/svg>/gi, '')
@@ -101,7 +105,10 @@ for (const page of PAGES) {
 for (const route of VOICE_CHECKED) {
   const file = routeFile(route)
   if (!fs.existsSync(file)) continue // page-exists already reports it
-  const text = visibleText(fs.readFileSync(file, 'utf8'))
+  const text = VOICE_ALLOWED.reduce(
+    (t, ok) => t.split(ok).join(' '),
+    visibleText(fs.readFileSync(file, 'utf8')),
+  )
   let clean = true
   for (const pattern of BANNED) {
     const m = text.match(pattern)

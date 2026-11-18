@@ -21,7 +21,7 @@ export function Hero() {
           that it did.
         </h1>
         <p className="vl-hero-lede vl-rise" style={rise(2)}>
-          Tell Darpan, in plain words, how your business runs. Every morning it
+          Daily order reconciliation, run for ops, not the books. Tell Darpan, in plain words, how your business runs. Every morning it
           checks that each order, return and refund reached every system it
           was meant to, and lists each one that didn&rsquo;t, with the team
           that owns the fix.

@@ -10,6 +10,7 @@ export const PAGES = [
       'For ops teams running Shopify, an OMS and an ERP',
       'Every sync says it worked. Nobody checks that it did.',
       'Integrations confirm the hand-off, not the result.',
+      'Daily order reconciliation, run for ops, not the books.',
       'Tell Darpan, in plain words, how your business runs.',
       'The fraud screen worked. The order shipped anyway.',
       'each was telling the truth',
@@ -172,6 +173,10 @@ export const BANNED = [
   /revenue leakage/i,
   /360°/,
 ]
+
+// Exact sentences exempt from BANNED: the category line in the homepage subhead
+// (Aditi, 2026-11-18). Only this wording passes; any other "reconcil" still fails.
+export const VOICE_ALLOWED = ['Daily order reconciliation, run for ops, not the books.']
 
 // Paths nothing may link to; each needs a 301 to / in netlify.toml.
 export const RETIRED = ['/why', '/customers']

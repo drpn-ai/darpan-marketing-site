@@ -31,6 +31,8 @@ const config = defineConfig({
         // pushed some pages to ~1s. Flat files let Netlify serve /why directly (200).
         autoSubfolderIndex: false,
       },
+      // sitemap.xml from every prerendered page (listed in robots.txt).
+      sitemap: { enabled: true, host: 'https://drpn.ai', outputPath: 'sitemap.xml' },
       pages: [
         { path: '/' },
         { path: '/notes' },
@@ -47,6 +49,12 @@ const config = defineConfig({
         { path: '/about' },
         { path: '/privacy' },
         { path: '/talk' },
+        // Crawled duplicates and raw downloads: still emitted, kept out of sitemap.xml.
+        ...['/notes/', '/works-with/', ...[
+          'spreadsheet-to-system-migration-checklist.md',
+          'reconciliation-prompt-pack.md',
+          'reconciliation-master-sheet.csv',
+        ].map((f) => `/downloads/${f}`)].map((path) => ({ path, sitemap: { exclude: true } })),
       ],
     }),
     viteReact(),

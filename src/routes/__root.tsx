@@ -9,35 +9,40 @@ export const Route = createRootRoute({
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       { name: 'theme-color', content: '#F4F2EC' },
       {
-        title: 'Darpan — checks for the work between your systems',
+        title: 'Darpan — daily order reconciliation for ops teams',
       },
       {
         name: 'description',
         content:
-          'Your integrations report success. Darpan checks the outcome every morning and keeps each break on a list, with its owner and evidence, until it’s fixed.',
+          'Daily order reconciliation for ops teams. Every morning, Darpan lists orders, returns and refunds that missed Shopify, your OMS or NetSuite, and who fixes each.',
       },
       { property: 'og:type', content: 'website' },
       { property: 'og:site_name', content: 'Darpan' },
+      { property: 'og:locale', content: 'en_US' },
+      { property: 'og:image', content: 'https://drpn.ai/darpan-hero-light.png' },
+      { property: 'og:image:width', content: '2064' },
+      { property: 'og:image:height', content: '1104' },
+      { property: 'og:image:alt', content: 'The Darpan mark' },
+      { name: 'twitter:image', content: 'https://drpn.ai/darpan-hero-light.png' },
+      { name: 'twitter:image:alt', content: 'The Darpan mark' },
       {
         property: 'og:title',
-        content:
-          'Darpan — checks for the work between your systems',
+        content: 'Darpan — daily order reconciliation for ops teams',
       },
       {
         property: 'og:description',
         content:
-          'Your integrations report success. Darpan checks the outcome every morning and keeps each break on a list, with its owner and evidence, until it’s fixed.',
+          'Daily order reconciliation for ops teams. Every morning, Darpan lists orders, returns and refunds that missed Shopify, your OMS or NetSuite, and who fixes each.',
       },
       { name: 'twitter:card', content: 'summary_large_image' },
       {
         name: 'twitter:title',
-        content:
-          'Darpan — checks for the work between your systems',
+        content: 'Darpan — daily order reconciliation for ops teams',
       },
       {
         name: 'twitter:description',
         content:
-          'Your integrations report success. Darpan checks the outcome every morning and keeps each break on a list, with its owner and evidence, until it’s fixed.',
+          'Daily order reconciliation for ops teams. Every morning, Darpan lists orders, returns and refunds that missed Shopify, your OMS or NetSuite, and who fixes each.',
       },
     ],
     links: [
