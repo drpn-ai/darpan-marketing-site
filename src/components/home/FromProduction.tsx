@@ -18,7 +18,7 @@ const alsoFound = [
   },
   {
     k: 'An exchange waiting on the past',
-    p: 'A customer left a store with an exchanged piece. The ERP never took that piece out of stock, so its inventory is now wrong. The order system was holding the exchange until the original order shipped, and that order had waited six weeks.',
+    p: 'A customer left a store with an exchanged piece. The ERP never took it out of stock. The exchange was stuck behind an order that hadn’t shipped in six weeks.',
   },
 ] as const
 
