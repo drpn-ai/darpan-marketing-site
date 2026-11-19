@@ -14,7 +14,7 @@ const alsoFound = [
   },
   {
     k: 'Taken home, still on backorder',
-    p: '90 store sales left with the customer, across 40 stores. The ERP’s stock records were wrong, so it still lists 166 of their lines on backorder. That’s about $12,000 of sales the ERP never logged as revenue.',
+    p: '90 store sales left with the customer, across 40 stores. The ERP’s stock records were wrong, so it still lists 166 of their lines on backorder. Those sales were never logged as revenue.',
   },
   {
     k: 'An exchange waiting on the past',
